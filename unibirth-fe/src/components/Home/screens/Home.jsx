@@ -1,0 +1,21 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import BigButton from "../../../common/atoms/Button/BigButton";
+
+const Home = () => {
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    navigate("/login");
+  };
+
+  return (
+    <div>
+      <h1>Home</h1>
+      <BigButton value="Login" onClick={handleButtonClick} />
+      <BigButton value="home" onClick={() => navigate("/")} />
+    </div>
+  );
+};
+
+export default Home;
