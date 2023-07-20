@@ -1,15 +1,17 @@
 import React from "react";
 import Home from "./components/Home/screens/Home";
+// import Signup from "./components/Auth/screens/Signup";
+import { Route, Routes } from "react-router-dom";
+import { Login } from "./components/Auth/screens/Login";
+import SignUp from "./components/Auth/screens/SignUp";
 
 function App() {
   return (
-    <div>
-      <h1>Unibirth</h1>
-      <div>이거 되나 안되나 추가를 해봅시다!</div>
-      <div>준혁</div>
-      <div>준혁jh</div>
-      <Home />
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/members/login" element={<Login />} />
+      <Route path="/members/register" element={<SignUp />} />
+    </Routes>
   );
 }
 

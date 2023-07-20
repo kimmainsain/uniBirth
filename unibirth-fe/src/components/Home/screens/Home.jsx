@@ -6,7 +6,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate("/login");
+    navigate("/members/login");
   };
 
   return (
