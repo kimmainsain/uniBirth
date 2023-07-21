@@ -1,6 +1,5 @@
 package com.ssafy.unibirth.zodiac.repository;
 
-import com.ssafy.unibirth.zodiac.controller.ZodiacController;
 import com.ssafy.unibirth.zodiac.domain.Zodiac;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
