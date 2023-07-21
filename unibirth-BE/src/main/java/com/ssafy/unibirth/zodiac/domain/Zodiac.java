@@ -1,4 +1,5 @@
-package com.ssafy.unibirth.practice.domain;
+package com.ssafy.unibirth.zodiac.domain;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,15 +10,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
+
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Practice {
+public class Zodiac {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
+    private String title;
+
+    private Date startDate;
+
+    private Date endDate;
 }
