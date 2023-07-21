@@ -2,13 +2,11 @@ package com.ssafy.unibirth.config;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.ssafy.unibirth.common.util.redis.RedisUtil;
+import com.ssafy.unibirth.common.redis.util.RedisUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 
 @SpringBootTest
 public class RedisTest {
