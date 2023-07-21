@@ -12,7 +12,7 @@ export const InputField = ({
 }) => {
   return (
     <input
-      className="flex flex-col w-30 border border-gray-300"
+      className="w-30 flex flex-col border border-gray-300"
       type={type}
       name={name}
       value={value}
@@ -46,7 +46,7 @@ export const BackButton = ({ onClick }) => {
   return (
     <button
       onClick={handleBack}
-      className="bg-gray-500 text-white px-4 py-2 rounded"
+      className="rounded bg-gray-500 px-4 py-2 text-white"
     >
       Back
     </button>

@@ -12,7 +12,7 @@ const ProfilePictureInput = () => {
   };
 
   return (
-    <div className="content-center flex flex-col justify-center items-center">
+    <div className="flex flex-col content-center items-center justify-center">
       <label htmlFor="profile-picture">프로필 이미지</label>
       <input
         type="file"

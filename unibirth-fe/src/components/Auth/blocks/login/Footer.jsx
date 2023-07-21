@@ -16,7 +16,7 @@ function Footer() {
       <div>
         <Link
           to="/members/login"
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          className="rounded bg-blue-500 px-4 py-2 text-white"
           onClick={handleLinkClick}
         >
           Login
@@ -24,7 +24,7 @@ function Footer() {
         <span> </span>
         <Link
           to="/members/register"
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          className="rounded bg-blue-500 px-4 py-2 text-white"
           onClick={handleLinkClick}
         >
           Sign Up

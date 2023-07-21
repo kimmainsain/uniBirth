@@ -9,7 +9,7 @@ const LoginForm = () => {
   const [password, setPassword] = useRecoilState(passwordState);
 
   return (
-    <div className="flex flex-col w-30">
+    <div className="w-30 flex flex-col">
       <InputField
         type="text"
         name="username"

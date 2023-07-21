@@ -45,7 +45,7 @@ const SignupForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="content-center pl-10 flex flex-col mt-10 justify-center items-center"
+      className="mt-10 flex flex-col content-center items-center justify-center pl-10"
     >
       <div>
         <label htmlFor="email">email</label>

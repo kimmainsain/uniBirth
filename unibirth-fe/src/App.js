@@ -3,6 +3,7 @@ import Home from "./components/Home/screens/Home";
 // import Signup from "./components/Auth/screens/Signup";
 import Login from "./components/Auth/screens/Login";
 import SignUp from "./components/Auth/screens/SignUp";
+import { Routes, Route } from "react-router-dom";
 
 const App = () => {
   return (
