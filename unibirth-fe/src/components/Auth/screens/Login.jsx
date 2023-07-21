@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Updated import
-import { LoginForm } from "../blocks/Blocks";
-import Footer from "../blocks/Footer";
+import LoginForm from "../blocks/login/LoginForm";
+import Footer from "../blocks/login/Footer";
+import Earth from "../../../assets/images/earth.png";
 
-export const Login = () => {
+const Login = () => {
   const navigate = useNavigate(); // Updated usage
 
   const [username, setUsername] = useState("");
@@ -28,16 +29,27 @@ export const Login = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <h1>Login</h1>
-      <LoginForm
-        username={username}
-        password={password}
-        onUsernameChange={handleUsernameChange}
-        onPasswordChange={handlePasswordChange}
-        onSubmit={handleLoginSubmit}
+      <img
+        src={Earth}
+        alt="Earth"
+        className="animate-spin"
+        style={{ animationDuration: "250s" }}
+        height="200px"
+        width="200px"
       />
-      <Footer />
+      <form onSubmit={handleLoginSubmit}>
+        <LoginForm
+          username={username}
+          password={password}
+          onUsernameChange={handleUsernameChange}
+          onPasswordChange={handlePasswordChange}
+        />
+        <Footer />
+      </form>
     </div>
   );
 };
+
+export default Login;
