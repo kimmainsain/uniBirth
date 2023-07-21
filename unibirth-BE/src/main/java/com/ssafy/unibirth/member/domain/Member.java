@@ -1,5 +1,6 @@
 package com.ssafy.unibirth.member.domain;
 
+import com.ssafy.unibirth.zodiac.domain.Zodiac;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class Member {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
     private LocalDateTime createdAt;
