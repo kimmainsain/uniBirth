@@ -1,4 +1,4 @@
-package com.ssafy.unibirth.common.config.redis;
+package com.ssafy.unibirth.common.redis.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

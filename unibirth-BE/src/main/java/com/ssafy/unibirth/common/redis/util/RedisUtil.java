@@ -1,4 +1,4 @@
-package com.ssafy.unibirth.common.util.redis;
+package com.ssafy.unibirth.common.redis.util;
 
 import java.time.Duration;
 import java.util.Collections;
