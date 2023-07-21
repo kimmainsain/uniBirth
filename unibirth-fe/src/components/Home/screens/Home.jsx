@@ -5,8 +5,13 @@ import BigButton from "../../../common/atoms/Button/BigButton";
 const Home = () => {
   const navigate = useNavigate();
 
+<<<<<<< HEAD
   const profileButtonClick = () => {
     navigate("/profiles");
+=======
+  const handleButtonClick = () => {
+    navigate("/members/login");
+>>>>>>> a3291cf61789e91ff1d60258ba205008e36d2ea5
   };
 
   return (
