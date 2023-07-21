@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import BigButton from "../../../common/atoms/Button/BigButton";
+// import Login from "./Login";
 
 const Home = () => {
   const navigate = useNavigate();
