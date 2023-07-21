@@ -3,6 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import back from "../../../assets/icons/back.png";
 import spaceBackground from "../../../assets/images/spaceBackground.png";
+import Article1 from "../blocks/article1";
 
 const MyProfile = () => {
   const navigate = useNavigate();
@@ -34,6 +35,9 @@ const MyProfile = () => {
         </div>
       </Navbar>
       <img src={spaceBackground}></img>
+      <div>
+        <Article1 />
+      </div>
     </div>
   );
 };
