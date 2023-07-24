@@ -1,17 +1,17 @@
 import React from "react";
 
-const InputPassword = ({ onChange }) => {
+const InputEmail = ({ onChange }) => {
   return (
     <div className="flex flex-row justify-center">
       <div className="flex flex-row">
-        <label htmlFor="password">Password</label>
+        <label htmlFor="email">Email</label>
         <input
           className="border border-gray-300"
-          type="password"
-          id="password"
-          name="password"
+          type="email"
+          id="email"
+          name="email"
           onChange={onChange}
-          placeholder="비밀번호를 입력하세요"
+          placeholder="email을 입력하세요"
           autoComplete="off"
         />
       </div>
@@ -19,4 +19,4 @@ const InputPassword = ({ onChange }) => {
   );
 };
 
-export default InputPassword;
+export default InputEmail;
