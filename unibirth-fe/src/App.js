@@ -8,7 +8,7 @@ import RegisterConstellation from "./components/Constellation/screens/RegisterCo
 import DetailPlanet from "./components/Planet/screens/DetailPlanet";
 import ListPlanet from "./components/Planet/screens/ListPlanet";
 import DrawingConstellation from "./components/Constellation/screens/DrawingConstellation";
-import Profile from "./components/Profile/screens/MyProfile";
+import Profile from "./components/Profile/screens/MemberProfile";
 import { Routes, Route } from "react-router-dom";
 
 const App = () => {
