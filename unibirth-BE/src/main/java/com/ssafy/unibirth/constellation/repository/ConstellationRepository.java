@@ -1,4 +1,4 @@
-package com.ssafy.unibirth.constellation.respository;
+package com.ssafy.unibirth.constellation.repository;
 
 import com.ssafy.unibirth.constellation.domain.Constellation;
 import org.springframework.data.jpa.repository.JpaRepository;
