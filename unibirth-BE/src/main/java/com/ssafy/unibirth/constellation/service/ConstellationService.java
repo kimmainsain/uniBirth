@@ -3,7 +3,7 @@ package com.ssafy.unibirth.constellation.service;
 import com.google.gson.Gson;
 import com.ssafy.unibirth.constellation.domain.Constellation;
 import com.ssafy.unibirth.constellation.dto.ConstellationReqDto;
-import com.ssafy.unibirth.constellation.respository.ConstellationRepository;
+import com.ssafy.unibirth.constellation.repository.ConstellationRepository;
 import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.service.MemberService;
 import com.ssafy.unibirth.planet.domain.Planet;
