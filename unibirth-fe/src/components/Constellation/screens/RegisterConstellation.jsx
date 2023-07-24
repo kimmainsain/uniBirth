@@ -6,7 +6,7 @@ import Footer1 from "../../../common/blocks/Footer1";
 import { BiSearch } from "react-icons/bi";
 import { useNavigation } from "../../../hooks/useNavigation";
 
-const CreateConstellation = () => {
+const RegistConstellation = () => {
   const { navigateToBack, navigateToDrawingConstellation } = useNavigation();
   const buttonsHeader = [
     {
@@ -34,4 +34,4 @@ const CreateConstellation = () => {
   );
 };
 
-export default CreateConstellation;
+export default RegistConstellation;

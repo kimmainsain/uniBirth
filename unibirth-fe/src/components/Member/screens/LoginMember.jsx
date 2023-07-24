@@ -3,11 +3,12 @@ import Button1 from "../../../common/atoms/Button1";
 import Button2 from "../../../common/atoms/Button2";
 import Header1 from "../../../common/blocks/Header1";
 import Footer1 from "../../../common/blocks/Footer1";
-import { BiSearch } from "react-icons/bi";
+import { BiSearch, BiLogInCircle } from "react-icons/bi";
 import { useNavigation } from "../../../hooks/useNavigation";
 
-const DrawingConstellation = () => {
-  const { navigateToBack, navigateToRegisterConstellation } = useNavigation();
+const LoginMember = () => {
+  const { navigateToBack, navigateToListPlanet, navigateToRegisterMember } =
+    useNavigation();
   const buttonsHeader = [
     {
       component: Button2,
@@ -21,22 +22,24 @@ const DrawingConstellation = () => {
     {
       component: Button1,
       className: "font-TAEBAEKmilkyway",
-      value: "초기화",
+      value: "로그인",
+      onClick: navigateToListPlanet,
+      icon: <BiLogInCircle />,
     },
     {
       component: Button1,
       className: "font-TAEBAEKmilkyway",
-      value: "완료하기",
-      onClick: navigateToRegisterConstellation,
+      value: "회원가입",
+      onClick: navigateToRegisterMember,
     },
   ];
   return (
     <div>
       <Header1 buttons={buttonsHeader} />
-      <h1>별자리 그리기 화면입니다.</h1>
+      <h1>로그인 화면입니다.</h1>
       <Footer1 buttons={buttonsFooter} />
     </div>
   );
 };
 
-export default DrawingConstellation;
+export default LoginMember;

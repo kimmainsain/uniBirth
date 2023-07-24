@@ -6,8 +6,8 @@ import Footer1 from "../../../common/blocks/Footer1";
 import { BiSearch } from "react-icons/bi";
 import { useNavigation } from "../../../hooks/useNavigation";
 
-const DrawingConstellation = () => {
-  const { navigateToBack, navigateToRegisterConstellation } = useNavigation();
+const RegisterMember = () => {
+  const { navigateToBack, navigateToLoginMember } = useNavigation();
   const buttonsHeader = [
     {
       component: Button2,
@@ -21,22 +21,17 @@ const DrawingConstellation = () => {
     {
       component: Button1,
       className: "font-TAEBAEKmilkyway",
-      value: "초기화",
-    },
-    {
-      component: Button1,
-      className: "font-TAEBAEKmilkyway",
-      value: "완료하기",
-      onClick: navigateToRegisterConstellation,
+      value: "회원가입",
+      onClick: navigateToLoginMember,
     },
   ];
   return (
     <div>
       <Header1 buttons={buttonsHeader} />
-      <h1>별자리 그리기 화면입니다.</h1>
+      <h1>회원가입 화면입니다.</h1>
       <Footer1 buttons={buttonsFooter} />
     </div>
   );
 };
 
-export default DrawingConstellation;
+export default RegisterMember;

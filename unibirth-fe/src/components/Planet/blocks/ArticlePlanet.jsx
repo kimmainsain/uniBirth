@@ -2,11 +2,11 @@ import React from "react";
 import { useNavigation } from "../../../hooks/useNavigation";
 
 const FooterHome = () => {
-  const { navigateToListConstellation } = useNavigation();
+  const { navigateToDetailPlanet } = useNavigation();
 
   return (
     <div
-      onClick={navigateToListConstellation}
+      onClick={navigateToDetailPlanet}
       className="flex h-20 w-20 cursor-pointer items-center justify-center rounded-full bg-blue-500"
     >
       <span className="text-white">Planet</span>
