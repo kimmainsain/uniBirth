@@ -3,7 +3,7 @@ import Button1 from "../../../common/atoms/Button1";
 import Button2 from "../../../common/atoms/Button2";
 import Header1 from "../../../common/blocks/Header1";
 import Footer1 from "../../../common/blocks/Footer1";
-import { BiSearch, BiLogInCircle } from "react-icons/bi";
+import { BiArrowBack, BiLogInCircle } from "react-icons/bi";
 import { useNavigation } from "../../../hooks/useNavigation";
 
 const LoginMember = () => {
@@ -15,7 +15,7 @@ const LoginMember = () => {
       className: "font-TAEBAEKmilkyway",
       value: "뒤로가기",
       onClick: navigateToBack,
-      icon: <BiSearch />,
+      icon: <BiArrowBack />,
     },
   ];
   const buttonsFooter = [
