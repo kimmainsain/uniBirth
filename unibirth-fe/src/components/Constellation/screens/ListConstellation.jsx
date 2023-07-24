@@ -7,7 +7,7 @@ import { BiSearch } from "react-icons/bi";
 import { useNavigation } from "../../../hooks/useNavigation";
 
 const ListConstellaion = () => {
-  const { navigateToBack, navigateToRegisterConstellation } = useNavigation();
+  const { navigateToBack, navigateToRegisterStar } = useNavigation();
   const buttonsHeader = [
     {
       component: Button2,
@@ -21,14 +21,14 @@ const ListConstellaion = () => {
     {
       component: Button1,
       className: "font-TAEBAEKmilkyway",
-      value: "별자리 만들기",
-      onClick: navigateToRegisterConstellation,
+      value: "참여하기",
+      onClick: navigateToRegisterStar,
     },
   ];
   return (
     <div>
       <Header1 buttons={buttonsHeader} />
-      <h1>별자리 리스트 화면입니다.</h1>
+      <h1>별 리스트 화면입니다.</h1>
       <Footer1 buttons={buttonsFooter} />
     </div>
   );

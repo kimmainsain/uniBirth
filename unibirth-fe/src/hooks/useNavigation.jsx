@@ -35,13 +35,20 @@ export const useNavigation = () => {
     navigate("/members/register");
   };
 
+  const navigateToModifyProfile = () => {
+    navigate(`/profiles/modify/${1}`);
+  };
+
   const navigateToDetailPlanet = () => {
     navigate(`/planets/${1}`);
   };
 
-  const navigateToStar = () => {
-    navigate("/");
-    // 미완
+  const navigateToMemberProfile = () => {
+    navigate(`/profiles/${1}`);
+  };
+
+  const navigateToRegisterStar = () => {
+    navigate(`/stars/register/${1}`);
   };
 
   const refreshPage = () => {
@@ -60,10 +67,12 @@ export const useNavigation = () => {
     navigateToRegisterConstellation,
     navigateToListConstellation,
     navigateToDrawingConstellation,
-    navigateToStar,
+    navigateToRegisterStar,
     navigateToListPlanet,
     navigateToDetailPlanet,
+    navigateToModifyProfile,
     navigateToRegisterMember,
+    navigateToMemberProfile,
     refreshPage,
   };
 };

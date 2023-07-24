@@ -4,12 +4,17 @@ import ArticlePlanet from "../blocks/ArticlePlanet";
 import Button1 from "../../../common/atoms/Button1";
 import Button2 from "../../../common/atoms/Button2";
 import { BiSearch, BiHomeAlt, BiLogInCircle } from "react-icons/bi";
+import { CgProfile } from "react-icons/cg";
 
 import { useNavigation } from "../../../hooks/useNavigation";
 
 const ListPlanet = () => {
-  const { navigateToLoginMember, navigateToDetailConstellation, refreshPage } =
-    useNavigation();
+  const {
+    navigateToLoginMember,
+    navigateToDetailConstellation,
+    refreshPage,
+    navigateToMemberProfile,
+  } = useNavigation();
 
   const buttonsFooter = [
     {
@@ -32,6 +37,13 @@ const ListPlanet = () => {
       value: "로그인",
       onClick: navigateToLoginMember,
       icon: <BiLogInCircle />,
+    },
+    {
+      component: Button1,
+      className: "font-TAEBAEKmilkyway",
+      value: "마이페이지",
+      onClick: navigateToMemberProfile,
+      icon: <CgProfile />,
     },
   ];
 

@@ -8,7 +8,9 @@ import RegisterConstellation from "./components/Constellation/screens/RegisterCo
 import DetailPlanet from "./components/Planet/screens/DetailPlanet";
 import ListPlanet from "./components/Planet/screens/ListPlanet";
 import DrawingConstellation from "./components/Constellation/screens/DrawingConstellation";
-import Profile from "./components/Profile/screens/MemberProfile";
+import MemberProfile from "./components/Profile/screens/MemberProfile";
+import ModifyProfile from "./components/Profile/screens/ModifyProfile";
+import RegisterStar from "./components/Star/screens/RegisterStar";
 import { Routes, Route } from "react-router-dom";
 
 const App = () => {
@@ -35,7 +37,10 @@ const App = () => {
         path="/constellations/drawing"
         element={<DrawingConstellation />}
       />
-      <Route path="/profile" element={<Profile />} />
+      <Route path="/stars/register/:member_id" element={<RegisterStar />} />
+      <Route path="/profiles/:id" element={<MemberProfile />} />
+
+      <Route path="/profiles/modify/:id" element={<ModifyProfile />} />
     </Routes>
   );
 };
