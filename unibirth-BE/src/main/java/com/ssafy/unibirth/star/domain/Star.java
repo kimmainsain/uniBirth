@@ -23,10 +23,9 @@ public class Star extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
-    
-    // 좌표
-    private double boardR;
-    private double boardC;
+
+    private double r;
+    private double c;
 
     private int brightness; // 좋아요
 
