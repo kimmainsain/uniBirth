@@ -18,8 +18,8 @@ public class BaseTimeEntity {
     // 생성시간과 수정시간
     @CreatedDate
     @Column(updatable = false)
-    private LocalDateTime createdDate;
+    private LocalDateTime createdAt;
 
     @LastModifiedBy
-    private LocalDateTime lastModifiedDate;
+    private LocalDateTime updatedAt;
 }
