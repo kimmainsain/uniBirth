@@ -1,6 +1,6 @@
 package com.ssafy.unibirth.member.domain;
 
-import com.ssafy.unibirth.common.whenAndWho.BaseTimeEntity;
+import com.ssafy.unibirth.common.domain.util.BaseTimeEntity;
 import com.ssafy.unibirth.zodiac.domain.Zodiac;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -26,7 +26,7 @@ public class Member extends BaseTimeEntity {
 
     private int followingCount;
     private int followerCount;
-    private int starCount; // 좋아요 수
+    private int starCount; // 작성한 별의 수
 
     @ManyToOne
     @JoinColumn(name = "zordiac_id")
