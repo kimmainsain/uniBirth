@@ -8,8 +8,12 @@ import { BiSearch, BiHomeAlt, BiLogInCircle } from "react-icons/bi";
 import { useNavigation } from "../../../hooks/useNavigation";
 
 const ListPlanet = () => {
-  const { navigateToLoginMember, navigateToDetailConstellation, refreshPage } =
-    useNavigation();
+  const {
+    navigateToLoginMember,
+    navigateToDetailConstellation,
+    navigateToProfile,
+    refreshPage,
+  } = useNavigation();
 
   const buttonsFooter = [
     {
@@ -31,6 +35,13 @@ const ListPlanet = () => {
       className: "font-TAEBAEKmilkyway",
       value: "로그인",
       onClick: navigateToLoginMember,
+      icon: <BiLogInCircle />,
+    },
+    {
+      component: Button1,
+      className: "font-TAEBAEKmilkyway",
+      value: "프로필",
+      onClick: navigateToProfile,
       icon: <BiLogInCircle />,
     },
   ];

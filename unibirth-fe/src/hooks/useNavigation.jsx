@@ -52,6 +52,10 @@ export const useNavigation = () => {
     navigate("/planets");
   };
 
+  const navigateToProfile = () => {
+    navigate("/profile");
+  };
+
   return {
     navigateToLoginMember,
     navigateToDetailConstellation,
@@ -64,6 +68,7 @@ export const useNavigation = () => {
     navigateToListPlanet,
     navigateToDetailPlanet,
     navigateToRegisterMember,
+    navigateToProfile,
     refreshPage,
   };
 };
