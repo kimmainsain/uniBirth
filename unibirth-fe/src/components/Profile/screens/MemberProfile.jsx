@@ -4,6 +4,8 @@ import Button3 from "../../../common/atoms/Button3";
 import Header1 from "../../../common/blocks/Header1";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigation } from "../../../hooks/useNavigation";
+import MemberSectionProfile from "../blocks/MemberSectionProfile";
+import ConstellationSectionProfile from "../blocks/ConstellationSectionProfile";
 
 const MemberProfile = () => {
   const { navigateToBack } = useNavigation();

@@ -8,7 +8,7 @@ import RegisterConstellation from "./components/Constellation/screens/RegisterCo
 import DetailPlanet from "./components/Planet/screens/DetailPlanet";
 import ListPlanet from "./components/Planet/screens/ListPlanet";
 import DrawingConstellation from "./components/Constellation/screens/DrawingConstellation";
-import Profile from "./components/Profile/screens/MemberProfile";
+import MemberProfile from "./components/Profile/screens/MemberProfile";
 import Followings from "./components/Profile/screens/Followings";
 import Followers from "./components/Profile/screens/Followers";
 
@@ -38,7 +38,7 @@ const App = () => {
         path="/constellations/drawing"
         element={<DrawingConstellation />}
       />
-      <Route path="/profiles" element={<Profile />} />
+      <Route path="/profiles/:id" element={<MemberProfile />} />
       <Route path="/profiles/followings" element={<Followings />} />
       <Route path="/profiles/followers" element={<Followers />} />
     </Routes>

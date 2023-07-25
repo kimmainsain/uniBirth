@@ -59,10 +59,6 @@ export const useNavigation = () => {
     navigate("/planets");
   };
 
-  const navigateToProfile = () => {
-    navigate("/profiles");
-  };
-
   const navigateToFollowings = () => {
     navigate("/profiles/followings");
   };
@@ -84,7 +80,6 @@ export const useNavigation = () => {
     navigateToDetailPlanet,
     navigateToModifyProfile,
     navigateToRegisterMember,
-    navigateToProfile,
     navigateToMemberProfile,
     refreshPage,
     navigateToFollowings,

@@ -6,7 +6,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { useNavigation } from "../../../hooks/useNavigation";
 
 const Followings = () => {
-  const { navigateToProfile } = useNavigation();
+  const { navigateToMemberProfile } = useNavigation();
   const { navigateToFollowers } = useNavigation();
 
   const buttonsHeader = [
@@ -14,7 +14,7 @@ const Followings = () => {
       component: Button2,
       className: "font-TAEBAEKmilkyway",
       value: "뒤로가기",
-      onClick: navigateToProfile,
+      onClick: navigateToMemberProfile,
       icon: <IoIosArrowBack />,
     },
   ];

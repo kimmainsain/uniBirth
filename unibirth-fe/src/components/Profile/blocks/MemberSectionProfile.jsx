@@ -2,7 +2,8 @@ import React from "react";
 import Button1 from "../../../common/atoms/Button1";
 import { useNavigation } from "../../../hooks/useNavigation";
 const ConstellationSectionProfile = () => {
-  const { navigateToModifyProfile, navigateToFollowProfile } = useNavigation();
+  const { navigateToModifyProfile, navigateToFollowings, navigateToFollowers } =
+    useNavigation();
   return (
     <div className="space-x-4 bg-blue-200">
       <h1>멤버 섹션 프로필 화면입니다.</h1>
@@ -16,8 +17,8 @@ const ConstellationSectionProfile = () => {
           <p className="text-lg font-bold">유저 이름</p>
           <p>탄생일: January 1, 1990</p>
           <p>띄운 별: Orion</p>
-          <p onClick={navigateToFollowProfile}>팔로잉: 100</p>
-          <p onClick={navigateToFollowProfile}>팔로워: 200</p>
+          <p onClick={navigateToFollowings}>팔로잉: 100</p>
+          <p onClick={navigateToFollowers}>팔로워: 200</p>
         </div>
       </div>
 
