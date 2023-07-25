@@ -1,5 +1,6 @@
 package com.ssafy.unibirth.constellation.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.unibirth.common.domain.util.BaseEntity;
 import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.planet.domain.Planet;
@@ -34,6 +35,7 @@ public class Constellation extends BaseEntity {
     private Planet planet;
 
     @OneToMany(mappedBy = "constellation")
+    @JsonIgnore
     private List<Star> starList = new ArrayList<>();
 
     private String title;
