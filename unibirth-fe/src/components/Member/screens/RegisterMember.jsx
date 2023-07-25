@@ -12,10 +12,10 @@ const RegisterMember = () => {
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { navigateToBack } = useNavigation();
 
   const handleSubmit = () => {
     if (nickname && email && password) {
-      // submit logic here
       console.log(
         `Image: ${image}, Nickname: ${nickname}, Email: ${email}, Password: ${password}`,
       );
@@ -23,7 +23,6 @@ const RegisterMember = () => {
       alert("Please fill all the fields!");
     }
   };
-  const { navigateToBack } = useNavigation();
   const buttonsHeader = [
     {
       component: Button2,
@@ -45,24 +44,26 @@ const RegisterMember = () => {
   return (
     <div className="items-cneter flex flex-col justify-center">
       <Header1 buttons={buttonsHeader} />
-      <SignupFormMember
-        image={image}
-        setImage={setImage}
-        nickname={nickname}
-        setNickname={setNickname}
-        email={email}
-        setEmail={setEmail}
-        password={password}
-        setPassword={setPassword}
-      />
-      <Footer1
-        buttons={buttonsFooter}
-        image={image}
-        nickname={nickname}
-        email={email}
-        password={password}
-        handleSubmit={handleSubmit}
-      />
+      <form>
+        <SignupFormMember
+          image={image}
+          setImage={setImage}
+          nickname={nickname}
+          setNickname={setNickname}
+          email={email}
+          setEmail={setEmail}
+          password={password}
+          setPassword={setPassword}
+        />
+        <Footer1
+          buttons={buttonsFooter}
+          image={image}
+          nickname={nickname}
+          email={email}
+          password={password}
+          handleSubmit={handleSubmit}
+        />
+      </form>
     </div>
   );
 };

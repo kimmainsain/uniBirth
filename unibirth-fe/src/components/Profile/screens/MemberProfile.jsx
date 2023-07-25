@@ -32,7 +32,9 @@ const MemberProfile = () => {
   return (
     <div>
       <Header1 buttons={buttonsHeader} />
-      <h1>프로필 화면입니다.</h1>
+      <h1>회원 프로필 화면입니다.</h1>
+      <MemberSectionProfile />
+      <ConstellationSectionProfile />
     </div>
   );
 };
