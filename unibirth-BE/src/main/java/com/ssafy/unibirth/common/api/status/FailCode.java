@@ -12,6 +12,7 @@ public enum FailCode {
     GENERAL_ERROR(BAD_REQUEST, "데이터 처리 실패"),
     
     // 별자리
+    PLANET_NOT_FOUND(NOT_FOUND, "존재하지 않은 행성입니다."),
     CONSTELLATION_NOT_FOUND(NOT_FOUND, "존재하지 않는 별자리입니다."),
     MEMBER_NOT_FOUND(NOT_FOUND, "존재하지 않는 회원입니다."),
 

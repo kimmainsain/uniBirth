@@ -23,8 +23,8 @@ public class ConstellationReqDto {
 
     public Constellation toEntity(Member member, Planet planet) {
         Constellation constellation = new Constellation();
-//        constellation.setMember(member);
-//        constellation.setPlanet(planet);
+        constellation.setMember(member);
+        constellation.setPlanet(planet);
         constellation.setTitle(title);
         constellation.setDescription(description);
         constellation.setBoardSize(boardSize);
