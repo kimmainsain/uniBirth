@@ -5,6 +5,8 @@ import com.ssafy.unibirth.common.api.exception.NotFoundException;
 import com.ssafy.unibirth.common.api.status.FailCode;
 import com.ssafy.unibirth.constellation.domain.Constellation;
 import com.ssafy.unibirth.constellation.dto.ConstellationReqDto;
+import com.ssafy.unibirth.constellation.dto.CreateConstellationResDto;
+import com.ssafy.unibirth.constellation.dto.GetConstellationResDto;
 import com.ssafy.unibirth.constellation.repository.ConstellationRepository;
 import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.service.MemberService;
@@ -24,13 +26,13 @@ public class ConstellationService {
     private final StarService starService;
 
     // 별자리 생성
-    public Long create(Long memberId, ConstellationReqDto dto) {
+    public CreateConstellationResDto create(Long memberId, ConstellationReqDto dto) {
         // TODO: Planet 객체 조회 및 Member 객체 조회
         Member member = new Member();
         Planet planet = new Planet();
         Constellation constellation = dto.toEntity(member, planet);
         Long createdId = constellationRepository.save(constellation).getId();
-        return createdId;
+        return new CreateConstellationResDto(createdId);
     }
 
     public static int[][] stringToArray(String arrayString) {
