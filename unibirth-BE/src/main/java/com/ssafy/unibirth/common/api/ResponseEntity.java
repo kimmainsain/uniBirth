@@ -22,6 +22,10 @@ public class ResponseEntity<T> {
         this.message = message;
     }
 
+    public static <T> ResponseEntity<T> success(SuccessCode code) {
+        return new ResponseEntity<>(code.getStatus().value(), code.getMessage());
+    }
+
     public static <T> ResponseEntity<T> success(SuccessCode code, T resultData) {
         return new ResponseEntity<>(code.getStatus().value(), code.getMessage(), resultData);
     }

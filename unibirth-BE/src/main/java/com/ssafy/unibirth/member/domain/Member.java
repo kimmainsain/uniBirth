@@ -5,6 +5,7 @@ import com.ssafy.unibirth.zodiac.domain.Zodiac;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.Date;
 
@@ -32,11 +33,26 @@ public class Member extends BaseTimeEntity {
     @JoinColumn(name = "zordiac_id")
     private Zodiac zodiac;
 
+    @ColumnDefault("5")
     private int purchasedBoard;
     private String introduction;
 
     private Date birth;
     private String imageUrl;
+
+    // Test를 위해 id, nickname, email만 인자로 받는 생성자를 만들어줌
+
+
+    public Member(String nickname, String password) {
+        this.nickname = nickname;
+        this.password = password;
+    }
+
+    // 유저 정보(닉네임, 비밀번호) 변경
+    public void updateMember(String nickname, String password) {
+        this.nickname = nickname;
+        this.password = password;
+    }
 
     // 멤버 상태를 삭제로 전환
     // 멤버 자체를 데이터베이스에서 삭제해버리면 cascade된 별과 별자리까지 모두 삭제됨
@@ -44,6 +60,12 @@ public class Member extends BaseTimeEntity {
     public void deleteMember() {
         this.role = Role.DELETED;
     }
+    
+    // 결재하면 격자판을 10칸으로 추가함
+    public void plusBlock() {
+        this.purchasedBoard += 5;
+    }
+
 
 
 }
