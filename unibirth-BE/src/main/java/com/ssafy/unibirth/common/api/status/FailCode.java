@@ -12,7 +12,12 @@ public enum FailCode {
     GENERAL_ERROR(BAD_REQUEST, "데이터 처리 실패"),
     
     // 별자리
-    CONSTELLATION_NOT_FOUND(NOT_FOUND, "별자리 id가 존재하지 않습니다.");
+    CONSTELLATION_NOT_FOUND(NOT_FOUND, "존재하지 않는 별자리입니다."),
+    MEMBER_NOT_FOUND(NOT_FOUND, "존재하지 않는 회원입니다."),
+
+    DUPLICATED_NICKNAME(CONFLICT, "중복된 닉네임입니다."),
+    DUPLICATED_EMAIL(CONFLICT, "중복된 이메일입니다.");
+
 
     private final HttpStatus status;
     private final String message;

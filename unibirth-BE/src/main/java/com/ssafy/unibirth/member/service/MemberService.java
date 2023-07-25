@@ -1,8 +1,10 @@
 package com.ssafy.unibirth.member.service;
 
+import com.ssafy.unibirth.common.api.exception.DuplicatedException;
+import com.ssafy.unibirth.common.api.exception.NotFoundException;
+import com.ssafy.unibirth.common.api.status.FailCode;
 import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.domain.Role;
-import com.ssafy.unibirth.member.exception.DuplicatedException;
 import com.ssafy.unibirth.member.exception.MemberNotFoundException;
 import com.ssafy.unibirth.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
@@ -33,10 +35,10 @@ public class MemberService {
 
     // 회원 상세정보
     public Member detailUser(Long id) {
-        Member member = memberRepository.findById(id).orElseThrow(() -> new MemberNotFoundException("존재하지 않는 회원입니다"));
+        Member member = memberRepository.findById(id).orElseThrow(() -> new NotFoundException(FailCode.MEMBER_NOT_FOUND));
 
         if(member.getRole() == Role.DELETED){
-            throw new MemberNotFoundException("존재하지 않는 회원입니다");
+            throw new NotFoundException(FailCode.MEMBER_NOT_FOUND);
         }
 
         return member;
@@ -44,11 +46,13 @@ public class MemberService {
 
     // 회원 탈퇴
     public void deleteUser(Long id) {
-        Member member = memberRepository.findById(id).orElseThrow(() -> new MemberNotFoundException("존재하지 않는 회원입니다"));
+        Member member = memberRepository.findById(id).orElseThrow(() -> new NotFoundException(FailCode.MEMBER_NOT_FOUND));
 
-        if(member.getRole() != Role.DELETED){
-            member.deleteMember();
+        if(member.getRole() == Role.DELETED){
+            throw new NotFoundException(FailCode.MEMBER_NOT_FOUND);
         }
+
+        member.deleteMember();
     }
 
     // 이메일로 중복여부 확인
@@ -56,7 +60,7 @@ public class MemberService {
         Optional<Member> findMember = memberRepository.findByEmail(email);
 
         if(findMember.isPresent()) {
-            throw new DuplicatedException("이메일이 중복되었습니다");
+            throw new DuplicatedException(FailCode.DUPLICATED_EMAIL);
         }
     }
     
@@ -67,7 +71,7 @@ public class MemberService {
         Optional<Member> findMember = memberRepository.findByNickname(nickname);
 
         if(findMember.isPresent()) {
-            throw new DuplicatedException("닉네임이 중복되었습니다");
+            throw new DuplicatedException(FailCode.DUPLICATED_NICKNAME);
         }
     }
 
