@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class ConstellationResDto {
+public class GetConstellationResDto {
     private Long constellationId;
     private boolean completion;
     private int boardSize;
