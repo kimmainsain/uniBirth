@@ -48,17 +48,19 @@ const ModifyProfile = () => {
   return (
     <div>
       <Header1 buttons={buttonsHeader} />
-      <Inputimage value={image} onChange={(e) => setImage(e.target.value)} />
-      <Inputnickname
-        value={nickname}
-        onChange={(e) => setNickname(e.target.value)}
-      />
-      <InputPassword
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <InputPasswordConfirm />
-      <Footer1 buttons={buttonsFooter} />
+      <form action="">
+        <Inputimage value={image} onChange={(e) => setImage(e.target.value)} />
+        <Inputnickname
+          value={nickname}
+          onChange={(e) => setNickname(e.target.value)}
+        />
+        <InputPassword
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <InputPasswordConfirm />
+        <Footer1 buttons={buttonsFooter} />
+      </form>
     </div>
   );
 };
