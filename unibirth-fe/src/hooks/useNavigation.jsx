@@ -53,7 +53,15 @@ export const useNavigation = () => {
   };
 
   const navigateToProfile = () => {
-    navigate("/profile");
+    navigate("/profiles");
+  };
+
+  const navigateToFollowings = () => {
+    navigate("/profiles/followings");
+  };
+
+  const navigateToFollowers = () => {
+    navigate("/profiles/followers");
   };
 
   return {
@@ -70,5 +78,7 @@ export const useNavigation = () => {
     navigateToRegisterMember,
     navigateToProfile,
     refreshPage,
+    navigateToFollowings,
+    navigateToFollowers,
   };
 };

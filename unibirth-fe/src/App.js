@@ -9,6 +9,9 @@ import DetailPlanet from "./components/Planet/screens/DetailPlanet";
 import ListPlanet from "./components/Planet/screens/ListPlanet";
 import DrawingConstellation from "./components/Constellation/screens/DrawingConstellation";
 import Profile from "./components/Profile/screens/MemberProfile";
+import Followings from "./components/Profile/screens/Followings";
+import Followers from "./components/Profile/screens/Followers";
+
 import { Routes, Route } from "react-router-dom";
 
 const App = () => {
@@ -35,7 +38,9 @@ const App = () => {
         path="/constellations/drawing"
         element={<DrawingConstellation />}
       />
-      <Route path="/profile" element={<Profile />} />
+      <Route path="/profiles" element={<Profile />} />
+      <Route path="/profiles/followings" element={<Followings />} />
+      <Route path="/profiles/followers" element={<Followers />} />
     </Routes>
   );
 };
