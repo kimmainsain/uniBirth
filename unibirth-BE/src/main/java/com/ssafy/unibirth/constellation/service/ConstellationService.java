@@ -5,14 +5,19 @@ import com.ssafy.unibirth.common.api.exception.NotFoundException;
 import com.ssafy.unibirth.common.api.status.FailCode;
 import com.ssafy.unibirth.constellation.domain.Constellation;
 import com.ssafy.unibirth.constellation.dto.ConstellationReqDto;
+import com.ssafy.unibirth.constellation.dto.CreateConstellationResDto;
+import com.ssafy.unibirth.constellation.dto.ReadConstellationResDto;
 import com.ssafy.unibirth.constellation.repository.ConstellationRepository;
 import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.service.MemberService;
 import com.ssafy.unibirth.planet.domain.Planet;
 import com.ssafy.unibirth.planet.service.PlanetService;
+import com.ssafy.unibirth.star.domain.Star;
 import com.ssafy.unibirth.star.service.StarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,26 +28,34 @@ public class ConstellationService {
     private final PlanetService planetService;
     private final StarService starService;
 
-    // 별자리 생성
-    public Long create(Long memberId, ConstellationReqDto dto) {
+    public CreateConstellationResDto create(Long memberId, ConstellationReqDto dto) {
         // TODO: Planet 객체 조회 및 Member 객체 조회
         Member member = new Member();
         Planet planet = new Planet();
         Constellation constellation = dto.toEntity(member, planet);
         Long createdId = constellationRepository.save(constellation).getId();
-        return createdId;
+        return new CreateConstellationResDto(createdId);
     }
 
-    public static int[][] stringToArray(String arrayString) {
-        Gson gson = new Gson();
-        return gson.fromJson(arrayString, int[][].class);
-        // int[][] list = stringToArray(lineList);
+    public ReadConstellationResDto read(Long id) {
+        Constellation con = findConstellationById(id);
+        return ReadConstellationResDto.builder()
+                .constellationId(con.getId())
+                .completion(con.getPointCount() == con.getStarCount())
+                .boardSize(con.getBoardSize())
+                .lineList(stringToArray(con.getLineList()))
+                .starList(starService.convertToStarListDto(con.getStarList()))
+                .build();
     }
 
-    // 해당 별자리의 별 목록 조회
-    public Constellation getConstellationById(Long id) throws NotFoundException {
+    public Constellation findConstellationById(Long id) throws NotFoundException {
         return constellationRepository.findById(id).orElseThrow(
                 () -> new NotFoundException(FailCode.CONSTELLATION_NOT_FOUND)
         );
+    }
+
+    private int[][] stringToArray(String arrayString) {
+        Gson gson = new Gson();
+        return gson.fromJson(arrayString, int[][].class);
     }
 }

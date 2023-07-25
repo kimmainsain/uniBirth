@@ -6,10 +6,12 @@ import com.ssafy.unibirth.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Getter
 @NoArgsConstructor
+@ToString
 public class Star extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,4 +34,5 @@ public class Star extends BaseEntity {
     private String title;
     private String content;
     private String imageUrl;
+
 }
