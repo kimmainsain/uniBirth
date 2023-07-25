@@ -21,8 +21,7 @@ public class ConstellationController {
 
     @GetMapping("/{id}")
     public ResponseEntity getConstellation(@PathVariable("id") Long constellationId) {
-        Constellation constellation = constellationService.getConstellationById(constellationId);
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellation);
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.read(constellationId));
     }
 
 }
