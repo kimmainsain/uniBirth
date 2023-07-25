@@ -85,9 +85,9 @@ export const useNavigation = () => {
     navigateToModifyProfile,
     navigateToRegisterMember,
     navigateToProfile,
+    navigateToMemberProfile,
     refreshPage,
     navigateToFollowings,
     navigateToFollowers,
-    navigateToMemberProfile,
   };
 };
