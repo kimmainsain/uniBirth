@@ -8,7 +8,6 @@ import { BiArrowBack } from "react-icons/bi";
 import { useNavigation } from "../../../hooks/useNavigation";
 
 const RegisterMember = () => {
-  // 1. image, nickname, email, password, password check
   const [image, setImage] = useState("");
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
@@ -24,7 +23,6 @@ const RegisterMember = () => {
       alert("Please fill all the fields!");
     }
   };
-  // 이미지를 firebase에서 저장한 후 URL 값을 받아와서 백엔드에 보내기
   const { navigateToBack } = useNavigation();
   const buttonsHeader = [
     {
@@ -44,7 +42,6 @@ const RegisterMember = () => {
     },
   ];
 
-  // 2. image, nickname, email, password  부모에게 넘겨주기
   return (
     <div className="items-cneter flex flex-col justify-center">
       <Header1 buttons={buttonsHeader} />

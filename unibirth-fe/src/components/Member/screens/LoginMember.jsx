@@ -27,14 +27,6 @@ const LoginMember = () => {
     }
     console.log(`Username: ${email}, Password: ${password}`);
   };
-  // const handleLogin = (e) => {
-  //   console.log(e);
-  //   // 1. 로그인 했을 때 valid 한지 판단하는 로직 작성 필요
-
-  //   // 2. 유효하다 판단하면 홈 화면으로 이동
-  //   // navigateToHome();
-  //   handleLogin();
-  // };
 
   const buttonsHeader = [
     {
