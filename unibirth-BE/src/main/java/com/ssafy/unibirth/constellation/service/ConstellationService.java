@@ -31,7 +31,7 @@ public class ConstellationService {
     public CreateConstellationResDto create(Long memberId, ConstellationReqDto dto) {
         // TODO: Planet 객체 조회 및 Member 객체 조회
         Member member = new Member();
-        Planet planet = new Planet();
+        Planet planet = planetService.findPlanetById(dto.getPlanetId());
         Constellation constellation = dto.toEntity(member, planet);
         Long createdId = constellationRepository.save(constellation).getId();
         return new CreateConstellationResDto(createdId);

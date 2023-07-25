@@ -52,4 +52,5 @@ public class Constellation extends BaseEntity {
     private int totalBrightness;
     private double x;
     private double y;
+
 }
