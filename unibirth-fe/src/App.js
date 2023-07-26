@@ -22,7 +22,7 @@ const App = () => {
       <Route path="/" element={<Home />} />
       <Route path="/search" element={<SearchQuration />} />
       <Route
-        path="/search/content?:content&category?:category"
+        path="/search?content=:query&category=:categoryname"
         element={<SearchCommon />}
       />
       <Route path="/members/login" element={<LoginMember />} />

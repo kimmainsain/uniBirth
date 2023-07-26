@@ -72,7 +72,7 @@ export const useNavigation = () => {
   };
 
   const navigateToSearchCommon = (query, categoryname) => {
-    navigate(`/search/content=${query}&${categoryname}`);
+    navigate(`/search?content=${query}&category=${categoryname}`);
   };
 
   return {
