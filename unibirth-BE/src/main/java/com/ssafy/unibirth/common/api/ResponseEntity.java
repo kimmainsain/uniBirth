@@ -1,6 +1,6 @@
 package com.ssafy.unibirth.common.api;
 
-import com.ssafy.unibirth.common.api.status.ErrorCode;
+import com.ssafy.unibirth.common.api.status.FailCode;
 import com.ssafy.unibirth.common.api.status.SuccessCode;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -22,15 +22,19 @@ public class ResponseEntity<T> {
         this.message = message;
     }
 
+    public static <T> ResponseEntity<T> success(SuccessCode code) {
+        return new ResponseEntity<>(code.getStatus().value(), code.getMessage());
+    }
+
     public static <T> ResponseEntity<T> success(SuccessCode code, T resultData) {
         return new ResponseEntity<>(code.getStatus().value(), code.getMessage(), resultData);
     }
 
-    public static <T> ResponseEntity<T> error(ErrorCode code) {
+    public static <T> ResponseEntity<T> fail(FailCode code) {
         return new ResponseEntity<>(code.getStatus().value(), code.getMessage());
     }
 
-    public static <T> ResponseEntity<T> error(HttpStatus status, String message) {
+    public static <T> ResponseEntity<T> fail(HttpStatus status, String message) {
         return new ResponseEntity<>(status.value(), message);
     }
 }

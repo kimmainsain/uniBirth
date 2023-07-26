@@ -5,6 +5,7 @@ import com.ssafy.unibirth.zodiac.domain.Zodiac;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.Date;
 
@@ -32,6 +33,7 @@ public class Member extends BaseTimeEntity {
     @JoinColumn(name = "zordiac_id")
     private Zodiac zodiac;
 
+    @ColumnDefault("5")
     private int purchasedBoard;
     private String introduction;
 
@@ -58,6 +60,12 @@ public class Member extends BaseTimeEntity {
     public void deleteMember() {
         this.role = Role.DELETED;
     }
+    
+    // 결재하면 격자판을 10칸으로 추가함
+    public void plusBlock() {
+        this.purchasedBoard += 5;
+    }
+
 
 
 }

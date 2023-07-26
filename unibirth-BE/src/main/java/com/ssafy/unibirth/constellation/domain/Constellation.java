@@ -1,5 +1,6 @@
 package com.ssafy.unibirth.constellation.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.unibirth.common.domain.util.BaseEntity;
 import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.planet.domain.Planet;
@@ -7,6 +8,7 @@ import com.ssafy.unibirth.star.domain.Star;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class Constellation extends BaseEntity {
 
@@ -32,6 +35,7 @@ public class Constellation extends BaseEntity {
     private Planet planet;
 
     @OneToMany(mappedBy = "constellation")
+    @JsonIgnore
     private List<Star> starList = new ArrayList<>();
 
     private String title;
@@ -39,12 +43,14 @@ public class Constellation extends BaseEntity {
 
     @ColumnDefault("10")
     private int boardSize;
+    @ColumnDefault("0")
     private int pointCount;
+    @ColumnDefault("0")
     private int starCount;
     private String lineList;
+    @ColumnDefault("0")
     private int totalBrightness;
+    private double x;
+    private double y;
 
-    // 좌표
-    private double positionR;
-    private double positionC;
 }

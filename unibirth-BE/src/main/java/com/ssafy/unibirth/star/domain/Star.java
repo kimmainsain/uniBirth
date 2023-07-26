@@ -6,10 +6,12 @@ import com.ssafy.unibirth.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Getter
 @NoArgsConstructor
+@ToString
 public class Star extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,14 +25,14 @@ public class Star extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
-    
-    // 좌표
-    private double boardR;
-    private double boardC;
+
+    private double r;
+    private double c;
 
     private int brightness; // 좋아요
 
     private String title;
     private String content;
     private String imageUrl;
+
 }
