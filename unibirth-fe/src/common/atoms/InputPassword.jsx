@@ -2,7 +2,7 @@ import React from "react";
 
 const InputPassword = ({ onChange }) => {
   return (
-    <div className="flex flex-row justify-center">
+    <div className="flex flex-row justify-center font-TAEBAEKmilkyway">
       <div className="flex flex-row">
         <label htmlFor="password">Password</label>
         <input

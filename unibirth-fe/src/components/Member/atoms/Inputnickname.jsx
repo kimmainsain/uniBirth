@@ -2,7 +2,7 @@ import React from "react";
 
 const Inputnickname = ({ onChange }) => {
   return (
-    <div className="flex flex-row justify-center">
+    <div className="flex flex-row justify-center font-TAEBAEKmilkyway">
       <label htmlFor="nickname">Nickname</label>
       <input
         className="w-30 border border-gray-300"

@@ -8,7 +8,7 @@ import MemberSectionProfile from "../blocks/MemberSectionProfile";
 import ConstellationSectionProfile from "../blocks/ConstellationSectionProfile";
 
 const MemberProfile = () => {
-  const { navigateToBack } = useNavigation();
+  const { navigateToBack, navigateToModifyProfile } = useNavigation();
   const buttonsHeader = [
     {
       component: Button2,
@@ -21,6 +21,7 @@ const MemberProfile = () => {
       component: Button3,
       className: "font-TAEBAEKmilkyway",
       value: "준혁의 프로필",
+      onClick: navigateToModifyProfile,
     },
     {
       component: Button2,

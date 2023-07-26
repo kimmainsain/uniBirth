@@ -11,9 +11,9 @@ import { useNavigation } from "../../../hooks/useNavigation";
 const ListPlanet = () => {
   const {
     navigateToLoginMember,
-    navigateToDetailConstellation,
     refreshPage,
     navigateToMemberProfile,
+    navigateToSearchQuration,
   } = useNavigation();
 
   const buttonsFooter = [
@@ -21,7 +21,7 @@ const ListPlanet = () => {
       component: Button1,
       className: "font-TAEBAEKmilkyway",
       value: "별자리검색",
-      onClick: navigateToDetailConstellation,
+      onClick: navigateToSearchQuration,
       icon: <BiSearch />,
     },
     {

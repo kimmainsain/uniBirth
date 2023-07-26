@@ -67,6 +67,14 @@ export const useNavigation = () => {
     navigate("/profiles/followers");
   };
 
+  const navigateToSearchQuration = () => {
+    navigate("/search");
+  };
+
+  const navigateToSearchCommon = (query, categoryname) => {
+    navigate(`/search/content=${query}&${categoryname}`);
+  };
+
   return {
     navigateToLoginMember,
     navigateToDetailConstellation,
@@ -84,5 +92,7 @@ export const useNavigation = () => {
     refreshPage,
     navigateToFollowings,
     navigateToFollowers,
+    navigateToSearchQuration,
+    navigateToSearchCommon,
   };
 };
