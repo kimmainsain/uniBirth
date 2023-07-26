@@ -11,6 +11,9 @@ import DrawingConstellation from "./components/Constellation/screens/DrawingCons
 import MemberProfile from "./components/Profile/screens/MemberProfile";
 import Followings from "./components/Profile/screens/Followings";
 import Followers from "./components/Profile/screens/Followers";
+import ModifyProfile from "./components/Profile/screens/ModifyProfile";
+import DirectMessage from "./components/Profile/screens/DirectMessage";
+import MessageBox from "./components/Profile/screens/MessageBox";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -39,8 +42,11 @@ const App = () => {
         element={<DrawingConstellation />}
       />
       <Route path="/profiles/:id" element={<MemberProfile />} />
-      <Route path="/profiles/followings" element={<Followings />} />
-      <Route path="/profiles/followers" element={<Followers />} />
+      <Route path="/profiles/followings/:id" element={<Followings />} />
+      <Route path="/profiles/followers/:id" element={<Followers />} />
+      <Route path="/profiles/modify/:id" element={<ModifyProfile />} />
+      <Route path="/profiles/directmessage/:id" element={<DirectMessage />} />
+      <Route path="/profiles/messagebox/:id" element={<MessageBox />} />
     </Routes>
   );
 };

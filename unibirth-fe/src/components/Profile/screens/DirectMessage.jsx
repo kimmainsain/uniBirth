@@ -3,14 +3,10 @@ import Button2 from "../../../common/atoms/Button2";
 import Button3 from "../../../common/atoms/Button3";
 import Header1 from "../../../common/blocks/Header1";
 import { IoIosArrowBack } from "react-icons/io";
-import { LuMessagesSquare } from "react-icons/lu";
 import { useNavigation } from "../../../hooks/useNavigation";
-import MemberSectionProfile from "../blocks/MemberSectionProfile";
-import ConstellationSectionProfile from "../blocks/ConstellationSectionProfile";
 
-const MemberProfile = () => {
+const DirectMessage = () => {
   const { navigateToBack } = useNavigation();
-  const { navigateToMessageBox } = useNavigation();
   const buttonsHeader = [
     {
       component: Button2,
@@ -20,26 +16,27 @@ const MemberProfile = () => {
       icon: <IoIosArrowBack />,
     },
     {
-      component: Button3,
-      className: "font-TAEBAEKmilkyway",
-      value: "준혁의 프로필",
+      component: () => (
+        <img
+          src="https://picsum.photos/200"
+          className="h-12 w-12 rounded-full"
+          alt="Round image"
+        />
+      ),
     },
     {
-      component: Button2,
+      component: Button3,
       className: "font-TAEBAEKmilkyway",
-      onClick: navigateToMessageBox,
-      icon: <LuMessagesSquare />,
+      value: "감자123",
     },
   ];
 
   return (
     <div>
       <Header1 buttons={buttonsHeader} />
-      <h1>회원 프로필 화면입니다.</h1>
-      <MemberSectionProfile />
-      <ConstellationSectionProfile />
+      <h1>1대1 메시지 공간입니다..</h1>
     </div>
   );
 };
 
-export default MemberProfile;
+export default DirectMessage;

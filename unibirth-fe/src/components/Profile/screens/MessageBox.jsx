@@ -1,41 +1,22 @@
 import React from "react";
 import Button2 from "../../../common/atoms/Button2";
 import Header2 from "../../../common/blocks/Header2";
-import Header1 from "../../../common/blocks/Header1";
 import { IoIosArrowBack } from "react-icons/io";
 import { CiLocationArrow1 } from "react-icons/ci";
 import { useNavigation } from "../../../hooks/useNavigation";
 
-const Followers = () => {
-  const { navigateToMemberProfile } = useNavigation();
-  const { navigateToFollowings } = useNavigation();
+const MessageBox = () => {
+  const { navigateToBack } = useNavigation();
   const { navigateToDirectMessage } = useNavigation();
-
   const buttonsHeader = [
     {
       component: Button2,
       className: "font-TAEBAEKmilkyway",
       value: "뒤로가기",
-      onClick: navigateToMemberProfile,
+      onClick: navigateToBack,
       icon: <IoIosArrowBack />,
     },
   ];
-
-  const buttonsHeader2 = [
-    {
-      component: Button2,
-      className: "font-TAEBAEKmilkyway",
-      value: "팔로잉",
-      onClick: navigateToFollowings,
-    },
-    {
-      component: Button2,
-      className: "font-TAEBAEKmilkyway",
-      value: "팔로워",
-    },
-  ];
-
-  // 유저 정보 배열 (예시로 10개의 유저 정보를 생성합니다)
   const users = [
     {
       id: 1,
@@ -87,8 +68,7 @@ const Followers = () => {
   return (
     <div>
       <Header2 buttons={buttonsHeader} />
-      <Header1 buttons={buttonsHeader2} />
-      <h1> 팔로워 리스트입니다..</h1>
+      <h1>메시지 박스입니다..</h1>
       {users.map((user) => (
         <div key={user.id} className="flex items-start space-x-4">
           <img
@@ -111,4 +91,4 @@ const Followers = () => {
   );
 };
 
-export default Followers;
+export default MessageBox;
