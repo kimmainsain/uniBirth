@@ -20,15 +20,9 @@ public class ConstellationReqDto {
     private List<List<Integer>> lineList;
     private List<List<Integer>> pointList;
 
-
     public Constellation toEntity(Member member, Planet planet) {
-        Constellation constellation = new Constellation();
-        constellation.setMember(member);
-        constellation.setPlanet(planet);
-        constellation.setTitle(title);
-        constellation.setDescription(description);
-        constellation.setBoardSize(boardSize);
-        constellation.setLineList(lineList.toString());
-        return constellation;
+        return new Constellation(
+                member, planet, title, description, boardSize, lineList.toString(), pointList.toString()
+        );
     }
 }
