@@ -56,11 +56,19 @@ export const useNavigation = () => {
   };
 
   const navigateToFollowings = () => {
-    navigate("/profiles/followings");
+    navigate(`/profiles/followings/${1}`);
   };
 
   const navigateToFollowers = () => {
-    navigate("/profiles/followers");
+    navigate(`/profiles/followers/${1}`);
+  };
+
+  const navigateToDirectMessage = () => {
+    navigate(`/profiles/directmessage/${1}`);
+  };
+
+  const navigateToMessageBox = () => {
+    navigate(`/profiles/messagebox/${1}`);
   };
 
   return {
@@ -79,5 +87,7 @@ export const useNavigation = () => {
     refreshPage,
     navigateToFollowings,
     navigateToFollowers,
+    navigateToDirectMessage,
+    navigateToMessageBox,
   };
 };
