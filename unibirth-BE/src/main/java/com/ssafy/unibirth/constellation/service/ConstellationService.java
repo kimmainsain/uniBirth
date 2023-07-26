@@ -43,6 +43,7 @@ public class ConstellationService {
                 .completion(con.getPointCount() == con.getStarCount())
                 .boardSize(con.getBoardSize())
                 .lineList(stringToArray(con.getLineList()))
+                .pointList(stringToArray(con.getPointList()))
                 .starList(starService.convertToStarListDto(con.getStarList()))
                 .build();
     }
