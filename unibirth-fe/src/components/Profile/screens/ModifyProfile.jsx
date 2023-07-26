@@ -46,9 +46,9 @@ const ModifyProfile = () => {
   // password와 passwordConfirm 로직을 수행하는 함수 작성해야 함
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center space-y-5">
       <Header1 buttons={buttonsHeader} />
-      <form action="">
+      <form className="flex flex-col items-center justify-center space-y-10">
         <Inputimage value={image} onChange={(e) => setImage(e.target.value)} />
         <Inputnickname
           value={nickname}

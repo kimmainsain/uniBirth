@@ -14,6 +14,8 @@ import ModifyProfile from "./components/Profile/screens/ModifyProfile";
 import RegisterStar from "./components/Star/screens/RegisterStar";
 import DirectMessage from "./components/Profile/screens/DirectMessage";
 import MessageBox from "./components/Profile/screens/MessageBox";
+import SearchCommon from "./common/screens/SearchCommon";
+import SearchQuration from "./common/screens/SearchQuration";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -21,6 +23,11 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/search" element={<SearchQuration />} />
+      <Route
+        path="/search?content=:query&category=:categoryname"
+        element={<SearchCommon />}
+      />
       <Route path="/members/login" element={<LoginMember />} />
       <Route path="/members/register" element={<RegisterMember />} />
       <Route path="/planets/:id" element={<DetailPlanet />} />

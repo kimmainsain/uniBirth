@@ -11,9 +11,9 @@ import ListSectionPlanet from "../blocks/ListSectionPlanet";
 const MainPlanet = () => {
   const {
     navigateToLoginMember,
-    navigateToDetailConstellation,
     refreshPage,
     navigateToMemberProfile,
+    navigateToSearchQuration,
   } = useNavigation();
 
   const buttonsFooter = [
@@ -21,7 +21,7 @@ const MainPlanet = () => {
       component: Button1,
       className: "font-TAEBAEKmilkyway",
       value: "별자리검색",
-      onClick: navigateToDetailConstellation,
+      onClick: navigateToSearchQuration,
       icon: <BiSearch />,
     },
     {

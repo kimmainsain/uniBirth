@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
+import InputDropdown from "../atoms/InputDropdown";
+import { useNavigation } from "../../hooks/useNavigation";
 
-const Header2 = ({ buttons }) => {
-  const [searchKeyword, setSearchKeyword] = useState("");
+const Header3 = ({ buttons }) => {
+  const [categoryname, setategoryname] = useState("별자리");
+  const [query, setQuery] = useState("");
+  const { navigateToSearchCommon } = useNavigation();
 
   const handleSearchInputChange = (e) => {
-    setSearchKeyword(e.target.value);
+    setQuery(e.target.value);
   };
 
   const handleSearch = () => {
-    console.log("검색어:", searchKeyword);
+    console.log("검색어:", query);
+    console.log("카테고리:", categoryname);
+    navigateToSearchCommon(query, categoryname);
   };
 
   return (
@@ -31,9 +37,10 @@ const Header2 = ({ buttons }) => {
         className="font-TAEBAEKmilkyway"
         type="text"
         placeholder="검색어를 입력하세요"
-        value={searchKeyword}
+        value={query}
         onChange={handleSearchInputChange}
       />
+      <InputDropdown planetname={categoryname} setPlanetname={setategoryname} />
       <button className="font-TAEBAEKmilkyway" onClick={handleSearch}>
         <BiSearchAlt />
       </button>
@@ -41,4 +48,4 @@ const Header2 = ({ buttons }) => {
   );
 };
 
-export default Header2;
+export default Header3;

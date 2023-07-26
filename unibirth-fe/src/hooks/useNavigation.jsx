@@ -71,6 +71,14 @@ export const useNavigation = () => {
     navigate(`/profiles/messagebox/${1}`);
   };
 
+  const navigateToSearchQuration = () => {
+    navigate("/search");
+  };
+
+  const navigateToSearchCommon = (query, categoryname) => {
+    navigate(`/search?content=${query}&category=${categoryname}`);
+  };
+
   return {
     navigateToLoginMember,
     navigateToDetailConstellation,
@@ -89,5 +97,7 @@ export const useNavigation = () => {
     navigateToFollowers,
     navigateToDirectMessage,
     navigateToMessageBox,
+    navigateToSearchQuration,
+    navigateToSearchCommon,
   };
 };

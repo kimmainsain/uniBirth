@@ -2,7 +2,7 @@ import React from "react";
 
 const InputPasswordConfirm = ({ onChange }) => {
   return (
-    <div className="flex flex-row justify-center">
+    <div className="flex flex-row justify-center font-TAEBAEKmilkyway">
       <label htmlFor="confirmPassword">Confirm Password</label>
       <input
         className="border border-gray-300"
