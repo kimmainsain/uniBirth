@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/constellation")
+@RequestMapping("/constellations")
 @RequiredArgsConstructor
 public class ConstellationController {
     private final ConstellationService constellationService;
