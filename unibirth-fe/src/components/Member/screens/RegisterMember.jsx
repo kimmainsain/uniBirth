@@ -6,6 +6,8 @@ import Footer1 from "../../../common/blocks/Footer1";
 import SignupFormMember from "../blocks/SignupFormMember";
 import { BiArrowBack } from "react-icons/bi";
 import { useNavigation } from "../../../hooks/useNavigation";
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 
 const RegisterMember = () => {
   const [image, setImage] = useState("");
@@ -40,6 +42,19 @@ const RegisterMember = () => {
       onClick: handleSubmit,
     },
   ];
+
+  const firebaseConfig = {
+    ReapiKey: process.env.REACT_APP_apiKey,
+    authDomain: process.env.REACT_APP_authDomain,
+    projectId: process.env.REACT_APP__projectId,
+    storageBucket: process.env.REACT_APP_storageBucket,
+    messagingSenderId: process.env.REACT_APP_messagingSenderId,
+    appId: process.env.REACT_APP_aapId,
+    measurementId: process.env.REACT_APP_measurementId,
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
 
   return (
     <div className="items-cneter flex flex-col justify-center">
