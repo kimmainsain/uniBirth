@@ -43,14 +43,23 @@ public class Constellation extends BaseEntity {
 
     @ColumnDefault("10")
     private int boardSize;
-    @ColumnDefault("0")
     private int pointCount;
-    @ColumnDefault("0")
     private int starCount;
+    @ColumnDefault("'[]'")
     private String lineList;
-    @ColumnDefault("0")
+    @ColumnDefault("'[]'")
+    private String pointList;
     private int totalBrightness;
     private double x;
     private double y;
 
+    public Constellation(Member member, Planet planet, String title, String description, int boardSize, String lineList, String pointList) {
+        this.member = member;
+        this.planet = planet;
+        this.title = title;
+        this.description = description;
+        this.boardSize = boardSize;
+        this.lineList = lineList;
+        this.pointList = pointList;
+    }
 }

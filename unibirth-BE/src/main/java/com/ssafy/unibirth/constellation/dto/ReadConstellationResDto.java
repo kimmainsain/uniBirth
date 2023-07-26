@@ -19,5 +19,6 @@ public class ReadConstellationResDto {
     private boolean completion;
     private int boardSize;
     private int[][] lineList;
+    private int[][] pointList;
     private List<ReadStarListResDto> starList;
 }
