@@ -23,10 +23,6 @@ export const useNavigation = () => {
     navigate(`/constellations/register/${1}`);
   };
 
-  const navigateToListConstellation = () => {
-    navigate(`/constellations/${1}`);
-  };
-
   const navigateToDrawingConstellation = () => {
     navigate(`/constellations/drawing`);
   };
@@ -43,6 +39,10 @@ export const useNavigation = () => {
     navigate(`/planets/${1}`);
   };
 
+  const navigateToMainPlanet = () => {
+    navigate("/planets");
+  };
+
   const navigateToMemberProfile = () => {
     navigate(`/profiles/${1}`);
   };
@@ -53,10 +53,6 @@ export const useNavigation = () => {
 
   const refreshPage = () => {
     navigate(".", { replace: true });
-  };
-
-  const navigateToListPlanet = () => {
-    navigate("/planets");
   };
 
   const navigateToFollowings = () => {
@@ -70,13 +66,12 @@ export const useNavigation = () => {
   return {
     navigateToLoginMember,
     navigateToDetailConstellation,
+    navigateToMainPlanet,
     navigateToBack,
     navigateToHome,
     navigateToRegisterConstellation,
-    navigateToListConstellation,
     navigateToDrawingConstellation,
     navigateToRegisterStar,
-    navigateToListPlanet,
     navigateToDetailPlanet,
     navigateToModifyProfile,
     navigateToRegisterMember,

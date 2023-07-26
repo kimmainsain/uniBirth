@@ -5,14 +5,14 @@ import Button1 from "../../../common/atoms/Button1";
 import { useNavigation } from "../../../hooks/useNavigation";
 
 const Home = () => {
-  const { navigateToListPlanet } = useNavigation();
+  const { navigateToMainPlanet } = useNavigation();
 
   const buttons = [
     {
       component: Button1,
       className: "font-TAEBAEKmilkyway",
       value: "시작하기",
-      onClick: navigateToListPlanet,
+      onClick: navigateToMainPlanet,
     },
   ];
 

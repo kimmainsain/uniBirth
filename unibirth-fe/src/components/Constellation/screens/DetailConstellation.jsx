@@ -4,11 +4,10 @@ import Header1 from "../../../common/blocks/Header1";
 import { BiSearch } from "react-icons/bi";
 import { useNavigation } from "../../../hooks/useNavigation";
 import Footer1 from "../../../common/blocks/Footer1";
-import { BsPinAngle } from "react-icons/bs";
 import Button1 from "../../../common/atoms/Button1";
 
 const DetailConstellation = () => {
-  const { navigateToBack, navigateToStar } = useNavigation();
+  const { navigateToBack, navigateToRegisterStar } = useNavigation();
   const buttonsHeader = [
     {
       component: Button2,
@@ -22,20 +21,14 @@ const DetailConstellation = () => {
   const buttonsFooter = [
     {
       component: Button1,
-      value: "별자리보기",
-      onClick: navigateToStar,
-    },
-    {
-      component: Button1,
-      value: "찜하기",
-      onClick: navigateToStar,
-      icon: <BsPinAngle />,
+      value: "참여하기",
+      onClick: navigateToRegisterStar,
     },
   ];
   return (
     <div>
       <Header1 buttons={buttonsHeader} />
-      <h1>별자리 검색 화면입니다.</h1>
+      <h1>여기서 별 리스트가 나와야합니다</h1>
       <Footer1 buttons={buttonsFooter} />
     </div>
   );

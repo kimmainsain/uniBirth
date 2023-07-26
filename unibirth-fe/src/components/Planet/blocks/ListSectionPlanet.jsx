@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigation } from "../../../hooks/useNavigation";
 
-const FooterHome = () => {
+const ListSectionPlanet = () => {
   const { navigateToDetailPlanet } = useNavigation();
 
   return (
@@ -14,4 +14,4 @@ const FooterHome = () => {
   );
 };
 
-export default FooterHome;
+export default ListSectionPlanet;
