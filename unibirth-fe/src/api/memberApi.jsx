@@ -5,8 +5,7 @@ const membersRegister = (member) => {
     const response = axiosInstance.post("/api/members", member);
     console.log(response.data);
     return response.data;
-  }
-  catch (e) {
+  } catch (e) {
     console.log(e);
   }
 };

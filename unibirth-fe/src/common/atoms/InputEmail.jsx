@@ -2,7 +2,7 @@ import React from "react";
 
 const InputEmail = ({ onChange }) => {
   return (
-    <div className="flex flex-row justify-center">
+    <div className="flex flex-row justify-center font-TAEBAEKmilkyway">
       <div className="flex flex-row">
         <label htmlFor="email">Email</label>
         <input
