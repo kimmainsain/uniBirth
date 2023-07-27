@@ -16,8 +16,14 @@ const MemberRegistrationForm = ({
   setPassword,
 }) => {
   return (
-    <form className="items-cneter flex flex-col justify-center">
-      <InputImage value={image} onChange={(e) => setImage(e.target.value)} />
+    <div className="items-cneter flex flex-col justify-center space-y-5">
+      <InputImage
+        onChange={(e) => {
+          if (e.target.files.length > 0) {
+            setImage(e.target.files[0]);
+          }
+        }}
+      />
       <Inputnickname
         value={nickname}
         onChange={(e) => setNickname(e.target.value)}
@@ -34,7 +40,7 @@ const MemberRegistrationForm = ({
         onChange={(e) => setPassword(e.target.value)}
       />
       <InputPasswordConfirm />
-    </form>
+    </div>
   );
 };
 
