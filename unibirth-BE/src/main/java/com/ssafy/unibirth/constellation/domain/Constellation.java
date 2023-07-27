@@ -25,7 +25,6 @@ public class Constellation extends BaseEntity {
     @Column(name = "constellation_id")
     private Long id;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -43,22 +42,28 @@ public class Constellation extends BaseEntity {
 
     @ColumnDefault("10")
     private int boardSize;
+    @ColumnDefault("0")
     private int pointCount;
+    @ColumnDefault("0")
     private int starCount;
     @ColumnDefault("'[]'")
     private String lineList;
     @ColumnDefault("'[]'")
     private String pointList;
+    @ColumnDefault("0")
     private int totalBrightness;
+    @ColumnDefault("0")
     private double x;
+    @ColumnDefault("0")
     private double y;
 
-    public Constellation(Member member, Planet planet, String title, String description, int boardSize, String lineList, String pointList) {
+    public Constellation(Member member, Planet planet, String title, String description, int boardSize, int pointCount, String lineList, String pointList) {
         this.member = member;
         this.planet = planet;
         this.title = title;
         this.description = description;
         this.boardSize = boardSize;
+        this.pointCount = pointCount;
         this.lineList = lineList;
         this.pointList = pointList;
     }
