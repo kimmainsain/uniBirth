@@ -3,7 +3,7 @@ import useAxiosInstance from "./useAxiosInstance";
 const membersPostRegister = async (member) => {
   try {
     console.log(member);
-    const response = await useAxiosInstance.post("/members", member);
+    const response = await useAxiosInstance.post("/members/register", member);
     return response.data;
   } catch (e) {
     console.log(e);
