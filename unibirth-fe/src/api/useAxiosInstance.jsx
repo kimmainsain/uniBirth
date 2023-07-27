@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const URL = "https://unibirth";
+export const URL = "http://3.35.135.57:8080";
 
 const useAxiosInstance = axios.create({
   baseURL: URL,
