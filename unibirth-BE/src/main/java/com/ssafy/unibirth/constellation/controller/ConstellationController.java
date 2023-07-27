@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/constellations")
 @RequiredArgsConstructor
+@RequestMapping("/constellations")
+@CrossOrigin(origins = "*")
 public class ConstellationController {
     private final ConstellationService constellationService;
     @PostMapping("/register/{id}")

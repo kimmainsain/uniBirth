@@ -7,8 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/profiles")
 @RequiredArgsConstructor
+@RequestMapping("/profiles")
+@CrossOrigin(origins = "*")
 public class FollowController {
 
     private final FollowService followService;
