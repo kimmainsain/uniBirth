@@ -13,20 +13,21 @@ import com.ssafy.unibirth.member.service.MemberService;
 import com.ssafy.unibirth.planet.domain.Planet;
 import com.ssafy.unibirth.planet.service.PlanetService;
 import com.ssafy.unibirth.star.domain.Star;
+import com.ssafy.unibirth.star.dto.ReadStarListResDto;
 import com.ssafy.unibirth.star.service.StarService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ConstellationService {
-
     private final ConstellationRepository constellationRepository;
     private final MemberService memberService;
     private final PlanetService planetService;
-    private final StarService starService;
 
     public CreateConstellationResDto create(Long memberId, ConstellationReqDto dto) {
         Member member = memberService.detailUser(memberId);
@@ -44,7 +45,7 @@ public class ConstellationService {
                 .boardSize(con.getBoardSize())
                 .lineList(stringToArray(con.getLineList()))
                 .pointList(stringToArray(con.getPointList()))
-                .starList(starService.convertToStarListDto(con.getStarList()))
+                .starList(convertToStarListDto(con.getStarList()))
                 .build();
     }
 
@@ -57,5 +58,19 @@ public class ConstellationService {
     private int[][] stringToArray(String arrayString) {
         Gson gson = new Gson();
         return gson.fromJson(arrayString, int[][].class);
+    }
+
+    private List<ReadStarListResDto> convertToStarListDto(List<Star> starList) {
+        return starList.stream()
+                .map(star -> ReadStarListResDto.builder()
+                        .starId(star.getId())
+                        .createdAt(star.getCreatedAt())
+                        .content(star.getContent())
+                        .brightness(star.getBrightness())
+                        .memberId(star.getMember().getId())
+                        .nickname(star.getMember().getNickname())
+                        .imageUrl(star.getImageUrl())
+                        .build())
+                .collect(Collectors.toList());
     }
 }

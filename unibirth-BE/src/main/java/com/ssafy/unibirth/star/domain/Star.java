@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Getter
@@ -26,9 +27,18 @@ public class Star extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @ColumnDefault("0")
     private int brightness; // 좋아요
 
     private String title;
     private String content;
     private String imageUrl;
+
+    public Star(Constellation constellation, Member member, String title, String content, String imageUrl) {
+        this.constellation = constellation;
+        this.member = member;
+        this.title = title;
+        this.content = content;
+        this.imageUrl = imageUrl;
+    }
 }
