@@ -16,8 +16,13 @@ public enum FailCode {
     CONSTELLATION_NOT_FOUND(NOT_FOUND, "존재하지 않는 별자리입니다."),
     MEMBER_NOT_FOUND(NOT_FOUND, "존재하지 않는 회원입니다."),
 
+    // 회원가입
     DUPLICATED_NICKNAME(CONFLICT, "중복된 닉네임입니다."),
-    DUPLICATED_EMAIL(CONFLICT, "중복된 이메일입니다.");
+    DUPLICATED_EMAIL(CONFLICT, "중복된 이메일입니다."),
+
+    // 로그인
+    EMAIL_NOT_FOUND(NOT_FOUND, "이메일이 잘못 입력되었거나, 가입되지 않은 이메일입니다."),
+    PASSWORD_NOT_FOUND(NOT_FOUND, "비밀번호가 잘못 입력되었습니다.");
 
 
     private final HttpStatus status;
