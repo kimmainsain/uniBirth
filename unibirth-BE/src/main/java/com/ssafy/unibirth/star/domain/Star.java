@@ -26,13 +26,9 @@ public class Star extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    private double r;
-    private double c;
-
     private int brightness; // 좋아요
 
     private String title;
     private String content;
     private String imageUrl;
-
 }
