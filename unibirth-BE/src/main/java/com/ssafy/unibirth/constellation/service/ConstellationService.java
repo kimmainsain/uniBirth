@@ -4,9 +4,7 @@ import com.google.gson.Gson;
 import com.ssafy.unibirth.common.api.exception.NotFoundException;
 import com.ssafy.unibirth.common.api.status.FailCode;
 import com.ssafy.unibirth.constellation.domain.Constellation;
-import com.ssafy.unibirth.constellation.dto.ConstellationReqDto;
-import com.ssafy.unibirth.constellation.dto.CreateConstellationResDto;
-import com.ssafy.unibirth.constellation.dto.ReadConstellationResDto;
+import com.ssafy.unibirth.constellation.dto.*;
 import com.ssafy.unibirth.constellation.repository.ConstellationRepository;
 import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.service.MemberService;
@@ -46,6 +44,12 @@ public class ConstellationService {
                 .pointList(stringToArray(con.getPointList()))
                 .starList(convertToStarListDto(con.getStarList()))
                 .build();
+    }
+
+    public ReadConstellationListResDto readAll(Long planetId) {
+        List<Constellation> constellationList = constellationRepository.findAllByPlanetId(planetId);
+        List<ConstellationItemDto> constellationItemDtoList = convertToConstellationItemDto(constellationList);
+        return new ReadConstellationListResDto(constellationItemDtoList);
     }
 
     public Constellation findConstellationById(Long id) throws NotFoundException {
@@ -89,5 +93,19 @@ public class ConstellationService {
                         .imageUrl(star.getImageUrl())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    private List<ConstellationItemDto> convertToConstellationItemDto(List<Constellation> constellationList) {
+        return constellationList.stream()
+                .map(con ->
+                        ConstellationItemDto.builder()
+                                .constellationId(con.getId())
+                                .title(con.getTitle())
+                                .boardSize(con.getBoardSize())
+                                .lineList(stringToArray(con.getLineList()))
+                                .x(con.getX())
+                                .y(con.getY())
+                                .build()
+                ).collect(Collectors.toList());
     }
 }

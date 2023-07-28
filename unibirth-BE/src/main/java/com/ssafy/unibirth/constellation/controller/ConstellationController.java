@@ -24,4 +24,8 @@ public class ConstellationController {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.read(constellationId));
     }
 
+    @GetMapping("/list/{planetId}")
+    public ResponseEntity getConstellationList(@PathVariable("planetId") Long planetId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.readAll(planetId));
+    }
 }
