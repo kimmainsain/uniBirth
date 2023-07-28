@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface StarRepository extends JpaRepository<Star, Long> {
     List<Star> findAllByConstellationId(Long constellationId);
+    List<Star> findAllByMemberId(Long MemberId);
 }
