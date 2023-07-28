@@ -2,7 +2,6 @@ package com.ssafy.unibirth.constellation.controller;
 
 import com.ssafy.unibirth.common.api.ResponseEntity;
 import com.ssafy.unibirth.common.api.status.SuccessCode;
-import com.ssafy.unibirth.constellation.domain.Constellation;
 import com.ssafy.unibirth.constellation.dto.ConstellationReqDto;
 import com.ssafy.unibirth.constellation.service.ConstellationService;
 import lombok.RequiredArgsConstructor;
