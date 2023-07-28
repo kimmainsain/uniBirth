@@ -10,10 +10,7 @@ import com.ssafy.unibirth.member.service.MemberService;
 import com.ssafy.unibirth.star.domain.Brightness;
 import com.ssafy.unibirth.star.domain.BrightnessId;
 import com.ssafy.unibirth.star.domain.Star;
-import com.ssafy.unibirth.star.dto.CreateStarReqDto;
-import com.ssafy.unibirth.star.dto.CreateStarResDto;
-import com.ssafy.unibirth.star.dto.IncreaseBrightnessResDto;
-import com.ssafy.unibirth.star.dto.ReadStarDto;
+import com.ssafy.unibirth.star.dto.*;
 import com.ssafy.unibirth.star.repository.BrightnessRepository;
 import com.ssafy.unibirth.star.repository.StarRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -63,6 +61,12 @@ public class StarService {
         return new IncreaseBrightnessResDto(id, star.getBrightness());
     }
 
+    @Transactional(readOnly = true)
+    public List<ReadMyStarListResDto> getMyStarList(Long memberId) {
+        List<Star> starList = starRepository.findAllByMemberId(memberId);
+        return convertToMyStarListDto(starList);
+    }
+
     public List<Star> getStarListByConstellationId(Long id) {
         return starRepository.findAllByConstellationId(id);
     }
@@ -87,5 +91,20 @@ public class StarService {
             throw new CustomException(FailCode.ALREADY_LIKED_STAR);
         }
         return true;
+    }
+
+    private List<ReadMyStarListResDto> convertToMyStarListDto(List<Star> starList) {
+        return starList.stream()
+                .map(star -> ReadMyStarListResDto.builder()
+                        .starId(star.getId())
+                        .constellationId(star.getConstellation().getId())
+                        .createdAt(star.getCreatedAt())
+                        .updatedAt(star.getUpdatedAt())
+                        .title(star.getConstellation().getTitle())
+                        .brightness(star.getBrightness())
+                        .content(star.getContent())
+                        .imageUrl(star.getImageUrl())
+                        .build())
+                .collect(Collectors.toList());
     }
 }

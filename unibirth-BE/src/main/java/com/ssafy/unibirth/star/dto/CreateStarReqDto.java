@@ -12,11 +12,10 @@ import lombok.ToString;
 @NoArgsConstructor
 public class CreateStarReqDto {
     private Long constellationId;
-    private String title;
     private String content;
     private String imageUrl;
 
     public Star toEntity(Constellation constellation, Member member) {
-        return new Star(constellation, member, title, content, imageUrl);
+        return new Star(constellation, member, content, imageUrl);
     }
 }

@@ -16,7 +16,6 @@ public class ReadStarDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private int brightness;
-    private String title;
     private String content;
     private String imageUrl;
     private boolean isMine; // Json 으로 직렬화시 앞에 is 없이 전송된다.
@@ -30,7 +29,6 @@ public class ReadStarDto {
                 star.getCreatedAt(),
                 star.getUpdatedAt(),
                 star.getBrightness(),
-                star.getTitle(),
                 star.getContent(),
                 star.getImageUrl(),
                 star.getMember().getId() == memberId,
