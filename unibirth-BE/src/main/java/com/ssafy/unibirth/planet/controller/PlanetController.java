@@ -21,12 +21,5 @@ public class PlanetController {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, planetService.getPlanetList());
     }
 
-    @PostMapping("/register")
-    public ResponseEntity postPlanet(@RequestBody PlanetPostReqDto planetPostReqDto){
-//        Long member_id =
-//        placeService.postPlace(placePostReqDto, memberId);
 
-//        planetService.postPlanet(planetPostReqDto, );
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS);
-    }
 }

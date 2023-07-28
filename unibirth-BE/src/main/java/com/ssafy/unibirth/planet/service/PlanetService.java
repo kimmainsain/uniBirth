@@ -2,17 +2,11 @@ package com.ssafy.unibirth.planet.service;
 
 import com.ssafy.unibirth.common.api.exception.NotFoundException;
 import com.ssafy.unibirth.common.api.status.FailCode;
-import com.ssafy.unibirth.constellation.domain.Constellation;
-import com.ssafy.unibirth.follow.domain.Follow;
-import com.ssafy.unibirth.follow.domain.FollowId;
-import com.ssafy.unibirth.follow.dto.FollowResDto;
-import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.service.MemberService;
 import com.ssafy.unibirth.planet.domain.Planet;
 import com.ssafy.unibirth.planet.dto.PlanetListDto;
 import com.ssafy.unibirth.planet.dto.PlanetPostReqDto;
 import com.ssafy.unibirth.planet.repository.PlanetRepository;
-import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -52,8 +46,5 @@ public class PlanetService {
         return planetList;
     }
 
-    public void postPlanet(PlanetPostReqDto planetPostReqDto){
-        Planet planet = new Planet();
-        planetRepository.save(planetPostReqDto.toEntity(member_id));
-    }
+
 }
