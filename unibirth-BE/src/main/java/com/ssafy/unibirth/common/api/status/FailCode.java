@@ -17,6 +17,8 @@ public enum FailCode {
     MEMBER_NOT_FOUND(NOT_FOUND, "존재하지 않는 회원입니다."),
     STAR_NOT_FOUND(NOT_FOUND, "존재하지 않는 별입니다."),
 
+    COMPLETED_CONSTELLATION(BAD_REQUEST, "이미 완성된 별자리입니다."),
+
     DUPLICATED_NICKNAME(CONFLICT, "중복된 닉네임입니다."),
     DUPLICATED_EMAIL(CONFLICT, "중복된 이메일입니다.");
 

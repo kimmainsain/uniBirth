@@ -55,6 +55,17 @@ public class ConstellationService {
         );
     }
 
+    public boolean isCompletion(Long id) {
+        Constellation constellation = findConstellationById(id);
+        return constellation.getStarCount() == constellation.getPointCount();
+    }
+
+    public int increaseConstellationStarCount(Long id) {
+        Constellation constellation = findConstellationById(id);
+        constellation.setStarCount(constellation.getStarCount() + 1);
+        return constellation.getStarCount();
+    }
+
     private int[][] stringToArray(String arrayString) {
         Gson gson = new Gson();
         return gson.fromJson(arrayString, int[][].class);
