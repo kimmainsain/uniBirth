@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/example")
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 public class ExampleController {
 
     @GetMapping

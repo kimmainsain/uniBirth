@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/profiles")
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 public class FollowController {
 
     private final FollowService followService;
