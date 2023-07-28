@@ -3,8 +3,9 @@ import Footer1 from "../../../common/blocks/Footer1";
 import Button1 from "../../../common/atoms/Button1";
 import useMemberApi from "../../../api/useMemberApi";
 import useConstellationApi from "../../../api/useConstellationApi";
-
 import { useNavigation } from "../../../hooks/useNavigation";
+import Space from "../blocks/Space";
+import { Canvas } from "@react-three/fiber";
 
 const Home = () => {
   const { navigateToMainPlanet } = useNavigation();
@@ -70,6 +71,9 @@ const Home = () => {
     <div>
       <h1>홈 화면입니다. </h1>
       <Footer1 buttons={buttons} />
+      <Canvas>
+        <Space />
+      </Canvas>
     </div>
   );
 };
