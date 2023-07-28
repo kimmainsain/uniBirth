@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/constellations")
 @RequiredArgsConstructor
+@RequestMapping("/constellations")
 public class ConstellationController {
     private final ConstellationService constellationService;
     @PostMapping("/register/{id}")
