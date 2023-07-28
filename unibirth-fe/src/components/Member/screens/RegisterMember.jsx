@@ -19,6 +19,8 @@ const RegisterMember = () => {
   const { navigateToBack, navigateToMainPlanet } = useNavigation();
   const [ServerImageURL, setServerImageURL] = useState("");
 
+  const URL = "http://3.35.135.57:8080";
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (nickname && email && password) {
@@ -46,7 +48,7 @@ const RegisterMember = () => {
               .then(() => {
                 // axios 요청을 보내야 함
                 axios
-                  .post("http://3.35.135.57:8080/members/register", {
+                  .post(`${URL}/members/register`, {
                     image_Url: ServerImageURL,
                     nickname,
                     email,
