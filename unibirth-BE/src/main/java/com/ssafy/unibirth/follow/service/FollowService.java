@@ -4,6 +4,7 @@ import com.ssafy.unibirth.common.api.exception.NotFoundException;
 import com.ssafy.unibirth.common.api.status.FailCode;
 import com.ssafy.unibirth.follow.domain.Follow;
 import com.ssafy.unibirth.follow.domain.FollowId;
+import com.ssafy.unibirth.follow.dto.FollowCntDto;
 import com.ssafy.unibirth.follow.dto.FollowListDto;
 import com.ssafy.unibirth.follow.dto.FollowReqDto;
 import com.ssafy.unibirth.follow.dto.FollowResDto;
@@ -36,8 +37,9 @@ public class FollowService {
         follow.setId(followId);
         follow.setFollowFrom(follow_from);
         follow.setFollowTo(follow_to);
-        Long id = followRepository.save(follow).getFollowFrom().getId();
-        Long id2 = followRepository.save(follow).getFollowTo().getId();
+        followRepository.save(follow);
+        Long id = follow.getFollowFrom().getId();
+        Long id2 = follow.getFollowTo().getId();
         return new FollowResDto(id, id2);
     }
 
@@ -90,20 +92,19 @@ public class FollowService {
     }
 
     //팔로워 수
-    public Long countFollowers(Long id) throws NotFoundException{
+    public FollowCntDto countFollowers(Long id) throws NotFoundException{
         Member follow_to = memberService.detailUser(id);
 
         Long cnt = followRepository.countByFollowTo(follow_to);
-
-        return cnt;
+        return new FollowCntDto(cnt);
     }
 
     //팔로잉 수
-    public Long countFollowings(Long id) throws NotFoundException{
+    public FollowCntDto countFollowings(Long id) throws NotFoundException{
         Member follow_from = memberService.detailUser(id);
 
         Long cnt = followRepository.countByFollowFrom(follow_from);
 
-        return cnt;
+        return new FollowCntDto(cnt);
     }
 }
