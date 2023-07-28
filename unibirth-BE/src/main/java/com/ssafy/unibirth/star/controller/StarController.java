@@ -18,4 +18,9 @@ public class StarController {
     public ResponseEntity createStar(@PathVariable("id") Long memberId, @RequestBody CreateStarReqDto dto) {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.create(memberId, dto));
     }
+
+    @GetMapping("/{id}/{memberId}")
+    public ResponseEntity getStar(@PathVariable("id") Long starId, @PathVariable("memberId") Long memberId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.read(starId, memberId));
+    }
 }

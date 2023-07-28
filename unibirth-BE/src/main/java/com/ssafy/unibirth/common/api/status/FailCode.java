@@ -15,6 +15,7 @@ public enum FailCode {
     PLANET_NOT_FOUND(NOT_FOUND, "존재하지 않은 행성입니다."),
     CONSTELLATION_NOT_FOUND(NOT_FOUND, "존재하지 않는 별자리입니다."),
     MEMBER_NOT_FOUND(NOT_FOUND, "존재하지 않는 회원입니다."),
+    STAR_NOT_FOUND(NOT_FOUND, "존재하지 않는 별입니다."),
 
     DUPLICATED_NICKNAME(CONFLICT, "중복된 닉네임입니다."),
     DUPLICATED_EMAIL(CONFLICT, "중복된 이메일입니다.");
