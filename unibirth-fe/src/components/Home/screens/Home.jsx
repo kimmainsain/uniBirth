@@ -1,7 +1,6 @@
 import React from "react";
 import Footer1 from "../../../common/blocks/Footer1";
 import Button1 from "../../../common/atoms/Button1";
-import Grid from "../temp/Grid";
 // import useMemberApi from "../../../api/useMemberApi";
 // import useConstellationApi from "../../../api/useConstellationApi";
 
@@ -70,7 +69,6 @@ const Home = () => {
   return (
     <div>
       <h1>홈 화면입니다. </h1>
-      <Grid />
       <Footer1 buttons={buttons} />
     </div>
   );
