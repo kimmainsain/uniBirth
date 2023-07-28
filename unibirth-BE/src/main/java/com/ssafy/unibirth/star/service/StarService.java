@@ -12,6 +12,7 @@ import com.ssafy.unibirth.star.domain.BrightnessId;
 import com.ssafy.unibirth.star.domain.Star;
 import com.ssafy.unibirth.star.dto.CreateStarReqDto;
 import com.ssafy.unibirth.star.dto.CreateStarResDto;
+import com.ssafy.unibirth.star.dto.IncreaseBrightnessResDto;
 import com.ssafy.unibirth.star.dto.ReadStarDto;
 import com.ssafy.unibirth.star.repository.BrightnessRepository;
 import com.ssafy.unibirth.star.repository.StarRepository;
@@ -52,14 +53,14 @@ public class StarService {
     }
 
     @Transactional
-    public int increaseBrightness(Long id, Long memberId) {
+    public IncreaseBrightnessResDto increaseBrightness(Long id, Long memberId) {
         checkAlreadyLiked(memberId, id);
 
         Star star = findStarById(id);
         star.setBrightness(star.getBrightness() + 1);
         constellationService.increaseTotalBrightness(star.getConstellation());
         brightnessRepository.save(new Brightness(memberService.detailUser(memberId), star));
-        return star.getBrightness();
+        return new IncreaseBrightnessResDto(id, star.getBrightness());
     }
 
     public List<Star> getStarListByConstellationId(Long id) {
