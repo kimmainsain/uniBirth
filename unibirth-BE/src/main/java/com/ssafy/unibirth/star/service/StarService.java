@@ -46,7 +46,9 @@ public class StarService {
 
     public ReadStarDto read(Long id, Long memberId) {
         Star star = findStarById(id);
-        return ReadStarDto.from(star, memberId);
+        BrightnessId brightnessId = new BrightnessId(memberId, id);
+        boolean alreadyLiked = brightnessRepository.existsById(brightnessId);
+        return ReadStarDto.from(star, memberId, alreadyLiked);
     }
 
     @Transactional

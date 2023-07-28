@@ -20,8 +20,9 @@ public class ReadStarDto {
     private String content;
     private String imageUrl;
     private boolean isMine;
+    private boolean alreadyLiked;
 
-    public static ReadStarDto from(Star star, Long memberId) {
+    public static ReadStarDto from(Star star, Long memberId, boolean alreadyLiked) {
         return new ReadStarDto(
                 star.getId(),
                 star.getConstellation().getId(),
@@ -32,7 +33,8 @@ public class ReadStarDto {
                 star.getTitle(),
                 star.getContent(),
                 star.getImageUrl(),
-                star.getMember().getId() == memberId
+                star.getMember().getId() == memberId,
+                alreadyLiked
                 );
     }
 }
