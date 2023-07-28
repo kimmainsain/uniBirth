@@ -19,7 +19,7 @@ public class ReadStarDto {
     private String title;
     private String content;
     private String imageUrl;
-    private boolean isMine;
+    private boolean isMine; // Json 으로 직렬화시 앞에 is 없이 전송된다.
     private boolean alreadyLiked;
 
     public static ReadStarDto from(Star star, Long memberId, boolean alreadyLiked) {
