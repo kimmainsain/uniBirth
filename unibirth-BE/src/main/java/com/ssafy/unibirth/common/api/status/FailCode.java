@@ -17,8 +17,10 @@ public enum FailCode {
     MEMBER_NOT_FOUND(NOT_FOUND, "존재하지 않는 회원입니다."),
 
     DUPLICATED_NICKNAME(CONFLICT, "중복된 닉네임입니다."),
-    DUPLICATED_EMAIL(CONFLICT, "중복된 이메일입니다.");
+    DUPLICATED_EMAIL(CONFLICT, "중복된 이메일입니다."),
 
+    // 팔로우
+    FOLLOWER_NOT_FOUND(NOT_FOUND, "팔로우하는 유저가 아닙니다.");
 
     private final HttpStatus status;
     private final String message;

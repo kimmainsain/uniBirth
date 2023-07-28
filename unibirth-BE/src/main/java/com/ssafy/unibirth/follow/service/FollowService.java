@@ -10,6 +10,7 @@ import com.ssafy.unibirth.follow.dto.FollowReqDto;
 import com.ssafy.unibirth.follow.dto.FollowResDto;
 import com.ssafy.unibirth.follow.repository.FollowRepository;
 import com.ssafy.unibirth.member.domain.Member;
+import com.ssafy.unibirth.member.repository.MemberRepository;
 import com.ssafy.unibirth.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,21 +26,28 @@ public class FollowService {
 
     private final FollowRepository followRepository;
     private final MemberService memberService;
-
     //팔로우하기
     public FollowResDto follow(FollowReqDto followReqDto) throws NotFoundException {
-        Member follow_from = memberService.detailUser(followReqDto.getFollow_from());
-        Member follow_to = memberService.detailUser(followReqDto.getFollow_to());
+        Long id, id2;
+        try{
+            Member follow_from = memberService.detailUser(followReqDto.getFollow_from());
+            Member follow_to = memberService.detailUser(followReqDto.getFollow_to());
 
-        FollowId followId = new FollowId(followReqDto.getFollow_from(), followReqDto.getFollow_to());
-        Follow follow = new Follow();
 
-        follow.setId(followId);
-        follow.setFollowFrom(follow_from);
-        follow.setFollowTo(follow_to);
-        followRepository.save(follow);
-        Long id = follow.getFollowFrom().getId();
-        Long id2 = follow.getFollowTo().getId();
+            FollowId followId = new FollowId(followReqDto.getFollow_from(), followReqDto.getFollow_to());
+            Follow follow = new Follow();
+
+            follow.setId(followId);
+            follow.setFollowFrom(follow_from);
+            follow.setFollowTo(follow_to);
+            followRepository.save(follow);
+            id = follow.getFollowFrom().getId();
+            id2 = follow.getFollowTo().getId();
+
+        }catch (Exception e) {
+            throw new NotFoundException(FailCode.MEMBER_NOT_FOUND);
+        }
+
         return new FollowResDto(id, id2);
     }
 
@@ -49,7 +57,7 @@ public class FollowService {
         Member follow_to = memberService.detailUser(id2);
 
         Follow follow = followRepository.findByFollowFromAndAndFollowTo(follow_from, follow_to)
-                .orElseThrow(() -> new NotFoundException(FailCode.MEMBER_NOT_FOUND));
+                .orElseThrow(() -> new NotFoundException(FailCode.FOLLOWER_NOT_FOUND));
 
         followRepository.delete(follow);
     }
