@@ -13,6 +13,7 @@ public class ReadStarDto {
     private Long starId;
     private Long constellationId;
     private Long memberId;
+    private String nickname;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private int brightness;
@@ -26,6 +27,7 @@ public class ReadStarDto {
                 star.getId(),
                 star.getConstellation().getId(),
                 star.getMember().getId(),
+                star.getMember().getNickname(),
                 star.getCreatedAt(),
                 star.getUpdatedAt(),
                 star.getBrightness(),
