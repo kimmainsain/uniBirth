@@ -3,10 +3,7 @@ package com.ssafy.unibirth.member.controller;
 import com.ssafy.unibirth.common.api.ResponseEntity;
 import com.ssafy.unibirth.common.api.status.SuccessCode;
 import com.ssafy.unibirth.member.domain.Member;
-import com.ssafy.unibirth.member.dto.LoginRequestDto;
-import com.ssafy.unibirth.member.dto.LoginResponseDto;
-import com.ssafy.unibirth.member.dto.MemberDto;
-import com.ssafy.unibirth.member.dto.UpdateMemberDto;
+import com.ssafy.unibirth.member.dto.*;
 import com.ssafy.unibirth.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -64,6 +61,20 @@ public class MemberController {
     @PostMapping("/check/nickname")
     public ResponseEntity<Void> checkDuplicatedNickname(String nickname) {
         memberService.checkDuplicatedNickname(nickname);
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS);
+    }
+
+    // 프로필 조회
+    @GetMapping("/profiles/{id}")
+    public ResponseEntity<ProfileRespDto> getProfile(@PathVariable("id") Long id) {
+        ProfileRespDto profile = memberService.getProfile(id);
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, profile);
+    }
+
+    // 프로필 수정
+    @PutMapping("/profiles/{id}")
+    public ResponseEntity<Void> updateProfile(@PathVariable("id") Long id, @RequestBody UpdateProfileReqDto updateProfileReqDto) {
+        memberService.updateProfile(id, updateProfileReqDto);
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS);
     }
 

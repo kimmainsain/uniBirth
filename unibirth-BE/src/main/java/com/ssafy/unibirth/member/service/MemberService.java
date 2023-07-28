@@ -7,6 +7,8 @@ import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.domain.Role;
 import com.ssafy.unibirth.member.dto.LoginRequestDto;
 import com.ssafy.unibirth.member.dto.LoginResponseDto;
+import com.ssafy.unibirth.member.dto.ProfileRespDto;
+import com.ssafy.unibirth.member.dto.UpdateProfileReqDto;
 import com.ssafy.unibirth.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -83,6 +85,19 @@ public class MemberService{
         if(findMember.isPresent()) {
             throw new DuplicatedException(FailCode.DUPLICATED_NICKNAME);
         }
+    }
+
+    // 프로필 조회
+    public ProfileRespDto getProfile(Long id) {
+        Member findMember = memberRepository.findById(id).orElseThrow(() -> new NotFoundException(FailCode.MEMBER_NOT_FOUND));
+        ProfileRespDto profileRespDto = new ProfileRespDto(findMember);
+        return profileRespDto;
+    }
+
+    // 멤버 프로필 수정
+    public void updateProfile(Long id, UpdateProfileReqDto updateProfileReqDto) {
+        Member findMember = memberRepository.findById(id).orElseThrow(() -> new NotFoundException(FailCode.MEMBER_NOT_FOUND));
+        findMember.updateProfile(updateProfileReqDto);
     }
 
     // 결재 후 별자리 칸 추가
