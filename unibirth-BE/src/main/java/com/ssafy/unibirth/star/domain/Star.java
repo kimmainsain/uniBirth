@@ -6,11 +6,13 @@ import com.ssafy.unibirth.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @ToString
 public class Star extends BaseEntity {

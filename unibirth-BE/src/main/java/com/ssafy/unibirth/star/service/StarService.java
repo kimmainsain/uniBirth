@@ -7,10 +7,13 @@ import com.ssafy.unibirth.constellation.domain.Constellation;
 import com.ssafy.unibirth.constellation.service.ConstellationService;
 import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.service.MemberService;
+import com.ssafy.unibirth.star.domain.Brightness;
+import com.ssafy.unibirth.star.domain.BrightnessId;
 import com.ssafy.unibirth.star.domain.Star;
 import com.ssafy.unibirth.star.dto.CreateStarReqDto;
 import com.ssafy.unibirth.star.dto.CreateStarResDto;
 import com.ssafy.unibirth.star.dto.ReadStarDto;
+import com.ssafy.unibirth.star.repository.BrightnessRepository;
 import com.ssafy.unibirth.star.repository.StarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StarService {
     private final StarRepository starRepository;
+    private final BrightnessRepository brightnessRepository;
     private final MemberService memberService;
     private final ConstellationService constellationService;
 
@@ -40,16 +44,20 @@ public class StarService {
         return new CreateStarResDto(createdId);
     }
 
-    private boolean checkCompletion(Long constellationId) {
-        if(constellationService.isCompletion(constellationId)) {
-           throw new CustomException(FailCode.COMPLETED_CONSTELLATION);
-        }
-        return true;
-    }
-
     public ReadStarDto read(Long id, Long memberId) {
         Star star = findStarById(id);
         return ReadStarDto.from(star, memberId);
+    }
+
+    @Transactional
+    public int increaseBrightness(Long id, Long memberId) {
+        checkAlreadyLiked(memberId, id);
+
+        Star star = findStarById(id);
+        star.setBrightness(star.getBrightness() + 1);
+        constellationService.increaseTotalBrightness(star.getConstellation());
+        brightnessRepository.save(new Brightness(memberService.detailUser(memberId), star));
+        return star.getBrightness();
     }
 
     public List<Star> getStarListByConstellationId(Long id) {
@@ -61,5 +69,20 @@ public class StarService {
         return starRepository.findById(id).orElseThrow(
                 () -> new NotFoundException(FailCode.STAR_NOT_FOUND)
         );
+    }
+
+    private boolean checkCompletion(Long constellationId) {
+        if(constellationService.isCompletion(constellationId)) {
+            throw new CustomException(FailCode.ALREADY_COMPLETED_CONSTELLATION);
+        }
+        return true;
+    }
+
+    private boolean checkAlreadyLiked(Long memberId, Long starId) {
+        BrightnessId id = new BrightnessId(memberId, starId);
+        if(brightnessRepository.existsById(id)) {
+            throw new CustomException(FailCode.ALREADY_LIKED_STAR);
+        }
+        return true;
     }
 }

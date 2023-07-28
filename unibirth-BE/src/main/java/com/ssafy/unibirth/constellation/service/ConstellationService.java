@@ -18,6 +18,7 @@ import com.ssafy.unibirth.star.service.StarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -60,10 +61,17 @@ public class ConstellationService {
         return constellation.getStarCount() == constellation.getPointCount();
     }
 
+    @Transactional
     public int increaseConstellationStarCount(Long id) {
         Constellation constellation = findConstellationById(id);
         constellation.setStarCount(constellation.getStarCount() + 1);
         return constellation.getStarCount();
+    }
+
+    @Transactional
+    public int increaseTotalBrightness(Constellation constellation) {
+        constellation.setTotalBrightness(constellation.getTotalBrightness() + 1);
+        return constellation.getTotalBrightness();
     }
 
     private int[][] stringToArray(String arrayString) {

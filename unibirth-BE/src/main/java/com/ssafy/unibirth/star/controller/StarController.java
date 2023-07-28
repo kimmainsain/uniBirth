@@ -22,4 +22,9 @@ public class StarController {
     public ResponseEntity getStar(@PathVariable("id") Long starId, @PathVariable("memberId") Long memberId) {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.read(starId, memberId));
     }
+
+    @GetMapping("/brightness/{id}/{memberId}")
+    public ResponseEntity increaseBrightness(@PathVariable("id") Long starId, @PathVariable("memberId") Long memberId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.increaseBrightness(starId, memberId));
+    }
 }
