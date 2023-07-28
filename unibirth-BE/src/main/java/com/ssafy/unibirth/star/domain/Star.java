@@ -32,14 +32,12 @@ public class Star extends BaseEntity {
     @ColumnDefault("0")
     private int brightness; // 좋아요
 
-    private String title;
     private String content;
     private String imageUrl;
 
-    public Star(Constellation constellation, Member member, String title, String content, String imageUrl) {
+    public Star(Constellation constellation, Member member, String content, String imageUrl) {
         this.constellation = constellation;
         this.member = member;
-        this.title = title;
         this.content = content;
         this.imageUrl = imageUrl;
     }
