@@ -22,4 +22,12 @@ public class FollowController {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, followService.follow(followReqDto));
     }
 
+
+    @DeleteMapping({"/follow/{follow_from}/{follow_to}"})
+    public ResponseEntity<Void> deleteFollow(@PathVariable("follow_from") Long follow_from,
+                                             @PathVariable("follow_to") Long follow_to){
+        followService.deleteFollow(follow_from, follow_to);
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS);
+    }
+
 }
