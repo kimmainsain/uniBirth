@@ -51,14 +51,26 @@ public class StarService {
     }
 
     @Transactional
-    public IncreaseBrightnessResDto increaseBrightness(Long id, Long memberId) {
-        checkAlreadyLiked(memberId, id);
-
+    public BrightnessResDto updateBrightness(Long id, Long memberId, int likeDiff) {
         Star star = findStarById(id);
-        star.setBrightness(star.getBrightness() + 1);
-        constellationService.increaseTotalBrightness(star.getConstellation());
-        brightnessRepository.save(new Brightness(memberService.detailUser(memberId), star));
-        return new IncreaseBrightnessResDto(id, star.getBrightness());
+        checkLikeValidation(memberId, star, likeDiff);
+
+        star.setBrightness(star.getBrightness() + likeDiff);
+        constellationService.updateTotalBrightness(star.getConstellation(), likeDiff);
+        updateBrightnessRepository(memberId, star, likeDiff);
+
+        return new BrightnessResDto(id, star.getBrightness());
+    }
+
+    @Transactional
+    public boolean updateBrightnessRepository(Long memberId, Star star, int likeDiff) {
+        if(likeDiff >= 0) {
+            brightnessRepository.save(new Brightness(memberService.detailUser(memberId), star));
+        }
+        else {
+            brightnessRepository.delete(findBrightnessById(memberId, star.getId()));
+        }
+        return true;
     }
 
     @Transactional(readOnly = true)
@@ -78,6 +90,14 @@ public class StarService {
         );
     }
 
+    @Transactional(readOnly = true)
+    public Brightness findBrightnessById(Long memberId, Long starId) {
+        BrightnessId brightnessId = new BrightnessId(memberId, starId);
+        return brightnessRepository.findById(brightnessId).orElseThrow(
+                () -> new NotFoundException(FailCode.BRIGHTNESS_NOT_FOUND)
+        );
+    }
+
     private boolean checkCompletion(Long constellationId) {
         if(constellationService.isCompletion(constellationId)) {
             throw new CustomException(FailCode.ALREADY_COMPLETED_CONSTELLATION);
@@ -85,10 +105,17 @@ public class StarService {
         return true;
     }
 
-    private boolean checkAlreadyLiked(Long memberId, Long starId) {
-        BrightnessId id = new BrightnessId(memberId, starId);
-        if(brightnessRepository.existsById(id)) {
+    private boolean checkLikeValidation(Long memberId, Star star, int diff) {
+        BrightnessId id = new BrightnessId(memberId, star.getId());
+        boolean alreadyLiked = brightnessRepository.existsById(id);
+        if(diff >= 0 && alreadyLiked) {
             throw new CustomException(FailCode.ALREADY_LIKED_STAR);
+        }
+        if((diff < 0 && !alreadyLiked)) {
+            throw new CustomException(FailCode.BRIGHTNESS_NOT_FOUND);
+        }
+        if(diff < 0 && star.getBrightness() <= 0) {
+            throw new CustomException(FailCode.MINUS_STAR);
         }
         return true;
     }

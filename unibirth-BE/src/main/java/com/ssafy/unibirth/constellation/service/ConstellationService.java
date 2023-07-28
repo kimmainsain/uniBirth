@@ -14,9 +14,7 @@ import com.ssafy.unibirth.planet.domain.Planet;
 import com.ssafy.unibirth.planet.service.PlanetService;
 import com.ssafy.unibirth.star.domain.Star;
 import com.ssafy.unibirth.star.dto.ReadStarListResDto;
-import com.ssafy.unibirth.star.service.StarService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -69,8 +67,8 @@ public class ConstellationService {
     }
 
     @Transactional
-    public int increaseTotalBrightness(Constellation constellation) {
-        constellation.setTotalBrightness(constellation.getTotalBrightness() + 1);
+    public int updateTotalBrightness(Constellation constellation, int diff) {
+        constellation.setTotalBrightness(constellation.getTotalBrightness() + diff);
         return constellation.getTotalBrightness();
     }
 
