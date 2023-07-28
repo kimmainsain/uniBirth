@@ -25,11 +25,16 @@ public class StarController {
 
     @GetMapping("/brightness/{id}/{memberId}")
     public ResponseEntity increaseBrightness(@PathVariable("id") Long starId, @PathVariable("memberId") Long memberId) {
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.increaseBrightness(starId, memberId));
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.updateBrightness(starId, memberId, 1));
     }
 
     @GetMapping("/{memberId}")
     public ResponseEntity getMyStarList(@PathVariable("memberId") Long memberId) {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.getMyStarList(memberId));
+    }
+
+    @DeleteMapping("/brightness/{id}/{memberId}")
+    public ResponseEntity decreaseBrightness(@PathVariable("id") Long starId, @PathVariable("memberId") Long memberId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.updateBrightness(starId, memberId, -1));
     }
 }

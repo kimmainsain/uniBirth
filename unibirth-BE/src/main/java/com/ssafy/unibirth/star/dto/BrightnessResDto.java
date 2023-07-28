@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class IncreaseBrightnessResDto {
+public class BrightnessResDto {
     private Long starId;
     private int brightness;
 }
