@@ -1,5 +1,6 @@
 package com.ssafy.unibirth.common.api;
 
+import com.ssafy.unibirth.common.api.exception.CustomException;
 import com.ssafy.unibirth.common.api.exception.DuplicatedException;
 import com.ssafy.unibirth.common.api.exception.NotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,6 +17,11 @@ public class GlobalControllerAdvice {
 
     @ExceptionHandler(DuplicatedException.class)
     public ResponseEntity handleNotFoundException(DuplicatedException exception) {
+        return ResponseEntity.fail(exception.getFailCode());
+    }
+
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity handleNotFoundException(CustomException exception) {
         return ResponseEntity.fail(exception.getFailCode());
     }
 }

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/constellations")
-@CrossOrigin(origins = "*")
 public class ConstellationController {
     private final ConstellationService constellationService;
     @PostMapping("/register/{id}")

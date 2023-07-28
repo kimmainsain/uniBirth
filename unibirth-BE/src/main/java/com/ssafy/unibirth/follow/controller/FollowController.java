@@ -12,7 +12,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/profiles")
-@CrossOrigin(origins = "*")
 public class FollowController {
 
     private final FollowService followService;
