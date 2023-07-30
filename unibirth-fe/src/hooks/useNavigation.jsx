@@ -7,14 +7,25 @@ export const useNavigation = () => {
     navigate(-1);
   };
 
+  const refreshPage = () => {
+    navigate(".", { replace: true });
+  };
+
+  // Home
   const navigateToHome = () => {
     navigate("/");
   };
 
+  // Member
   const navigateToLoginMember = () => {
     navigate("/members/login");
   };
 
+  const navigateToRegisterMember = () => {
+    navigate("/members/register");
+  };
+
+  // Constellation
   const navigateToDetailConstellation = () => {
     navigate(`/constellations/detail/${1}`);
   };
@@ -27,14 +38,7 @@ export const useNavigation = () => {
     navigate(`/constellations/drawing`);
   };
 
-  const navigateToRegisterMember = () => {
-    navigate("/members/register");
-  };
-
-  const navigateToModifyProfile = () => {
-    navigate(`/profiles/modify/${1}`);
-  };
-
+  // Planet
   const navigateToDetailPlanet = () => {
     navigate(`/planets/${1}`);
   };
@@ -43,16 +47,13 @@ export const useNavigation = () => {
     navigate("/planets");
   };
 
+  // Profile
   const navigateToMemberProfile = () => {
     navigate(`/profiles/${1}`);
   };
 
-  const navigateToRegisterStar = () => {
-    navigate(`/stars/register/${1}`);
-  };
-
-  const refreshPage = () => {
-    navigate(".", { replace: true });
+  const navigateToModifyProfile = () => {
+    navigate(`/profiles/modify/${1}`);
   };
 
   const navigateToFollowings = () => {
@@ -71,6 +72,12 @@ export const useNavigation = () => {
     navigate(`/profiles/messagebox/${1}`);
   };
 
+  // Star
+  const navigateToRegisterStar = () => {
+    navigate(`/stars/register/${1}`);
+  };
+
+  // Search
   const navigateToSearchQuration = () => {
     navigate("/search");
   };
@@ -80,23 +87,23 @@ export const useNavigation = () => {
   };
 
   return {
-    navigateToLoginMember,
-    navigateToDetailConstellation,
-    navigateToMainPlanet,
     navigateToBack,
+    refreshPage,
     navigateToHome,
+    navigateToLoginMember,
+    navigateToRegisterMember,
+    navigateToDetailConstellation,
     navigateToRegisterConstellation,
     navigateToDrawingConstellation,
-    navigateToRegisterStar,
     navigateToDetailPlanet,
-    navigateToModifyProfile,
-    navigateToRegisterMember,
+    navigateToMainPlanet,
     navigateToMemberProfile,
-    refreshPage,
+    navigateToModifyProfile,
     navigateToFollowings,
     navigateToFollowers,
     navigateToDirectMessage,
     navigateToMessageBox,
+    navigateToRegisterStar,
     navigateToSearchQuration,
     navigateToSearchCommon,
   };

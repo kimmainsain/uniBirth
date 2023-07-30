@@ -5,7 +5,7 @@ import Header1 from "../../../common/blocks/Header1";
 import Footer1 from "../../../common/blocks/Footer1";
 import { BiSearch } from "react-icons/bi";
 import { useNavigation } from "../../../hooks/useNavigation";
-import DrawingStella from "../atoms/DrawingStella";
+import GridCustomConstellation from "../blocks/GridCustomConstellation";
 
 const DrawingConstellation = () => {
   const { navigateToBack } = useNavigation();
@@ -51,7 +51,7 @@ const DrawingConstellation = () => {
       <p className="lg-10 my-5 flex justify-center font-TAEBAEKmilkyway text-4xl">
         별자리 그리기 예시입니다.
       </p>
-      <DrawingStella />
+      <GridCustomConstellation />
       <Footer1 buttons={buttonsFooter} />
     </div>
   );

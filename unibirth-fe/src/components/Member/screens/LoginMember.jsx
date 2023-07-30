@@ -25,6 +25,7 @@ const LoginMember = () => {
       window.alert("email을 제대로 입력해주세요");
       return;
     }
+    // 클릭하면 axios 요청을 보내서  home 으로 이동하기
     console.log(`Username: ${email}, Password: ${password}`);
   };
 
