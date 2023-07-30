@@ -9,30 +9,30 @@ import { useNavigation } from "../../../hooks/useNavigation";
 const Home = () => {
   const { navigateToMainPlanet } = useNavigation();
 
-  // const handleGo1 = async () => {
-  //   const response = await useMemberApi.membersGetDetail(2);
-  //   console.log(response);
-  // };
+  const handleGo1 = async () => {
+    const response = await useMemberApi.membersGetDetail(2);
+    console.log(response);
+  };
 
-  // const handleGo2 = async () => {
-  //   const response = await useConstellationApi.constellationsGetStars(1);
-  //   console.log(response);
-  // };
+  const handleGo2 = async () => {
+    const response = await useConstellationApi.constellationsGetStars(1);
+    console.log(response);
+  };
 
-  // const handleGo3 = async () => {
-  //   const response = await useMemberApi.membersPostRegister({
-  //     name: "ㅇㅇ네임",
-  //     nickname: "ㅇㅅㅇ닉네임",
-  //     password: "일단테스트입니다",
-  //     email: "이메일작성아무거나제출",
-  //   });
-  //   console.log(response);
-  // };
+  const handleGo3 = async () => {
+    const response = await useMemberApi.membersPostRegister({
+      name: "ㅇㅇ네임",
+      nickname: "ㅇㅅㅇ닉네임",
+      password: "일단테스트입니다",
+      email: "이메일작성아무거나제출",
+    });
+    console.log(response);
+  };
 
-  // const handleGo4 = async () => {
-  //   const response = await useMemberApi.membersDeleteDelete(3);
-  //   console.log(response);
-  // };
+  const handleGo4 = async () => {
+    const response = await useMemberApi.membersDeleteDelete(3);
+    console.log(response);
+  };
 
   const buttons = [
     {
@@ -41,30 +41,30 @@ const Home = () => {
       value: "시작하기",
       onClick: navigateToMainPlanet,
     },
-    // {
-    //   component: Button1,
-    //   className: "font-TAEBAEKmilkyway",
-    //   value: "값 가져오기",
-    //   onClick: handleGo1,
-    // },
-    // {
-    //   component: Button1,
-    //   className: "font-TAEBAEKmilkyway",
-    //   value: "별자리 가져오기",
-    //   onClick: handleGo2,
-    // },
-    // {
-    //   component: Button1,
-    //   className: "font-TAEBAEKmilkyway",
-    //   value: "별자리 가져오기",
-    //   onClick: handleGo3,
-    // },
-    // {
-    //   component: Button1,
-    //   className: "font-TAEBAEKmilkyway",
-    //   value: "회원삭제",
-    //   onClick: handleGo4,
-    // },
+    {
+      component: Button1,
+      className: "font-TAEBAEKmilkyway",
+      value: "값 가져오기",
+      onClick: handleGo1,
+    },
+    {
+      component: Button1,
+      className: "font-TAEBAEKmilkyway",
+      value: "별자리 가져오기",
+      onClick: handleGo2,
+    },
+    {
+      component: Button1,
+      className: "font-TAEBAEKmilkyway",
+      value: "별자리 가져오기",
+      onClick: handleGo3,
+    },
+    {
+      component: Button1,
+      className: "font-TAEBAEKmilkyway",
+      value: "회원삭제",
+      onClick: handleGo4,
+    },
   ];
 
   return (
