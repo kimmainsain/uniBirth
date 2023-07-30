@@ -5,25 +5,39 @@ import com.ssafy.unibirth.common.api.exception.NotFoundException;
 import com.ssafy.unibirth.common.api.status.FailCode;
 import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.domain.Role;
-import com.ssafy.unibirth.member.exception.MemberNotFoundException;
+import com.ssafy.unibirth.member.dto.LoginRequestDto;
+import com.ssafy.unibirth.member.dto.LoginResponseDto;
+import com.ssafy.unibirth.member.dto.ProfileRespDto;
+import com.ssafy.unibirth.member.dto.UpdateProfileReqDto;
 import com.ssafy.unibirth.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 @Transactional
-public class MemberService {
+public class MemberService{
 
-    @Autowired
-    MemberRepository memberRepository;
-
+    private final MemberRepository memberRepository;
 
     // 회원 가입
     public void signup(Member member) {
         memberRepository.save(member);
+    }
+
+    // 로그인
+    public LoginResponseDto login(LoginRequestDto loginRequestDto) {
+
+        Member findMember = memberRepository.findByEmail(loginRequestDto.getEmail()).orElseThrow(() -> new NotFoundException(FailCode.EMAIL_NOT_FOUND));
+
+        if(!findMember.getPassword().equals(loginRequestDto.getPassword())) {
+            throw new NotFoundException(FailCode.PASSWORD_NOT_FOUND);
+        }
+
+        return new LoginResponseDto(findMember.getNickname(), findMember.getEmail(), findMember.getRole());
     }
 
     // 회원 정보 수정
@@ -63,8 +77,6 @@ public class MemberService {
             throw new DuplicatedException(FailCode.DUPLICATED_EMAIL);
         }
     }
-    
-    // 이메일 유효여부 확인
 
     // 닉네임 중복여부 확인
     public void checkDuplicatedNickname(String nickname){
@@ -75,6 +87,27 @@ public class MemberService {
         }
     }
 
+    // 프로필 조회
+    public ProfileRespDto getProfile(Long id) {
+        Member findMember = memberRepository.findById(id).orElseThrow(() -> new NotFoundException(FailCode.MEMBER_NOT_FOUND));
+        ProfileRespDto profileRespDto = new ProfileRespDto(findMember);
+        return profileRespDto;
+    }
 
+    // 멤버 프로필 수정
+    public void updateProfile(Long id, UpdateProfileReqDto updateProfileReqDto) {
+        Member findMember = memberRepository.findById(id).orElseThrow(() -> new NotFoundException(FailCode.MEMBER_NOT_FOUND));
+        findMember.updateProfile(updateProfileReqDto);
+    }
+
+    // 결재 후 별자리 칸 추가
+    public void addBlocks(Member member) {
+        member.plusBlock();
+    }
+
+    // 결재 후 핀 가능 별자리 갯수 추가
+    public void addPins(Member member) {
+        member.plusPin();
+    }
 
 }

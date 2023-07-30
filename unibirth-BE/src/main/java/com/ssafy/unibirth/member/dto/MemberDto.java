@@ -11,7 +11,6 @@ import lombok.Setter;
 public class MemberDto {
     // 프론트로 전달해야하는 유저정보에는 무엇이 있을까?
     // 이름, 닉네임, 이메일, 팔로우수, 좋아요수, 소개, 이미지
-    private String name;
     private String nickname;
     private String password;
     private String email;
@@ -22,7 +21,6 @@ public class MemberDto {
     private String imageUrl;
 
     public MemberDto(Member member) {
-        this.name = member.getName();
         this.nickname = member.getNickname();
         this.email = member.getEmail();
         this.followingCount = member.getFollowingCount();
@@ -32,8 +30,4 @@ public class MemberDto {
         this.imageUrl = member.getImageUrl();
     }
 
-    public MemberDto(String nickname, String password) {
-        this.nickname = nickname;
-        this.password = password;
-    }
 }

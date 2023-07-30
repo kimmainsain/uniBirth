@@ -22,7 +22,7 @@ public class ConstellationReqDto {
 
     public Constellation toEntity(Member member, Planet planet) {
         return new Constellation(
-                member, planet, title, description, boardSize, lineList.toString(), pointList.toString()
+                member, planet, title, description, boardSize, pointList.size(), lineList.toString(), pointList.toString()
         );
     }
 }
