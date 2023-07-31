@@ -8,6 +8,7 @@ import { useNavigation } from "../../../hooks/useNavigation";
 import LoginFormMember from "../blocks/LoginFormMember";
 import { useRecoilValue } from "recoil";
 import { emailState, passwordState } from "../../../recoil/atoms";
+import useStarApi from "../../../api/useStarApi";
 
 const LoginMember = () => {
   const { navigateToBack, navigateToRegisterMember, navigateToMainPlanet } =
@@ -21,15 +22,24 @@ const LoginMember = () => {
     return re.test(email);
   };
 
-  const handleLinkClick = () => {
+  const handleLinkClick = async () => {
     if (!isValidEmail(email)) {
       window.alert("email을 제대로 입력해주세요");
       return;
     }
-    // 클릭하면 axios 요청을 보내서  home 으로 이동하기
-    console.log(`Username: ${email}, Password: ${password}`);
-    sessionStorage.setItem("email", JSON.stringify(email));
-    navigateToMainPlanet();
+
+    try {
+      // 클릭하면 axios 요청을 보내서 home으로 이동하기
+      console.log(`Username: ${email}, Password: ${password}`);
+      sessionStorage.setItem("memberId", JSON.stringify(2));
+
+      // 비동기 함수를 호출하고 응답을 받아서 처리
+      const starData = await useStarApi.starsGetStar(1, 1);
+      console.log(starData);
+      navigateToMainPlanet();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const buttonsHeader = [

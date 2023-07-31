@@ -16,7 +16,7 @@ const MainPlanet = () => {
     navigateToSearchQuration,
   } = useNavigation();
 
-  const email = sessionStorage.getItem("email");
+  const memberId = sessionStorage.getItem("memberId");
 
   const buttonsFooter = [
     {
@@ -33,7 +33,7 @@ const MainPlanet = () => {
       onClick: refreshPage,
       icon: <BiHomeAlt />,
     },
-    email === null
+    memberId === null
       ? {
           component: Button1,
           className: "font-TAEBAEKmilkyway",

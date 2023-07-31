@@ -34,7 +34,7 @@ const MemberProfile = () => {
     {
       component: Button3,
       className: "font-TAEBAEKmilkyway",
-      value: "준혁의 프로필",
+      value: "사용자의 프로필",
       onClick: navigateToModifyProfile,
     },
     {
