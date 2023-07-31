@@ -80,7 +80,7 @@ const RegisterMember = () => {
           email={email}
           password={password}
           confirmPassword={confirmPassword}
-          handleSubmit={joinMember}
+          joinMember={joinMember}
         />
       </form>
     </div>
