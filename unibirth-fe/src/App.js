@@ -56,7 +56,7 @@ const App = () => {
       <Route path="/profiles/:id" element={<MemberProfile />} />
       <Route path="/profiles/followings/:id" element={<Followings />} />
       <Route path="/profiles/followers/:id" element={<Followers />} />
-      <Route path="/profiles/modify/:id" element={<ModifyProfile />} />
+      <Route path="/members/profiles/:id" element={<ModifyProfile />} />
       <Route path="/profiles/directmessage/:id" element={<DirectMessage />} />
       <Route path="/profiles/messagebox/:id" element={<MessageBox />} />
       <Route path="/search" element={<SearchQuration />} />

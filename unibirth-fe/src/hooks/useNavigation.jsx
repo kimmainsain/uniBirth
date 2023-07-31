@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 export const useNavigation = (memberId, planetId, constellationId) => {
   const navigate = useNavigate();
+  const id = sessionStorage.getItem("id");
 
   const navigateToBack = () => {
     navigate(-1);
@@ -49,11 +50,11 @@ export const useNavigation = (memberId, planetId, constellationId) => {
 
   // Profile
   const navigateToMemberProfile = () => {
-    navigate(`/profiles/${memberId}`);
+    navigate(`/profiles/${id}`);
   };
 
   const navigateToModifyProfile = () => {
-    navigate(`/members/modify/${memberId}`);
+    navigate(`/members/profiles/${id}`);
   };
 
   const navigateToFollowings = () => {
