@@ -6,7 +6,8 @@
   "extends": [
     "plugin:react/recommended",
     "standard",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "prettier"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -15,9 +16,11 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react"],
+  "plugins": ["react", "prettier", "react-hooks"],
   "rules": {
     "react/prop-types": "off",
+    // "react/no-unknown-property": ["error", { "ignore": ["css"] }],
+    "react/no-unknown-property": "off",
     "prettier/prettier": [
       "error",
       {
