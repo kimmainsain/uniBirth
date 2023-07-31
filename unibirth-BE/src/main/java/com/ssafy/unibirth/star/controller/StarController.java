@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/stars")
+@CrossOrigin(origins = "*")
 public class StarController {
     private final StarService starService;
 
