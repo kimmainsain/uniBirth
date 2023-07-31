@@ -31,7 +31,7 @@ const DetailPlanet = () => {
   ];
   return (
     <div className="relative h-screen w-screen">
-      <div className="absolute transform">
+      <div className="">
         <Header1 buttons={buttonsHeader} />
         <ListSectionConstellation />
         <h1>별자리 리스트 화면입니다.d</h1>

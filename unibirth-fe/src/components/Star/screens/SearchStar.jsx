@@ -27,18 +27,12 @@ const DetailConstellation = () => {
     },
   ];
   return (
-<<<<<<< HEAD:unibirth-fe/src/components/Constellation/screens/DetailConstellation.jsx
-    <div>
-      <Header1 buttons={buttonsHeader} />
-      <h1>여기서 별 리스트가 나와야합니다</h1>
-=======
     <div className="flex flex-col justify-center">
       <div className="flex flex-row justify-center space-x-10">
         <Header1 buttons={buttonsHeader} />
         <Header2 />
       </div>
       <h1 className="flex justify-center">별자리 검색 화면입니다.</h1>
->>>>>>> fe/feat/search:unibirth-fe/src/components/Star/screens/SearchStar.jsx
       <Footer1 buttons={buttonsFooter} />
     </div>
   );
