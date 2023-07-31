@@ -1,12 +1,20 @@
 import axios from "axios";
+import { API_URL, CONTENT_TYPE_JSON } from "../constants/constants";
 
-export const URL = "http://3.35.135.57:8080";
-
-const useAxiosInstance = axios.create({
-  baseURL: URL,
+const apiClient = axios.create({
+  baseURL: API_URL,
   headers: {
-    "Content-Type": "application/json",
+    "Content-Type": CONTENT_TYPE_JSON,
   },
 });
 
-export default useAxiosInstance;
+const authApiClient = (token) =>
+  axios.create({
+    baseURL: API_URL,
+    headers: {
+      "Content-Type": CONTENT_TYPE_JSON,
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+export default { apiClient, authApiClient };
