@@ -1,8 +1,8 @@
 import React from "react";
 import Footer1 from "../../../common/blocks/Footer1";
 import Button1 from "../../../common/atoms/Button1";
-import useMemberApi from "../../../api/useMemberApi";
-import useConstellationApi from "../../../api/useConstellationApi";
+// import useMemberApi from "../../../api/useMemberApi";
+// import useConstellationApi from "../../../api/useConstellationApi";
 
 import { useNavigation } from "../../../hooks/useNavigation";
 

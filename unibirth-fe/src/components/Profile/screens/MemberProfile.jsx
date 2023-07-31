@@ -11,9 +11,13 @@ import MemberSectionProfile from "../blocks/MemberSectionProfile";
 import ConstellationSectionProfile from "../blocks/ConstellationSectionProfile";
 
 const MemberProfile = () => {
-  const { navigateToMessageBox } = useNavigation();
-  const { navigateToBack, navigateToModifyProfile, navigateToMainPlanet } =
-    useNavigation();
+  const {
+    navigateToMessageBox,
+    navigateToBack,
+    navigateToModifyProfile,
+    navigateToMainPlanet,
+  } = useNavigation();
+
   const handleLogout = () => {
     sessionStorage.clear();
     navigateToMainPlanet();
