@@ -31,7 +31,7 @@ public class MemberController {
     public ResponseEntity<LoginTokenResponseDto> login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
         LoginResponseDto member = memberService.login(loginRequestDto);
 
-        String accessToken = jwtService.createAccessToken("id", member.getId());
+        String accessToken = jwtService.createAccessToken("nickname", member.getNickname());
         LoginTokenResponseDto loginTokenResponseDto = new LoginTokenResponseDto(accessToken, member.getRole(), member.getNickname());
         jwtService.setHeaderAccessToken(response, accessToken);
 

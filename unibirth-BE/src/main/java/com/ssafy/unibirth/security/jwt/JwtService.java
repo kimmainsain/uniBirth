@@ -29,7 +29,7 @@ public class JwtService {
     public Long EXPIRE;
 
     // 토큰 생성
-    public <T> String createAccessToken(String key, Long data) {
+    public <T> String createAccessToken(String key, String data) {
         String subject = "access-token";
         System.out.println(HEADER);
         System.out.println(BEARER);
