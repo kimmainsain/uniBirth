@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Footer1 from "../../../common/blocks/Footer1";
 import Button1 from "../../../common/atoms/Button1";
 import useMemberApi from "../../../api/useMemberApi";
 // import useConstellationApi from "../../../api/useConstellationApi";
-
 import { useNavigation } from "../../../hooks/useNavigation";
 import Space from "../blocks/Space";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 
 const Home = () => {
   const { navigateToMainPlanet } = useNavigation();
@@ -72,16 +71,6 @@ const Home = () => {
     },
   ];
 
-  function SetCanvasSize() {
-    const { gl } = useThree();
-
-    useEffect(() => {
-      gl.setSize(1000, 800);
-    }, [gl]);
-
-    return null;
-  }
-
   return (
     <div className="relative h-screen w-screen">
       <p className="absolute left-1/3 top-10 z-10 font-TAEBAEKmilkyway text-2xl text-white">
@@ -95,7 +84,6 @@ const Home = () => {
       </div>
       <div className="absolute top-0 z-0 h-full w-full">
         <Canvas camera={{ position: [0, -50, 0] }}>
-          <SetCanvasSize />
           <color attach="background" args={["black"]} />
           <Space />
         </Canvas>
