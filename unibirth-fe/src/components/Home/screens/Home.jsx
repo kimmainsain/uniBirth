@@ -16,10 +16,10 @@ const Home = () => {
   //   console.log(response);
   // };
 
-  // const handleGo2 = async () => {
-  //   const response = await useConstellationApi.constellationsGetStars(1);
-  //   console.log(response);
-  // };
+  const handleGo2 = async () => {
+    const response = await useConstellationApi.constellationsGetStars(1);
+    console.log(response);
+  };
 
   // const handleGo3 = async () => {
   //   // const response = await useMemberApi.membersPostRegister({
@@ -35,13 +35,13 @@ const Home = () => {
   //   console.log(response);
   // };
 
-  // const buttons = [
-  //   {
-  //     component: Button1,
-  //     className: "font-TAEBAEKmilkyway",
-  //     value: "시작하기",
-  //     onClick: navigateToMainPlanet,
-  //   },
+  const buttons = [
+    {
+      component: Button1,
+      className: "font-TAEBAEKmilkyway",
+      value: "시작하기",
+      onClick: navigateToMainPlanet,
+    },
     // {
     //   component: Button1,
     //   className: "font-TAEBAEKmilkyway",
@@ -66,7 +66,7 @@ const Home = () => {
     //   value: "회원삭제",
     //   onClick: handleGo4,
     // },
-  // ];
+  ];
 
   function SetCanvasSize() {
     const { gl } = useThree();

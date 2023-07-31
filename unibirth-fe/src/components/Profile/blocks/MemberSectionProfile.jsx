@@ -16,9 +16,12 @@ const ConstellationSectionProfile = () => {
         <div>
           <p className="text-lg font-bold">유저 이름</p>
           <p>탄생일: January 1, 1990</p>
-          <p>띄운 별: Orion</p>
+          <p>띄운 별: 23</p>
           <p onClick={navigateToFollowings}>팔로잉: 100</p>
           <p onClick={navigateToFollowers}>팔로워: 200</p>
+        </div>
+        <div>
+          <p className="text-lg font-bold">저는 공룡이 좋아요</p>
         </div>
       </div>
 

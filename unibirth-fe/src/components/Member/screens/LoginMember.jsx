@@ -10,7 +10,8 @@ import { useRecoilValue } from "recoil";
 import { emailState, passwordState } from "../../../recoil/atoms";
 
 const LoginMember = () => {
-  const { navigateToBack, navigateToRegisterMember } = useNavigation();
+  const { navigateToBack, navigateToRegisterMember, navigateToMainPlanet } =
+    useNavigation();
 
   const email = useRecoilValue(emailState);
   const password = useRecoilValue(passwordState);
@@ -27,6 +28,8 @@ const LoginMember = () => {
     }
     // 클릭하면 axios 요청을 보내서  home 으로 이동하기
     console.log(`Username: ${email}, Password: ${password}`);
+    sessionStorage.setItem("email", JSON.stringify(email));
+    navigateToMainPlanet();
   };
 
   const buttonsHeader = [
