@@ -16,7 +16,7 @@ const MainPlanet = () => {
     navigateToSearchQuration,
   } = useNavigation();
 
-  const memberId = sessionStorage.getItem("memberId");
+  const Id = sessionStorage.getItem("Id");
 
   const buttonsFooter = [
     {
@@ -35,7 +35,7 @@ const MainPlanet = () => {
     },
   ];
 
-  if (memberId === null) {
+  if (Id === null) {
     buttonsFooter.push({
       component: Button1,
       className: "font-TAEBAEKmilkyway",
