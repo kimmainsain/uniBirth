@@ -39,6 +39,10 @@ dependencies {
 
 
 	implementation 'com.google.code.gson:gson:2.10.1'
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail
+	implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.1'
+	// https://mvnrepository.com/artifact/com.sun.mail/jakarta.mail
+	implementation 'com.sun.mail:jakarta.mail:2.0.1'
 
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
