@@ -6,7 +6,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddPinConstellationResDto {
+public class PinConstellationResDto {
     private Long constellationId;
     private boolean isPin;
 }
