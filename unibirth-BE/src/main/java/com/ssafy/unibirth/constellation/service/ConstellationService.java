@@ -1,11 +1,15 @@
 package com.ssafy.unibirth.constellation.service;
 
 import com.google.gson.Gson;
+import com.ssafy.unibirth.common.api.exception.CustomException;
 import com.ssafy.unibirth.common.api.exception.NotFoundException;
 import com.ssafy.unibirth.common.api.status.FailCode;
 import com.ssafy.unibirth.constellation.domain.Constellation;
+import com.ssafy.unibirth.constellation.domain.Pin;
+import com.ssafy.unibirth.constellation.domain.PinId;
 import com.ssafy.unibirth.constellation.dto.*;
 import com.ssafy.unibirth.constellation.repository.ConstellationRepository;
+import com.ssafy.unibirth.constellation.repository.PinRepository;
 import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.service.MemberService;
 import com.ssafy.unibirth.planet.domain.Planet;
@@ -23,6 +27,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ConstellationService {
     private final ConstellationRepository constellationRepository;
+    private final PinRepository pinRepository;
     private final MemberService memberService;
     private final PlanetService planetService;
 
@@ -76,9 +81,27 @@ public class ConstellationService {
         return constellation.getTotalBrightness();
     }
 
+    @Transactional
+    public AddPinConstellationResDto addPin(Long constellationId, Long memberId) {
+        checkPinValidation(memberId, constellationId);
+
+        Member member = memberService.detailUser(memberId);
+        Constellation constellation = findConstellationById(constellationId);
+        pinRepository.save(new Pin(member, constellation));
+        return new AddPinConstellationResDto(constellationId, true);
+    }
+
     private int[][] stringToArray(String arrayString) {
         Gson gson = new Gson();
         return gson.fromJson(arrayString, int[][].class);
+    }
+
+    private boolean checkPinValidation(Long memberId, Long constellationId) {
+        PinId pinId = new PinId(memberId, constellationId);
+        if(pinRepository.existsById(pinId)) {
+            throw new CustomException(FailCode.ALREADY_PINED_CONSTELLATION);
+        }
+        return true;
     }
 
     private List<ReadStarListResDto> convertToStarListDto(List<Star> starList) {
