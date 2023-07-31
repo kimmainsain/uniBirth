@@ -37,7 +37,7 @@ public class MemberService{
             throw new NotFoundException(FailCode.PASSWORD_NOT_FOUND);
         }
 
-        return new LoginResponseDto(findMember.getNickname(), findMember.getEmail(), findMember.getRole());
+        return new LoginResponseDto(findMember.getId(), findMember.getNickname(), findMember.getEmail(), findMember.getRole());
     }
 
     // 회원 정보 수정
