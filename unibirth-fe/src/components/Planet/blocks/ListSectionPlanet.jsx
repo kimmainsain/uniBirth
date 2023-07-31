@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigation } from "../../../hooks/useNavigation";
 
 const ListSectionPlanet = () => {
   const { navigateToDetailPlanet } = useNavigation();
+  const tempImages = Array(10).fill("https://picsum.photos/200/200");
+  const [images] = useState(tempImages);
 
   return (
-    <div
-      onClick={navigateToDetailPlanet}
-      className="flex h-20 w-20 cursor-pointer items-center justify-center rounded-full bg-blue-500"
-    >
+    <div className="flex flex-row flex-wrap justify-center">
+      {images.map((img, index) => (
+        <img
+          key={index}
+          src={img}
+          alt={`profile-${index}`}
+          onClick={navigateToDetailPlanet}
+          className="m-4"
+        />
+      ))}
       <span className="text-white">Planet</span>
     </div>
   );

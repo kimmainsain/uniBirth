@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import Footer1 from "../../../common/blocks/Footer1";
 import Button1 from "../../../common/atoms/Button1";
-import useMemberApi from "../../../api/useMemberApi";
-// import useConstellationApi from "../../../api/useConstellationApi";
 
 import { useNavigation } from "../../../hooks/useNavigation";
 import Space from "../blocks/Space";
@@ -11,64 +9,12 @@ import { Canvas, useThree } from "@react-three/fiber";
 const Home = () => {
   const { navigateToMainPlanet } = useNavigation();
 
-  const handleGo1 = async () => {
-    const response = await useMemberApi.testtest();
-    console.log(response);
-  };
-
-  const handleGo12 = async () => {
-    const response = await useMemberApi.membersPostRegister({
-      name: "tasdasdsddas",
-      nickname: "tesasdasdt2",
-      password: "pasdass",
-      email: "ssafy@ssafy.com",
-    });
-    console.log(response);
-  };
-  const handleGo3 = async () => {
-    const response = await useMemberApi.ttt({
-      constellationId: 1,
-      title: "공룡 자리",
-      imageUrl: "http://~~~",
-      content: "저는 공룡이 너무 좋아요!",
-    });
-    console.log(response);
-  };
-  const handleGo4 = async () => {
-    const response = await useMemberApi.membersDeleteDelete(1);
-    console.log(response);
-  };
-
   const buttons = [
     {
       component: Button1,
       className: "font-TAEBAEKmilkyway",
       value: "시작하기",
       onClick: navigateToMainPlanet,
-    },
-    {
-      component: Button1,
-      className: "font-TAEBAEKmilkyway",
-      value: "값 가져오기",
-      onClick: handleGo1,
-    },
-    {
-      component: Button1,
-      className: "font-TAEBAEKmilkyway",
-      value: "회원가입테스트",
-      onClick: handleGo3,
-    },
-    {
-      component: Button1,
-      className: "font-TAEBAEKmilkyway",
-      value: "회원가입테스트진짜마지막",
-      onClick: handleGo12,
-    },
-    {
-      component: Button1,
-      className: "font-TAEBAEKmilkyway",
-      value: "회원삭제",
-      onClick: handleGo4,
     },
   ];
 

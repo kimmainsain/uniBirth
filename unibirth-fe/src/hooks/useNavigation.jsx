@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-export const useNavigation = (memberId, planetId, constellationId) => {
+export const useNavigation = () => {
   const navigate = useNavigate();
 
   const navigateToBack = () => {
@@ -26,11 +26,11 @@ export const useNavigation = (memberId, planetId, constellationId) => {
   };
 
   // Constellation
-  const navigateToDetailConstellation = () => {
+  const navigateToDetailConstellation = (constellationId) => {
     navigate(`/constellations/detail/${constellationId}`);
   };
 
-  const navigateToRegisterConstellation = () => {
+  const navigateToRegisterConstellation = (memberId) => {
     navigate(`/constellations/register/${memberId}`);
   };
 
@@ -39,7 +39,7 @@ export const useNavigation = (memberId, planetId, constellationId) => {
   };
 
   // Planet
-  const navigateToDetailPlanet = () => {
+  const navigateToDetailPlanet = (planetId) => {
     navigate(`/planets/${planetId}`);
   };
 
@@ -48,32 +48,32 @@ export const useNavigation = (memberId, planetId, constellationId) => {
   };
 
   // Profile
-  const navigateToMemberProfile = () => {
+  const navigateToMemberProfile = (memberId) => {
     navigate(`/profiles/${memberId}`);
   };
 
-  const navigateToModifyProfile = () => {
+  const navigateToModifyProfile = (memberId) => {
     navigate(`/members/modify/${memberId}`);
   };
 
-  const navigateToFollowings = () => {
+  const navigateToFollowings = (memberId) => {
     navigate(`/profiles/followings/${memberId}`);
   };
 
-  const navigateToFollowers = () => {
+  const navigateToFollowers = (memberId) => {
     navigate(`/profiles/followers/${memberId}`);
   };
 
-  const navigateToDirectMessage = () => {
+  const navigateToDirectMessage = (memberId) => {
     navigate(`/profiles/directmessage/${memberId}`);
   };
 
-  const navigateToMessageBox = () => {
+  const navigateToMessageBox = (memberId) => {
     navigate(`/profiles/messagebox/${memberId}`);
   };
 
   // Star
-  const navigateToRegisterStar = () => {
+  const navigateToRegisterStar = (memberId) => {
     navigate(`/stars/register/${memberId}`);
   };
 

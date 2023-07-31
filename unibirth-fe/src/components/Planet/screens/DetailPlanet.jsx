@@ -6,9 +6,12 @@ import Footer1 from "../../../common/blocks/Footer1";
 import ListSectionConstellation from "../blocks/ListSectionConstellation";
 import { BiSearch } from "react-icons/bi";
 import { useNavigation } from "../../../hooks/useNavigation";
+import { Canvas } from "@react-three/fiber";
+import Space from "../../Home/blocks/Space";
 
 const DetailPlanet = () => {
   const { navigateToBack, navigateToRegisterConstellation } = useNavigation();
+
   const buttonsHeader = [
     {
       component: Button2,
@@ -27,11 +30,17 @@ const DetailPlanet = () => {
     },
   ];
   return (
-    <div>
-      <Header1 buttons={buttonsHeader} />
-      <ListSectionConstellation />
-      <h1>별자리 리스트 화면입니다.d</h1>
-      <Footer1 buttons={buttonsFooter} />
+    <div className="relative h-screen w-screen">
+      <div className="absolute transform">
+        <Header1 buttons={buttonsHeader} />
+        <ListSectionConstellation />
+        <h1>별자리 리스트 화면입니다.d</h1>
+        <Footer1 buttons={buttonsFooter} />
+      </div>
+      <Canvas camera={{ position: [0, -50, 0] }}>
+        <color attach="background" args={["black"]} />
+        <Space />
+      </Canvas>
     </div>
   );
 };

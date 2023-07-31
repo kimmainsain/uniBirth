@@ -104,10 +104,10 @@ const membersDeleteDelete = async (memberId) => {
   }
 };
 
-const membersGetCheckNickname = async (nickname) => {
+const membersPostCheckNickname = async (nickname) => {
   try {
-    const response = await useAxiosInstance.apiClient.get(
-      `/members/check/${nickname}`,
+    const response = await useAxiosInstance.apiClient.post(
+      `/members/check/nickname?nickname=${nickname}`,
     );
     return response.data;
   } catch (e) {
@@ -115,10 +115,10 @@ const membersGetCheckNickname = async (nickname) => {
   }
 };
 
-const membersGetCheckEmail = async (email) => {
+const membersPostCheckEmail = async (email) => {
   try {
-    const response = await useAxiosInstance.apiClient.get(
-      `/members/checkemail/${email}`,
+    const response = await useAxiosInstance.apiClient.post(
+      `/members/check/email?email=${email}`,
     );
     return response.data;
   } catch (e) {
@@ -166,8 +166,8 @@ export default {
   membersPostLogin,
   membersDeleteDelete,
   membersPutUpdate,
-  membersGetCheckNickname,
-  membersGetCheckEmail,
+  membersPostCheckNickname,
+  membersPostCheckEmail,
   membersPostEmail,
   membersGetBoard,
   membersGetProfiles,

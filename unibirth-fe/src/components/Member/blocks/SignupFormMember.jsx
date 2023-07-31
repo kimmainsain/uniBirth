@@ -17,17 +17,20 @@ const MemberRegistrationForm = ({
   setConfirmPassword,
 }) => {
   const duplicateCheck = useCallback(async (type, value, emptyMessage) => {
+    console.log(type, value, emptyMessage);
     if (value === "") {
       alert(emptyMessage);
       return;
     }
     const checkFunc =
       type === "Email"
-        ? useMemberApi.membersGetCheckEmail
-        : useMemberApi.membersGetCheckNickname;
+        ? useMemberApi.membersPostCheckEmail
+        : useMemberApi.membersPostCheckNickname;
     const response = await checkFunc(value);
     alert(
-      response ? `사용 가능한 ${type}입니다.` : `이미 사용중인 ${type}입니다.`,
+      response.status === 200
+        ? `사용 가능한 ${type}입니다.`
+        : `이미 사용중인 ${type}입니다.`,
     );
   }, []);
 
@@ -40,9 +43,10 @@ const MemberRegistrationForm = ({
       <Button1
         value="닉네임 중복확인"
         className="font-TAEBAEKmilkyway"
-        onClick={() =>
-          duplicateCheck("Nickname", nickname, "닉네임을 입력해주세요.")
-        }
+        onClick={(event) => {
+          event.preventDefault();
+          duplicateCheck("Nickname", nickname, "닉네임을 입력해주세요.");
+        }}
       />
       <InputEmail
         type="email"
@@ -52,7 +56,10 @@ const MemberRegistrationForm = ({
       <Button1
         value="이메일 중복확인"
         className="font-TAEBAEKmilkyway"
-        onClick={() => duplicateCheck("Email", email, "이메일을 입력해주세요.")}
+        onClick={(event) => {
+          event.preventDefault();
+          duplicateCheck("Email", email, "이메일을 입력해주세요.");
+        }}
       />
       <InputPassword
         value={password}
