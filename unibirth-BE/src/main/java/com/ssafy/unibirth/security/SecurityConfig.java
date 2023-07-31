@@ -20,9 +20,9 @@ public class SecurityConfig{
     @Bean
     public SecurityFilterChain webSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors().disable()		//cors방지
-                .csrf().disable()		//csrf방지
-                .formLogin().disable();	//기본 로그인 페이지 없애기
+                .cors().disable()		// cors 오류 방지
+                .csrf().disable()		// post 요청 위해서 필요함
+                .formLogin().disable();	// 시큐리디 로그인 페이지 없애기
         return http.build();
     }
 }
