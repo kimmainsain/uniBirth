@@ -11,29 +11,33 @@ import { Canvas, useThree } from "@react-three/fiber";
 const Home = () => {
   const { navigateToMainPlanet } = useNavigation();
 
-  // const handleGo1 = async () => {
-  //   const response = await useMemberApi.membersGetDetail(4);
-  //   console.log(response);
-  // };
-
-  // const handleGo2 = async () => {
-  //   const response = await useConstellationApi.constellationsGetStars(1);
-  //   console.log(response);
-  // };
-
-  const handleGo3 = async () => {
-    const response = await useMemberApi.membersPostRegister({
-      nickname: "ㅇㅅㅇ닉네임",
-      password: "일단테스트입니다",
-      email: "이메일작성아무거나제출",
-    });
+  const handleGo1 = async () => {
+    const response = await useMemberApi.testtest();
     console.log(response);
   };
 
-  // const handleGo4 = async () => {
-  //   const response = await useMemberApi.membersDeleteDelete(2);
-  //   console.log(response);
-  // };
+  const handleGo12 = async () => {
+    const response = await useMemberApi.membersPostRegister({
+      name: "tasdasdsddas",
+      nickname: "tesasdasdt2",
+      password: "pasdass",
+      email: "ssafy@ssafy.com",
+    });
+    console.log(response);
+  };
+  const handleGo3 = async () => {
+    const response = await useMemberApi.ttt({
+      constellationId: 1,
+      title: "공룡 자리",
+      imageUrl: "http://~~~",
+      content: "저는 공룡이 너무 좋아요!",
+    });
+    console.log(response);
+  };
+  const handleGo4 = async () => {
+    const response = await useMemberApi.membersDeleteDelete(1);
+    console.log(response);
+  };
 
   const buttons = [
     {
@@ -42,30 +46,30 @@ const Home = () => {
       value: "시작하기",
       onClick: navigateToMainPlanet,
     },
-    // {
-    //   component: Button1,
-    //   className: "font-TAEBAEKmilkyway",
-    //   value: "값 가져오기",
-    //   onClick: handleGo1,
-    // },
-    // {
-    //   component: Button1,
-    //   className: "font-TAEBAEKmilkyway",
-    //   value: "별자리 가져오기",
-    //   onClick: handleGo2,
-    // },
+    {
+      component: Button1,
+      className: "font-TAEBAEKmilkyway",
+      value: "값 가져오기",
+      onClick: handleGo1,
+    },
     {
       component: Button1,
       className: "font-TAEBAEKmilkyway",
       value: "회원가입테스트",
       onClick: handleGo3,
     },
-    // {
-    //   component: Button1,
-    //   className: "font-TAEBAEKmilkyway",
-    //   value: "회원삭제",
-    //   onClick: handleGo4,
-    // },
+    {
+      component: Button1,
+      className: "font-TAEBAEKmilkyway",
+      value: "회원가입테스트진짜마지막",
+      onClick: handleGo12,
+    },
+    {
+      component: Button1,
+      className: "font-TAEBAEKmilkyway",
+      value: "회원삭제",
+      onClick: handleGo4,
+    },
   ];
 
   function SetCanvasSize() {

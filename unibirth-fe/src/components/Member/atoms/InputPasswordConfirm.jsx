@@ -10,7 +10,7 @@ const InputPasswordConfirm = ({ onChange }) => {
         id="confirmPassword"
         name="confirmPassword"
         onChange={onChange}
-        placeholder="password"
+        placeholder="비밀번호 확인"
         autoComplete="off"
       />
     </div>

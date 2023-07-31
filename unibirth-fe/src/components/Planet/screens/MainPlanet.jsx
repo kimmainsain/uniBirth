@@ -16,7 +16,7 @@ const MainPlanet = () => {
     navigateToSearchQuration,
   } = useNavigation();
 
-  const email = sessionStorage.getItem("email");
+  const memberId = sessionStorage.getItem("memberId");
 
   const buttonsFooter = [
     {
@@ -33,22 +33,36 @@ const MainPlanet = () => {
       onClick: refreshPage,
       icon: <BiHomeAlt />,
     },
-    email === null
-      ? {
-          component: Button1,
-          className: "font-TAEBAEKmilkyway",
-          value: "로그인",
-          onClick: navigateToLoginMember,
-          icon: <BiLogInCircle />,
-        }
-      : {
-          component: Button1,
-          className: "font-TAEBAEKmilkyway",
-          value: "마이페이지",
-          onClick: navigateToMemberProfile,
-          icon: <CgProfile />,
-        },
   ];
+
+  if (memberId === null) {
+    buttonsFooter.push({
+      component: Button1,
+      className: "font-TAEBAEKmilkyway",
+      value: "로그인",
+      onClick: navigateToLoginMember,
+      icon: <BiLogInCircle />,
+    });
+  } else {
+    buttonsFooter.push(
+      {
+        component: Button1,
+        className: "font-TAEBAEKmilkyway",
+        value: "마이페이지",
+        onClick: navigateToMemberProfile,
+        icon: <CgProfile />,
+      },
+      {
+        component: Button1,
+        className: "font-TAEBAEKmilkyway",
+        value: "로그아웃",
+        onClick: () => {
+          sessionStorage.clear();
+          refreshPage();
+        },
+      },
+    );
+  }
 
   return (
     <div>
