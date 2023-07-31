@@ -30,14 +30,12 @@ public class MemberService{
 
     // 로그인
     public LoginResponseDto login(LoginRequestDto loginRequestDto) {
+        Member member = memberRepository.findByEmail(loginRequestDto.getEmail()).orElseThrow(() -> new NotFoundException(FailCode.EMAIL_NOT_FOUND));;
 
-        Member findMember = memberRepository.findByEmail(loginRequestDto.getEmail()).orElseThrow(() -> new NotFoundException(FailCode.EMAIL_NOT_FOUND));
-
-        if(!findMember.getPassword().equals(loginRequestDto.getPassword())) {
+        if(!member.getPassword().equals(loginRequestDto.getPassword())) {
             throw new NotFoundException(FailCode.PASSWORD_NOT_FOUND);
         }
-
-        return new LoginResponseDto(findMember.getNickname(), findMember.getEmail(), findMember.getRole());
+        return new LoginResponseDto(member.getId(), member.getNickname(), member.getEmail(), member.getRole());
     }
 
     // 회원 정보 수정
