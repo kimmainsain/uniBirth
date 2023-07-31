@@ -30,7 +30,17 @@ public class ConstellationController {
     }
 
     @GetMapping("/pin/{id}/{memberId}")
-    public ResponseEntity getConstellationList(@PathVariable("id") Long constellationId, @PathVariable("memberId") Long memberId) {
+    public ResponseEntity addPin(@PathVariable("id") Long constellationId, @PathVariable("memberId") Long memberId) {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.addPin(constellationId, memberId));
+    }
+
+    @GetMapping("/profiles/{id}")
+    public ResponseEntity getConstellationListByMember(@PathVariable("id") Long memberId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.readParticipatedList(memberId));
+    }
+
+    @DeleteMapping("/pin/{id}/{memberId}")
+    public ResponseEntity removePin(@PathVariable("id") Long constellationId, @PathVariable("memberId") Long memberId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.removePin(constellationId, memberId));
     }
 }

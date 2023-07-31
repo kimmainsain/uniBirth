@@ -16,6 +16,7 @@ import com.ssafy.unibirth.planet.domain.Planet;
 import com.ssafy.unibirth.planet.service.PlanetService;
 import com.ssafy.unibirth.star.domain.Star;
 import com.ssafy.unibirth.star.dto.ReadStarListResDto;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +31,7 @@ public class ConstellationService {
     private final PinRepository pinRepository;
     private final MemberService memberService;
     private final PlanetService planetService;
+    private EntityManager em;
 
     public CreateConstellationResDto create(Long memberId, ConstellationReqDto dto) {
         Member member = memberService.detailUser(memberId);
@@ -54,6 +56,13 @@ public class ConstellationService {
     public ReadConstellationListResDto readAll(Long planetId) {
         List<Constellation> constellationList = constellationRepository.findAllByPlanetId(planetId);
         List<ConstellationItemDto> constellationItemDtoList = convertToConstellationItemDto(constellationList);
+        return new ReadConstellationListResDto(constellationItemDtoList);
+    }
+
+    @Transactional(readOnly = true)
+    public ReadConstellationListResDto readParticipatedList(Long memberId) {
+        List<Object[]> constellationList =  constellationRepository.findparticipatedConstellationList(memberId);
+        List<ConstellationItemDto> constellationItemDtoList = convertToConstellationItemDtoByArray(constellationList);
         return new ReadConstellationListResDto(constellationItemDtoList);
     }
 
@@ -82,13 +91,23 @@ public class ConstellationService {
     }
 
     @Transactional
-    public AddPinConstellationResDto addPin(Long constellationId, Long memberId) {
+    public PinConstellationResDto addPin(Long constellationId, Long memberId) {
         checkPinValidation(memberId, constellationId);
 
         Member member = memberService.detailUser(memberId);
         Constellation constellation = findConstellationById(constellationId);
         pinRepository.save(new Pin(member, constellation));
-        return new AddPinConstellationResDto(constellationId, true);
+        return new PinConstellationResDto(constellationId, true);
+    }
+
+    @Transactional
+    public PinConstellationResDto removePin(Long constellationId, Long memberId) {
+        PinId pinId = new PinId(memberId, constellationId);
+        Pin pin = pinRepository.findById(pinId).orElseThrow(
+                () -> new NotFoundException(FailCode.PIN_NOT_FOUND)
+        );
+        pinRepository.delete(pin);
+        return new PinConstellationResDto(constellationId, false);
     }
 
     private int[][] stringToArray(String arrayString) {
@@ -128,6 +147,20 @@ public class ConstellationService {
                                 .lineList(stringToArray(con.getLineList()))
                                 .x(con.getX())
                                 .y(con.getY())
+                                .build()
+                ).collect(Collectors.toList());
+    }
+
+    private List<ConstellationItemDto> convertToConstellationItemDtoByArray(List<Object[]> constellationList) {
+        return constellationList.stream()
+                .map(con ->
+                        ConstellationItemDto.builder()
+                                .constellationId((Long) con[0])
+                                .title((String) con[1])
+                                .boardSize((int) con[2])
+                                .lineList(stringToArray((String) con[3]))
+                                .x((double) con[4])
+                                .y((double) con[5])
                                 .build()
                 ).collect(Collectors.toList());
     }
