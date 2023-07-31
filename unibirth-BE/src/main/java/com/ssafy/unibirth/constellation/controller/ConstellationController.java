@@ -44,6 +44,11 @@ public class ConstellationController {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.readPinedList(memberId));
     }
 
+    @GetMapping("/detail/{id}")
+    public ResponseEntity getConstellationDetail(@PathVariable("id") Long constellationId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.readDetail(constellationId));
+    }
+
     @DeleteMapping("/pin/{id}/{memberId}")
     public ResponseEntity removePin(@PathVariable("id") Long constellationId, @PathVariable("memberId") Long memberId) {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.removePin(constellationId, memberId));

@@ -73,6 +73,12 @@ public class ConstellationService {
         return new ReadConstellationListResDto(constellationItemDtoList);
     }
 
+    @Transactional(readOnly = true)
+    public ReadConstellationDetailResDto readDetail(Long constellationId) {
+        Constellation constellation = findConstellationById(constellationId);
+        return new ReadConstellationDetailResDto(constellation);
+    }
+
     public Constellation findConstellationById(Long id) throws NotFoundException {
         return constellationRepository.findById(id).orElseThrow(
                 () -> new NotFoundException(FailCode.CONSTELLATION_NOT_FOUND)
