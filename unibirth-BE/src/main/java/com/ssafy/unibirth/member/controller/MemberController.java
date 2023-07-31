@@ -4,13 +4,9 @@ import com.ssafy.unibirth.common.api.ResponseEntity;
 import com.ssafy.unibirth.common.api.status.SuccessCode;
 import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.dto.*;
-import com.ssafy.unibirth.member.service.MailSendService;
 import com.ssafy.unibirth.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
 
 @RestController
 @RequiredArgsConstructor
