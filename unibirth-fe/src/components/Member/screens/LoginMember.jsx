@@ -27,8 +27,9 @@ const LoginMember = () => {
         // sessionStorage.setItem("memberId", response.resultData.memberId);
         sessionStorage.setItem("email", response.resultData.email);
         sessionStorage.setItem("nickname", response.resultData.nickname);
+        sessionStorage.setItem("id", response.resultData.id);
         sessionStorage.setItem("role", response.resultData.role);
-        console.log("dd");
+        console.log(response.resultData);
         navigateToMainPlanet();
       } else {
         alert("이메일 또는 비밀번호가 일치하지 않습니다.");

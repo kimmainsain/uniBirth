@@ -6,14 +6,14 @@ const ConstellationSectionProfile = () => {
   const { navigateToModifyProfile, navigateToFollowings, navigateToFollowers } =
     useNavigation();
 
-  const memberId = sessionStorage.getItem("memberId");
-  const [memberData, setMemberData] = useState(null);
+  const memberId = sessionStorage.getItem("id");
+  const [memberData, setMemberData] = useState();
 
   useEffect(() => {
     const fetchMemberData = async () => {
       try {
-        const data = await useMemberApi.membersGetDetail(`${memberId}`);
-        console.log(memberId);
+        const data = await useMemberApi.membersGetProfiles(`${memberId}`);
+        console.log(data);
         setMemberData(data);
       } catch (error) {
         console.error("멤버 데이터를 가져오는데 에러 발생:", error);
@@ -24,27 +24,31 @@ const ConstellationSectionProfile = () => {
 
   return (
     <div className="space-x-4 bg-blue-200">
-      <h1>멤버 데이터는 여기</h1>
       {memberData && (
         <div className="flex items-start space-x-4">
           <img
-            src="https://picsum.photos/200"
+            src={memberData.resultData.imageUrl}
             className="h-32 w-32 rounded-full"
             alt="Round image"
           />
           <div>
-            <p className="text-lg font-bold">유저 이름</p>
-            <p>탄생일: {memberData.birthDate}</p>
-            <p>띄운 별: {memberData.starsCount}</p>
+            <p className="text-lg font-bold">
+              {memberData.resultData.nickname}
+            </p>
+            <p>탄생일: {memberData.resultData.birthDate}</p>
+            <p>띄운 별: {memberData.resultData.starCount}</p>
             <p onClick={navigateToFollowings}>
-              팔로잉: {memberData.followingsCount}
+              팔로잉: {memberData.resultData.followingCount}
             </p>
             <p onClick={navigateToFollowers}>
-              팔로워: {memberData.followersCount}
+              팔로워: {memberData.resultData.followerCount}
             </p>
           </div>
           <div>
-            <p className="text-lg font-bold">{memberData.introduction}</p>
+            <p className="text-lg font-bold">
+              <p>상태 메시지 :</p>
+              {memberData.resultData.introduction}
+            </p>
           </div>
         </div>
       )}
