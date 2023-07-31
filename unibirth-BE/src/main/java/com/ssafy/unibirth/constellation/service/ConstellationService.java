@@ -66,6 +66,13 @@ public class ConstellationService {
         return new ReadConstellationListResDto(constellationItemDtoList);
     }
 
+    @Transactional(readOnly = true)
+    public ReadConstellationListResDto readPinedList(Long memberId) {
+        List<Constellation> constellationList = pinRepository.findConstellationListByMemberId(memberId);
+        List<ConstellationItemDto> constellationItemDtoList = convertToConstellationItemDto(constellationList);
+        return new ReadConstellationListResDto(constellationItemDtoList);
+    }
+
     public Constellation findConstellationById(Long id) throws NotFoundException {
         return constellationRepository.findById(id).orElseThrow(
                 () -> new NotFoundException(FailCode.CONSTELLATION_NOT_FOUND)

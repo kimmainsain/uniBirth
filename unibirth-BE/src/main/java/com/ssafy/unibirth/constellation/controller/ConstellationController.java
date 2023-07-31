@@ -35,8 +35,13 @@ public class ConstellationController {
     }
 
     @GetMapping("/profiles/{id}")
-    public ResponseEntity getConstellationListByMember(@PathVariable("id") Long memberId) {
+    public ResponseEntity getParticipatedConstellationList(@PathVariable("id") Long memberId) {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.readParticipatedList(memberId));
+    }
+
+    @GetMapping("/profiles/pins/{id}")
+    public ResponseEntity getPinedConstellationList(@PathVariable("id") Long memberId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.readPinedList(memberId));
     }
 
     @DeleteMapping("/pin/{id}/{memberId}")
