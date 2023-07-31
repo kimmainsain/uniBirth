@@ -4,9 +4,13 @@ import com.ssafy.unibirth.common.api.ResponseEntity;
 import com.ssafy.unibirth.common.api.status.SuccessCode;
 import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.dto.*;
+import com.ssafy.unibirth.member.service.MailSendService;
 import com.ssafy.unibirth.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 
 @RestController
 @RequiredArgsConstructor
@@ -53,14 +57,14 @@ public class MemberController {
 
     // 이메일 중복여부 확인
     @PostMapping("/check/email")
-    public ResponseEntity<Void> checkDuplicatedEmail(String email) {
+    public ResponseEntity<Void> checkDuplicatedEmail(@RequestParam String email) {
         memberService.checkDuplicatedEmail(email);
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS);
     }
 
     // 닉네임 중복여부 확인
     @PostMapping("/check/nickname")
-    public ResponseEntity<Void> checkDuplicatedNickname(String nickname) {
+    public ResponseEntity<Void> checkDuplicatedNickname(@RequestParam String nickname) {
         memberService.checkDuplicatedNickname(nickname);
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS);
     }
@@ -108,5 +112,4 @@ public class MemberController {
         Member member = memberService.detailUser(id);
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, member.getPurchasedPin());
     }
-
 }
