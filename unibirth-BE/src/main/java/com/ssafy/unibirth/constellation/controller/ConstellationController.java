@@ -28,4 +28,24 @@ public class ConstellationController {
     public ResponseEntity getConstellationList(@PathVariable("planetId") Long planetId) {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.readAll(planetId));
     }
+
+    @GetMapping("/pin/{id}/{memberId}")
+    public ResponseEntity addPin(@PathVariable("id") Long constellationId, @PathVariable("memberId") Long memberId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.addPin(constellationId, memberId));
+    }
+
+    @GetMapping("/profiles/{id}")
+    public ResponseEntity getParticipatedConstellationList(@PathVariable("id") Long memberId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.readParticipatedList(memberId));
+    }
+
+    @GetMapping("/profiles/pins/{id}")
+    public ResponseEntity getPinedConstellationList(@PathVariable("id") Long memberId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.readPinedList(memberId));
+    }
+
+    @DeleteMapping("/pin/{id}/{memberId}")
+    public ResponseEntity removePin(@PathVariable("id") Long constellationId, @PathVariable("memberId") Long memberId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.removePin(constellationId, memberId));
+    }
 }

@@ -17,9 +17,11 @@ public enum FailCode {
     MEMBER_NOT_FOUND(NOT_FOUND, "존재하지 않는 회원입니다."),
     STAR_NOT_FOUND(NOT_FOUND, "존재하지 않는 별입니다."),
     BRIGHTNESS_NOT_FOUND(NOT_FOUND, "좋아요 이력이 없습니다"),
+    PIN_NOT_FOUND(NOT_FOUND, "핀 이력이 없습니다."),
 
     ALREADY_COMPLETED_CONSTELLATION(BAD_REQUEST, "이미 완성된 별자리입니다."),
     ALREADY_LIKED_STAR(BAD_REQUEST, "이미 좋아요한 별입니다."),
+    ALREADY_PINED_CONSTELLATION(BAD_REQUEST, "이미 핀한 별자리입니다."),
     MINUS_STAR(BAD_REQUEST, "밝기가 0인 별은 좋아요 취소할 수 없습니다."),
 
     // 회원가입
