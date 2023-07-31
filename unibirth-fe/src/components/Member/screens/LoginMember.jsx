@@ -10,7 +10,8 @@ import { useRecoilValue } from "recoil";
 import { emailState, passwordState } from "../../../recoil/atoms";
 
 const LoginMember = () => {
-  const { navigateToBack, navigateToRegisterMember } = useNavigation();
+  const { navigateToBack, navigateToRegisterMember, navigateToMainPlanet } =
+    useNavigation();
 
   const email = useRecoilValue(emailState);
   const password = useRecoilValue(passwordState);
@@ -26,6 +27,8 @@ const LoginMember = () => {
       return;
     }
     console.log(`Username: ${email}, Password: ${password}`);
+    sessionStorage.setItem("email", JSON.stringify(email));
+    navigateToMainPlanet();
   };
 
   const buttonsHeader = [

@@ -16,6 +16,8 @@ const MainPlanet = () => {
     navigateToSearchQuration,
   } = useNavigation();
 
+  const email = sessionStorage.getItem("email");
+
   const buttonsFooter = [
     {
       component: Button1,
@@ -31,20 +33,21 @@ const MainPlanet = () => {
       onClick: refreshPage,
       icon: <BiHomeAlt />,
     },
-    {
-      component: Button1,
-      className: "font-TAEBAEKmilkyway",
-      value: "로그인",
-      onClick: navigateToLoginMember,
-      icon: <BiLogInCircle />,
-    },
-    {
-      component: Button1,
-      className: "font-TAEBAEKmilkyway",
-      value: "마이페이지",
-      onClick: navigateToMemberProfile,
-      icon: <CgProfile />,
-    },
+    email === null
+      ? {
+          component: Button1,
+          className: "font-TAEBAEKmilkyway",
+          value: "로그인",
+          onClick: navigateToLoginMember,
+          icon: <BiLogInCircle />,
+        }
+      : {
+          component: Button1,
+          className: "font-TAEBAEKmilkyway",
+          value: "마이페이지",
+          onClick: navigateToMemberProfile,
+          icon: <CgProfile />,
+        },
   ];
 
   return (

@@ -9,15 +9,15 @@ import { useNavigation } from "../../../hooks/useNavigation";
 const Home = () => {
   const { navigateToMainPlanet } = useNavigation();
 
-  // const handleGo1 = async () => {
-  //   const response = await useMemberApi.membersGetDetail(2);
-  //   console.log(response);
-  // };
+  const handleGo1 = async () => {
+    const response = await useMemberApi.membersGetDetail(2);
+    console.log(response);
+  };
 
-  // const handleGo2 = async () => {
-  //   const response = await useConstellationApi.constellationsGetStars(1);
-  //   console.log(response);
-  // };
+  const handleGo2 = async () => {
+    const response = await useConstellationApi.constellationsGetStars(1);
+    console.log(response);
+  };
 
   // const handleGo3 = async () => {
   //   const response = await useMemberApi.membersPostRegister({
@@ -41,18 +41,18 @@ const Home = () => {
       value: "시작하기",
       onClick: navigateToMainPlanet,
     },
-    // {
-    //   component: Button1,
-    //   className: "font-TAEBAEKmilkyway",
-    //   value: "값 가져오기",
-    //   onClick: handleGo1,
-    // },
-    // {
-    //   component: Button1,
-    //   className: "font-TAEBAEKmilkyway",
-    //   value: "별자리 가져오기",
-    //   onClick: handleGo2,
-    // },
+    {
+      component: Button1,
+      className: "font-TAEBAEKmilkyway",
+      value: "값 가져오기",
+      onClick: handleGo1,
+    },
+    {
+      component: Button1,
+      className: "font-TAEBAEKmilkyway",
+      value: "별자리 가져오기",
+      onClick: handleGo2,
+    },
     // {
     //   component: Button1,
     //   className: "font-TAEBAEKmilkyway",
