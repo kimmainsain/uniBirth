@@ -9,7 +9,6 @@ import com.ssafy.unibirth.member.dto.*;
 import com.ssafy.unibirth.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,23 +20,23 @@ import java.util.Optional;
 public class MemberService{
 
     private final MemberRepository memberRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     // 회원 가입
     public void signup(RegistRequestDto registRequestDto) {
-        Member member = Member.createMember(registRequestDto, bCryptPasswordEncoder);
+        Member member = Member.createMember(registRequestDto, passwordEncoder);
         memberRepository.save(member);
     }
 
     // 로그인
     public LoginResponseDto login(LoginRequestDto loginRequestDto) {
-        Member member = memberRepository.findByEmail(loginRequestDto.getEmail()).orElseThrow(() -> new NotFoundException(FailCode.EMAIL_NOT_FOUND));;
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        Member member = memberRepository.findByEmail(loginRequestDto.getEmail()).orElseThrow(() -> new NotFoundException(FailCode.EMAIL_NOT_FOUND));
+        PasswordEncoder encoder = passwordEncoder;
 
         if(!encoder.matches(loginRequestDto.getPassword(), member.getPassword())) {
             throw new NotFoundException(FailCode.PASSWORD_NOT_FOUND);
         }
-        return new LoginResponseDto(member.getNickname(), member.getEmail(), member.getRole());
+        return new LoginResponseDto(member.getId(),member.getNickname(), member.getRole());
     }
 
     // 회원 정보 수정

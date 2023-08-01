@@ -9,7 +9,6 @@ import com.ssafy.unibirth.zodiac.domain.Zodiac;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
@@ -95,12 +94,12 @@ public class Member extends BaseTimeEntity {
         this.introduction = updateProfileReqDto.getIntroduction();
     }
 
-    public static Member createMember(RegistRequestDto registRequestDto, BCryptPasswordEncoder bCryptPasswordEncoder){
+    public static Member createMember(RegistRequestDto registRequestDto, PasswordEncoder passwordEncoder){
         Member member = new Member();
         member.setNickname(registRequestDto.getNickname());
         member.setEmail(registRequestDto.getEmail());
         member.setIntroduction(registRequestDto.getIntroduction());
-        String password = bCryptPasswordEncoder.encode(registRequestDto.getPassword());
+        String password = passwordEncoder.encode(registRequestDto.getPassword());
         member.setPassword(password);
         member.setBirth(registRequestDto.getBirth());
         member.setImageUrl(registRequestDto.getImageUrl());

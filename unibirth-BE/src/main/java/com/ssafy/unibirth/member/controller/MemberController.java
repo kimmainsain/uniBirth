@@ -5,7 +5,7 @@ import com.ssafy.unibirth.common.api.status.SuccessCode;
 import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.dto.*;
 import com.ssafy.unibirth.member.service.MemberService;
-import com.ssafy.unibirth.security.jwt.JwtService;
+import com.ssafy.unibirth.security.jwt.JwtTokenProvider;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
-    private final JwtService jwtService;
-
+    private final JwtTokenProvider jwtTokenProvider;
 
     // 회원가입
     @PostMapping("/register")
@@ -31,9 +30,9 @@ public class MemberController {
     public ResponseEntity<LoginTokenResponseDto> login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
         LoginResponseDto member = memberService.login(loginRequestDto);
 
-        String accessToken = jwtService.createAccessToken("nickname", member.getNickname());
+        String accessToken = jwtTokenProvider.createToken(member.getId(), member.getRole().getValue());
         LoginTokenResponseDto loginTokenResponseDto = new LoginTokenResponseDto(accessToken, member.getRole(), member.getNickname());
-        jwtService.setHeaderAccessToken(response, accessToken);
+        jwtTokenProvider.setHeaderAccessToken(response, accessToken);
 
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, loginTokenResponseDto);
     }
