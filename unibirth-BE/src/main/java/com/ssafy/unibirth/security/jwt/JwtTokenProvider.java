@@ -37,7 +37,7 @@ public class JwtTokenProvider {
 
     @Autowired
     private final MemberSecurityService memberSecurityService;
-    private static Long id;
+    private Long id;
     private static byte[] key;
 
     // 바이트화
@@ -81,8 +81,8 @@ public class JwtTokenProvider {
         return String.valueOf(id);
     }
 
-    public static Long getMemberId() {
-        return id;
+    public Long getMemberId() {
+        return this.id;
     }
 
     // Authorization 으로 토큰 바음
