@@ -31,13 +31,12 @@ public class MemberController {
     public ResponseEntity<LoginTokenResponseDto> login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
         LoginResponseDto member = memberService.login(loginRequestDto);
 
-        String accessToken = jwtTokenProvider.createToken(member.getId(), member.getRole().getValue());
+        String accessToken = jwtTokenProvider.createToken(member.getMemberId(), member.getRole().getValue());
         LoginTokenResponseDto loginTokenResponseDto = new LoginTokenResponseDto(accessToken, member.getRole(), member.getNickname());
         jwtTokenProvider.setHeaderAccessToken(response, accessToken);
 
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, loginTokenResponseDto);
     }
-
 
     // 회원 정보 조회
     @GetMapping("/detail/{id}")

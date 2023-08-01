@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -27,8 +26,8 @@ public class MemberService{
 
     // 회원 가입
     public void signup(RegistRequestDto registRequestDto) {
-        checkDuplicatedNickname(member.getNickname()); // 닉네임 중복 재확인
-        checkDuplicatedEmail(member.getEmail()); // 이메일 중복 재확인
+        checkDuplicatedNickname(registRequestDto.getNickname()); // 닉네임 중복 재확인
+        checkDuplicatedEmail(registRequestDto.getEmail()); // 이메일 중복 재확인
         Member member = Member.createMember(registRequestDto, passwordEncoder);
         memberRepository.save(member);
     }
