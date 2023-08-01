@@ -52,7 +52,7 @@ public class JwtTokenProvider {
     }
     
     // Jwt 토큰 생성
-    public String createToken(Long id, String role) {
+    public String createToken(Long id) {
         String subject = "access-token";
 
         Claims claims = Jwts.claims().setSubject(subject);
