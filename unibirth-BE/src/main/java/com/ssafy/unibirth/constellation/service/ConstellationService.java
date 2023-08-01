@@ -16,6 +16,7 @@ import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.service.MemberService;
 import com.ssafy.unibirth.planet.domain.Planet;
 import com.ssafy.unibirth.planet.service.PlanetService;
+import com.ssafy.unibirth.security.jwt.JwtTokenProvider;
 import com.ssafy.unibirth.star.domain.Star;
 import com.ssafy.unibirth.star.dto.StarItemDto;
 import jakarta.persistence.EntityManager;
@@ -34,10 +35,13 @@ public class ConstellationService {
     private final TemplateRepository templateRepository;
     private final MemberService memberService;
     private final PlanetService planetService;
+    private final JwtTokenProvider jwtTokenProvider;
     private EntityManager em;
 
     public CreateConstellationResDto create(Long memberId, ConstellationReqDto dto) {
-        Member member = memberService.detailUser(memberId);
+        System.out.println(memberId);
+        Member member = memberService.detailUser(jwtTokenProvider.getMemberId());
+        System.out.println(member);
         Planet planet = planetService.findPlanetById(dto.getPlanetId());
         Constellation constellation = dto.toEntity(member, planet);
         Long createdId = constellationRepository.save(constellation).getId();
