@@ -3049,7 +3049,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mediapipe/tasks-vision@npm:0.10.2":
+"@mediapipe/tasks-vision@npm:0.10.2, @mediapipe/tasks-vision@npm:^0.10.2":
   version: 0.10.2
   resolution: "@mediapipe/tasks-vision@npm:0.10.2"
   checksum: 0e5ac77f9b8b218303c95043dce2c377ed0fa8c623c6263604390e66004c6c986a6717d9abdebee02eb0382a0051e2659665d754129f1aac30c1ad6804639dce
@@ -3489,6 +3489,22 @@ __metadata:
     react-native:
       optional: true
   checksum: b7ad58c20f1c2193b57425f8cbe6614797b62668744ab164922250a954a18720fa1d3c0bca4152a4577651e49b07b72fdcd28c05c310773e72ac62d6674764b9
+  languageName: node
+  linkType: hard
+
+"@react-three/postprocessing@npm:^2.15.0":
+  version: 2.15.0
+  resolution: "@react-three/postprocessing@npm:2.15.0"
+  dependencies:
+    maath: ^0.6.0
+    n8ao: ^1.6.6
+    postprocessing: ^6.32.1
+    three-stdlib: ^2.23.4
+  peerDependencies:
+    "@react-three/fiber": ">=8.0"
+    react: ">=18.0"
+    three: ">= 0.138.0"
+  checksum: bfc82fc6e34a56fbf181df5f8adc3909b69e59f9e21809e54dc58ad0588a8024a6942c5ab79102e90d020624fb0a0c558e64e5ec260d9bab3763839fdedd93e0
   languageName: node
   linkType: hard
 
@@ -12785,6 +12801,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"n8ao@npm:^1.6.6":
+  version: 1.6.8
+  resolution: "n8ao@npm:1.6.8"
+  peerDependencies:
+    postprocessing: ">=6.30.0"
+    three: ">=0.137"
+  checksum: b1d42d8b5f662e8c40c9a754172e0bd8870f4f6d7ad673cc82ef068d797422a3190e8648c32cad7896242bc6f54ecdbad830b13b98a8fc0427e3cbbbecf17b22
+  languageName: node
+  linkType: hard
+
 "nan@npm:^2.17.0":
   version: 2.17.0
   resolution: "nan@npm:2.17.0"
@@ -14482,6 +14508,15 @@ __metadata:
     picocolors: ^1.0.0
     source-map-js: ^1.0.2
   checksum: 1cdd0c298849df6cd65f7e646a3ba36870a37b65f55fd59d1a165539c263e9b4872a402bf4ed1ca1bc31f58b68b2835545e33ea1a23b161a1f8aa6d5ded81e78
+  languageName: node
+  linkType: hard
+
+"postprocessing@npm:^6.32.1":
+  version: 6.32.2
+  resolution: "postprocessing@npm:6.32.2"
+  peerDependencies:
+    three: ">= 0.138.0 < 0.155.0"
+  checksum: de832b40f0f9be08eab866ca747ba433fdfa71f856d17249f52a3229791286a5de544c4052bb76bbda3a3de52b34987b338c1f878b312bec7bca894f52488b5d
   languageName: node
   linkType: hard
 
@@ -17063,7 +17098,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three-stdlib@npm:^2.23.9":
+"three-stdlib@npm:^2.23.4, three-stdlib@npm:^2.23.9":
   version: 2.23.14
   resolution: "three-stdlib@npm:2.23.14"
   dependencies:
@@ -17493,8 +17528,10 @@ __metadata:
   resolution: "unibirth-fe@workspace:."
   dependencies:
     "@material-tailwind/react": ^2.0.6
+    "@mediapipe/tasks-vision": ^0.10.2
     "@react-three/drei": ^9.80.0
     "@react-three/fiber": ^8.13.6
+    "@react-three/postprocessing": ^2.15.0
     "@testing-library/jest-dom": ^5.17.0
     "@testing-library/react": ^13.4.0
     "@testing-library/user-event": ^13.5.0

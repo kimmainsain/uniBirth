@@ -33,7 +33,7 @@ export const Jodiac = [
     content:
       "헤라클레스의 12가지 과업 중 두 번째 과업에서 그는 Lernaean Hydra를 죽이는 임무를 받았고 게가 헤라클레스의 발을 물었습니다. 헤라클레스는 게를 죽였고, 헤라클레스의 숙적인 헤라는 게를 별자리로 별들 사이에 두었습니다",
     image:
-      "https://firebasestorage.googleapis.com/v0/b/uni-birth.appspot.com/o/Zordiac%2F2_%EB%AC%BC%EA%B3%A0%EA%B8%B0%EC%9E%90%EB%A6%AC.png?alt=media&token=90133af9-92cc-408d-8047-32b8d06da0e0",
+      "https://firebasestorage.googleapis.com/v0/b/uni-birth.appspot.com/o/Zordiac%2F4_%ED%99%A9%EC%86%8C%EC%9E%90%EB%A6%AC.png?alt=media&token=ed4e7900-fc19-47cc-9726-aa7978810fc8",
   },
   {
     name: "쌍둥이자리",

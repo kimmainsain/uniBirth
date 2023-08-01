@@ -1,7 +1,7 @@
 import React, { useRef, useMemo } from "react";
 import { useFrame, useLoader } from "@react-three/fiber";
 import * as THREE from "three";
-import Star from "./star.png";
+import Star from "../../../assets/images/star.png";
 // import { OrbitControls } from "@react-three/drei";
 
 function Space() {
@@ -85,7 +85,7 @@ function Space() {
 
   return (
     <>
-      {/* <axesHelper scale={5} /> */}
+      <axesHelper scale={5} />
       {/* <OrbitControls /> */}
       <points ref={starsRef}>
         <bufferGeometry attach="geometry" {...starGeo} />
