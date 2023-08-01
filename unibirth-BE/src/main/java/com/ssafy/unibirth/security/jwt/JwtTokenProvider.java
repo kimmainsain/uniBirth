@@ -57,7 +57,6 @@ public class JwtTokenProvider {
 
         Claims claims = Jwts.claims().setSubject(subject);
         claims.put("id", id);
-        claims.put("roles", role);
         Date now = new Date();
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
