@@ -82,10 +82,11 @@ const membersPutBoard = async (memberId) => {
   }
 };
 
-const membersPutProfiles = async (memberId) => {
+const membersPutProfiles = async (memberId, data) => {
   try {
     const response = await useAxiosInstance.apiClient.put(
       `/members/profiles/${memberId}`,
+      data,
     );
     return response.data;
   } catch (e) {

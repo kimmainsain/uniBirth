@@ -13,7 +13,6 @@ import ConstellationSectionProfile from "../blocks/ConstellationSectionProfile";
 const MemberProfile = () => {
   const {
     navigateToMessageBox,
-    navigateToBack,
     navigateToModifyProfile,
     navigateToMainPlanet,
   } = useNavigation();
@@ -28,7 +27,7 @@ const MemberProfile = () => {
       component: Button2,
       className: "font-TAEBAEKmilkyway",
       value: "뒤로가기",
-      onClick: navigateToBack,
+      onClick: navigateToMainPlanet,
       icon: <IoIosArrowBack />,
     },
     {

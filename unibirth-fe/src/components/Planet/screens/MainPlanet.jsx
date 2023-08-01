@@ -16,6 +16,8 @@ const MainPlanet = () => {
     navigateToSearchQuration,
   } = useNavigation();
 
+  // const memberId = sessionStorage.getItem("id");
+
   const email = sessionStorage.getItem("email");
 
   const buttonsFooter = [

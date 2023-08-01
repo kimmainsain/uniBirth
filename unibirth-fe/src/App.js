@@ -41,24 +41,24 @@ const App = () => {
       <Route path="/planets/:id" element={<DetailPlanet />} />
       <Route path="/planets" element={<MainPlanet />} />
       <Route
-        path="/constellations/detail/:id"
+        path="/constellations/detail/:constellationId"
         element={<DetailConstellation />}
       />
       <Route
-        path="/constellations/register/:member_id"
+        path="/constellations/register"
         element={<RegisterConstellation />}
       />
       <Route
         path="/constellations/drawing"
         element={<DrawingConstellation />}
       />
-      <Route path="/stars/register/:member_id" element={<RegisterStar />} />
-      <Route path="/profiles/:id" element={<MemberProfile />} />
-      <Route path="/profiles/followings/:id" element={<Followings />} />
-      <Route path="/profiles/followers/:id" element={<Followers />} />
-      <Route path="/members/profiles/:id" element={<ModifyProfile />} />
-      <Route path="/profiles/directmessage/:id" element={<DirectMessage />} />
-      <Route path="/profiles/messagebox/:id" element={<MessageBox />} />
+      <Route path="/stars/register" element={<RegisterStar />} />
+      <Route path="/profiles" element={<MemberProfile />} />
+      <Route path="/profiles/followings" element={<Followings />} />
+      <Route path="/profiles/followers" element={<Followers />} />
+      <Route path="/members/profiles" element={<ModifyProfile />} />
+      <Route path="/profiles/directmessage" element={<DirectMessage />} />
+      <Route path="/profiles/messagebox" element={<MessageBox />} />
       <Route path="/search" element={<SearchQuration />} />
       <Route
         path="/search?content=:query&category=:categoryname"

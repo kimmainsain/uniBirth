@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 export const useNavigation = () => {
+  const memberId = sessionStorage.getItem("id");
   const navigate = useNavigate();
 
   const navigateToBack = () => {
@@ -30,7 +31,7 @@ export const useNavigation = () => {
     navigate(`/constellations/detail/${constellationId}`);
   };
 
-  const navigateToRegisterConstellation = (memberId) => {
+  const navigateToRegisterConstellation = () => {
     navigate(`/constellations/register/${memberId}`);
   };
 
@@ -48,32 +49,32 @@ export const useNavigation = () => {
   };
 
   // Profile
-  const navigateToMemberProfile = (memberId) => {
-    navigate(`/profiles/${memberId}`);
+  const navigateToMemberProfile = () => {
+    navigate("/profiles");
   };
 
-  const navigateToModifyProfile = (memberId) => {
-    navigate(`/members/modify/${memberId}`);
+  const navigateToModifyProfile = () => {
+    navigate(`/members/profiles`);
   };
 
-  const navigateToFollowings = (memberId) => {
+  const navigateToFollowings = () => {
     navigate(`/profiles/followings/${memberId}`);
   };
 
-  const navigateToFollowers = (memberId) => {
+  const navigateToFollowers = () => {
     navigate(`/profiles/followers/${memberId}`);
   };
 
-  const navigateToDirectMessage = (memberId) => {
+  const navigateToDirectMessage = () => {
     navigate(`/profiles/directmessage/${memberId}`);
   };
 
-  const navigateToMessageBox = (memberId) => {
+  const navigateToMessageBox = () => {
     navigate(`/profiles/messagebox/${memberId}`);
   };
 
   // Star
-  const navigateToRegisterStar = (memberId) => {
+  const navigateToRegisterStar = () => {
     navigate(`/stars/register/${memberId}`);
   };
 
