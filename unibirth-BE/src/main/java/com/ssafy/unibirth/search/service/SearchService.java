@@ -27,12 +27,12 @@ public class SearchService {
                 resDto.setStarList(starService.searchByContent(word));
             }
             case NICKNAME -> {
-//                resDto.setMemberList(memberService.searchByNickname(word));
+                resDto.setMemberList(memberService.searchByNickname(word));
             }
             default -> {
                 resDto.setConstellationList(constellationService.searchByTitle(word));
                 resDto.setStarList(starService.searchByContent(word));
-                //resDto.setMemberList(memberService.searchByNickname(word));
+                resDto.setMemberList(memberService.searchByNickname(word));
             }
         }
 
