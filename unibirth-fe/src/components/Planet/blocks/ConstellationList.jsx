@@ -43,15 +43,16 @@ const StarCanvas = () => {
   const [lightIntensity, setLightIntensity] = useState(1);
   //   const { raycaster, scene } = useThree();
   const [tooltipStyle, setTooltipStyle] = useState({ display: "none" });
-  const [tooltipContent, setTooltipContent] = useState("");
+  const [boxtitle, setBoxtitle] = useState("");
+  const [boxcontent, setBoxcontent] = useState("");
 
   const handleBoxClick = (event, box) => {
     console.log("event:", event);
     console.log("box:", box);
     // Determine the coordinates of the mouse in normalized device coordinates (-1 to +1)
     const mouse = new THREE.Vector2();
-    mouse.x = event.clientX + 40;
-    mouse.y = event.clientY + 40;
+    mouse.x = event.clientX + 100;
+    mouse.y = event.clientY - 100;
     // mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     // mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     console.log(mouse);
@@ -61,7 +62,8 @@ const StarCanvas = () => {
       top: `${mouse.y}px`,
       display: "block",
     });
-    setTooltipContent(`Title: ${box.title}, Content: ${box.content}`);
+    setBoxtitle(box.title);
+    setBoxcontent(box.content);
   };
 
   const handleCreateStar = () => {
@@ -229,7 +231,10 @@ const StarCanvas = () => {
   ${tooltipStyle.display === "none" ? "hidden" : ""}`}
         style={{ left: tooltipStyle.left, top: tooltipStyle.top }}
       >
-        {tooltipContent}
+        <div className="flex flex-col font-TAEBAEKmilkyway">
+          <p className="font-bold">{boxtitle}</p>
+          <p>{boxcontent}</p>
+        </div>
       </div>
 
       {/* Canvas */}
