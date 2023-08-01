@@ -16,8 +16,9 @@ import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.service.MemberService;
 import com.ssafy.unibirth.planet.domain.Planet;
 import com.ssafy.unibirth.planet.service.PlanetService;
+import com.ssafy.unibirth.security.jwt.JwtTokenProvider;
 import com.ssafy.unibirth.star.domain.Star;
-import com.ssafy.unibirth.star.dto.ReadStarListResDto;
+import com.ssafy.unibirth.star.dto.StarItemDto;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,10 +35,13 @@ public class ConstellationService {
     private final TemplateRepository templateRepository;
     private final MemberService memberService;
     private final PlanetService planetService;
+    private final JwtTokenProvider jwtTokenProvider;
     private EntityManager em;
 
     public CreateConstellationResDto create(Long memberId, ConstellationReqDto dto) {
-        Member member = memberService.detailUser(memberId);
+        System.out.println(memberId);
+        Member member = memberService.detailUser(jwtTokenProvider.getMemberId());
+        System.out.println(member);
         Planet planet = planetService.findPlanetById(dto.getPlanetId());
         Constellation constellation = dto.toEntity(member, planet);
         Long createdId = constellationRepository.save(constellation).getId();
@@ -89,6 +93,12 @@ public class ConstellationService {
         return new ReadTemplateListResDto(templateItemDtoList);
     }
 
+    public List<ConstellationItemDto> searchByTitle(String word) {
+        List<Constellation> constellationList = constellationRepository.findAllByTitleContains(word);
+        return convertToConstellationItemDto(constellationList);
+    }
+
+    @Transactional(readOnly = true)
     public Constellation findConstellationById(Long id) throws NotFoundException {
         return constellationRepository.findById(id).orElseThrow(
                 () -> new NotFoundException(FailCode.CONSTELLATION_NOT_FOUND)
@@ -146,9 +156,9 @@ public class ConstellationService {
         return true;
     }
 
-    private List<ReadStarListResDto> convertToStarListDto(List<Star> starList) {
+    public List<StarItemDto> convertToStarListDto(List<Star> starList) {
         return starList.stream()
-                .map(star -> ReadStarListResDto.builder()
+                .map(star -> StarItemDto.builder()
                         .starId(star.getId())
                         .createdAt(star.getCreatedAt())
                         .content(star.getContent())

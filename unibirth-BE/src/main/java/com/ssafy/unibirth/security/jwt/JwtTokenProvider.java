@@ -37,7 +37,7 @@ public class JwtTokenProvider {
 
     @Autowired
     private final MemberSecurityService memberSecurityService;
-
+    private Long id;
     private static byte[] key;
 
     // 바이트화
@@ -76,13 +76,18 @@ public class JwtTokenProvider {
 
     // 토큰에서 멤버 id 추출
     public String getMemberId(String token) {
-        Integer id = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().get("id",Integer.class);
+        Long id = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().get("id",Long.class);
+        this.id = id;
         return String.valueOf(id);
     }
 
-    // X-AUTH-TOKEN 으로 토큰 바음
+    public Long getMemberId() {
+        return this.id;
+    }
+
+    // Authorization 으로 토큰 바음
     public String resolveToken(HttpServletRequest request) {
-        return request.getHeader("X-AUTH-TOKEN");
+        return request.getHeader("Authorization");
     }
 
     // 토큰 유효성 검사
