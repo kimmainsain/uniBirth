@@ -101,9 +101,9 @@ public class ConstellationService {
     }
 
     @Transactional
-    public int increaseConstellationStarCount(Long id) {
+    public int updateConstellationStarCount(Long id, int diff) {
         Constellation constellation = findConstellationById(id);
-        constellation.setStarCount(constellation.getStarCount() + 1);
+        constellation.setStarCount(constellation.getStarCount() + diff);
         return constellation.getStarCount();
     }
 

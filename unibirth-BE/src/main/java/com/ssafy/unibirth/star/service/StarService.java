@@ -39,7 +39,7 @@ public class StarService {
         Star star = dto.toEntity(constellation, member);
         Long createdId = starRepository.save(star).getId();
 
-        constellationService.increaseConstellationStarCount(constellationId);
+        constellationService.updateConstellationStarCount(constellationId, 1);
         return new CreateStarResDto(createdId);
     }
 
@@ -77,6 +77,20 @@ public class StarService {
     public List<ReadMyStarListResDto> getMyStarList(Long memberId) {
         List<Star> starList = starRepository.findAllByMemberId(memberId);
         return convertToMyStarListDto(starList);
+    }
+
+    @Transactional
+    public DeleteStarResDto delete(Long starId, Long memberId) {
+        starRepository.findById(starId).orElseThrow(
+                () -> new NotFoundException(FailCode.STAR_NOT_FOUND)
+        );
+        Star star = starRepository.findByIdAndMemberId(starId, memberId).orElseThrow(
+                () -> new NotFoundException(FailCode.STAR_MEMBER_NOT_FOUND)
+        );
+        Long constellationId = star.getConstellation().getId();
+        starRepository.delete(star);
+        constellationService.updateConstellationStarCount(constellationId, -1);
+        return new DeleteStarResDto(true);
     }
 
     public List<Star> getStarListByConstellationId(Long id) {

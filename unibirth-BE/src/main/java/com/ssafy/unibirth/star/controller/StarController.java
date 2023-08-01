@@ -38,4 +38,9 @@ public class StarController {
     public ResponseEntity decreaseBrightness(@PathVariable("id") Long starId, @PathVariable("memberId") Long memberId) {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.updateBrightness(starId, memberId, -1));
     }
+
+    @DeleteMapping("/{id}/{memberId}")
+    public ResponseEntity deleteStar(@PathVariable("id") Long starId, @PathVariable("memberId") Long memberId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.delete(starId, memberId));
+    }
 }
