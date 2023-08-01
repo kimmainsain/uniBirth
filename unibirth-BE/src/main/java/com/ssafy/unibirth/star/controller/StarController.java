@@ -3,6 +3,7 @@ package com.ssafy.unibirth.star.controller;
 import com.ssafy.unibirth.common.api.ResponseEntity;
 import com.ssafy.unibirth.common.api.status.SuccessCode;
 import com.ssafy.unibirth.star.dto.CreateStarReqDto;
+import com.ssafy.unibirth.star.dto.UpdateStarReqDto;
 import com.ssafy.unibirth.star.service.StarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -31,11 +32,21 @@ public class StarController {
 
     @GetMapping("/{memberId}")
     public ResponseEntity getMyStarList(@PathVariable("memberId") Long memberId) {
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.getMyStarList(memberId));
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.readMyStarList(memberId));
+    }
+
+    @PutMapping("/{id}/{memberId}")
+    public ResponseEntity update(@RequestBody UpdateStarReqDto dto, @PathVariable("id") Long starId, @PathVariable("memberId") Long memberId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.update(dto, starId, memberId));
     }
 
     @DeleteMapping("/brightness/{id}/{memberId}")
     public ResponseEntity decreaseBrightness(@PathVariable("id") Long starId, @PathVariable("memberId") Long memberId) {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.updateBrightness(starId, memberId, -1));
+    }
+
+    @DeleteMapping("/{id}/{memberId}")
+    public ResponseEntity deleteStar(@PathVariable("id") Long starId, @PathVariable("memberId") Long memberId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.delete(starId, memberId));
     }
 }
