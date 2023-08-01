@@ -3,7 +3,6 @@ package com.ssafy.unibirth.member.domain;
 import com.ssafy.unibirth.common.domain.util.BaseTimeEntity;
 import com.ssafy.unibirth.constellation.domain.Constellation;
 import com.ssafy.unibirth.member.dto.UpdateProfileReqDto;
-import com.ssafy.unibirth.zodiac.domain.Zodiac;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,9 +38,8 @@ public class Member extends BaseTimeEntity {
     @ColumnDefault("0")
     private int starCount; // 작성한 별의 수
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "zordiac_id")
-    private Zodiac zodiac;
+    // 본인 생일에 해당하는 황도 12궁 이름
+    private String zodiac;
 
     // 내가 작성한 별자리 목록
     @OneToMany(mappedBy = "member")

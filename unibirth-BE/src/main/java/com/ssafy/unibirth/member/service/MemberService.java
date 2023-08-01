@@ -5,16 +5,16 @@ import com.ssafy.unibirth.common.api.exception.NotFoundException;
 import com.ssafy.unibirth.common.api.status.FailCode;
 import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.domain.Role;
-import com.ssafy.unibirth.member.dto.LoginRequestDto;
-import com.ssafy.unibirth.member.dto.LoginResponseDto;
-import com.ssafy.unibirth.member.dto.ProfileRespDto;
-import com.ssafy.unibirth.member.dto.UpdateProfileReqDto;
+import com.ssafy.unibirth.member.dto.*;
 import com.ssafy.unibirth.member.repository.MemberRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -22,10 +22,14 @@ import java.util.Optional;
 public class MemberService{
 
     private final MemberRepository memberRepository;
+    private final MailSendService mailSendService;
 
     // 회원 가입
-    public void signup(Member member) {
+    public String signup(Member member) {
+        checkDuplicatedNickname(member.getNickname()); // 닉네임 중복 재확인
+        checkDuplicatedEmail(member.getEmail()); // 이메일 중복 재확인
         memberRepository.save(member);
+        return "로그인 완료";
     }
 
     // 로그인
@@ -108,6 +112,13 @@ public class MemberService{
     // 결재 후 핀 가능 별자리 갯수 추가
     public void addPins(Member member) {
         member.plusPin();
+    }
+
+    // 검색
+    public List<MemberItemDto> searchByNickname(String nickname) {
+        List<Member> findMembers = memberRepository.findAllByNicknameContains(nickname);
+        List<MemberItemDto> result = findMembers.stream().map(member -> new MemberItemDto(member.getNickname(), member.getImageUrl())).collect(Collectors.toList());
+        return result;
     }
 
 }
