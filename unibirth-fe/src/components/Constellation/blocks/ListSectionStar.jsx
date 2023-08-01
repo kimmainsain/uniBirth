@@ -1,37 +1,42 @@
 import React, { useState, useEffect } from "react";
-// import { useNavigation } from "../../../hooks/useNavigation";
+import { useNavigation } from "../../../hooks/useNavigation";
 import useConstellationApi from "../../../api/useConstellationApi";
+import { useParams } from "react-router-dom";
 const ListSectionStar = () => {
-  // const { navigateToDetailStar } = useNavigation();
+  const { constellationId } = useParams();
+  const { navigateToDetailStar } = useNavigation();
   const [starList, setStarList] = useState({
-    starList: [
-      {
-        starId: 0,
-        memberId: 0,
-        createdAt: "",
-        nickname: "",
-        content: "",
-        brightness: 0,
-        imageUrl: "",
-      },
-    ],
+    starList: [],
   });
 
   useEffect(() => {
-    getStarList();
-  }, []);
+    getStarList(constellationId);
+  }, [constellationId]);
 
-  const getStarList = async () => {
-    const response = await useConstellationApi.constellationsGetConstellation();
-    console.log(response);
-    setStarList(response.resultData);
+  const getStarList = async (constellationId) => {
+    console.log(constellationId);
+    try {
+      const response = await useConstellationApi.constellationsGetConstellation(
+        constellationId,
+      );
+      console.log(response);
+      setStarList(response.resultData);
+    } catch (error) {
+      console.error("Failed to get star list:", error);
+    }
   };
 
   return (
     <div className="flex flex-row flex-wrap justify-center">
       1111
       {starList?.starList.map((star) => (
-        <div key={star.starId}>{star.nickname}</div>
+        <div
+          key={star.starId}
+          onClick={() => navigateToDetailStar(star.starId)}
+          className="bg-red-500"
+        >
+          {star.nickname}
+        </div>
       ))}
       <span>Planet</span>
     </div>

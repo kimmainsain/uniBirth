@@ -2,9 +2,6 @@ import { useNavigate } from "react-router-dom";
 
 export const useNavigation = () => {
   const memberId = sessionStorage.getItem("id");
-  const planetId = 1;
-  const constellationId = 1;
-  const starId = 1;
   const navigate = useNavigate();
 
   const navigateToBack = () => {
@@ -30,7 +27,7 @@ export const useNavigation = () => {
   };
 
   // Constellation
-  const navigateToDetailConstellation = () => {
+  const navigateToDetailConstellation = (constellationId) => {
     navigate(`/constellations/detail/${constellationId}`);
   };
 
@@ -43,7 +40,7 @@ export const useNavigation = () => {
   };
 
   // Planet
-  const navigateToDetailPlanet = () => {
+  const navigateToDetailPlanet = (planetId) => {
     navigate(`/planets/${planetId}`);
   };
 
@@ -53,11 +50,15 @@ export const useNavigation = () => {
 
   // Profile
   const navigateToMemberProfile = () => {
-    navigate(`/profiles/${memberId}`);
+    navigate("/profiles");
   };
 
   const navigateToModifyProfile = () => {
-    navigate(`/members/modify/${memberId}`);
+    navigate(`/members/profiles`);
+  };
+
+  const navigateToModifyMember = () => {
+    navigate("/members/update");
   };
 
   const navigateToFollowings = () => {
@@ -79,10 +80,6 @@ export const useNavigation = () => {
   // Star
   const navigateToRegisterStar = () => {
     navigate(`/stars/register/${memberId}`);
-  };
-
-  const navigateToDetailStar = () => {
-    navigate(`/stars/${starId}`);
   };
 
   // Search
@@ -107,12 +104,12 @@ export const useNavigation = () => {
     navigateToMainPlanet,
     navigateToMemberProfile,
     navigateToModifyProfile,
+    navigateToModifyMember,
     navigateToFollowings,
     navigateToFollowers,
     navigateToDirectMessage,
     navigateToMessageBox,
     navigateToRegisterStar,
-    navigateToDetailStar,
     navigateToSearchQuration,
     navigateToSearchCommon,
   };

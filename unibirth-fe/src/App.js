@@ -37,11 +37,12 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/members/login" element={<LoginMember />} />
+      <Route path="/members/profiles/:id" element={<ModifyProfile />} />
       <Route path="/members/register" element={<RegisterMember />} />
-      <Route path="/planets/:id" element={<DetailPlanet />} />
+      <Route path="/planets/:constellationId" element={<DetailPlanet />} />
       <Route path="/planets" element={<MainPlanet />} />
       <Route
-        path="/constellations/detail/:id"
+        path="/constellations/detail/:constellationId"
         element={<DetailConstellation />}
       />
       <Route
@@ -57,7 +58,6 @@ const App = () => {
       <Route path="/profiles/:id" element={<MemberProfile />} />
       <Route path="/profiles/followings/:id" element={<Followings />} />
       <Route path="/profiles/followers/:id" element={<Followers />} />
-      <Route path="/members/profiles/:id" element={<ModifyProfile />} />
       <Route path="/profiles/directmessage/:id" element={<DirectMessage />} />
       <Route path="/profiles/messagebox/:id" element={<MessageBox />} />
       <Route path="/search" element={<SearchQuration />} />

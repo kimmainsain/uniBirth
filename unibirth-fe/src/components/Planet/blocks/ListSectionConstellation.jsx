@@ -1,44 +1,47 @@
 import React, { useState, useEffect } from "react";
-// import { useNavigation } from "../../../hooks/useNavigation";
 import useConstellationApi from "../../../api/useConstellationApi";
-
+import { useNavigation } from "../../../hooks/useNavigation";
+import { useParams } from "react-router-dom";
 const ListSectionConstellation = () => {
-  // const { navigateToDetailConstellation } = useNavigation();
+  const { planetId } = useParams();
+  const { navigateToDetailConstellation } = useNavigation();
   const [constellationList, setConstellationList] = useState({
     constellationList: [
       {
         constellationId: 0,
         title: "",
         boardSize: 0,
-        lineList: [
-          {
-            y1: 0,
-            x1: 0,
-            y2: 0,
-            x2: 0,
-          },
-        ],
+        lineList: [],
         x: 0,
         y: 0,
       },
     ],
   });
-  const getConstellationList = async () => {
-    const response = await useConstellationApi.constellationsGetConstellation(
-      1,
+  const getConstellationList = async (planetId) => {
+    const response = await useConstellationApi.constellationsGetPlanet(
+      planetId,
     );
     console.log(response);
     setConstellationList(response.resultData);
   };
 
   useEffect(() => {
-    getConstellationList();
-  }, []);
+    getConstellationList(planetId);
+  }, [planetId]);
 
   return (
     <div className="flex flex-row flex-wrap justify-center">
+      1233
       {constellationList?.constellationList.map((constellation) => (
-        <div key={constellation.constellationId}>{constellation.title}</div>
+        <div
+          key={constellation.constellationId}
+          onClick={() =>
+            navigateToDetailConstellation(constellation.constellationId)
+          }
+          className="bg-blue-500"
+        >
+          {constellation.title}
+        </div>
       ))}
     </div>
   );
