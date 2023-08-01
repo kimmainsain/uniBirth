@@ -1,7 +1,7 @@
 import React, { useRef, useMemo } from "react";
 import { useFrame, useLoader } from "@react-three/fiber";
 import * as THREE from "three";
-import Star from "./star.png";
+import Star from "../../../assets/images/star.png";
 // import { OrbitControls } from "@react-three/drei";
 
 function Space() {
@@ -42,12 +42,14 @@ function Space() {
       color: 0xaaaaaa,
       size: 1.2,
       map: texture,
+      // transparent: true,
+      // blending: THREE.MultiplyBlending,
     });
 
     return [starGeo, starMaterial];
   }, [texture]);
 
-  useFrame(() => {
+  useFrame(({ camera }) => {
     const position = starsRef.current.geometry.attributes.position;
     const velocity = starsRef.current.geometry.attributes.velocity;
     const acceleration = starsRef.current.geometry.attributes.acceleration;
@@ -60,6 +62,20 @@ function Space() {
         position.array[i * 3 + 1] = 200;
         velocity.array[i] = 0;
       }
+      // Calculate distance from the camera
+      const dx = camera.position.x - position.array[i * 3];
+      const dy = camera.position.y - position.array[i * 3 + 1];
+      const dz = camera.position.z - position.array[i * 3 + 2];
+      const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+      // Adjust opacity based on distance
+      const minDist = 50; // Minimum distance for full opacity
+      const maxDist = 200; // Maximum distance for zero opacity
+      starsRef.current.material.opacity = THREE.MathUtils.clamp(
+        0.5 - (distance - minDist) / (maxDist - minDist),
+        0,
+        0.5,
+      );
     }
 
     position.needsUpdate = true;
@@ -69,7 +85,7 @@ function Space() {
 
   return (
     <>
-      {/* <axesHelper scale={5} /> */}
+      <axesHelper scale={5} />
       {/* <OrbitControls /> */}
       <points ref={starsRef}>
         <bufferGeometry attach="geometry" {...starGeo} />

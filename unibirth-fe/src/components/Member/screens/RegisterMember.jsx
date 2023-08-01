@@ -7,13 +7,20 @@ import SignupFormMember from "../blocks/SignupFormMember";
 import { BiArrowBack } from "react-icons/bi";
 import { useNavigation } from "../../../hooks/useNavigation";
 import useMemberApi from "../../../api/useMemberApi";
+import earth from "../../../assets/images/earth.png";
 
 const RegisterMember = () => {
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [birthdate, setBirthdate] = useState("");
   const { navigateToBack, navigateToLoginMember } = useNavigation();
+  const [image, setImage] = useState(`${earth}`);
+  const [content, setContent] = useState(
+    "이자식이 무슨 내일이야! 내일은 없다, 오늘밖에",
+  );
+  const [jodiacname, setJodiacname] = useState("너는 별자리일까?");
 
   const joinMember = async (e) => {
     e.preventDefault();
@@ -29,6 +36,7 @@ const RegisterMember = () => {
     };
     try {
       const response = await useMemberApi.membersPostRegister(member);
+      updateimage();
       console.log(response);
       alert("회원가입이 완료되었습니다.");
       navigateToLoginMember();
@@ -40,6 +48,13 @@ const RegisterMember = () => {
     console.log(
       `Nickname: ${nickname}, Email: ${email}, Password: ${password}, confirmPassword: ${confirmPassword}`,
     );
+  };
+
+  const updateimage = () => {
+    const [year, month, day] = birthdate.split("-");
+    console.log(year);
+    const birthdateAsNumber = parseInt(month + day, 10);
+    console.log(`Birthdate as number: ${birthdateAsNumber}`);
   };
 
   const buttonsHeader = [
@@ -73,6 +88,14 @@ const RegisterMember = () => {
           setPassword={setPassword}
           confirmPassword={confirmPassword}
           setConfirmPassword={setConfirmPassword}
+          birthdate={birthdate}
+          setBirthdate={setBirthdate}
+          image={image}
+          setImage={setImage}
+          content={content}
+          setContent={setContent}
+          jodiacname={jodiacname}
+          setJodiacname={setJodiacname}
         />
         <Footer1
           buttons={buttonsFooter}
