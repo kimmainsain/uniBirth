@@ -57,6 +57,7 @@ const App = () => {
       <Route path="/stars/register" element={<RegisterStar />} />
       <Route path="/profiles" element={<MemberProfile />} />
       <Route path="/profiles/followings" element={<Followings />} />
+      <Route path="/stars/detail/:starId" element={<DetailStar />} />
       <Route path="/profiles/followers" element={<Followers />} />
       <Route path="/members/profiles" element={<ModifyProfile />} />
       <Route path="/members/update" element={<ModifyMember />} />

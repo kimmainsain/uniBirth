@@ -4,7 +4,6 @@ import Button1 from "../../../common/atoms/Button1";
 import Button2 from "../../../common/atoms/Button2";
 import { BiSearch, BiHomeAlt, BiLogInCircle } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
-
 import { useNavigation } from "../../../hooks/useNavigation";
 import ListSectionPlanet from "../blocks/ListSectionPlanet";
 
@@ -18,7 +17,7 @@ const MainPlanet = () => {
 
   // const memberId = sessionStorage.getItem("id");
 
-  const email = sessionStorage.getItem("email");
+  const token = sessionStorage.getItem("accessToken");
 
   const buttonsFooter = [
     {
@@ -37,7 +36,7 @@ const MainPlanet = () => {
     },
   ];
 
-  if (email === null) {
+  if (token === null) {
     buttonsFooter.push({
       component: Button1,
       className: "font-TAEBAEKmilkyway",
@@ -46,24 +45,13 @@ const MainPlanet = () => {
       icon: <BiLogInCircle />,
     });
   } else {
-    buttonsFooter.push(
-      {
-        component: Button1,
-        className: "font-TAEBAEKmilkyway",
-        value: "마이페이지",
-        onClick: navigateToMemberProfile,
-        icon: <CgProfile />,
-      },
-      {
-        component: Button1,
-        className: "font-TAEBAEKmilkyway",
-        value: "로그아웃",
-        onClick: () => {
-          sessionStorage.clear();
-          refreshPage();
-        },
-      },
-    );
+    buttonsFooter.push({
+      component: Button1,
+      className: "font-TAEBAEKmilkyway",
+      value: "마이페이지",
+      onClick: navigateToMemberProfile,
+      icon: <CgProfile />,
+    });
   }
 
   return (

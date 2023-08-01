@@ -1,20 +1,18 @@
 import useAxiosInstance from "./useAxiosInstance";
 
-const membersGetBoard = async (memberId) => {
+const membersGetBoard = async () => {
   try {
-    const response = await useAxiosInstance.apiClient.get(
-      `/members/board/${memberId}`,
-    );
+    const response = await useAxiosInstance.authApiClient.get(`/members/board`);
     return response.data;
   } catch (e) {
     console.log(e);
   }
 };
 
-const membersGetProfiles = async (memberId) => {
+const membersGetProfiles = async () => {
   try {
-    const response = await useAxiosInstance.apiClient.get(
-      `/members/profiles/${memberId}`,
+    const response = await useAxiosInstance.authApiClient.get(
+      `/members/profiles`,
     );
     console.log(response);
     return response.data;
@@ -49,10 +47,10 @@ const membersPostLogin = async (member) => {
   }
 };
 
-const membersGetDetail = async (memberId) => {
+const membersGetDetail = async () => {
   try {
-    const response = await useAxiosInstance.apiClient.get(
-      `/members/detail/${memberId}`,
+    const response = await useAxiosInstance.authApiClient.get(
+      `/members/detail`,
     );
     return response.data;
   } catch (e) {
@@ -60,10 +58,10 @@ const membersGetDetail = async (memberId) => {
   }
 };
 
-const membersPutUpdate = async (memberId) => {
+const membersPutUpdate = async () => {
   try {
-    const response = await useAxiosInstance.apiClient.put(
-      `/members/update/${memberId}`,
+    const response = await useAxiosInstance.authApiClient.put(
+      `/members/update`,
     );
     return response.data;
   } catch (e) {
@@ -71,21 +69,19 @@ const membersPutUpdate = async (memberId) => {
   }
 };
 
-const membersPutBoard = async (memberId) => {
+const membersPutBoard = async () => {
   try {
-    const response = await useAxiosInstance.apiClient.put(
-      `/members/board/${memberId}`,
-    );
+    const response = await useAxiosInstance.authApiClient.put(`/members/board`);
     return response.data;
   } catch (e) {
     console.log(e);
   }
 };
 
-const membersPutProfiles = async (memberId, data) => {
+const membersPutProfiles = async (data) => {
   try {
-    const response = await useAxiosInstance.apiClient.put(
-      `/members/profiles/${memberId}`,
+    const response = await useAxiosInstance.authApiClient.put(
+      `/members/profiles`,
       data,
     );
     return response.data;
@@ -94,10 +90,10 @@ const membersPutProfiles = async (memberId, data) => {
   }
 };
 
-const membersDeleteMember = async (memberId) => {
+const membersDeleteMember = async () => {
   try {
-    const response = await useAxiosInstance.apiClient.delete(
-      `/members/delete/${memberId}`,
+    const response = await useAxiosInstance.authApiClient.delete(
+      `/members/delete`,
     );
     return response.data;
   } catch (e) {
@@ -107,7 +103,7 @@ const membersDeleteMember = async (memberId) => {
 
 const membersPostCheckNickname = async (nickname) => {
   try {
-    const response = await useAxiosInstance.apiClient.post(
+    const response = await useAxiosInstance.authApiClient.post(
       `/members/check/nickname?nickname=${nickname}`,
     );
     return response.data;
@@ -118,7 +114,7 @@ const membersPostCheckNickname = async (nickname) => {
 
 const membersPostCheckEmail = async (email) => {
   try {
-    const response = await useAxiosInstance.apiClient.post(
+    const response = await useAxiosInstance.authApiClient.post(
       `/members/check/email?email=${email}`,
     );
     return response.data;
@@ -129,7 +125,7 @@ const membersPostCheckEmail = async (email) => {
 
 const membersPostEmail = async (email) => {
   try {
-    const response = await useAxiosInstance.apiClient.post(
+    const response = await useAxiosInstance.authApiClient.post(
       `/members/email`,
       email,
     );
@@ -139,22 +135,18 @@ const membersPostEmail = async (email) => {
   }
 };
 
-const membersGetPin = async (memberId) => {
+const membersGetPin = async () => {
   try {
-    const response = await useAxiosInstance.apiClient.get(
-      `/members/pin/${memberId}`,
-    );
+    const response = await useAxiosInstance.authApiClient.get(`/members/pin`);
     return response.data;
   } catch (e) {
     console.log(e);
   }
 };
 
-const membersPutPin = async (memberId) => {
+const membersPutPin = async () => {
   try {
-    const response = await useAxiosInstance.apiClient.put(
-      `/members/pin/${memberId}`,
-    );
+    const response = await useAxiosInstance.authApiClient.put(`/members/pin`);
     return response.data;
   } catch (e) {
     console.log(e);

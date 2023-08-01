@@ -2,7 +2,7 @@ import useAxiosInstance from "./useAxiosInstance";
 
 const planetsGetPlanetList = async () => {
   try {
-    const response = await useAxiosInstance.apiClient.get(`/planets`);
+    const response = await useAxiosInstance.authApiClient.get(`/planets`);
     return response.data;
   } catch (e) {
     console.log(e);

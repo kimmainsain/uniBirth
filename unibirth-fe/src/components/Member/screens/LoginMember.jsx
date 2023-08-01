@@ -24,9 +24,8 @@ const LoginMember = () => {
       const response = await useMemberApi.membersPostLogin(member);
       if (response.status === 200) {
         alert("로그인이 완료되었습니다.");
-        sessionStorage.setItem("email", response.resultData.email);
+        sessionStorage.setItem("accessToken", response.resultData.accessToken);
         sessionStorage.setItem("nickname", response.resultData.nickname);
-        sessionStorage.setItem("id", response.resultData.id);
         sessionStorage.setItem("role", response.resultData.role);
         console.log(response.resultData);
         navigateToMainPlanet();
