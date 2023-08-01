@@ -11,7 +11,6 @@ import Space from "../../Home/blocks/Space";
 
 const DetailPlanet = () => {
   const { navigateToBack, navigateToRegisterConstellation } = useNavigation();
-
   const buttonsHeader = [
     {
       component: Button2,
@@ -29,12 +28,13 @@ const DetailPlanet = () => {
       onClick: navigateToRegisterConstellation,
     },
   ];
+
   return (
     <div className="relative h-screen w-screen">
       <div className="">
         <Header1 buttons={buttonsHeader} />
-        <ListSectionConstellation />
         <h1>별자리 리스트 화면입니다.d</h1>
+        <ListSectionConstellation />
         <Footer1 buttons={buttonsFooter} />
       </div>
       <Canvas camera={{ position: [0, -50, 0] }}>

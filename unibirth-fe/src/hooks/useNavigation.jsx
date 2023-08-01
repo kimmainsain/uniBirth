@@ -2,6 +2,9 @@ import { useNavigate } from "react-router-dom";
 
 export const useNavigation = () => {
   const memberId = sessionStorage.getItem("id");
+  const planetId = 1;
+  const constellationId = 1;
+  const starId = 1;
   const navigate = useNavigate();
 
   const navigateToBack = () => {
@@ -27,7 +30,7 @@ export const useNavigation = () => {
   };
 
   // Constellation
-  const navigateToDetailConstellation = (constellationId) => {
+  const navigateToDetailConstellation = () => {
     navigate(`/constellations/detail/${constellationId}`);
   };
 
@@ -40,7 +43,7 @@ export const useNavigation = () => {
   };
 
   // Planet
-  const navigateToDetailPlanet = (planetId) => {
+  const navigateToDetailPlanet = () => {
     navigate(`/planets/${planetId}`);
   };
 
@@ -78,6 +81,10 @@ export const useNavigation = () => {
     navigate(`/stars/register/${memberId}`);
   };
 
+  const navigateToDetailStar = () => {
+    navigate(`/stars/${starId}`);
+  };
+
   // Search
   const navigateToSearchQuration = () => {
     navigate("/search");
@@ -105,6 +112,7 @@ export const useNavigation = () => {
     navigateToDirectMessage,
     navigateToMessageBox,
     navigateToRegisterStar,
+    navigateToDetailStar,
     navigateToSearchQuration,
     navigateToSearchCommon,
   };

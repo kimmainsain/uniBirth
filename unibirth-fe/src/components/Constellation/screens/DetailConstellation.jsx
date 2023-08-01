@@ -5,9 +5,11 @@ import { BiSearch } from "react-icons/bi";
 import { useNavigation } from "../../../hooks/useNavigation";
 import Footer1 from "../../../common/blocks/Footer1";
 import Button1 from "../../../common/atoms/Button1";
+import ListSectionStar from "../blocks/ListSectionStar";
 
 const DetailConstellation = () => {
   const { navigateToBack, navigateToRegisterStar } = useNavigation();
+
   const buttonsHeader = [
     {
       component: Button2,
@@ -25,10 +27,12 @@ const DetailConstellation = () => {
       onClick: navigateToRegisterStar,
     },
   ];
+
   return (
     <div>
       <Header1 buttons={buttonsHeader} />
       <h1>여기서 별 리스트가 나와야합니다</h1>
+      <ListSectionStar />
       <Footer1 buttons={buttonsFooter} />
     </div>
   );

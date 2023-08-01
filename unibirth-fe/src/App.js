@@ -27,7 +27,7 @@ import MessageBox from "./components/Profile/screens/MessageBox";
 
 // Star
 import RegisterStar from "./components/Star/screens/RegisterStar";
-
+import DetailStar from "./components/Star/screens/DetailStar";
 // Search
 import SearchCommon from "./common/screens/SearchCommon";
 import SearchQuration from "./common/screens/SearchQuration";
@@ -53,6 +53,7 @@ const App = () => {
         element={<DrawingConstellation />}
       />
       <Route path="/stars/register/:member_id" element={<RegisterStar />} />
+      <Route path="/stars/detail/:starId" element={<DetailStar />} />
       <Route path="/profiles/:id" element={<MemberProfile />} />
       <Route path="/profiles/followings/:id" element={<Followings />} />
       <Route path="/profiles/followers/:id" element={<Followers />} />

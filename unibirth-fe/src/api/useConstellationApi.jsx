@@ -35,7 +35,7 @@ const constellationsGetPin = async (constellationId, memberId) => {
   }
 };
 
-const constellationGetAttendList = async (memberId) => {
+const constellationsGetAttendList = async (memberId) => {
   try {
     const response = await useAxiosInstance.apiClient.get(
       `/constellations/profiles/${memberId}`,
@@ -46,7 +46,7 @@ const constellationGetAttendList = async (memberId) => {
   }
 };
 
-const constellationGetPinList = async (memberId) => {
+const constellationsGetPinList = async (memberId) => {
   try {
     const response = await useAxiosInstance.apiClient.get(
       `/constellations/profiles/pins/${memberId}`,
@@ -57,7 +57,7 @@ const constellationGetPinList = async (memberId) => {
   }
 };
 
-const constellationPostConstellation = async (memberId) => {
+const constellationsPostConstellation = async (memberId) => {
   try {
     const response = await useAxiosInstance.apiClient.post(
       `/constellations/register/${memberId}`,
@@ -68,7 +68,7 @@ const constellationPostConstellation = async (memberId) => {
   }
 };
 
-const constellationGetDetail = async (constellationId) => {
+const constellationsGetDetail = async (constellationId) => {
   try {
     const response = await useAxiosInstance.apiClient.get(
       `/constellations/detail/${constellationId}`,
@@ -79,7 +79,7 @@ const constellationGetDetail = async (constellationId) => {
   }
 };
 
-const constellationGetTemplateList = async () => {
+const constellationsGetTemplateList = async () => {
   try {
     const response = await useAxiosInstance.apiClient.get(
       `/constellations/templates`,
@@ -90,7 +90,7 @@ const constellationGetTemplateList = async () => {
   }
 };
 
-const constellationDeletePin = async (constellationId, memberId) => {
+const constellationsDeletePin = async (constellationId, memberId) => {
   try {
     const response = await useAxiosInstance.apiClient.delete(
       `/constellations/pin/${constellationId}/${memberId}`,
@@ -105,10 +105,10 @@ export default {
   constellationsGetPlanet,
   constellationsGetConstellation,
   constellationsGetPin,
-  constellationGetAttendList,
-  constellationGetPinList,
-  constellationPostConstellation,
-  constellationGetDetail,
-  constellationGetTemplateList,
-  constellationDeletePin,
+  constellationsGetAttendList,
+  constellationsGetPinList,
+  constellationsPostConstellation,
+  constellationsGetDetail,
+  constellationsGetTemplateList,
+  constellationsDeletePin,
 };
