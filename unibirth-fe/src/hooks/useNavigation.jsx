@@ -57,6 +57,10 @@ export const useNavigation = () => {
     navigate(`/members/profiles`);
   };
 
+  const navigateToModifyMember = () => {
+    navigate("/members/update");
+  };
+
   const navigateToFollowings = () => {
     navigate(`/profiles/followings/${memberId}`);
   };
@@ -100,6 +104,7 @@ export const useNavigation = () => {
     navigateToMainPlanet,
     navigateToMemberProfile,
     navigateToModifyProfile,
+    navigateToModifyMember,
     navigateToFollowings,
     navigateToFollowers,
     navigateToDirectMessage,

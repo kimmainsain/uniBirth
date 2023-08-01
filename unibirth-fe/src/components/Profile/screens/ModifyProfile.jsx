@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header1 from "../../../common/blocks/Header1";
 import Footer1 from "../../../common/blocks/Footer1";
 import { useNavigation } from "../../../hooks/useNavigation";
@@ -12,7 +12,16 @@ import useMemberApi from "../../../api/useMemberApi";
 const ModifyProfile = () => {
   const { navigateToBack, navigateToMemberProfile } = useNavigation();
   const [image, setImage] = useState("");
-  const [introduction, setIntroduction] = useState("");
+  const [intro, setIntro] = useState("");
+
+  const memberId = sessionStorage.getItem("id");
+  const { imageUrl, introduction } = useMemberApi.membersGetDetail(memberId);
+
+  // useEffect를 사용하여 데이터가 불러와진 후에 상태를 설정합니다.
+  useEffect(() => {
+    setImage(imageUrl);
+    setIntro(introduction);
+  }, [imageUrl, introduction]);
 
   const buttonsHeader = [
     {
@@ -27,20 +36,17 @@ const ModifyProfile = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     const member = {
-      image,
-      introduction,
+      imageUrl: image,
+      introduction: intro,
     };
-    const memberId = sessionStorage.getItem("id");
     console.log("image:", image);
-    console.log("introduction:", introduction);
+    console.log("intro:", intro);
     try {
       const response = await useMemberApi.membersPutProfiles(memberId, member);
       if (response.status === 200) {
         alert("수정이 완료되었습니다.");
-        console.log(response.resultdata);
         navigateToMemberProfile();
       } else {
-        console.log(response.resultdata);
         alert("오류 발생.");
       }
     } catch (e) {
@@ -64,8 +70,8 @@ const ModifyProfile = () => {
       <form className="flex flex-col items-center justify-center space-y-10">
         <Inputimage value={image} onChange={(e) => setImage(e.target.value)} />
         <InputBox
-          value="자기소개"
-          onChange={(e) => setIntroduction(e.target.value)}
+          value="자기소개 : "
+          onChange={(e) => setIntro(e.target.value)}
         />
         <Footer1 buttons={buttonsFooter} />
       </form>

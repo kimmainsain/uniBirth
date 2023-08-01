@@ -7,6 +7,7 @@ import Home from "./components/Home/screens/Home";
 // Member
 import LoginMember from "./components/Member/screens/LoginMember";
 import RegisterMember from "./components/Member/screens/RegisterMember";
+import ModifyMember from "./components/Member/screens/ModifyMember";
 
 // Constellation
 import DetailConstellation from "./components/Constellation/screens/DetailConstellation";
@@ -57,6 +58,7 @@ const App = () => {
       <Route path="/profiles/followings" element={<Followings />} />
       <Route path="/profiles/followers" element={<Followers />} />
       <Route path="/members/profiles" element={<ModifyProfile />} />
+      <Route path="/members/update" element={<ModifyMember />} />
       <Route path="/profiles/directmessage" element={<DirectMessage />} />
       <Route path="/profiles/messagebox" element={<MessageBox />} />
       <Route path="/search" element={<SearchQuration />} />

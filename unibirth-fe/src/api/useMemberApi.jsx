@@ -94,7 +94,7 @@ const membersPutProfiles = async (memberId, data) => {
   }
 };
 
-const membersDeleteDelete = async (memberId) => {
+const membersDeleteMember = async (memberId) => {
   try {
     const response = await useAxiosInstance.apiClient.delete(
       `/members/delete/${memberId}`,
@@ -165,7 +165,7 @@ export default {
   membersPostRegister,
   membersGetDetail,
   membersPostLogin,
-  membersDeleteDelete,
+  membersDeleteMember,
   membersPutUpdate,
   membersPostCheckNickname,
   membersPostCheckEmail,
