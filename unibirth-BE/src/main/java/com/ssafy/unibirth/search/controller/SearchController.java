@@ -15,7 +15,7 @@ public class SearchController {
     private final SearchService searchService;
 
     @GetMapping("")
-    public ResponseEntity getConstellation(@Param("category") String category, @Param("word") String word) {
+    public ResponseEntity getConstellation(@RequestParam("category") String category, @RequestParam("word") String word) {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, searchService.search(category, word));
     }
 }
