@@ -50,6 +50,25 @@ public class StarService {
         return ReadStarDto.from(star, memberId, alreadyLiked);
     }
 
+    @Transactional(readOnly = true)
+    public List<ReadMyStarListResDto> readMyStarList(Long memberId) {
+        List<Star> starList = starRepository.findAllByMemberId(memberId);
+        return convertToMyStarListDto(starList);
+    }
+
+    @Transactional
+    public UpdateStarResDto update(UpdateStarReqDto dto, Long starId, Long memberId) {
+        starRepository.findById(starId).orElseThrow(
+                () -> new NotFoundException(FailCode.STAR_NOT_FOUND)
+        );
+        Star star = starRepository.findByIdAndMemberId(starId, memberId).orElseThrow(
+                () -> new NotFoundException(FailCode.STAR_MEMBER_NOT_FOUND)
+        );
+        star.setContent(dto.getContent());
+        star.setImageUrl(dto.getImageUrl());
+        return new UpdateStarResDto(starId);
+    }
+
     @Transactional
     public BrightnessResDto updateBrightness(Long id, Long memberId, int likeDiff) {
         Star star = findStarById(id);
@@ -73,12 +92,6 @@ public class StarService {
         return true;
     }
 
-    @Transactional(readOnly = true)
-    public List<ReadMyStarListResDto> getMyStarList(Long memberId) {
-        List<Star> starList = starRepository.findAllByMemberId(memberId);
-        return convertToMyStarListDto(starList);
-    }
-
     @Transactional
     public DeleteStarResDto delete(Long starId, Long memberId) {
         starRepository.findById(starId).orElseThrow(
@@ -89,6 +102,7 @@ public class StarService {
         );
         Long constellationId = star.getConstellation().getId();
         starRepository.delete(star);
+
         constellationService.updateConstellationStarCount(constellationId, -1);
         return new DeleteStarResDto(true);
     }
