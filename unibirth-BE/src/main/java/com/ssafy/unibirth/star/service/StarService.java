@@ -107,6 +107,12 @@ public class StarService {
         return new DeleteStarResDto(true);
     }
 
+    @Transactional(readOnly = true)
+    public List<StarItemDto> searchByContent(String word) {
+        List<Star> starList = starRepository.findAllByContentContains(word);
+        return constellationService.convertToStarListDto(starList);
+    }
+
     public List<Star> getStarListByConstellationId(Long id) {
         return starRepository.findAllByConstellationId(id);
     }

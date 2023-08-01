@@ -2,14 +2,13 @@ package com.ssafy.unibirth.member.domain;
 
 import com.ssafy.unibirth.common.domain.util.BaseTimeEntity;
 import com.ssafy.unibirth.constellation.domain.Constellation;
+import com.ssafy.unibirth.member.dto.MemberDto;
+import com.ssafy.unibirth.member.dto.RegistRequestDto;
 import com.ssafy.unibirth.member.dto.UpdateProfileReqDto;
-import com.ssafy.unibirth.zodiac.domain.Zodiac;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +16,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -27,6 +27,8 @@ public class Member extends BaseTimeEntity {
     private Long id;
     private String nickname;
     private String password;
+
+    @Column(name="email" , unique=true)
     private String email;
 
     @Enumerated(EnumType.STRING)
@@ -39,9 +41,8 @@ public class Member extends BaseTimeEntity {
     @ColumnDefault("0")
     private int starCount; // 작성한 별의 수
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "zordiac_id")
-    private Zodiac zodiac;
+    // 본인 생일에 해당하는 황도 12궁 이름
+    private String zodiac;
 
     // 내가 작성한 별자리 목록
     @OneToMany(mappedBy = "member")
@@ -91,4 +92,15 @@ public class Member extends BaseTimeEntity {
         this.introduction = updateProfileReqDto.getIntroduction();
     }
 
+    public static Member createMember(RegistRequestDto registRequestDto, PasswordEncoder passwordEncoder){
+        Member member = new Member();
+        member.setNickname(registRequestDto.getNickname());
+        member.setEmail(registRequestDto.getEmail());
+        member.setIntroduction(registRequestDto.getIntroduction());
+        String password = passwordEncoder.encode(registRequestDto.getPassword());
+        member.setPassword(password);
+        member.setBirth(registRequestDto.getBirth());
+        member.setImageUrl(registRequestDto.getImageUrl());
+        return member;
+    }
 }

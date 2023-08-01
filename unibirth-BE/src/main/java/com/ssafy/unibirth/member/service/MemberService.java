@@ -5,16 +5,16 @@ import com.ssafy.unibirth.common.api.exception.NotFoundException;
 import com.ssafy.unibirth.common.api.status.FailCode;
 import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.domain.Role;
-import com.ssafy.unibirth.member.dto.LoginRequestDto;
-import com.ssafy.unibirth.member.dto.LoginResponseDto;
-import com.ssafy.unibirth.member.dto.ProfileRespDto;
-import com.ssafy.unibirth.member.dto.UpdateProfileReqDto;
+import com.ssafy.unibirth.member.dto.*;
 import com.ssafy.unibirth.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,22 +22,25 @@ import java.util.Optional;
 public class MemberService{
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     // 회원 가입
-    public void signup(Member member) {
+    public void signup(RegistRequestDto registRequestDto) {
+        checkDuplicatedNickname(registRequestDto.getNickname()); // 닉네임 중복 재확인
+        checkDuplicatedEmail(registRequestDto.getEmail()); // 이메일 중복 재확인
+        Member member = Member.createMember(registRequestDto, passwordEncoder);
         memberRepository.save(member);
     }
 
     // 로그인
     public LoginResponseDto login(LoginRequestDto loginRequestDto) {
+        Member member = memberRepository.findByEmail(loginRequestDto.getEmail()).orElseThrow(() -> new NotFoundException(FailCode.EMAIL_NOT_FOUND));
+        PasswordEncoder encoder = passwordEncoder;
 
-        Member findMember = memberRepository.findByEmail(loginRequestDto.getEmail()).orElseThrow(() -> new NotFoundException(FailCode.EMAIL_NOT_FOUND));
-
-        if(!findMember.getPassword().equals(loginRequestDto.getPassword())) {
+        if(!encoder.matches(loginRequestDto.getPassword(), member.getPassword())) {
             throw new NotFoundException(FailCode.PASSWORD_NOT_FOUND);
         }
-
-        return new LoginResponseDto(findMember.getId(), findMember.getNickname(), findMember.getEmail(), findMember.getRole());
+        return new LoginResponseDto(member.getId(),member.getNickname(), member.getRole());
     }
 
     // 회원 정보 수정
@@ -108,6 +111,13 @@ public class MemberService{
     // 결재 후 핀 가능 별자리 갯수 추가
     public void addPins(Member member) {
         member.plusPin();
+    }
+
+    // 검색
+    public List<MemberItemDto> searchByNickname(String nickname) {
+        List<Member> findMembers = memberRepository.findAllByNicknameContains(nickname);
+        List<MemberItemDto> result = findMembers.stream().map(member -> new MemberItemDto(member.getNickname(), member.getImageUrl())).collect(Collectors.toList());
+        return result;
     }
 
 }

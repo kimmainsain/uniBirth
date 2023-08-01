@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReadStarListResDto {
+public class StarItemDto {
     private Long starId;
     private Long memberId;
     private LocalDateTime createdAt;

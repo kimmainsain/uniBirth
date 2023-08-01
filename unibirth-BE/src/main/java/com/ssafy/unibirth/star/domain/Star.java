@@ -14,7 +14,6 @@ import org.hibernate.annotations.ColumnDefault;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 public class Star extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

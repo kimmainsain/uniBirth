@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface ConstellationRepository extends JpaRepository<Constellation, Long> {
     List<Constellation> findAllByPlanetId(Long planetId);
+    List<Constellation> findAllByTitleContains(String title);
 
     // 내가 만든 별자리 + 내가 별을 1개 이상 작성한 별자리
     @Query(value = "SELECT c.id, c.title, c.boardSize, c.lineList, c.x, c.y " +
