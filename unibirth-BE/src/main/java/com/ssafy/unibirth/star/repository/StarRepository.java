@@ -11,6 +11,7 @@ import java.util.Optional;
 public interface StarRepository extends JpaRepository<Star, Long> {
     List<Star> findAllByConstellationId(Long constellationId);
     List<Star> findAllByMemberId(Long MemberId);
+    List<Star> findAllByContentContains(String content);
 
     Optional<Star> findByIdAndMemberId(Long starId, Long memberId);
 }
