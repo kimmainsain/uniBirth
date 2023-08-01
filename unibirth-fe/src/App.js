@@ -7,6 +7,7 @@ import Home from "./components/Home/screens/Home";
 // Member
 import LoginMember from "./components/Member/screens/LoginMember";
 import RegisterMember from "./components/Member/screens/RegisterMember";
+import ModifyMember from "./components/Member/screens/ModifyMember";
 
 // Constellation
 import DetailConstellation from "./components/Constellation/screens/DetailConstellation";
@@ -46,20 +47,21 @@ const App = () => {
         element={<DetailConstellation />}
       />
       <Route
-        path="/constellations/register/:member_id"
+        path="/constellations/register"
         element={<RegisterConstellation />}
       />
       <Route
         path="/constellations/drawing"
         element={<DrawingConstellation />}
       />
-      <Route path="/stars/register/:member_id" element={<RegisterStar />} />
-      <Route path="/stars/detail/:starId" element={<DetailStar />} />
-      <Route path="/profiles/:id" element={<MemberProfile />} />
-      <Route path="/profiles/followings/:id" element={<Followings />} />
-      <Route path="/profiles/followers/:id" element={<Followers />} />
-      <Route path="/profiles/directmessage/:id" element={<DirectMessage />} />
-      <Route path="/profiles/messagebox/:id" element={<MessageBox />} />
+      <Route path="/stars/register" element={<RegisterStar />} />
+      <Route path="/profiles" element={<MemberProfile />} />
+      <Route path="/profiles/followings" element={<Followings />} />
+      <Route path="/profiles/followers" element={<Followers />} />
+      <Route path="/members/profiles" element={<ModifyProfile />} />
+      <Route path="/members/update" element={<ModifyMember />} />
+      <Route path="/profiles/directmessage" element={<DirectMessage />} />
+      <Route path="/profiles/messagebox" element={<MessageBox />} />
       <Route path="/search" element={<SearchQuration />} />
       <Route
         path="/search?content=:query&category=:categoryname"

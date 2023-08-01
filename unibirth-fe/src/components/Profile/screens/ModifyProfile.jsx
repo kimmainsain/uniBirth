@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header1 from "../../../common/blocks/Header1";
 import Footer1 from "../../../common/blocks/Footer1";
 import { useNavigation } from "../../../hooks/useNavigation";
@@ -6,15 +6,22 @@ import { BiSearch } from "react-icons/bi";
 import Button1 from "../../../common/atoms/Button1";
 import Button2 from "../../../common/atoms/Button2";
 import Inputimage from "../../Member/atoms/InputImage";
-import Inputnickname from "../../Member/atoms/Inputnickname";
-import InputPassword from "../../../common/atoms/InputPassword";
-import InputPasswordConfirm from "../../Member/atoms/InputPasswordConfirm";
+import InputBox from "../../../common/atoms/InputBox";
+import useMemberApi from "../../../api/useMemberApi";
 
 const ModifyProfile = () => {
-  const { navigateToBack } = useNavigation();
+  const { navigateToBack, navigateToMemberProfile } = useNavigation();
   const [image, setImage] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [password, setPassword] = useState("");
+  const [intro, setIntro] = useState("");
+
+  const memberId = sessionStorage.getItem("id");
+  const { imageUrl, introduction } = useMemberApi.membersGetDetail(memberId);
+
+  // useEffect를 사용하여 데이터가 불러와진 후에 상태를 설정합니다.
+  useEffect(() => {
+    setImage(imageUrl);
+    setIntro(introduction);
+  }, [imageUrl, introduction]);
 
   const buttonsHeader = [
     {
@@ -26,12 +33,26 @@ const ModifyProfile = () => {
     },
   ];
 
-  const handleClick = () => {
+  const handleClick = async (e) => {
+    e.preventDefault();
+    const member = {
+      imageUrl: image,
+      introduction: intro,
+    };
     console.log("image:", image);
-    console.log("nickname:", nickname);
-    console.log("password:", password);
-
-    // 유효하다고 판단하면 마이페이지 화면으로 넘기기
+    console.log("intro:", intro);
+    try {
+      const response = await useMemberApi.membersPutProfiles(memberId, member);
+      if (response.status === 200) {
+        alert("수정이 완료되었습니다.");
+        navigateToMemberProfile();
+      } else {
+        alert("오류 발생.");
+      }
+    } catch (e) {
+      console.log(e);
+      alert("오류가 발생.");
+    }
   };
 
   const buttonsFooter = [
@@ -43,22 +64,15 @@ const ModifyProfile = () => {
     },
   ];
 
-  // password와 passwordConfirm 로직을 수행하는 함수 작성해야 함
-
   return (
     <div className="flex flex-col items-center justify-center space-y-5">
       <Header1 buttons={buttonsHeader} />
       <form className="flex flex-col items-center justify-center space-y-10">
         <Inputimage value={image} onChange={(e) => setImage(e.target.value)} />
-        <Inputnickname
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
+        <InputBox
+          value="자기소개 : "
+          onChange={(e) => setIntro(e.target.value)}
         />
-        <InputPassword
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <InputPasswordConfirm />
         <Footer1 buttons={buttonsFooter} />
       </form>
     </div>

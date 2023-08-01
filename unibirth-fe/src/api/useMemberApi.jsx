@@ -82,10 +82,11 @@ const membersPutBoard = async (memberId) => {
   }
 };
 
-const membersPutProfiles = async (memberId) => {
+const membersPutProfiles = async (memberId, data) => {
   try {
     const response = await useAxiosInstance.apiClient.put(
       `/members/profiles/${memberId}`,
+      data,
     );
     return response.data;
   } catch (e) {
@@ -93,7 +94,7 @@ const membersPutProfiles = async (memberId) => {
   }
 };
 
-const membersDeleteDelete = async (memberId) => {
+const membersDeleteMember = async (memberId) => {
   try {
     const response = await useAxiosInstance.apiClient.delete(
       `/members/delete/${memberId}`,
@@ -164,7 +165,7 @@ export default {
   membersPostRegister,
   membersGetDetail,
   membersPostLogin,
-  membersDeleteDelete,
+  membersDeleteMember,
   membersPutUpdate,
   membersPostCheckNickname,
   membersPostCheckEmail,
