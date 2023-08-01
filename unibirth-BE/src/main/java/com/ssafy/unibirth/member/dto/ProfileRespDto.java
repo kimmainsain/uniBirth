@@ -17,6 +17,7 @@ public class ProfileRespDto {
     private int followerCount;
     private String introduction;
     private String imageUrl;
+    private String zodiac; // 본인 생일에 해당하는 황도 12궁 이름
 
     public ProfileRespDto(Member member) {
         this.nickname = member.getNickname();
@@ -26,5 +27,6 @@ public class ProfileRespDto {
         this.followerCount = member.getFollowerCount();
         this.introduction = member.getIntroduction();
         this.imageUrl = member.getImageUrl();
+        this.zodiac = member.getZodiac();
     }
 }

@@ -12,7 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +26,8 @@ public class MemberService{
 
     // 회원 가입
     public void signup(RegistRequestDto registRequestDto) {
+        checkDuplicatedNickname(registRequestDto.getNickname()); // 닉네임 중복 재확인
+        checkDuplicatedEmail(registRequestDto.getEmail()); // 이메일 중복 재확인
         Member member = Member.createMember(registRequestDto, passwordEncoder);
         memberRepository.save(member);
     }
@@ -107,6 +111,13 @@ public class MemberService{
     // 결재 후 핀 가능 별자리 갯수 추가
     public void addPins(Member member) {
         member.plusPin();
+    }
+
+    // 검색
+    public List<MemberItemDto> searchByNickname(String nickname) {
+        List<Member> findMembers = memberRepository.findAllByNicknameContains(nickname);
+        List<MemberItemDto> result = findMembers.stream().map(member -> new MemberItemDto(member.getNickname(), member.getImageUrl())).collect(Collectors.toList());
+        return result;
     }
 
 }
