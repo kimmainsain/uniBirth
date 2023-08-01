@@ -1,6 +1,7 @@
 package com.ssafy.unibirth.search.dto;
 
 import com.ssafy.unibirth.constellation.dto.ConstellationItemDto;
+import com.ssafy.unibirth.member.dto.MemberItemDto;
 import com.ssafy.unibirth.star.dto.StarItemDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,11 +16,11 @@ import java.util.List;
 public class SearchResDto {
     private List<ConstellationItemDto> constellationList;
     private List<StarItemDto> starList;
-//    private List<MemberItemDto> memberList;
+    private List<MemberItemDto> memberList;
 
     public SearchResDto() {
         this.constellationList = new ArrayList<>();
         this.starList = new ArrayList<>();
-//        this.memberList = new ArrayList<>();
+        this.memberList = new ArrayList<>();
     }
 }
