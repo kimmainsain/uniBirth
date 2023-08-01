@@ -7,9 +7,10 @@ import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.domain.Role;
 import com.ssafy.unibirth.member.dto.*;
 import com.ssafy.unibirth.member.repository.MemberRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,26 +23,25 @@ import java.util.stream.Stream;
 public class MemberService{
 
     private final MemberRepository memberRepository;
-    private final MailSendService mailSendService;
+    private final PasswordEncoder passwordEncoder;
 
     // 회원 가입
-    public String signup(Member member) {
+    public void signup(RegistRequestDto registRequestDto) {
         checkDuplicatedNickname(member.getNickname()); // 닉네임 중복 재확인
         checkDuplicatedEmail(member.getEmail()); // 이메일 중복 재확인
+        Member member = Member.createMember(registRequestDto, passwordEncoder);
         memberRepository.save(member);
-        return "로그인 완료";
     }
 
     // 로그인
     public LoginResponseDto login(LoginRequestDto loginRequestDto) {
+        Member member = memberRepository.findByEmail(loginRequestDto.getEmail()).orElseThrow(() -> new NotFoundException(FailCode.EMAIL_NOT_FOUND));
+        PasswordEncoder encoder = passwordEncoder;
 
-        Member findMember = memberRepository.findByEmail(loginRequestDto.getEmail()).orElseThrow(() -> new NotFoundException(FailCode.EMAIL_NOT_FOUND));
-
-        if(!findMember.getPassword().equals(loginRequestDto.getPassword())) {
+        if(!encoder.matches(loginRequestDto.getPassword(), member.getPassword())) {
             throw new NotFoundException(FailCode.PASSWORD_NOT_FOUND);
         }
-
-        return new LoginResponseDto(findMember.getId(), findMember.getNickname(), findMember.getEmail(), findMember.getRole());
+        return new LoginResponseDto(member.getId(),member.getNickname(), member.getRole());
     }
 
     // 회원 정보 수정

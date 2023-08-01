@@ -2,13 +2,13 @@ package com.ssafy.unibirth.member.domain;
 
 import com.ssafy.unibirth.common.domain.util.BaseTimeEntity;
 import com.ssafy.unibirth.constellation.domain.Constellation;
+import com.ssafy.unibirth.member.dto.MemberDto;
+import com.ssafy.unibirth.member.dto.RegistRequestDto;
 import com.ssafy.unibirth.member.dto.UpdateProfileReqDto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +16,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -26,6 +27,8 @@ public class Member extends BaseTimeEntity {
     private Long id;
     private String nickname;
     private String password;
+
+    @Column(name="email" , unique=true)
     private String email;
 
     @Enumerated(EnumType.STRING)
@@ -89,4 +92,15 @@ public class Member extends BaseTimeEntity {
         this.introduction = updateProfileReqDto.getIntroduction();
     }
 
+    public static Member createMember(RegistRequestDto registRequestDto, PasswordEncoder passwordEncoder){
+        Member member = new Member();
+        member.setNickname(registRequestDto.getNickname());
+        member.setEmail(registRequestDto.getEmail());
+        member.setIntroduction(registRequestDto.getIntroduction());
+        String password = passwordEncoder.encode(registRequestDto.getPassword());
+        member.setPassword(password);
+        member.setBirth(registRequestDto.getBirth());
+        member.setImageUrl(registRequestDto.getImageUrl());
+        return member;
+    }
 }
