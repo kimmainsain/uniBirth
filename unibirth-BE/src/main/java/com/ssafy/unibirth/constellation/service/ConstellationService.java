@@ -1,17 +1,24 @@
 package com.ssafy.unibirth.constellation.service;
 
 import com.google.gson.Gson;
+import com.ssafy.unibirth.common.api.exception.CustomException;
 import com.ssafy.unibirth.common.api.exception.NotFoundException;
 import com.ssafy.unibirth.common.api.status.FailCode;
 import com.ssafy.unibirth.constellation.domain.Constellation;
+import com.ssafy.unibirth.constellation.domain.Pin;
+import com.ssafy.unibirth.constellation.domain.PinId;
+import com.ssafy.unibirth.constellation.domain.Template;
 import com.ssafy.unibirth.constellation.dto.*;
 import com.ssafy.unibirth.constellation.repository.ConstellationRepository;
+import com.ssafy.unibirth.constellation.repository.PinRepository;
+import com.ssafy.unibirth.constellation.repository.TemplateRepository;
 import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.service.MemberService;
 import com.ssafy.unibirth.planet.domain.Planet;
 import com.ssafy.unibirth.planet.service.PlanetService;
 import com.ssafy.unibirth.star.domain.Star;
 import com.ssafy.unibirth.star.dto.ReadStarListResDto;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,8 +30,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ConstellationService {
     private final ConstellationRepository constellationRepository;
+    private final PinRepository pinRepository;
+    private final TemplateRepository templateRepository;
     private final MemberService memberService;
     private final PlanetService planetService;
+    private EntityManager em;
 
     public CreateConstellationResDto create(Long memberId, ConstellationReqDto dto) {
         Member member = memberService.detailUser(memberId);
@@ -52,6 +62,33 @@ public class ConstellationService {
         return new ReadConstellationListResDto(constellationItemDtoList);
     }
 
+    @Transactional(readOnly = true)
+    public ReadConstellationListResDto readParticipatedList(Long memberId) {
+        List<Object[]> constellationList =  constellationRepository.findparticipatedConstellationList(memberId);
+        List<ConstellationItemDto> constellationItemDtoList = convertToConstellationItemDtoByArray(constellationList);
+        return new ReadConstellationListResDto(constellationItemDtoList);
+    }
+
+    @Transactional(readOnly = true)
+    public ReadConstellationListResDto readPinedList(Long memberId) {
+        List<Constellation> constellationList = pinRepository.findConstellationListByMemberId(memberId);
+        List<ConstellationItemDto> constellationItemDtoList = convertToConstellationItemDto(constellationList);
+        return new ReadConstellationListResDto(constellationItemDtoList);
+    }
+
+    @Transactional(readOnly = true)
+    public ReadConstellationDetailResDto readDetail(Long constellationId) {
+        Constellation constellation = findConstellationById(constellationId);
+        return new ReadConstellationDetailResDto(constellation);
+    }
+
+    @Transactional(readOnly = true)
+    public ReadTemplateListResDto readTemplateList() {
+        List<Template> templateList = templateRepository.findAll();
+        List<TemplateItemDto> templateItemDtoList = convertToTemplateItemDto(templateList);
+        return new ReadTemplateListResDto(templateItemDtoList);
+    }
+
     public Constellation findConstellationById(Long id) throws NotFoundException {
         return constellationRepository.findById(id).orElseThrow(
                 () -> new NotFoundException(FailCode.CONSTELLATION_NOT_FOUND)
@@ -64,9 +101,9 @@ public class ConstellationService {
     }
 
     @Transactional
-    public int increaseConstellationStarCount(Long id) {
+    public int updateConstellationStarCount(Long id, int diff) {
         Constellation constellation = findConstellationById(id);
-        constellation.setStarCount(constellation.getStarCount() + 1);
+        constellation.setStarCount(constellation.getStarCount() + diff);
         return constellation.getStarCount();
     }
 
@@ -76,9 +113,37 @@ public class ConstellationService {
         return constellation.getTotalBrightness();
     }
 
+    @Transactional
+    public PinConstellationResDto addPin(Long constellationId, Long memberId) {
+        checkPinValidation(memberId, constellationId);
+
+        Member member = memberService.detailUser(memberId);
+        Constellation constellation = findConstellationById(constellationId);
+        pinRepository.save(new Pin(member, constellation));
+        return new PinConstellationResDto(constellationId, true);
+    }
+
+    @Transactional
+    public PinConstellationResDto removePin(Long constellationId, Long memberId) {
+        PinId pinId = new PinId(memberId, constellationId);
+        Pin pin = pinRepository.findById(pinId).orElseThrow(
+                () -> new NotFoundException(FailCode.PIN_NOT_FOUND)
+        );
+        pinRepository.delete(pin);
+        return new PinConstellationResDto(constellationId, false);
+    }
+
     private int[][] stringToArray(String arrayString) {
         Gson gson = new Gson();
         return gson.fromJson(arrayString, int[][].class);
+    }
+
+    private boolean checkPinValidation(Long memberId, Long constellationId) {
+        PinId pinId = new PinId(memberId, constellationId);
+        if(pinRepository.existsById(pinId)) {
+            throw new CustomException(FailCode.ALREADY_PINED_CONSTELLATION);
+        }
+        return true;
     }
 
     private List<ReadStarListResDto> convertToStarListDto(List<Star> starList) {
@@ -105,6 +170,34 @@ public class ConstellationService {
                                 .lineList(stringToArray(con.getLineList()))
                                 .x(con.getX())
                                 .y(con.getY())
+                                .build()
+                ).collect(Collectors.toList());
+    }
+
+    private List<ConstellationItemDto> convertToConstellationItemDtoByArray(List<Object[]> constellationList) {
+        return constellationList.stream()
+                .map(con ->
+                        ConstellationItemDto.builder()
+                                .constellationId((Long) con[0])
+                                .title((String) con[1])
+                                .boardSize((int) con[2])
+                                .lineList(stringToArray((String) con[3]))
+                                .x((double) con[4])
+                                .y((double) con[5])
+                                .build()
+                ).collect(Collectors.toList());
+    }
+
+    private List<TemplateItemDto> convertToTemplateItemDto(List<Template> templateList) {
+        return templateList.stream()
+                .map(tem ->
+                        TemplateItemDto.builder()
+                                .templateId(tem.getId())
+                                .title(tem.getTitle())
+                                .pointCount(tem.getPointCount())
+                                .boardSize(tem.getBoardSize())
+                                .lineList(stringToArray(tem.getLineList()))
+                                .pointList(stringToArray(tem.getPointList()))
                                 .build()
                 ).collect(Collectors.toList());
     }
