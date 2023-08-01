@@ -85,9 +85,9 @@ public class JwtTokenProvider {
         return this.id;
     }
 
-    // X-AUTH-TOKEN 으로 토큰 바음
+    // Authorization 으로 토큰 바음
     public String resolveToken(HttpServletRequest request) {
-        return request.getHeader("X-AUTH-TOKEN");
+        return request.getHeader("Authorization");
     }
 
     // 토큰 유효성 검사
