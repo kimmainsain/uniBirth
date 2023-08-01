@@ -61,10 +61,10 @@ public class JwtTokenProvider {
         Date now = new Date();
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
-                .setClaims(claims) // 데이터
-                .setIssuedAt(now) // 토큰 발행일자
-                .setExpiration(new Date(now.getTime() + EXPIRE)) // set Expire Time
-                .signWith(SignatureAlgorithm.HS512, key) // 암호화 알고리즘, secret값 세팅
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime() + EXPIRE)) // 만료일
+                .signWith(SignatureAlgorithm.HS512, key) // 암호화
                 .compact();
     }
 
