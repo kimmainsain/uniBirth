@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
 export const useNavigation = () => {
-  const memberId = sessionStorage.getItem("id");
   const navigate = useNavigate();
 
   const navigateToBack = () => {
@@ -32,7 +31,7 @@ export const useNavigation = () => {
   };
 
   const navigateToRegisterConstellation = () => {
-    navigate(`/constellations/register/${memberId}`);
+    navigate(`/constellations/register`);
   };
 
   const navigateToDrawingConstellation = () => {
@@ -62,24 +61,24 @@ export const useNavigation = () => {
   };
 
   const navigateToFollowings = () => {
-    navigate(`/profiles/followings/${memberId}`);
+    navigate("/profiles/followings");
   };
 
   const navigateToFollowers = () => {
-    navigate(`/profiles/followers/${memberId}`);
+    navigate("/profiles/followers");
   };
 
   const navigateToDirectMessage = () => {
-    navigate(`/profiles/directmessage/${memberId}`);
+    navigate("/profiles/directmessage");
   };
 
   const navigateToMessageBox = () => {
-    navigate(`/profiles/messagebox/${memberId}`);
+    navigate("/profiles/messagebox");
   };
 
   // Star
   const navigateToRegisterStar = () => {
-    navigate(`/stars/register/${memberId}`);
+    navigate("/stars/register");
   };
 
   // Search

@@ -5,12 +5,16 @@ import Header1 from "../../../common/blocks/Header1";
 import Footer1 from "../../../common/blocks/Footer1";
 import { BiArrowBack, BiLogInCircle } from "react-icons/bi";
 import { useNavigation } from "../../../hooks/useNavigation";
+import { useRecoilState } from "recoil";
+import { nicknameState } from "../../../recoil/atoms";
 import LoginFormMember from "../blocks/LoginFormMember";
 import useMemberApi from "../../../api/useMemberApi";
 
 const LoginMember = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [nickname, setNickname] = useRecoilState(nicknameState);
+
   const { navigateToBack, navigateToRegisterMember, navigateToMainPlanet } =
     useNavigation();
 
@@ -19,16 +23,15 @@ const LoginMember = () => {
     const member = {
       email,
       password,
+      nickname,
     };
     try {
       const response = await useMemberApi.membersPostLogin(member);
       if (response.status === 200) {
         alert("로그인이 완료되었습니다.");
-        sessionStorage.setItem("email", response.resultData.email);
-        sessionStorage.setItem("nickname", response.resultData.nickname);
-        sessionStorage.setItem("id", response.resultData.id);
-        sessionStorage.setItem("role", response.resultData.role);
+        sessionStorage.setItem("accessToken", response.resultData.accessToken);
         console.log(response.resultData);
+        setNickname(nickname);
         navigateToMainPlanet();
       } else {
         alert("이메일 또는 비밀번호가 일치하지 않습니다.");

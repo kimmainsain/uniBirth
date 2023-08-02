@@ -1,9 +1,9 @@
 import useAxiosInstance from "./useAxiosInstance";
 
-const profilesGetFollowings = async (memberId) => {
+const profilesGetFollowings = async () => {
   try {
-    const response = await useAxiosInstance.apiClient.get(
-      `/profiles/followings/${memberId}`,
+    const response = await useAxiosInstance.authApiClient.get(
+      `/profiles/followings`,
     );
     return response.data;
   } catch (e) {
@@ -11,22 +11,10 @@ const profilesGetFollowings = async (memberId) => {
   }
 };
 
-const profilesGetFollowers = async (memberId) => {
+const profilesGetFollowers = async () => {
   try {
-    const response = await useAxiosInstance.apiClient.get(
-      `/profiles/followings/${memberId}`,
-    );
-    console.log(response);
-    return response.data;
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-const profilesPostFollow = async (memberId) => {
-  try {
-    const response = await useAxiosInstance.apiClient.post(
-      `/profiles/follow/${memberId}`,
+    const response = await useAxiosInstance.authApiClient.get(
+      `/profiles/followings`,
     );
     console.log(response);
     return response.data;
@@ -35,10 +23,22 @@ const profilesPostFollow = async (memberId) => {
   }
 };
 
-// 앞의 memberId는 본인 id, 뒤의 id는 언팔할 사람의 id
-const profilesDeleteFollow = async (memberId) => {
+const profilesPostFollow = async () => {
   try {
-    const response = await useAxiosInstance.apiClient.delete(
+    const response = await useAxiosInstance.authApiClient.post(
+      `/profiles/follow`,
+    );
+    console.log(response);
+    return response.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+// id 빠져야함.
+const profilesDeleteFollow = async () => {
+  try {
+    const response = await useAxiosInstance.authApiClient.delete(
       `/profiles/follow/from=${memberId}&to=${memberId}`,
     );
     return response.data;
@@ -47,10 +47,10 @@ const profilesDeleteFollow = async (memberId) => {
   }
 };
 
-const profilesGetCntFollowers = async (memberId) => {
+const profilesGetCntFollowers = async () => {
   try {
-    const response = await useAxiosInstance.apiClient.get(
-      `/profiles/followers/cnt/${memberId}`,
+    const response = await useAxiosInstance.authApiClient.get(
+      `/profiles/followers/cnt`,
     );
     return response.data;
   } catch (e) {
@@ -58,10 +58,10 @@ const profilesGetCntFollowers = async (memberId) => {
   }
 };
 
-const profilesGetCntFollowings = async (memberId) => {
+const profilesGetCntFollowings = async () => {
   try {
-    const response = await useAxiosInstance.apiClient.get(
-      `/profiles/followings/cnt/${memberId}`,
+    const response = await useAxiosInstance.authApiClient.get(
+      `/profiles/followings/cnt`,
     );
     return response.data;
   } catch (e) {

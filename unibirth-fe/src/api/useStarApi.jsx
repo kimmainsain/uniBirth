@@ -1,9 +1,9 @@
 import useAxiosInstance from "./useAxiosInstance";
 
-const starsGetStar = async (starId, memberId) => {
+const starsGetStar = async (starId) => {
   try {
-    const response = await useAxiosInstance.apiClient.get(
-      `/stars/${starId}/${memberId}`,
+    const response = await useAxiosInstance.authApiClient.get(
+      `/stars/${starId}`,
     );
     return response.data;
   } catch (e) {
@@ -11,10 +11,10 @@ const starsGetStar = async (starId, memberId) => {
   }
 };
 
-const starsGetBrightness = async (starId, memberId) => {
+const starsGetBrightness = async (starId) => {
   try {
-    const response = await useAxiosInstance.apiClient.get(
-      `/stars/brightness/${starId}/${memberId}`,
+    const response = await useAxiosInstance.authApiClient.get(
+      `/stars/brightness/${starId}`,
     );
     console.log(response);
     return response.data;
@@ -23,9 +23,9 @@ const starsGetBrightness = async (starId, memberId) => {
   }
 };
 
-const starsGetStarList = async (memberId) => {
+const starsGetStarList = async () => {
   try {
-    const response = await useAxiosInstance.apiClient.get(`/stars/${memberId}`);
+    const response = await useAxiosInstance.authApiClient.get(`/stars`);
     console.log(response);
     return response.data;
   } catch (e) {
@@ -33,10 +33,10 @@ const starsGetStarList = async (memberId) => {
   }
 };
 
-const starsPostStar = async (memberId) => {
+const starsPostStar = async () => {
   try {
-    const response = await useAxiosInstance.apiClient.post(
-      `/stars/register/${memberId}`,
+    const response = await useAxiosInstance.authApiClient.post(
+      `/stars/register`,
     );
     return response.data;
   } catch (e) {
@@ -44,10 +44,10 @@ const starsPostStar = async (memberId) => {
   }
 };
 
-const starsDeleteBrightness = async (starId, memberId) => {
+const starsDeleteBrightness = async (starId) => {
   try {
-    const response = await useAxiosInstance.apiClient.delete(
-      `/stars/brightness/${starId}/${memberId}`,
+    const response = await useAxiosInstance.authApiClient.delete(
+      `/stars/brightness/${starId}`,
     );
     return response.data;
   } catch (e) {
@@ -55,10 +55,10 @@ const starsDeleteBrightness = async (starId, memberId) => {
   }
 };
 
-const starsPutStar = async (starId, memberId) => {
+const starsPutStar = async (starId) => {
   try {
-    const response = await useAxiosInstance.apiClient.put(
-      `/stars/${starId}/${memberId}`,
+    const response = await useAxiosInstance.authApiClient.put(
+      `/stars/${starId}`,
     );
     return response.data;
   } catch (e) {
@@ -66,10 +66,10 @@ const starsPutStar = async (starId, memberId) => {
   }
 };
 
-const starsDeleteStar = async (starId, memberId) => {
+const starsDeleteStar = async (starId) => {
   try {
-    const response = await useAxiosInstance.apiClient.delete(
-      `/stars/${starId}/${memberId}`,
+    const response = await useAxiosInstance.authApiClient.delete(
+      `/stars/${starId}`,
     );
     return response.data;
   } catch (e) {

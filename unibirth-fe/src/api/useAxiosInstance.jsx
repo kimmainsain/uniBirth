@@ -1,6 +1,8 @@
 import axios from "axios";
 import { API_URL, CONTENT_TYPE_JSON } from "../constants/constants";
 
+const token = sessionStorage.getItem("accessToken");
+
 const apiClient = axios.create({
   baseURL: API_URL,
   headers: {
@@ -8,7 +10,7 @@ const apiClient = axios.create({
   },
 });
 
-const authApiClient = (token) =>
+const authApiClient = () =>
   axios.create({
     baseURL: API_URL,
     headers: {

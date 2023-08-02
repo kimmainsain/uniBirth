@@ -7,3 +7,7 @@ export const passwordState = atom({
   key: "passwordState",
   default: "",
 });
+export const nicknameState = atom({
+  key: "nicknameState",
+  default: "",
+});
