@@ -27,11 +27,10 @@ const membersGetProfiles = async () => {
 
 const membersPostRegister = async (member) => {
   try {
-    const jwt = sessionStorage.getItem("accessToken");
-    console.log(member);
-    const response = await useAxiosInstance
-      .apiClient(jwt)
-      .post("/members/register", member);
+    const response = await useAxiosInstance.apiClient.post(
+      "/members/register",
+      member,
+    );
     console.log(response);
     return response.data;
   } catch (e) {
