@@ -121,10 +121,10 @@ public class ConstellationService {
     }
 
     @Transactional
-    public PinConstellationResDto addPin(Long constellationId, Long memberId) {
-        checkPinValidation(memberId, constellationId);
+    public PinConstellationResDto addPin(Long constellationId) {
+        Member member = memberService.getCurrentMember();
+        checkPinValidation(member.getId(), constellationId);
 
-        Member member = memberService.detailUser(memberId);
         Constellation constellation = findConstellationById(constellationId);
         pinRepository.save(new Pin(member, constellation));
         return new PinConstellationResDto(constellationId, true);

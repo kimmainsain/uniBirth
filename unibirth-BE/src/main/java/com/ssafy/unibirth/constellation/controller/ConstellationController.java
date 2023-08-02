@@ -29,9 +29,9 @@ public class ConstellationController {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.readAll(planetId));
     }
 
-    @GetMapping("/pin/{id}/{memberId}")
-    public ResponseEntity addPin(@PathVariable("id") Long constellationId, @PathVariable("memberId") Long memberId) {
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.addPin(constellationId, memberId));
+    @GetMapping("/pin/{id}")
+    public ResponseEntity addPin(@PathVariable("id") Long constellationId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.addPin(constellationId));
     }
 
     @GetMapping("/profiles/{id}")
