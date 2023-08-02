@@ -44,6 +44,9 @@ public class Member extends BaseTimeEntity {
     // 본인 생일에 해당하는 황도 12궁 이름
     private String zodiac;
 
+    // 관심 분야
+    private String interest;
+
     // 내가 작성한 별자리 목록
     @OneToMany(mappedBy = "member")
     private List<Constellation> constellationList = new ArrayList<>();
