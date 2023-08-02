@@ -32,7 +32,17 @@ public class MemberService{
     public void signup(RegistRequestDto registRequestDto) {
         checkDuplicatedNickname(registRequestDto.getNickname()); // 닉네임 중복 재확인
         checkDuplicatedEmail(registRequestDto.getEmail()); // 이메일 중복 재확인
-        Member member = Member.createMember(registRequestDto, passwordEncoder);
+        String password = passwordEncoder.encode(registRequestDto.getPassword());
+        Member member = Member.builder()
+                                .nickname(registRequestDto.getNickname())
+                                .email(registRequestDto.getEmail())
+                                .introduction(registRequestDto.getIntroduction())
+                                .interest(registRequestDto.getInterest())
+                                .password(password)
+                                .birth(registRequestDto.getBirth())
+                                .imageUrl(registRequestDto.getImageUrl())
+                                .build();
+
         memberRepository.save(member);
     }
 

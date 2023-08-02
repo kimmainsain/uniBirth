@@ -1,9 +1,11 @@
 package com.ssafy.unibirth.star.domain;
 
 import com.ssafy.unibirth.common.domain.util.BaseEntity;
+import com.ssafy.unibirth.common.domain.util.BaseTimeEntity;
 import com.ssafy.unibirth.constellation.domain.Constellation;
 import com.ssafy.unibirth.member.domain.Member;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +16,7 @@ import org.hibernate.annotations.ColumnDefault;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Star extends BaseEntity {
+public class Star extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "star_id")
@@ -31,7 +33,9 @@ public class Star extends BaseEntity {
     @ColumnDefault("0")
     private int brightness; // 좋아요
 
+    @NotNull
     private String content;
+    @ColumnDefault("'https://www.google.com/url?sa=i&url=http%3A%2F%2Fm.blog.naver.com%2Fsbkim24%2F221186610409&psig=AOvVaw17ZT087qblje4zlC7CccXl&ust=1691049058729000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCJjvjOa-vYADFQAAAAAdAAAAABAI'")
     private String imageUrl;
 
     public Star(Constellation constellation, Member member, String content, String imageUrl) {

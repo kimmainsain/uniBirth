@@ -28,6 +28,7 @@ public class Template extends BaseTimeEntity {
     @Column(name = "template_id")
     private Long id;
 
+    @ColumnDefault("'행성명'")
     private String title;
 
     @ColumnDefault("10")
