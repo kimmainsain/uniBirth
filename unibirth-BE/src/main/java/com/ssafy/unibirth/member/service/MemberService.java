@@ -7,6 +7,7 @@ import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.domain.Role;
 import com.ssafy.unibirth.member.dto.*;
 import com.ssafy.unibirth.member.repository.MemberRepository;
+import com.ssafy.unibirth.security.SecurityUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,7 +41,7 @@ public class MemberService{
         if(!encoder.matches(loginRequestDto.getPassword(), member.getPassword())) {
             throw new NotFoundException(FailCode.PASSWORD_NOT_FOUND);
         }
-        return new LoginResponseDto(member.getId(),member.getNickname(), member.getRole());
+        return new LoginResponseDto(member.getNickname(), member.getRole());
     }
 
     // 회원 정보 수정
@@ -130,4 +131,11 @@ public class MemberService{
         return result;
     }
 
+    public Member getCurrentMember() {
+        String nickname = SecurityUtil.getCurrentNickname();
+        Member member = memberRepository.findByNickname(nickname).orElseThrow(
+                () -> new NotFoundException(FailCode.MEMBER_NOT_FOUND)
+        );
+        return member;
+    }
 }

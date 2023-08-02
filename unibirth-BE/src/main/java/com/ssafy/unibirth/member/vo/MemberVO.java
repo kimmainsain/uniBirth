@@ -19,16 +19,14 @@ public class MemberVO implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
-    private String id;
     private String nickname;
     private String password;
     private String roles;
 
-    public MemberVO(Long id, String nickname, String password, Role role) {
-        this.id = String.valueOf(id);
+    public MemberVO(String nickname, String password, Role role) {
         this.nickname = nickname;
         this.password = password;
-        this.roles=String.valueOf(role);
+        this.roles = String.valueOf(role);
     }
 
     @Override
@@ -71,5 +69,4 @@ public class MemberVO implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 }

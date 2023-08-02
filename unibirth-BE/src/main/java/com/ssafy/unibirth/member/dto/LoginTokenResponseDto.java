@@ -13,11 +13,8 @@ import lombok.NoArgsConstructor;
 public class LoginTokenResponseDto {
 
     private String accessToken;
-
+    private String nickname;
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    private String nickname;
-
 }
 
