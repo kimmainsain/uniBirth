@@ -2,7 +2,8 @@ import useAxiosInstance from "./useAxiosInstance";
 
 const starsGetStar = async (starId) => {
   try {
-    const response = await useAxiosInstance.authApiClient.get(
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance.authApiClient(jwt).get(
       `/stars/${starId}`,
     );
     return response.data;
@@ -13,7 +14,8 @@ const starsGetStar = async (starId) => {
 
 const starsGetBrightness = async (starId) => {
   try {
-    const response = await useAxiosInstance.authApiClient.get(
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance.authApiClient(jwt).get(
       `/stars/brightness/${starId}`,
     );
     console.log(response);
@@ -25,7 +27,8 @@ const starsGetBrightness = async (starId) => {
 
 const starsGetStarList = async () => {
   try {
-    const response = await useAxiosInstance.authApiClient.get(`/stars`);
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance.authApiClient(jwt).get(`/stars`);
     console.log(response);
     return response.data;
   } catch (e) {
@@ -35,7 +38,8 @@ const starsGetStarList = async () => {
 
 const starsPostStar = async () => {
   try {
-    const response = await useAxiosInstance.authApiClient.post(
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance.authApiClient(jwt).post(
       `/stars/register`,
     );
     return response.data;
@@ -46,7 +50,8 @@ const starsPostStar = async () => {
 
 const starsDeleteBrightness = async (starId) => {
   try {
-    const response = await useAxiosInstance.authApiClient.delete(
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance.authApiClient(jwt).delete(
       `/stars/brightness/${starId}`,
     );
     return response.data;
@@ -57,7 +62,8 @@ const starsDeleteBrightness = async (starId) => {
 
 const starsPutStar = async (starId) => {
   try {
-    const response = await useAxiosInstance.authApiClient.put(
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance.authApiClient(jwt).put(
       `/stars/${starId}`,
     );
     return response.data;
@@ -68,7 +74,8 @@ const starsPutStar = async (starId) => {
 
 const starsDeleteStar = async (starId) => {
   try {
-    const response = await useAxiosInstance.authApiClient.delete(
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance.authApiClient(jwt).delete(
       `/stars/${starId}`,
     );
     return response.data;

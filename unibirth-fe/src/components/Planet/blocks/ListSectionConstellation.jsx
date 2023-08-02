@@ -18,13 +18,9 @@ const ListSectionConstellation = () => {
     ],
   });
   const getConstellationList = async (planetId) => {
-    const jwt = sessionStorage.getItem("accessToken");
-    console.log(jwt);
     const response = await useConstellationApi.constellationsGetPlanet(
       planetId,
-      jwt,
     );
-    console.log(planetId);
     console.log(response);
     setConstellationList(response.resultData);
   };
