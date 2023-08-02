@@ -64,16 +64,16 @@ public class ConstellationService {
     }
 
     @Transactional(readOnly = true)
-    public ReadConstellationListResDto readParticipatedList() {
-        Long memberId = memberService.getCurrentMember().getId();
+    public ReadConstellationListResDto readParticipatedList(String nickname) {
+        Long memberId = memberService.detailUser(nickname).getId();
         List<Object[]> constellationList =  constellationRepository.findparticipatedConstellationList(memberId);
         List<ConstellationItemDto> constellationItemDtoList = convertToConstellationItemDtoByArray(constellationList);
         return new ReadConstellationListResDto(constellationItemDtoList);
     }
 
     @Transactional(readOnly = true)
-    public ReadConstellationListResDto readPinedList() {
-        Long memberId = memberService.getCurrentMember().getId();
+    public ReadConstellationListResDto readPinedList(String nickname) {
+        Long memberId = memberService.detailUser(nickname).getId();
         List<Constellation> constellationList = pinRepository.findConstellationListByMemberId(memberId);
         List<ConstellationItemDto> constellationItemDtoList = convertToConstellationItemDto(constellationList);
         return new ReadConstellationListResDto(constellationItemDtoList);
