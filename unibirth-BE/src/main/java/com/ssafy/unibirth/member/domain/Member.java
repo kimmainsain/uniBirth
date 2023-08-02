@@ -6,6 +6,7 @@ import com.ssafy.unibirth.member.dto.MemberDto;
 import com.ssafy.unibirth.member.dto.RegistRequestDto;
 import com.ssafy.unibirth.member.dto.UpdateProfileReqDto;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,17 +21,21 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class Member extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
+    @NotNull
     private String nickname;
+    @NotNull
     private String password;
 
     @Column(name="email" , unique=true)
     private String email;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER; // USER, ADMIN, DELETED
 
