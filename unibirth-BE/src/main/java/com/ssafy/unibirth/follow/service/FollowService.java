@@ -33,7 +33,6 @@ public class FollowService {
             Member follow_from = memberService.detailUser(followReqDto.getFollow_from());
             Member follow_to = memberService.detailUser(followReqDto.getFollow_to());
 
-
             FollowId followId = new FollowId(followReqDto.getFollow_from(), followReqDto.getFollow_to());
             Follow follow = new Follow();
 
@@ -44,10 +43,11 @@ public class FollowService {
             id = follow.getFollowFrom().getId();
             id2 = follow.getFollowTo().getId();
 
+            follow_from.inFollowingCount();
+            follow_to.inFollowerCount();
         }catch (Exception e) {
             throw new NotFoundException(FailCode.MEMBER_NOT_FOUND);
         }
-
         return new FollowResDto(id, id2);
     }
 
@@ -60,6 +60,8 @@ public class FollowService {
                 .orElseThrow(() -> new NotFoundException(FailCode.FOLLOWER_NOT_FOUND));
 
         followRepository.delete(follow);
+        follow_from.deFollowingCount();
+        follow_to.deFollowerCount();
     }
 
     //팔로워 리스트

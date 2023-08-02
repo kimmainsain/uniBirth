@@ -47,8 +47,9 @@ public class SecurityConfig{
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                     .authorizeRequests() // 접근권한
-                    .requestMatchers("/members/register", "/members/login").permitAll() // 로그인, 회원가입 모두 접속 가능
+                    .requestMatchers("/members/register", "/members/login", "planets").permitAll() // 로그인, 회원가입 모두 접속 가능
                     .requestMatchers("/profiles/****").hasAnyRole("USER","ADMIN")
+//                    .requestMatchers("/**").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class) // jwt token 필터를 id/password 인증 필터 전에 넣는다

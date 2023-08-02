@@ -19,7 +19,7 @@ public class MemberSecurityService implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String id){
-        Member memberEntity = memberRepository.findById(Long.valueOf(id)).orElseThrow(() -> new NotFoundException(FailCode.EMAIL_NOT_FOUND));
+        Member memberEntity = memberRepository.findById(Long.valueOf(id)).orElseThrow(() -> new NotFoundException(FailCode.ID_NOT_FOUND));
         return new MemberVO(memberEntity.getId(), memberEntity.getNickname(), memberEntity.getPassword(), memberEntity.getRole());
     }
 }
