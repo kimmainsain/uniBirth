@@ -15,38 +15,38 @@ import org.springframework.web.bind.annotation.*;
 public class StarController {
     private final StarService starService;
 
-    @PostMapping("/register/{id}")
-    public ResponseEntity createStar(@PathVariable("id") Long memberId, @RequestBody CreateStarReqDto dto) {
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.create(memberId, dto));
+    @PostMapping("/register")
+    public ResponseEntity createStar(@RequestBody CreateStarReqDto dto) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.create(dto));
     }
 
-    @GetMapping("/{id}/{memberId}")
-    public ResponseEntity getStar(@PathVariable("id") Long starId, @PathVariable("memberId") Long memberId) {
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.read(starId, memberId));
+    @GetMapping("/{id}")
+    public ResponseEntity getStar(@PathVariable("id") Long starId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.read(starId));
     }
 
-    @GetMapping("/brightness/{id}/{memberId}")
-    public ResponseEntity increaseBrightness(@PathVariable("id") Long starId, @PathVariable("memberId") Long memberId) {
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.updateBrightness(starId, memberId, 1));
+    @GetMapping("/brightness/{id}")
+    public ResponseEntity increaseBrightness(@PathVariable("id") Long starId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.updateBrightness(starId, 1));
     }
 
-    @GetMapping("/{memberId}")
-    public ResponseEntity getMyStarList(@PathVariable("memberId") Long memberId) {
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.readMyStarList(memberId));
+    @GetMapping("")
+    public ResponseEntity getMyStarList() {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.readMyStarList());
     }
 
-    @PutMapping("/{id}/{memberId}")
-    public ResponseEntity update(@RequestBody UpdateStarReqDto dto, @PathVariable("id") Long starId, @PathVariable("memberId") Long memberId) {
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.update(dto, starId, memberId));
+    @PutMapping("/{id}")
+    public ResponseEntity update(@RequestBody UpdateStarReqDto dto, @PathVariable("id") Long starId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.update(dto, starId));
     }
 
-    @DeleteMapping("/brightness/{id}/{memberId}")
-    public ResponseEntity decreaseBrightness(@PathVariable("id") Long starId, @PathVariable("memberId") Long memberId) {
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.updateBrightness(starId, memberId, -1));
+    @DeleteMapping("/brightness/{id}")
+    public ResponseEntity decreaseBrightness(@PathVariable("id") Long starId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.updateBrightness(starId, -1));
     }
 
-    @DeleteMapping("/{id}/{memberId}")
-    public ResponseEntity deleteStar(@PathVariable("id") Long starId, @PathVariable("memberId") Long memberId) {
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.delete(starId, memberId));
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteStar(@PathVariable("id") Long starId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.delete(starId));
     }
 }

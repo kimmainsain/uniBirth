@@ -64,14 +64,16 @@ public class ConstellationService {
     }
 
     @Transactional(readOnly = true)
-    public ReadConstellationListResDto readParticipatedList(Long memberId) {
+    public ReadConstellationListResDto readParticipatedList() {
+        Long memberId = memberService.getCurrentMember().getId();
         List<Object[]> constellationList =  constellationRepository.findparticipatedConstellationList(memberId);
         List<ConstellationItemDto> constellationItemDtoList = convertToConstellationItemDtoByArray(constellationList);
         return new ReadConstellationListResDto(constellationItemDtoList);
     }
 
     @Transactional(readOnly = true)
-    public ReadConstellationListResDto readPinedList(Long memberId) {
+    public ReadConstellationListResDto readPinedList() {
+        Long memberId = memberService.getCurrentMember().getId();
         List<Constellation> constellationList = pinRepository.findConstellationListByMemberId(memberId);
         List<ConstellationItemDto> constellationItemDtoList = convertToConstellationItemDto(constellationList);
         return new ReadConstellationListResDto(constellationItemDtoList);
@@ -131,7 +133,8 @@ public class ConstellationService {
     }
 
     @Transactional
-    public PinConstellationResDto removePin(Long constellationId, Long memberId) {
+    public PinConstellationResDto removePin(Long constellationId) {
+        Long memberId = memberService.getCurrentMember().getId();
         PinId pinId = new PinId(memberId, constellationId);
         Pin pin = pinRepository.findById(pinId).orElseThrow(
                 () -> new NotFoundException(FailCode.PIN_NOT_FOUND)

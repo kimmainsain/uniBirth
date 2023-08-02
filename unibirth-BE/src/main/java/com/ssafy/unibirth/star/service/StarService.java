@@ -30,11 +30,11 @@ public class StarService {
     private final ConstellationService constellationService;
 
     @Transactional
-    public CreateStarResDto create(Long memberId, CreateStarReqDto dto) {
+    public CreateStarResDto create(CreateStarReqDto dto) {
         Long constellationId = dto.getConstellationId();
         checkCompletion(constellationId);
 
-        Member member = memberService.detailUser(memberId);
+        Member member = memberService.getCurrentMember();
         Constellation constellation = constellationService.findConstellationById(constellationId);
         Star star = dto.toEntity(constellation, member);
         Long createdId = starRepository.save(star).getId();
@@ -43,21 +43,24 @@ public class StarService {
         return new CreateStarResDto(createdId);
     }
 
-    public ReadStarDto read(Long id, Long memberId) {
+    public ReadStarDto read(Long id) {
         Star star = findStarById(id);
+        Long memberId = memberService.getCurrentMember().getId();
         BrightnessId brightnessId = new BrightnessId(memberId, id);
         boolean alreadyLiked = brightnessRepository.existsById(brightnessId);
         return ReadStarDto.from(star, memberId, alreadyLiked);
     }
 
     @Transactional(readOnly = true)
-    public List<ReadMyStarListResDto> readMyStarList(Long memberId) {
+    public List<ReadMyStarListResDto> readMyStarList() {
+        Long memberId = memberService.getCurrentMember().getId();
         List<Star> starList = starRepository.findAllByMemberId(memberId);
         return convertToMyStarListDto(starList);
     }
 
     @Transactional
-    public UpdateStarResDto update(UpdateStarReqDto dto, Long starId, Long memberId) {
+    public UpdateStarResDto update(UpdateStarReqDto dto, Long starId) {
+        Long memberId = memberService.getCurrentMember().getId();
         starRepository.findById(starId).orElseThrow(
                 () -> new NotFoundException(FailCode.STAR_NOT_FOUND)
         );
@@ -70,8 +73,9 @@ public class StarService {
     }
 
     @Transactional
-    public BrightnessResDto updateBrightness(Long id, Long memberId, int likeDiff) {
+    public BrightnessResDto updateBrightness(Long id, int likeDiff) {
         Star star = findStarById(id);
+        Long memberId = memberService.getCurrentMember().getId();
         checkLikeValidation(memberId, star, likeDiff);
 
         star.setBrightness(star.getBrightness() + likeDiff);
@@ -93,7 +97,8 @@ public class StarService {
     }
 
     @Transactional
-    public DeleteStarResDto delete(Long starId, Long memberId) {
+    public DeleteStarResDto delete(Long starId) {
+        Long memberId = memberService.getCurrentMember().getId();
         starRepository.findById(starId).orElseThrow(
                 () -> new NotFoundException(FailCode.STAR_NOT_FOUND)
         );
