@@ -4,6 +4,7 @@ import com.ssafy.unibirth.common.domain.util.BaseTimeEntity;
 import com.ssafy.unibirth.constellation.domain.Constellation;
 import com.ssafy.unibirth.member.dto.UpdateProfileReqDto;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -22,7 +23,9 @@ public class Member extends BaseTimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
+    @NotNull
     private String nickname;
+    @NotNull
     private String password;
 
     @Column(name="email" , unique=true)

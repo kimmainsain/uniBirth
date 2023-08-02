@@ -54,6 +54,11 @@ public class MemberService{
         if(!encoder.matches(loginRequestDto.getPassword(), member.getPassword())) {
             throw new NotFoundException(FailCode.PASSWORD_NOT_FOUND);
         }
+
+        if(member.getRole() == Role.DELETED) {
+            throw new NotFoundException(FailCode.MEMBER_NOT_FOUND);
+        }
+
         return new LoginResponseDto(member.getNickname(), member.getRole());
     }
 
