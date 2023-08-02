@@ -7,6 +7,7 @@ import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.planet.domain.Planet;
 import com.ssafy.unibirth.star.domain.Star;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,7 +39,9 @@ public class Constellation extends BaseTimeEntity {
     @JsonIgnore
     private List<Star> starList = new ArrayList<>();
 
+    @NotNull
     private String title;
+    @NotNull
     private String description;
 
     @ColumnDefault("10")
