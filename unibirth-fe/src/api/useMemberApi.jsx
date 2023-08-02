@@ -2,7 +2,10 @@ import useAxiosInstance from "./useAxiosInstance";
 
 const membersGetBoard = async () => {
   try {
-    const response = await useAxiosInstance.authApiClient.get(`/members/board`);
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .get(`/members/board`);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -11,9 +14,10 @@ const membersGetBoard = async () => {
 
 const membersGetProfiles = async () => {
   try {
-    const response = await useAxiosInstance.authApiClient.get(
-      `/members/profiles`,
-    );
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .get(`/members/profiles`);
     console.log(response);
     return response.data;
   } catch (e) {
@@ -23,11 +27,11 @@ const membersGetProfiles = async () => {
 
 const membersPostRegister = async (member) => {
   try {
+    const jwt = sessionStorage.getItem("accessToken");
     console.log(member);
-    const response = await useAxiosInstance.apiClient.post(
-      "/members/register",
-      member,
-    );
+    const response = await useAxiosInstance
+      .apiClient(jwt)
+      .post("/members/register", member);
     console.log(response);
     return response.data;
   } catch (e) {
@@ -49,9 +53,10 @@ const membersPostLogin = async (member) => {
 
 const membersGetDetail = async () => {
   try {
-    const response = await useAxiosInstance.authApiClient.get(
-      `/members/detail`,
-    );
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .get(`/members/detail`);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -60,9 +65,10 @@ const membersGetDetail = async () => {
 
 const membersPutUpdate = async () => {
   try {
-    const response = await useAxiosInstance.authApiClient.put(
-      `/members/update`,
-    );
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .put(`/members/update`);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -71,7 +77,10 @@ const membersPutUpdate = async () => {
 
 const membersPutBoard = async () => {
   try {
-    const response = await useAxiosInstance.authApiClient.put(`/members/board`);
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .put(`/members/board`);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -80,10 +89,10 @@ const membersPutBoard = async () => {
 
 const membersPutProfiles = async (data) => {
   try {
-    const response = await useAxiosInstance.authApiClient.put(
-      `/members/profiles`,
-      data,
-    );
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .put(`/members/profiles`, data);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -92,9 +101,10 @@ const membersPutProfiles = async (data) => {
 
 const membersDeleteMember = async () => {
   try {
-    const response = await useAxiosInstance.authApiClient.delete(
-      `/members/delete`,
-    );
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .delete(`/members/delete`);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -137,7 +147,10 @@ const membersPostEmail = async (email) => {
 
 const membersGetPin = async () => {
   try {
-    const response = await useAxiosInstance.authApiClient.get(`/members/pin`);
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .get(`/members/pin`);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -146,7 +159,10 @@ const membersGetPin = async () => {
 
 const membersPutPin = async () => {
   try {
-    const response = await useAxiosInstance.authApiClient.put(`/members/pin`);
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .put(`/members/pin`);
     return response.data;
   } catch (e) {
     console.log(e);

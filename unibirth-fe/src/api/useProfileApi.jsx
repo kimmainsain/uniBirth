@@ -2,7 +2,8 @@ import useAxiosInstance from "./useAxiosInstance";
 
 const profilesGetFollowings = async () => {
   try {
-    const response = await useAxiosInstance.authApiClient.get(
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance.authApiClient(jwt).get(
       `/profiles/followings`,
     );
     return response.data;
@@ -13,7 +14,8 @@ const profilesGetFollowings = async () => {
 
 const profilesGetFollowers = async () => {
   try {
-    const response = await useAxiosInstance.authApiClient.get(
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance.authApiClient(jwt).get(
       `/profiles/followings`,
     );
     console.log(response);
@@ -25,7 +27,8 @@ const profilesGetFollowers = async () => {
 
 const profilesPostFollow = async () => {
   try {
-    const response = await useAxiosInstance.authApiClient.post(
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance.authApiClient(jwt).post(
       `/profiles/follow`,
     );
     console.log(response);
@@ -38,7 +41,8 @@ const profilesPostFollow = async () => {
 // id 빠져야함.
 const profilesDeleteFollow = async () => {
   try {
-    const response = await useAxiosInstance.authApiClient.delete(
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance.authApiClient(jwt).delete(
       `/profiles/follow/from=${memberId}&to=${memberId}`,
     );
     return response.data;
@@ -49,7 +53,8 @@ const profilesDeleteFollow = async () => {
 
 const profilesGetCntFollowers = async () => {
   try {
-    const response = await useAxiosInstance.authApiClient.get(
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance.authApiClient(jwt).get(
       `/profiles/followers/cnt`,
     );
     return response.data;
@@ -60,7 +65,8 @@ const profilesGetCntFollowers = async () => {
 
 const profilesGetCntFollowings = async () => {
   try {
-    const response = await useAxiosInstance.authApiClient.get(
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance.authApiClient(jwt).get(
       `/profiles/followings/cnt`,
     );
     return response.data;
