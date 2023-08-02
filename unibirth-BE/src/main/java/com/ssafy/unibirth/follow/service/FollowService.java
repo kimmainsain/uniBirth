@@ -26,7 +26,6 @@ public class FollowService {
 
     private final FollowRepository followRepository;
     private final MemberService memberService;
-    private final JwtTokenProvider jwtTokenProvider;
     //팔로우하기
     public FollowResDto follow(FollowReqDto followReqDto) throws NotFoundException {
         Long id, id2;
@@ -55,7 +54,7 @@ public class FollowService {
 
     public void deleteFollow(String nickname) throws NotFoundException{
 
-        Member followFrom = memberService.detailUser(jwtTokenProvider.getMemberId());
+        Member followFrom = memberService.getCurrentMember();
         Member followTo = memberService.detailUser(nickname);
 
         Follow follow = followRepository.findByFollowFromAndAndFollowTo(followFrom, followTo)
