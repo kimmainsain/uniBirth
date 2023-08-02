@@ -6,16 +6,7 @@ const ListSectionConstellation = () => {
   const { planetId } = useParams();
   const { navigateToDetailConstellation } = useNavigation();
   const [constellationList, setConstellationList] = useState({
-    constellationList: [
-      {
-        constellationId: 0,
-        title: "",
-        boardSize: 0,
-        lineList: [],
-        x: 0,
-        y: 0,
-      },
-    ],
+    constellationList: [],
   });
   const getConstellationList = async (planetId) => {
     const response = await useConstellationApi.constellationsGetPlanet(

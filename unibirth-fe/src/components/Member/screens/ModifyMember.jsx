@@ -56,7 +56,7 @@ const RegisterMember = () => {
     {
       component: Button1,
       className: "font-TAEBAEKmilkyway",
-      value: "회원가입",
+      value: "회원정보 수정",
       onClick: joinMember,
     },
   ];

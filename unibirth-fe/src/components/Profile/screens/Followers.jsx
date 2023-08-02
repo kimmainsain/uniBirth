@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button2 from "../../../common/atoms/Button2";
 import Header2 from "../../../common/blocks/Header2";
 import Header1 from "../../../common/blocks/Header1";
 import { IoIosArrowBack } from "react-icons/io";
 import { CiLocationArrow1 } from "react-icons/ci";
 import { useNavigation } from "../../../hooks/useNavigation";
+import useProfileApi from "../../../api/useProfileApi";
 
 const Followers = () => {
   const { navigateToMemberProfile } = useNavigation();
@@ -36,60 +37,24 @@ const Followers = () => {
   ];
 
   // 유저 정보 배열 (예시로 10개의 유저 정보를 생성합니다)
-  const users = [
-    {
-      id: 1,
-      name: "김민섭",
-      profileImageUrl: "https://picsum.photos/200",
-    },
-    {
-      id: 2,
-      name: "정준혁",
-      profileImageUrl: "https://picsum.photos/190",
-    },
-    {
-      id: 3,
-      name: "이성섭",
-      profileImageUrl: "https://picsum.photos/21",
-    },
-    {
-      id: 1,
-      name: "김민섭",
-      profileImageUrl: "https://picsum.photos/200",
-    },
-    {
-      id: 2,
-      name: "정준혁",
-      profileImageUrl: "https://picsum.photos/190",
-    },
-    {
-      id: 3,
-      name: "이성섭",
-      profileImageUrl: "https://picsum.photos/21",
-    },
-    {
-      id: 1,
-      name: "김민섭",
-      profileImageUrl: "https://picsum.photos/200",
-    },
-    {
-      id: 2,
-      name: "정준혁",
-      profileImageUrl: "https://picsum.photos/190",
-    },
-    {
-      id: 3,
-      name: "이성섭",
-      profileImageUrl: "https://picsum.photos/21",
-    },
-  ];
+  const [followerList, setFollowerList] = useState({
+    followerList: [],
+  });
+  const getFollowerList = async () => {
+    const response = await useProfileApi.profilesGetFollowers();
+    setFollowerList(response.resultData);
+  };
+
+  useEffect(() => {
+    getFollowerList();
+  }, []);
 
   return (
     <div>
       <Header2 buttons={buttonsHeader} />
       <Header1 buttons={buttonsHeader2} />
       <h1> 팔로워 리스트입니다..</h1>
-      {users.map((user) => (
+      {followerList?.followerList.map((user) => (
         <div key={user.id} className="flex items-start space-x-4">
           <img
             src={user.profileImageUrl}

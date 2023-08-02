@@ -13,7 +13,7 @@ const authApiClient = (token) =>
     baseURL: API_URL,
     headers: {
       "Content-Type": CONTENT_TYPE_JSON,
-      Authorization: `Bearer ${token}`,
+      Authorization: `${token}`,
     },
   });
 

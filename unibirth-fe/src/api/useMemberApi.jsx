@@ -12,13 +12,13 @@ const membersGetBoard = async () => {
   }
 };
 
+// memberId 빼면 get요청에서 숫자 빼줘야함
 const membersGetProfiles = async () => {
   try {
     const jwt = sessionStorage.getItem("accessToken");
     const response = await useAxiosInstance
       .authApiClient(jwt)
-      .get(`/members/profiles`);
-    console.log(response);
+      .get(`/members/profiles/read`);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -27,11 +27,11 @@ const membersGetProfiles = async () => {
 
 const membersPostRegister = async (member) => {
   try {
-    const jwt = sessionStorage.getItem("accessToken");
     console.log(member);
-    const response = await useAxiosInstance
-      .apiClient(jwt)
-      .post("/members/register", member);
+    const response = await useAxiosInstance.apiClient.post(
+      "/members/register",
+      member,
+    );
     console.log(response);
     return response.data;
   } catch (e) {
@@ -89,10 +89,12 @@ const membersPutBoard = async () => {
 
 const membersPutProfiles = async (data) => {
   try {
+    console.log(data);
     const jwt = sessionStorage.getItem("accessToken");
+    console.log(jwt);
     const response = await useAxiosInstance
       .authApiClient(jwt)
-      .put(`/members/profiles`, data);
+      .put(`/members/profiles/update`, data);
     return response.data;
   } catch (e) {
     console.log(e);

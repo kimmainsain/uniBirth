@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputBox = ({ onChange, value }) => {
+const InputBox = ({ onChange, value, placeholder }) => {
   return (
     <div className="flex h-40 w-80 flex-row justify-center font-TAEBAEKmilkyway">
       <div className="flex flex-row">
@@ -11,7 +11,7 @@ const InputBox = ({ onChange, value }) => {
           id="text"
           name="text"
           onChange={onChange}
-          placeholder="내용을 입력하세요"
+          placeholder={placeholder}
           autoComplete="off"
         />
       </div>

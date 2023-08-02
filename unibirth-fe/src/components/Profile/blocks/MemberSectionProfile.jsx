@@ -6,21 +6,20 @@ const ConstellationSectionProfile = () => {
   const { navigateToModifyProfile, navigateToFollowings, navigateToFollowers } =
     useNavigation();
 
-  const memberId = sessionStorage.getItem("id");
   const [memberData, setMemberData] = useState();
 
   useEffect(() => {
     const fetchMemberData = async () => {
       try {
-        const data = await useMemberApi.membersGetProfiles(`${memberId}`);
-        console.log(data);
-        setMemberData(data);
+        const response = await useMemberApi.membersGetProfiles();
+        console.log("membersection 리스폰스", response);
+        setMemberData(response);
       } catch (error) {
         console.error("멤버 데이터를 가져오는데 에러 발생:", error);
       }
     };
     fetchMemberData();
-  }, [memberId]);
+  }, []);
 
   return (
     <div className="space-x-4 bg-blue-200">

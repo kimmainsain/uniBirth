@@ -18,7 +18,6 @@ const MemberProfile = () => {
     navigateToModifyMember,
   } = useNavigation();
 
-  const memberId = sessionStorage.getItem("id");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleLogout = () => {
@@ -30,7 +29,7 @@ const MemberProfile = () => {
     const confirmSignOut = window.confirm("정말로 회원을 탈퇴하시겠습니까?");
     if (confirmSignOut) {
       try {
-        const response = await useMemberApi.membersDeleteMember(memberId);
+        const response = await useMemberApi.membersDeleteMember();
         if (response.status === 200) {
           alert("회원탈퇴 완료.");
           sessionStorage.clear();
