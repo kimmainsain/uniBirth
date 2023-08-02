@@ -30,10 +30,10 @@ public class FollowService {
     public FollowResDto follow(FollowReqDto followReqDto) throws NotFoundException {
         Long id, id2;
         try{
-            Member follow_from = memberService.detailUser(followReqDto.getFollow_from());
-            Member follow_to = memberService.detailUser(followReqDto.getFollow_to());
+            Member follow_from = memberService.detailUser(followReqDto.getFollowFrom());
+            Member follow_to = memberService.detailUser(followReqDto.getFollowTo());
 
-            FollowId followId = new FollowId(followReqDto.getFollow_from(), followReqDto.getFollow_to());
+            FollowId followId = new FollowId(followReqDto.getFollowFrom(), followReqDto.getFollowTo());
             Follow follow = new Follow();
 
             follow.setId(followId);
@@ -73,8 +73,7 @@ public class FollowService {
         followers = followRepository.findAllByFollowTo(follow_to);
         for (Follow follower : followers) {
             followList.add(FollowListDto.builder()
-                .follow_id(follower.getFollowFrom().getId())
-                .image_url(follower.getFollowFrom().getImageUrl())
+                .imageUrl(follower.getFollowFrom().getImageUrl())
                 .nickname(follower.getFollowFrom().getNickname())
                 .build());
         }
@@ -92,8 +91,7 @@ public class FollowService {
         followings = followRepository.findAllByFollowFrom(follow_from);
         for (Follow following : followings) {
             followList.add(FollowListDto.builder()
-                    .follow_id(following.getFollowTo().getId())
-                    .image_url(following.getFollowTo().getImageUrl())
+                    .imageUrl(following.getFollowTo().getImageUrl())
                     .nickname(following.getFollowTo().getNickname())
                     .build());
         }
