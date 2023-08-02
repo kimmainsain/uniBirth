@@ -8,6 +8,7 @@ const ListSectionPlanet = () => {
   const [planetList, setPlanetList] = useState({
     planetList: [],
   });
+
   const getPlanetList = async () => {
     const response = await usePlanetApi.planetsGetPlanetList();
     console.log(response);
