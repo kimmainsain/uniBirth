@@ -8,10 +8,10 @@ import java.io.Serializable;
 @Embeddable
 public class FollowId implements Serializable {
 
-    @Column(name = "follow_from")
+    @Column(name = "followFrom")
     private Long followFrom;
 
-    @Column(name = "follow_to")
+    @Column(name = "followTo")
     private Long followTo;
 
     public FollowId(Long followFrom, Long followTo){

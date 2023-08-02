@@ -20,12 +20,12 @@ public class Follow {
 
     @ManyToOne
     @MapsId("followFrom")
-    @JoinColumn(name = "follow_from")
+    @JoinColumn(name = "followFrom")
     private Member followFrom;
 
     @ManyToOne
     @MapsId("followTo")
-    @JoinColumn(name = "follow_to")
+    @JoinColumn(name = "followTo")
     private Member followTo;
 
 }
