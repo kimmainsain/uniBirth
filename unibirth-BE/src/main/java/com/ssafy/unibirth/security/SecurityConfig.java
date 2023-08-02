@@ -54,7 +54,7 @@ public class SecurityConfig{
                 .and()
                     .authorizeRequests() // 접근권한
                     .requestMatchers("/members/register", "/members/login", "planets").permitAll() // 로그인, 회원가입 모두 접속 가능
-                    .requestMatchers("/profiles/****").hasAnyRole("USER","ADMIN")
+                    .requestMatchers("/profiles/**").hasAnyAuthority("USER", "ADMIN")
 //                    .requestMatchers("/**").permitAll()
                     .anyRequest().authenticated()
                 .and()
