@@ -1,10 +1,11 @@
 import useAxiosInstance from "./useAxiosInstance";
 
-const constellationsGetPlanet = async (planetId) => {
+const constellationsGetPlanet = async (planetId, jwt) => {
   try {
-    const response = await useAxiosInstance.authApiClient.get(
-      `/constellations/list/${planetId}`,
-    );
+    console.log(planetId, jwt);
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .get(`/constellations/list/${planetId}`);
     return response.data;
   } catch (e) {
     console.log(e);

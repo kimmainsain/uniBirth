@@ -1,8 +1,8 @@
 import useAxiosInstance from "./useAxiosInstance";
 
-const planetsGetPlanetList = async (jwt) => {
+const planetsGetPlanetList = async () => {
   try {
-    const response = await useAxiosInstance.authApiClient(jwt).get(`/planets`);
+    const response = await useAxiosInstance.authApiClient().get(`/planets`);
     console.log(response);
     return response.data;
   } catch (e) {

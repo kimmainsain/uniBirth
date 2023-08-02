@@ -16,7 +16,6 @@ const MainPlanet = () => {
   } = useNavigation();
 
   const token = sessionStorage.getItem("accessToken");
-  console.log(token);
 
   const buttonsFooter = [
     {
