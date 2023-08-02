@@ -1,6 +1,7 @@
 package com.ssafy.unibirth.star.domain;
 
 import com.ssafy.unibirth.common.domain.util.BaseEntity;
+import com.ssafy.unibirth.common.domain.util.BaseTimeEntity;
 import com.ssafy.unibirth.constellation.domain.Constellation;
 import com.ssafy.unibirth.member.domain.Member;
 import jakarta.persistence.*;
@@ -14,7 +15,7 @@ import org.hibernate.annotations.ColumnDefault;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Star extends BaseEntity {
+public class Star extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "star_id")
