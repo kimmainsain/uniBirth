@@ -118,6 +118,7 @@ public class Member extends BaseTimeEntity {
         member.setNickname(registRequestDto.getNickname());
         member.setEmail(registRequestDto.getEmail());
         member.setIntroduction(registRequestDto.getIntroduction());
+        member.setInterest(registRequestDto.getInterest());
         String password = passwordEncoder.encode(registRequestDto.getPassword());
         member.setPassword(password);
         member.setBirth(registRequestDto.getBirth());
