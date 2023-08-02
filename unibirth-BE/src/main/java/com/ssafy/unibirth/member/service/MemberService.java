@@ -3,17 +3,20 @@ package com.ssafy.unibirth.member.service;
 import com.ssafy.unibirth.common.api.exception.DuplicatedException;
 import com.ssafy.unibirth.common.api.exception.NotFoundException;
 import com.ssafy.unibirth.common.api.status.FailCode;
+import com.ssafy.unibirth.follow.domain.Follow;
+import com.ssafy.unibirth.follow.repository.FollowRepository;
 import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.domain.Role;
 import com.ssafy.unibirth.member.dto.*;
 import com.ssafy.unibirth.member.repository.MemberRepository;
+import com.ssafy.unibirth.security.SecurityUtil;
+import com.ssafy.unibirth.star.domain.Star;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,6 +25,7 @@ import java.util.stream.Collectors;
 public class MemberService{
 
     private final MemberRepository memberRepository;
+    private final FollowRepository followRepository;
     private final PasswordEncoder passwordEncoder;
 
     // 회원 가입
@@ -40,7 +44,7 @@ public class MemberService{
         if(!encoder.matches(loginRequestDto.getPassword(), member.getPassword())) {
             throw new NotFoundException(FailCode.PASSWORD_NOT_FOUND);
         }
-        return new LoginResponseDto(member.getId(),member.getNickname(), member.getRole());
+        return new LoginResponseDto(member.getNickname(), member.getRole());
     }
 
     // 회원 정보 수정
@@ -129,5 +133,38 @@ public class MemberService{
         List<MemberItemDto> result = findMembers.stream().map(member -> new MemberItemDto(member.getNickname(), member.getImageUrl())).collect(Collectors.toList());
         return result;
     }
+
+    public Member getCurrentMember() {
+        String nickname = SecurityUtil.getCurrentNickname();
+        Member member = memberRepository.findByNickname(nickname).orElseThrow(
+                () -> new NotFoundException(FailCode.MEMBER_NOT_FOUND)
+        );
+        return member;
+    }
+    // 큐레이션
+//    public List<Curation> curate(String nickname) {
+//
+//        List<Star> tempList = new ArrayList<>();
+//
+//        // 1. 내가 팔로우한 사람이 가장 최근에 작성한 별(최상단에 위치)
+//
+//        // 1-1. 내가 팔로잉한 사람들
+//        List<Follow> followingList = followRepository.findAllByFollowFrom(detailUser(nickname));
+//        // 1-2. 팔로잉한 사람이 있을 때만 그들이 작성한 최신 별 리스트를 갖고옴
+//        if(followingList != null && followingList.size() > 0) {
+//            List<Member> followedList = new ArrayList<>(); // 내가 팔로잉한 유저들
+//            followingList.forEach((follow) -> {
+//                followedList.add(follow.getFollowTo());
+//            });
+//
+//        } // if절 끝
+//
+//        // 2. 본인이 관심있는 행성에서 랜덤으로 별자리 2개 뽑음 -> 그 중 가장 인기가 많은 별 추천(내거 제외)
+//
+//
+//
+//        // 큐레이션 결과에 담길 정보
+//        // id, writer, imageUrl, content;
+//    }
 
 }

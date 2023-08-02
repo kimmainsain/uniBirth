@@ -10,6 +10,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/members")
@@ -31,89 +34,100 @@ public class MemberController {
     public ResponseEntity<LoginTokenResponseDto> login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
         LoginResponseDto member = memberService.login(loginRequestDto);
 
-        String accessToken = jwtTokenProvider.createToken(member.getMemberId());
-        LoginTokenResponseDto loginTokenResponseDto = new LoginTokenResponseDto(accessToken, member.getRole(), member.getNickname());
+        String accessToken = jwtTokenProvider.createToken(member.getNickname());
+        LoginTokenResponseDto loginTokenResponseDto = new LoginTokenResponseDto(accessToken, member.getNickname(), member.getRole());
         jwtTokenProvider.setHeaderAccessToken(response, accessToken);
 
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, loginTokenResponseDto);
     }
 
-    // 회원 정보 조회
-    @GetMapping("/detail/{id}")
-    public ResponseEntity<MemberDto> detailUser(@PathVariable("id") Long id) {
-        Member member = memberService.detailUser(id);
+    // 다른 회원 정보 조회
+    @GetMapping("/detail/{nickname}")
+    public ResponseEntity<MemberDto> detailUser(@PathVariable("nickname") String nickname) {
+        Member member = memberService.detailUser(nickname);
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, new MemberDto(member));
     }
 
     // 회원정보(닉네임, 비밀번호) 수정
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Void> updateUser(@PathVariable("id") Long id, @RequestBody UpdateMemberDto updateMemberDto) {
-        memberService.updateUser(id, updateMemberDto.getNickname(), updateMemberDto.getPassword());
+    @PutMapping("/update")
+    public ResponseEntity<Void> updateUser(@RequestBody UpdateMemberDto updateMemberDto) {
+        Member member = memberService.getCurrentMember();
+        memberService.updateUser(member.getId(), updateMemberDto.getNickname(), updateMemberDto.getPassword());
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS);
     }
 
     // 회원탈퇴
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
-        memberService.deleteUser(id);
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteUser() {
+        Member member = memberService.getCurrentMember();
+        memberService.deleteUser(member.getId());
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS);
     }
 
     // 이메일 중복여부 확인
     @PostMapping("/check/email")
-    public ResponseEntity<Void> checkDuplicatedEmail(@RequestParam String email) {
-        memberService.checkDuplicatedEmail(email);
+    public ResponseEntity<Void> checkDuplicatedEmail(@RequestBody EmailCheckDto emailCheckDto) {
+        memberService.checkDuplicatedEmail(emailCheckDto.getEmail());
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS);
     }
 
     // 닉네임 중복여부 확인
     @PostMapping("/check/nickname")
-    public ResponseEntity<Void> checkDuplicatedNickname(@RequestParam String nickname) {
-        memberService.checkDuplicatedNickname(nickname);
+    public ResponseEntity<Void> checkDuplicatedNickname(@RequestBody NicknameCheckDto nicknameCheckDto) {
+        memberService.checkDuplicatedNickname(nicknameCheckDto.getNickname());
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS);
     }
 
-    // 프로필 조회
-    @GetMapping("/profiles/{id}")
-    public ResponseEntity<ProfileRespDto> getProfile(@PathVariable("id") Long id) {
-        ProfileRespDto profile = memberService.getProfile(id);
+    // 내 프로필 조회
+    @GetMapping("/profiles/read")
+    public ResponseEntity<ProfileRespDto> getProfile() {
+        Member member = memberService.getCurrentMember();
+        ProfileRespDto profile = memberService.getProfile(member.getId());
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, profile);
     }
 
     // 프로필 수정
-    @PutMapping("/profiles/{id}")
-    public ResponseEntity<Void> updateProfile(@PathVariable("id") Long id, @RequestBody UpdateProfileReqDto updateProfileReqDto) {
-        memberService.updateProfile(id, updateProfileReqDto);
+    @PutMapping("/profiles/update")
+    public ResponseEntity<Void> updateProfile(@RequestBody UpdateProfileReqDto updateProfileReqDto) {
+        Member member = memberService.getCurrentMember();
+        memberService.updateProfile(member.getId(), updateProfileReqDto);
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS);
     }
 
     // 결재 후 별자리 칸 추가
-    @PutMapping("/board/{id}")
-    public  ResponseEntity<Void> addBlocks(@PathVariable("id") Long id) {
-        Member member = memberService.detailUser(id);
+    @PutMapping("/board/add")
+    public  ResponseEntity<Void> addBlocks() {
+        Member member = memberService.getCurrentMember();
         memberService.addBlocks(member);
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS);
     }
 
     // 회원이 별자리 생성 격자판을 몇칸까지 쓸 수 있는지 확인
-    @GetMapping("/board/{id}")
-    public ResponseEntity<Integer> checkBlocks(@PathVariable("id") Long id) {
-        Member member = memberService.detailUser(id);
+    @GetMapping("/board/check")
+    public ResponseEntity<Integer> checkBlocks() {
+        Member member = memberService.getCurrentMember();
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, member.getPurchasedBoard());
     }
 
     // 결재 후 핀 가능 별자리 갯수 추가
-    @PutMapping("/pin/{id}")
-    public ResponseEntity<Void> addPins(@PathVariable("id") Long id) {
-        Member member = memberService.detailUser(id);
+    @PutMapping("/pin/add")
+    public ResponseEntity<Void> addPins() {
+        Member member = memberService.getCurrentMember();
         memberService.addPins(member);
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS);
     }
 
     // 회원이 몇 개까지 별자리를 핀할 수 있는지 확인
-    @GetMapping("/pin/{id}")
-    public ResponseEntity<Integer> checkPins(@PathVariable("id") Long id) {
-        Member member = memberService.detailUser(id);
+    @GetMapping("/pin/check")
+    public ResponseEntity<Integer> checkPins() {
+        Member member = memberService.getCurrentMember();
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, member.getPurchasedPin());
     }
+
+    // 큐레이션
+//    @GetMapping("/curation")
+//    public ResponseEntity<List<Curation>> curate(String nickname) {
+//        List<Curation> result = memberService.curate(nickname);
+//        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, result);
+//    }
 }

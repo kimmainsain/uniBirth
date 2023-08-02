@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 public class ConstellationController {
     private final ConstellationService constellationService;
-    @PostMapping("/register/{id}")
-    public ResponseEntity createConstellation(@PathVariable("id") Long memberId, @RequestBody ConstellationReqDto dto) {
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.create(memberId, dto));
+    @PostMapping("/register")
+    public ResponseEntity createConstellation(@RequestBody ConstellationReqDto dto) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.create(dto));
     }
 
     @GetMapping("/{id}")
@@ -29,19 +29,19 @@ public class ConstellationController {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.readAll(planetId));
     }
 
-    @GetMapping("/pin/{id}/{memberId}")
-    public ResponseEntity addPin(@PathVariable("id") Long constellationId, @PathVariable("memberId") Long memberId) {
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.addPin(constellationId, memberId));
+    @GetMapping("/pin/{id}")
+    public ResponseEntity addPin(@PathVariable("id") Long constellationId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.addPin(constellationId));
     }
 
-    @GetMapping("/profiles/{id}")
-    public ResponseEntity getParticipatedConstellationList(@PathVariable("id") Long memberId) {
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.readParticipatedList(memberId));
+    @GetMapping("/profiles")
+    public ResponseEntity getParticipatedConstellationList() {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.readParticipatedList());
     }
 
-    @GetMapping("/profiles/pins/{id}")
-    public ResponseEntity getPinedConstellationList(@PathVariable("id") Long memberId) {
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.readPinedList(memberId));
+    @GetMapping("/profiles/pins")
+    public ResponseEntity getPinedConstellationList() {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.readPinedList());
     }
 
     @GetMapping("/detail/{id}")
@@ -54,8 +54,8 @@ public class ConstellationController {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.readTemplateList());
     }
 
-    @DeleteMapping("/pin/{id}/{memberId}")
-    public ResponseEntity removePin(@PathVariable("id") Long constellationId, @PathVariable("memberId") Long memberId) {
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.removePin(constellationId, memberId));
+    @DeleteMapping("/pin/{id}")
+    public ResponseEntity removePin(@PathVariable("id") Long constellationId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.removePin(constellationId));
     }
 }
