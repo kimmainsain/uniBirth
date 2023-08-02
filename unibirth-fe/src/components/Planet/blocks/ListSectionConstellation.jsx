@@ -22,7 +22,7 @@ const ListSectionConstellation = () => {
     const response = await useConstellationApi.constellationsGetPlanet(
       planetId,
     );
-    console.log("리스폰스", response);
+    console.log(response);
     setConstellationList(response.resultData);
   };
 

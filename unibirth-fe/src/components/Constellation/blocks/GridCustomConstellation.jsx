@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Stage, Layer, Rect, Line, Circle } from "react-konva";
 import Button1 from "../../../common/atoms/Button1";
 
@@ -6,9 +6,11 @@ const GridCustomConstellation = () => {
   const [points, setPoints] = useState([]);
   const [lines, setLines] = useState([]);
   const [grid, setGrid] = useState([]);
-  const [axiosLines, setAxiosLines] = useState([]);
+  const [lineList, setlineList] = useState([]);
   const [shouldDeduplicate, setShouldDeduplicate] = useState(false);
   const [lastPoints, setLastPoints] = useState([]);
+  const [pointList, setPointList] = useState([]);
+  const stageRef = useRef(null);
 
   useEffect(() => {
     if (shouldDeduplicate) {
@@ -37,7 +39,7 @@ const GridCustomConstellation = () => {
   };
 
   const handleBeforeClick = () => {
-    let newPoints, newLines, newAxiosLines;
+    let newPoints, newLines, newlineList;
     if (points.length === 0) return;
     if (points.length % 2 === 1) {
       const lastPoint = points[points.length - 1];
@@ -47,13 +49,25 @@ const GridCustomConstellation = () => {
       const lastTwoPoints = points.slice(-2);
       newPoints = points.slice(0, points.length - 2);
       newLines = lines.slice(0, lines.length - 1);
-      newAxiosLines = axiosLines.slice(0, axiosLines.length - 1);
+      newlineList = lineList.slice(0, lineList.length - 1);
       setLastPoints(lastTwoPoints);
       setLines(newLines);
-      setAxiosLines(newAxiosLines);
+      setlineList(newlineList);
     }
     setPoints(newPoints);
     setShouldDeduplicate(true);
+  };
+
+  const handleSaveClick = () => {
+    const url = stageRef.current.toDataURL(); // Stage를 Data URL로 변환
+    const link = document.createElement("a");
+    console.log(url);
+    console.log(link);
+    // link.download = "my-custom-constellation.png"; // 파일명
+    // link.href = url;
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
   };
 
   const handleGridClick = (y, x) => {
@@ -96,7 +110,7 @@ const GridCustomConstellation = () => {
         )
       ) {
         setLines([...lines, newLine]);
-        setAxiosLines([...axiosLines, saveLine]);
+        setlineList([...lineList, saveLine]);
       }
     }
   };
@@ -113,13 +127,13 @@ const GridCustomConstellation = () => {
   return (
     <div>
       <div className="flex h-full w-full items-center justify-center">
-        <Stage width={500} height={500}>
+        <Stage width={500} height={500} ref={stageRef}>
           <Layer>
             {grid &&
               grid.map((yValue, y) =>
                 yValue.map((xValue, x) => (
                   <Rect
-                    key={`${x}-${y}`}
+                    key={`${y}-${x}`}
                     y={y * 50}
                     x={x * 50}
                     width={50}
@@ -154,7 +168,7 @@ const GridCustomConstellation = () => {
           setPoints([]);
           setLines([]);
           setGrid(grid.map((yValue) => yValue.map((xValue) => false)));
-          setAxiosLines([]);
+          setlineList([]);
           setLastPoints([]);
           setShouldDeduplicate(false);
         }}
@@ -163,23 +177,31 @@ const GridCustomConstellation = () => {
         className="font-TAEBAEKmilkyway"
         value="콘솔에 띄우기"
         onClick={() => {
-          grid.map((yValue, y) =>
-            yValue.map((xValue, x) => {
+          const tempPointList = [];
+          grid.forEach((yValue, y) => {
+            yValue.forEach((xValue, x) => {
               if (xValue === true) {
-                console.log(`(${y}, ${x})`);
+                tempPointList.push([y, x]);
               }
-              return null;
-            }),
-          );
+            });
+          });
+          console.log(`tempPointList: ${JSON.stringify(tempPointList)}`);
+          setPointList(tempPointList);
           console.log(`points: ${JSON.stringify(points)}`);
           console.log(`lines: ${JSON.stringify(lines)}`);
-          console.log(`axiosLines: ${JSON.stringify(axiosLines)}`);
+          console.log(`lineList: ${JSON.stringify(lineList)}`);
+          console.log(`pointList: ${JSON.stringify(pointList)}`);
         }}
       ></Button1>
       <Button1
         className="font-TAEBAEKmilkyway"
         value="직전으로 돌아가기"
         onClick={handleBeforeClick}
+      ></Button1>
+      <Button1
+        className="font-TAEBAEKmilkyway"
+        value="저장하기"
+        onClick={handleSaveClick}
       ></Button1>
     </div>
   );

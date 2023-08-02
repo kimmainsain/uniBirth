@@ -51,7 +51,7 @@ const DetailStar = () => {
       <div className="flex flex-row justify-center space-x-10">
         <Header1 buttons={buttonsHeader} />
       </div>
-      <div>{star.nickname}</div>
+      <div className="bg-red-300">{star.nickname}</div>
       <h1 className="flex justify-center">별을 상세히 봅시다ㅇㅇ</h1>
     </div>
   );
