@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 public class ConstellationController {
     private final ConstellationService constellationService;
-    @PostMapping("/register/{id}")
-    public ResponseEntity createConstellation(@PathVariable("id") Long memberId, @RequestBody ConstellationReqDto dto) {
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.create(memberId, dto));
+    @PostMapping("/register")
+    public ResponseEntity createConstellation(@RequestBody ConstellationReqDto dto) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.create(dto));
     }
 
     @GetMapping("/{id}")

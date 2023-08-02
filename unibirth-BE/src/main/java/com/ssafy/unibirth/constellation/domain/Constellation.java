@@ -2,6 +2,7 @@ package com.ssafy.unibirth.constellation.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.unibirth.common.domain.util.BaseEntity;
+import com.ssafy.unibirth.common.domain.util.BaseTimeEntity;
 import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.planet.domain.Planet;
 import com.ssafy.unibirth.star.domain.Star;
@@ -18,7 +19,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Constellation extends BaseEntity {
+public class Constellation extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
