@@ -11,13 +11,14 @@ import Space from "../../Home/blocks/Space";
 // import { Canvas } from "@react-three/fiber";
 
 const DetailPlanet = () => {
-  const { navigateToBack, navigateToRegisterConstellation } = useNavigation();
+  const { navigateToMainPlanet, navigateToRegisterConstellation } =
+    useNavigation();
   const buttonsHeader = [
     {
       component: Button2,
       className: "font-TAEBAEKmilkyway",
       value: "뒤로가기",
-      onClick: navigateToBack,
+      onClick: navigateToMainPlanet,
       icon: <BiSearch />,
     },
   ];

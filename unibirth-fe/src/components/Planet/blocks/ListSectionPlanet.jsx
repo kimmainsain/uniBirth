@@ -10,8 +10,7 @@ const ListSectionPlanet = () => {
   });
   const getPlanetList = async () => {
     const response = await usePlanetApi.planetsGetPlanetList();
-    console.log(response);
-    setPlanetList(response.resultdata);
+    setPlanetList(response.resultData);
   };
 
   useEffect(() => {
@@ -24,9 +23,9 @@ const ListSectionPlanet = () => {
         <div
           key={planet.planetId}
           onClick={() => navigateToDetailPlanet(planet.planetId)}
+          className="cursor-pointer rounded-lg bg-gray-300 p-4"
         >
-          {" "}
-          {planet.planetTitle}
+          {planet.title}
         </div>
       ))}
       <span className="text-white">Planet</span>

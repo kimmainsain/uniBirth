@@ -40,7 +40,7 @@ const App = () => {
       <Route path="/members/login" element={<LoginMember />} />
       <Route path="/members/profiles/:id" element={<ModifyProfile />} />
       <Route path="/members/register" element={<RegisterMember />} />
-      <Route path="/planets/:constellationId" element={<DetailPlanet />} />
+      <Route path="/planets/:planetId" element={<DetailPlanet />} />
       <Route path="/planets" element={<MainPlanet />} />
       <Route
         path="/constellations/detail/:constellationId"

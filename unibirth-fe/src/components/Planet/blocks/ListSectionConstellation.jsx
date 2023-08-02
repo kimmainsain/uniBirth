@@ -21,7 +21,7 @@ const ListSectionConstellation = () => {
     const response = await useConstellationApi.constellationsGetPlanet(
       planetId,
     );
-    console.log(response);
+    console.log("리스폰스", response);
     setConstellationList(response.resultData);
   };
 
@@ -31,7 +31,6 @@ const ListSectionConstellation = () => {
 
   return (
     <div className="flex flex-row flex-wrap justify-center">
-      1233
       {constellationList?.constellationList.map((constellation) => (
         <div
           key={constellation.constellationId}
