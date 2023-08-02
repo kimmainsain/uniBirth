@@ -15,9 +15,10 @@ const constellationsGetPlanet = async (planetId) => {
 
 const constellationsGetConstellation = async (constellationId) => {
   try {
-    const response = await useAxiosInstance.authApiClient.get(
-      `/constellations/${constellationId}`,
-    );
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .get(`/constellations/${constellationId}`);
     console.log(response);
     return response.data;
   } catch (e) {
@@ -27,9 +28,10 @@ const constellationsGetConstellation = async (constellationId) => {
 
 const constellationsGetPin = async (constellationId) => {
   try {
-    const response = await useAxiosInstance.authApiClient.get(
-      `/constellations/pin/${constellationId}`,
-    );
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .get(`/constellations/pin/${constellationId}`);
     console.log(response);
     return response.data;
   } catch (e) {
@@ -39,9 +41,10 @@ const constellationsGetPin = async (constellationId) => {
 
 const constellationsGetAttendList = async () => {
   try {
-    const response = await useAxiosInstance.authApiClient.get(
-      `/constellations/profiles`,
-    );
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .get(`/constellations/profiles`);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -50,9 +53,10 @@ const constellationsGetAttendList = async () => {
 
 const constellationsGetPinList = async () => {
   try {
-    const response = await useAxiosInstance.authApiClient.get(
-      `/constellations/profiles/pins`,
-    );
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .get(`/constellations/profiles/pins`);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -61,9 +65,10 @@ const constellationsGetPinList = async () => {
 
 const constellationsPostConstellation = async () => {
   try {
-    const response = await useAxiosInstance.authApiClient.post(
-      `/constellations/register`,
-    );
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .post(`/constellations/register`);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -72,9 +77,10 @@ const constellationsPostConstellation = async () => {
 
 const constellationsGetDetail = async (constellationId) => {
   try {
-    const response = await useAxiosInstance.authApiClient.get(
-      `/constellations/detail/${constellationId}`,
-    );
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .get(`/constellations/detail/${constellationId}`);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -83,9 +89,10 @@ const constellationsGetDetail = async (constellationId) => {
 
 const constellationsGetTemplateList = async () => {
   try {
-    const response = await useAxiosInstance.authApiClient.get(
-      `/constellations/templates`,
-    );
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .get(`/constellations/templates`);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -94,9 +101,10 @@ const constellationsGetTemplateList = async () => {
 
 const constellationsDeletePin = async (constellationId) => {
   try {
-    const response = await useAxiosInstance.authApiClient.delete(
-      `/constellations/pin/${constellationId}`,
-    );
+    const jwt = sessionStorage.getItem("accessToken");
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .delete(`/constellations/pin/${constellationId}`);
     return response.data;
   } catch (e) {
     console.log(e);
