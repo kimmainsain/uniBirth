@@ -6,8 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 public class FollowReqDto {
 
-    private Long follow_from;
-
-    private Long follow_to;
+    private Long followFrom;
+    private Long followTo;
 
 }

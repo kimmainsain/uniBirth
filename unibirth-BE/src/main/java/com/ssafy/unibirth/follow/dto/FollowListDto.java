@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FollowListDto {
 
-    private Long follow_id;
-    private String image_url;
+    private String imageUrl;
     private String nickname;
 }

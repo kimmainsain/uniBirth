@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FollowResDto {
-    private Long follow_from;
-    private Long follow_to;
+    private Long followFrom;
+    private Long followTo;
 }
