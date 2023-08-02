@@ -7,7 +7,7 @@ import Space from "../blocks/Space";
 import { Canvas } from "@react-three/fiber";
 
 const Home = () => {
-  const { navigateToMainPlanet } = useNavigation();
+  const { navigateToMainPlanet, navigateToLoginMember } = useNavigation();
 
   const buttons = [
     {
@@ -15,6 +15,12 @@ const Home = () => {
       className: "font-TAEBAEKmilkyway",
       value: "시작하기",
       onClick: navigateToMainPlanet,
+    },
+    {
+      component: Button1,
+      className: "font-TAEBAEKmilkyway",
+      value: "로그인",
+      onClick: navigateToLoginMember,
     },
   ];
 

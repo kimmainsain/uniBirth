@@ -11,7 +11,7 @@ const ListSectionPlanet = () => {
   const getPlanetList = async () => {
     const response = await usePlanetApi.planetsGetPlanetList();
     console.log(response);
-    setPlanetList(response.resultData);
+    setPlanetList(response.resultdata);
   };
 
   useEffect(() => {

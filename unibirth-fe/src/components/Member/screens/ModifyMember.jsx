@@ -6,15 +6,16 @@ import Footer1 from "../../../common/blocks/Footer1";
 import SignupFormMember from "../blocks/SignupFormMember";
 import { BiArrowBack } from "react-icons/bi";
 import { useNavigation } from "../../../hooks/useNavigation";
+import { useRecoilState } from "recoil";
+import { nicknameState } from "../../../recoil/atoms";
 import useMemberApi from "../../../api/useMemberApi";
 
 const RegisterMember = () => {
-  const [nickname, setNickname] = useState("");
+  const [nickname, setNickname] = useRecoilState(nicknameState);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const { navigateToBack, navigateToLoginMember } = useNavigation();
-  const memberId = sessionStorage.getItem("id");
   const joinMember = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -22,13 +23,13 @@ const RegisterMember = () => {
       return;
     }
 
-    // const member = {
-    //   nickname,
-    //   email,
-    //   password,
-    // };
+    const member = {
+      nickname,
+      email,
+      password,
+    };
     try {
-      const response = await useMemberApi.membersPutUpdate(memberId);
+      const response = await useMemberApi.membersPutUpdate(member);
       console.log(response);
       alert("회원가입이 완료되었습니다.");
       navigateToLoginMember();

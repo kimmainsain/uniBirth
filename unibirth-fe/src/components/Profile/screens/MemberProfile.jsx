@@ -19,7 +19,7 @@ const MemberProfile = () => {
   } = useNavigation();
 
   const memberId = sessionStorage.getItem("id");
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleLogout = () => {
     sessionStorage.clear();
