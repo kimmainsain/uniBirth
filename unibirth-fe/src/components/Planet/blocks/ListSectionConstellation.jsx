@@ -18,6 +18,7 @@ const ListSectionConstellation = () => {
     ],
   });
   const getConstellationList = async (planetId) => {
+    console.log(planetId);
     const response = await useConstellationApi.constellationsGetPlanet(
       planetId,
     );

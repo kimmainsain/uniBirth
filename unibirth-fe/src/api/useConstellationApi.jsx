@@ -1,8 +1,9 @@
 import useAxiosInstance from "./useAxiosInstance";
 
-const constellationsGetPlanet = async (planetId, jwt) => {
+const constellationsGetPlanet = async (planetId) => {
   try {
-    console.log(planetId, jwt);
+    const jwt = sessionStorage.getItem("accessToken");
+    console.log(jwt, planetId);
     const response = await useAxiosInstance
       .authApiClient(jwt)
       .get(`/constellations/list/${planetId}`);
