@@ -69,6 +69,24 @@ public class Member extends BaseTimeEntity {
         this.password = password;
     }
 
+    public void inFollowerCount(){
+        this.followerCount +=1;
+    }
+
+    public void deFollowerCount(){
+        this.followerCount -=1;
+    }
+
+    public void inFollowingCount(){
+        this.followingCount +=1;
+    }
+
+    public void deFollowingCount(){
+        this.followingCount -=1;
+    }
+
+
+
     // 멤버 상태를 삭제로 전환
     // 멤버 자체를 데이터베이스에서 삭제해버리면 cascade된 별과 별자리까지 모두 삭제됨
     // => 상태만 삭제된 것으로 바꿔주자

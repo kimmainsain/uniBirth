@@ -61,6 +61,16 @@ public class MemberService{
         return member;
     }
 
+    public Member detailUser(String nickname) {
+        Member member = memberRepository.findByNickname(nickname).orElseThrow(() -> new NotFoundException(FailCode.MEMBER_NOT_FOUND));
+
+        if(member.getRole() == Role.DELETED){
+            throw new NotFoundException(FailCode.MEMBER_NOT_FOUND);
+        }
+
+        return member;
+    }
+
     // 회원 탈퇴
     public void deleteUser(Long id) {
         Member member = memberRepository.findById(id).orElseThrow(() -> new NotFoundException(FailCode.MEMBER_NOT_FOUND));
