@@ -28,7 +28,6 @@ const ListSectionStar = () => {
 
   return (
     <div className="flex flex-row flex-wrap justify-center">
-      1111
       {starList?.starList.map((star) => (
         <div
           key={star.starId}

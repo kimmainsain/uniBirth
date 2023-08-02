@@ -23,7 +23,6 @@ const LoginMember = () => {
     const member = {
       email,
       password,
-      nickname,
     };
     try {
       const response = await useMemberApi.membersPostLogin(member);
