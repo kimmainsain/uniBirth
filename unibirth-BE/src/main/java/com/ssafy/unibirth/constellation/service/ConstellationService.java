@@ -16,6 +16,7 @@ import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.service.MemberService;
 import com.ssafy.unibirth.planet.domain.Planet;
 import com.ssafy.unibirth.planet.service.PlanetService;
+import com.ssafy.unibirth.security.SecurityUtil;
 import com.ssafy.unibirth.security.jwt.JwtTokenProvider;
 import com.ssafy.unibirth.star.domain.Star;
 import com.ssafy.unibirth.star.dto.StarItemDto;
@@ -35,13 +36,9 @@ public class ConstellationService {
     private final TemplateRepository templateRepository;
     private final MemberService memberService;
     private final PlanetService planetService;
-    private final JwtTokenProvider jwtTokenProvider;
-    private EntityManager em;
 
-    public CreateConstellationResDto create(Long memberId, ConstellationReqDto dto) {
-        System.out.println(memberId);
-        Member member = memberService.detailUser(jwtTokenProvider.getMemberId());
-        System.out.println(member);
+    public CreateConstellationResDto create(ConstellationReqDto dto) {
+        Member member = memberService.getCurrentMember();
         Planet planet = planetService.findPlanetById(dto.getPlanetId());
         Constellation constellation = dto.toEntity(member, planet);
         Long createdId = constellationRepository.save(constellation).getId();
@@ -124,10 +121,10 @@ public class ConstellationService {
     }
 
     @Transactional
-    public PinConstellationResDto addPin(Long constellationId, Long memberId) {
-        checkPinValidation(memberId, constellationId);
+    public PinConstellationResDto addPin(Long constellationId) {
+        Member member = memberService.getCurrentMember();
+        checkPinValidation(member.getId(), constellationId);
 
-        Member member = memberService.detailUser(memberId);
         Constellation constellation = findConstellationById(constellationId);
         pinRepository.save(new Pin(member, constellation));
         return new PinConstellationResDto(constellationId, true);

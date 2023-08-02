@@ -11,13 +11,11 @@ import lombok.NoArgsConstructor;
 @Getter
 public class LoginResponseDto {
 
-    private Long memberId;
     private String nickname;
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public LoginResponseDto(Long id, String nickname, Role role) {
-        this.memberId = id;
+    public LoginResponseDto(String nickname, Role role) {
         this.nickname = nickname;
         this.role = role;
     }

@@ -18,8 +18,8 @@ public class MemberSecurityService implements UserDetailsService{
     private final MemberRepository memberRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String id){
-        Member memberEntity = memberRepository.findById(Long.valueOf(id)).orElseThrow(() -> new NotFoundException(FailCode.ID_NOT_FOUND));
-        return new MemberVO(memberEntity.getId(), memberEntity.getNickname(), memberEntity.getPassword(), memberEntity.getRole());
+    public UserDetails loadUserByUsername(String nickname){
+        Member member = memberRepository.findByNickname(nickname).orElseThrow(() -> new NotFoundException(FailCode.MEMBER_NOT_FOUND));
+        return new MemberVO(member.getNickname(), member.getPassword(), member.getRole());
     }
 }

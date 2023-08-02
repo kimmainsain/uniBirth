@@ -9,7 +9,6 @@ import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,19 +24,14 @@ import java.util.Date;
 public class JwtTokenProvider {
     @Value("${jwt.salt}")
     private String SALT;
-
     @Value("${jwt.header}")
     public String HEADER;
-
     @Value("${jwt.bearer}")
     public String BEARER;
-
     @Value("${jwt.expire}")
     public Long EXPIRE;
-
-    @Autowired
     private final MemberSecurityService memberSecurityService;
-    private Long id;
+    private final String CLAIM_NAME = "nickname";
     private static byte[] key;
 
     // 바이트화
@@ -52,11 +46,11 @@ public class JwtTokenProvider {
     }
     
     // Jwt 토큰 생성
-    public String createToken(Long id) {
+    public String createToken(String nickname) {
         String subject = "access-token";
 
         Claims claims = Jwts.claims().setSubject(subject);
-        claims.put("id", id);
+        claims.put(CLAIM_NAME, nickname);
         Date now = new Date();
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
@@ -69,22 +63,17 @@ public class JwtTokenProvider {
 
     // 토큰 인증
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = memberSecurityService.loadUserByUsername(this.getMemberId(token));
+        UserDetails userDetails = memberSecurityService.loadUserByUsername(this.getNickname(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
-    // 토큰에서 멤버 id 추출
-    public String getMemberId(String token) {
-        Long id = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().get("id",Long.class);
-        this.id = id;
-        return String.valueOf(id);
+    // 토큰에서 claim name 값으로 추출
+    public String getNickname(String token) {
+        String nickname = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().get(CLAIM_NAME, String.class);
+        return nickname;
     }
 
-    public Long getMemberId() {
-        return this.id;
-    }
-
-    // Authorization 으로 토큰 바음
+    // 요청 헤더로 부터 토큰 추출
     public String resolveToken(HttpServletRequest request) {
         return request.getHeader("Authorization");
     }

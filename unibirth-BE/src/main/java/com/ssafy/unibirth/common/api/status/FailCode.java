@@ -35,7 +35,11 @@ public enum FailCode {
     ID_NOT_FOUND(NOT_FOUND, "잘못된 아이디 입니다."),
     // 팔로우
     FOLLOWER_NOT_FOUND(NOT_FOUND, "팔로우하는 유저가 아닙니다."),
-    DUPLICATED_FOLLOW(CONFLICT, "이미 팔로우하는 관계입니다.");
+    DUPLICATED_FOLLOW(CONFLICT, "이미 팔로우하는 관계입니다."),
+
+    UNAUTHORIZED_MEMBER(UNAUTHORIZED, "인증되지 않은 사용자입니다.");
+
+
     private final HttpStatus status;
     private final String message;
 }
