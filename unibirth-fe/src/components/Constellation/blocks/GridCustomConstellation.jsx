@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Stage, Layer, Rect, Line, Circle } from "react-konva";
 import Button1 from "../../../common/atoms/Button1";
+import { ref, uploadBytesResumable } from "firebase/storage";
+import { storage } from "../../../api/useFirebaseApi";
 
 const GridCustomConstellation = () => {
   const [points, setPoints] = useState([]);
@@ -58,16 +60,52 @@ const GridCustomConstellation = () => {
     setShouldDeduplicate(true);
   };
 
-  const handleSaveClick = () => {
-    const url = stageRef.current.toDataURL(); // Stage를 Data URL로 변환
-    const link = document.createElement("a");
-    console.log(url);
-    console.log(link);
-    // link.download = "my-custom-constellation.png"; // 파일명
-    // link.href = url;
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
+  const handleSaveClick = (stageRef) => {
+    const convertDataURLToBlob = (dataURL) => {
+      const [header, data] = dataURL.split(",");
+      const mimeType = header.match(/:(.*?);/)[1];
+      const binary = atob(data);
+      const array = Uint8Array.from({ length: binary.length }, (_, i) =>
+        binary.charCodeAt(i),
+      );
+      return new Blob([array], { type: mimeType });
+    };
+
+    const imageURL = stageRef.current.toDataURL();
+    const imageBlob = convertDataURLToBlob(imageURL);
+    const imageName = `constellation-${new Date().getTime()}.png`;
+    const storageRef = ref(storage, `images/${imageName}`);
+    const uploadTask = uploadBytesResumable(storageRef, imageBlob);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        // 여기에 진행률을 표시하는 로직을 추가할 수 있습니다.
+      },
+      (error) => {
+        console.error("Error uploading image:", error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref)
+          .then((downloadURL) => {
+            axios
+              .post("http://3.35.135.57:8080/members/register", {
+                imageUrl: downloadURL,
+                // 필요한 추가 정보를 여기에 포함시킬 수 있습니다.
+              })
+              .then((response) => {
+                console.log("Registration success:", response);
+                // 회원가입 성공 시 홈페이지로 이동하는 로직을 여기에 추가합니다.
+              })
+              .catch((error) => {
+                console.error("Error sending data to server:", error);
+              });
+          })
+          .catch((error) => {
+            console.error("Failed to get download URL:", error);
+          });
+      },
+    );
   };
 
   const handleGridClick = (y, x) => {
@@ -201,7 +239,7 @@ const GridCustomConstellation = () => {
       <Button1
         className="font-TAEBAEKmilkyway"
         value="저장하기"
-        onClick={handleSaveClick}
+        onClick={() => handleSaveClick(stageRef)}
       ></Button1>
     </div>
   );
