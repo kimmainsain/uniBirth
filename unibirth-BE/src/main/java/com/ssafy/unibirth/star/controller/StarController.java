@@ -31,8 +31,8 @@ public class StarController {
     }
 
     @GetMapping("")
-    public ResponseEntity getMyStarList() {
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.readMyStarList());
+    public ResponseEntity getMyStarList(@RequestParam("nickname") String nickname) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, starService.readMyStarList(nickname));
     }
 
     @PutMapping("/{id}")
