@@ -14,6 +14,7 @@ import java.util.List;
 public class TemplateItemDto {
     private Long templateId;
     private String title;
+    private String imageUrl;
     private int[][] lineList;
     private int[][] pointList;
     private int pointCount;

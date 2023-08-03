@@ -206,6 +206,7 @@ public class ConstellationService {
                         TemplateItemDto.builder()
                                 .templateId(tem.getId())
                                 .title(tem.getTitle())
+                                .imageUrl(tem.getImageUrl())
                                 .pointCount(tem.getPointCount())
                                 .boardSize(tem.getBoardSize())
                                 .lineList(stringToArray(tem.getLineList()))
