@@ -85,6 +85,10 @@ export const useNavigation = () => {
     navigate("/stars/register");
   };
 
+  const navigateToDetailStar = (starId) => {
+    navigate(`/stars/detail/${starId}`);
+  };
+
   // Search
   const navigateToSearchQuration = () => {
     navigate("/search");
@@ -114,6 +118,7 @@ export const useNavigation = () => {
     navigateToDirectMessage,
     navigateToMessageBox,
     navigateToRegisterStar,
+    navigateToDetailStar,
     navigateToSearchQuration,
     navigateToSearchCommon,
   };

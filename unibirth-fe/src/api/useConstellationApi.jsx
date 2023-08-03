@@ -63,12 +63,12 @@ const constellationsGetPinList = async (nickname) => {
   }
 };
 
-const constellationsPostConstellation = async () => {
+const constellationsPostConstellation = async (constellation) => {
   try {
     const jwt = sessionStorage.getItem("accessToken");
     const response = await useAxiosInstance
       .authApiClient(jwt)
-      .post(`/constellations/register`);
+      .post(`/constellations/register`, constellation);
     return response.data;
   } catch (e) {
     console.log(e);

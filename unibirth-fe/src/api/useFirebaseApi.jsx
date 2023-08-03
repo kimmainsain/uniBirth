@@ -3,13 +3,13 @@ import { getAnalytics } from "firebase/analytics";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: process.env.REACT_APP_AUTO_DOMAIN,
-  projectId: process.env.REACT_APP_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_MESSEING_SENDER_ID,
-  appId: process.env.REACT_APP_APP_ID,
-  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
+  apiKey: "AIzaSyCyOsqoZjmx3f75EIqqrrcFQrN2XsDZbeQ",
+  authDomain: "uni-birth.firebaseapp.com",
+  projectId: "uni-birth",
+  storageBucket: "uni-birth.appspot.com",
+  messagingSenderId: "157033568661",
+  appId: "1:157033568661:web:bf12dbf7828658a87c3e9c",
+  measurementId: "G-914K1QHY2Y",
 };
 
 const app = initializeApp(firebaseConfig);
