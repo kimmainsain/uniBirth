@@ -6,6 +6,7 @@ import { BiSearch, BiHomeAlt, BiLogInCircle } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { useNavigation } from "../../../hooks/useNavigation";
 import ListSectionPlanet from "../blocks/ListSectionPlanet";
+import CanvasPlanet from "../blocks/CanvasPlanet";
 
 const MainPlanet = () => {
   const {
@@ -56,6 +57,7 @@ const MainPlanet = () => {
     <div>
       <h1>행성들이 보입니다. </h1>
       <ListSectionPlanet />
+      <CanvasPlanet />
       <Footer1 buttons={buttonsFooter} />
     </div>
   );
