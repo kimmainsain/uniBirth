@@ -194,6 +194,7 @@ public class ConstellationService {
                                 .lineList(stringToArray((String) con[3]))
                                 .x((double) con[4])
                                 .y((double) con[5])
+                                .imageUrl((String) con[6])
                                 .build()
                 ).collect(Collectors.toList());
     }
