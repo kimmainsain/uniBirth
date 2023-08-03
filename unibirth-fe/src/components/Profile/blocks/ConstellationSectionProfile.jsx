@@ -9,29 +9,26 @@ const ConstellationSectionProfile = () => {
   const { navigateToListConstellation } = useNavigation();
   const nickname = useRecoilValue(nicknameState);
 
-  const [images, setImages] = useState({
-    images: [],
-  });
+  const [images, setImages] = useState([]); // 빈 배열로 초기화
 
   const handlePinClick = async () => {
     const response = await useConstellationApi.constellationsGetPinList(
       nickname,
     );
-    setImages(response.resultData);
+    setImages([response.resultData]);
   };
 
   const handleParticipateClick = async () => {
     const response = await useConstellationApi.constellationsGetAttendList(
       nickname,
     );
-    console.log(response);
-    setImages(response.resultData);
+    console.log(response.resultData);
+    setImages([response.resultData]);
   };
 
   useEffect(() => {
     // 기본 버튼에 따라 초기 데이터 가져오기
     handleParticipateClick();
-    console.log(nickname);
   }, []);
 
   return (
@@ -50,14 +47,15 @@ const ConstellationSectionProfile = () => {
         />
       </div>
       <div className="flex flex-row flex-wrap justify-center bg-red-400">
-        {images.map((img, index) => (
-          <img
-            key={index}
-            src={img}
-            alt={`profile-${index}`}
-            onClick={navigateToListConstellation}
-            className="m-4"
-          />
+        {images.map((img) => (
+          <div key={img.constellationId} className="my-4">
+            <button
+              className="flex h-32 w-48 items-center "
+              onClick={navigateToListConstellation}
+            >
+              {img.title}
+            </button>
+          </div>
         ))}
       </div>
     </div>
