@@ -43,6 +43,8 @@ public class Constellation extends BaseTimeEntity {
     private String title;
     @NotNull
     private String description;
+    @NotNull
+    private String imageUrl;
 
     @ColumnDefault("10")
     private int boardSize;
@@ -61,7 +63,7 @@ public class Constellation extends BaseTimeEntity {
     @ColumnDefault("0")
     private double y;
 
-    public Constellation(Member member, Planet planet, String title, String description, int boardSize, int pointCount, String lineList, String pointList) {
+    public Constellation(Member member, Planet planet, String title, String description, int boardSize, int pointCount, String lineList, String pointList, String imageUrl) {
         this.member = member;
         this.planet = planet;
         this.title = title;
@@ -70,5 +72,6 @@ public class Constellation extends BaseTimeEntity {
         this.pointCount = pointCount;
         this.lineList = lineList;
         this.pointList = pointList;
+        this.imageUrl = imageUrl;
     }
 }
