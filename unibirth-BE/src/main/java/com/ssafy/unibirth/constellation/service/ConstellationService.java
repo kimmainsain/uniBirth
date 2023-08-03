@@ -180,6 +180,7 @@ public class ConstellationService {
                                 .lineList(stringToArray(con.getLineList()))
                                 .x(con.getX())
                                 .y(con.getY())
+                                .imageUrl(con.getImageUrl())
                                 .build()
                 ).collect(Collectors.toList());
     }
