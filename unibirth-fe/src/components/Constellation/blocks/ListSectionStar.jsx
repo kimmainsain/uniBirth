@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigation } from "../../../hooks/useNavigation";
 import useConstellationApi from "../../../api/useConstellationApi";
 import { useParams } from "react-router-dom";
 import { Canvas } from "@react-three/fiber";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
 import { Text, OrbitControls } from "@react-three/drei";
+import { starListState } from "../../../recoil/atoms";
+import { useRecoilState } from "recoil";
 // import * as THREE from "three";
 
 const ListSectionStar = () => {
   const { constellationId } = useParams();
   const { navigateToDetailStar } = useNavigation();
-  const [starList, setStarList] = useState({
-    starList: [],
-  });
+  const [starList, setStarList] = useRecoilState(starListState);
 
   useEffect(() => {
     getStarList(constellationId);
@@ -36,11 +36,15 @@ const ListSectionStar = () => {
     return <div>Loading...</div>;
   }
 
-  const starlist1 = starList;
-  console.log("eeeeeeeeeeeee:", starlist1);
+  const starPoint = starList?.pointList;
+  console.log("starPoint:", starPoint);
+
+  console.log("eeeeeeeeeeeee:", starList);
+  console.log(starList?.pointList);
+  console.log("5555:", starPoint);
 
   return (
-    <div className="flex flex-row flex-wrap justify-center">
+    <div>
       <Canvas camera={{ position: [10, 10, 50] }}>
         <OrbitControls enableDamping dampingFactor={0.05} enabled={true} />
         <axesHelper scale={5} />
@@ -48,17 +52,13 @@ const ListSectionStar = () => {
           <Bloom mipmapBlur luminanceThreshold={1} radius={0.7} />
         </EffectComposer>
         <color attach="background" args={["black"]} />
-        {starlist1?.starList.map((star, index) => (
+        {starPoint?.map((star, index) => (
           <group key={index}>
             <mesh
-              position={[
-                star.lineList[0],
-                2,
-                Math.floor(Math.random() * 11) - 5,
-              ]}
+              position={[star[0], star[1], Math.floor(Math.random() * 11) - 5]}
               onClick={() => navigateToDetailStar(star.starId)}
             >
-              <sphereGeometry args={[3, 32, 32]} />
+              <sphereGeometry args={[1, 32, 32]} />
               <meshStandardMaterial
                 color="#00ffff"
                 emissive="#00ffff"
@@ -83,9 +83,11 @@ const ListSectionStar = () => {
         <div
           key={star.starId}
           onClick={() => navigateToDetailStar(star.starId)}
-          className="bg-red-500"
+          className="absolute left-10 top-80 z-10 flex h-1/5 w-1/5 flex-col space-y-20 text-white"
         >
-          {star.starId} 아니요 {star.nickname} ㅇㅇㅇ
+          <p className="flex w-52 flex-col bg-red-500">
+            {star.starId}, {star.nickname} , {star.x}, {star.y}
+          </p>
         </div>
       ))}
     </div>

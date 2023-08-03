@@ -25,8 +25,9 @@ const ListSectionPlanet = () => {
           onClick={() => navigateToDetailPlanet(planet.planetId)}
           className="cursor-pointer rounded-lg bg-gray-300 p-4"
         >
-          {" "}
-          {planet.title} {planet.gltfUrl}
+          <p>
+            {planet.title} {planet.gltfUrl}
+          </p>
         </div>
       ))}
       <span className="text-white">Planet</span>
