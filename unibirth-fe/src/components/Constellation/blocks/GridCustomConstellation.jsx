@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Stage, Layer, Rect, Line, Circle } from "react-konva";
 import Button1 from "../../../common/atoms/Button1";
-import { ref, uploadBytesResumable } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../../api/useFirebaseApi";
+import useConstellationApi from "../../../api/useConstellationApi";
 
 const GridCustomConstellation = () => {
   const [points, setPoints] = useState([]);
@@ -11,8 +12,7 @@ const GridCustomConstellation = () => {
   const [lineList, setlineList] = useState([]);
   const [shouldDeduplicate, setShouldDeduplicate] = useState(false);
   const [lastPoints, setLastPoints] = useState([]);
-  const [pointList, setPointList] = useState([]);
-  const stageRef = useRef(null);
+  const linesAndPointsLayerRef = useRef(null);
 
   useEffect(() => {
     if (shouldDeduplicate) {
@@ -60,52 +60,51 @@ const GridCustomConstellation = () => {
     setShouldDeduplicate(true);
   };
 
-  const handleSaveClick = (stageRef) => {
-    const convertDataURLToBlob = (dataURL) => {
-      const [header, data] = dataURL.split(",");
-      const mimeType = header.match(/:(.*?);/)[1];
-      const binary = atob(data);
-      const array = Uint8Array.from({ length: binary.length }, (_, i) =>
-        binary.charCodeAt(i),
-      );
-      return new Blob([array], { type: mimeType });
-    };
-
-    const imageURL = stageRef.current.toDataURL();
-    const imageBlob = convertDataURLToBlob(imageURL);
+  const handleSaveClick = async () => {
+    const tempPointList = [];
+    grid.forEach((yValue, y) => {
+      yValue.forEach((xValue, x) => {
+        if (xValue === false) {
+          // false 값을 찾는 부분
+          tempPointList.push([y, x]);
+        }
+      });
+    });
+    const imageUrl = linesAndPointsLayerRef.current.toDataURL();
+    const [header, data] = imageUrl.split(",");
+    const mimeType = header.split(";")[0].split(":")[1];
+    const binary = atob(data);
+    const array = Uint8Array.from(binary, (c) => c.charCodeAt(0));
     const imageName = `constellation-${new Date().getTime()}.png`;
     const storageRef = ref(storage, `images/${imageName}`);
-    const uploadTask = uploadBytesResumable(storageRef, imageBlob);
-
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        // 여기에 진행률을 표시하는 로직을 추가할 수 있습니다.
-      },
-      (error) => {
-        console.error("Error uploading image:", error);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref)
-          .then((downloadURL) => {
-            axios
-              .post("http://3.35.135.57:8080/members/register", {
-                imageUrl: downloadURL,
-                // 필요한 추가 정보를 여기에 포함시킬 수 있습니다.
-              })
-              .then((response) => {
-                console.log("Registration success:", response);
-                // 회원가입 성공 시 홈페이지로 이동하는 로직을 여기에 추가합니다.
-              })
-              .catch((error) => {
-                console.error("Error sending data to server:", error);
-              });
-          })
-          .catch((error) => {
-            console.error("Failed to get download URL:", error);
-          });
-      },
-    );
+    const uploadTask = uploadBytesResumable(storageRef, array, {
+      contentType: mimeType,
+    });
+    console.log(uploadTask);
+    try {
+      const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+      const constellation = {
+        planetId: 2,
+        title: "커스텀별자리",
+        description: "cat......",
+        boardSize: 10,
+        lineList,
+        pointList: tempPointList,
+        imageUrl: downloadURL,
+      };
+      console.log(constellation);
+      const response =
+        await useConstellationApi.constellationsPostConstellation(
+          constellation,
+        );
+      console.log(response); // 성공 처리
+    } catch (error) {
+      if (error.code === "storage/object-not-found") {
+        console.error("Failed to get download URL:", error);
+      } else {
+        console.error("Failed to post constellation:", error); // 에러 처리
+      }
+    }
   };
 
   const handleGridClick = (y, x) => {
@@ -165,7 +164,7 @@ const GridCustomConstellation = () => {
   return (
     <div>
       <div className="flex h-full w-full items-center justify-center">
-        <Stage width={500} height={500} ref={stageRef}>
+        <Stage width={200} height={200}>
           <Layer>
             {grid &&
               grid.map((yValue, y) =>
@@ -182,7 +181,8 @@ const GridCustomConstellation = () => {
                   />
                 )),
               )}
-
+          </Layer>
+          <Layer ref={linesAndPointsLayerRef}>
             {points.map((point, y) => (
               <Circle
                 key={y}
@@ -213,33 +213,13 @@ const GridCustomConstellation = () => {
       ></Button1>
       <Button1
         className="font-TAEBAEKmilkyway"
-        value="콘솔에 띄우기"
-        onClick={() => {
-          const tempPointList = [];
-          grid.forEach((yValue, y) => {
-            yValue.forEach((xValue, x) => {
-              if (xValue === true) {
-                tempPointList.push([y, x]);
-              }
-            });
-          });
-          console.log(`tempPointList: ${JSON.stringify(tempPointList)}`);
-          setPointList(tempPointList);
-          console.log(`points: ${JSON.stringify(points)}`);
-          console.log(`lines: ${JSON.stringify(lines)}`);
-          console.log(`lineList: ${JSON.stringify(lineList)}`);
-          console.log(`pointList: ${JSON.stringify(pointList)}`);
-        }}
-      ></Button1>
-      <Button1
-        className="font-TAEBAEKmilkyway"
         value="직전으로 돌아가기"
         onClick={handleBeforeClick}
       ></Button1>
       <Button1
         className="font-TAEBAEKmilkyway"
         value="저장하기"
-        onClick={() => handleSaveClick(stageRef)}
+        onClick={handleSaveClick}
       ></Button1>
     </div>
   );
