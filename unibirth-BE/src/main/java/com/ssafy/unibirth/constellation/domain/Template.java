@@ -7,6 +7,7 @@ import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.planet.domain.Planet;
 import com.ssafy.unibirth.star.domain.Star;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,9 @@ public class Template extends BaseTimeEntity {
 
     @ColumnDefault("'행성명'")
     private String title;
+
+    @NotNull
+    private String imageUrl;
 
     @ColumnDefault("10")
     private int boardSize;

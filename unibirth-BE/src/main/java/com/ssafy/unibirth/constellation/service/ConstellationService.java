@@ -180,6 +180,7 @@ public class ConstellationService {
                                 .lineList(stringToArray(con.getLineList()))
                                 .x(con.getX())
                                 .y(con.getY())
+                                .imageUrl(con.getImageUrl())
                                 .build()
                 ).collect(Collectors.toList());
     }
@@ -194,6 +195,7 @@ public class ConstellationService {
                                 .lineList(stringToArray((String) con[3]))
                                 .x((double) con[4])
                                 .y((double) con[5])
+                                .imageUrl((String) con[6])
                                 .build()
                 ).collect(Collectors.toList());
     }
@@ -204,6 +206,7 @@ public class ConstellationService {
                         TemplateItemDto.builder()
                                 .templateId(tem.getId())
                                 .title(tem.getTitle())
+                                .imageUrl(tem.getImageUrl())
                                 .pointCount(tem.getPointCount())
                                 .boardSize(tem.getBoardSize())
                                 .lineList(stringToArray(tem.getLineList()))
