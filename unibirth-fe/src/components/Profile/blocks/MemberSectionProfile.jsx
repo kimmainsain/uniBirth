@@ -3,24 +3,27 @@ import Button1 from "../../../common/atoms/Button1";
 import { useNavigation } from "../../../hooks/useNavigation";
 import useMemberApi from "../../../api/useMemberApi";
 const ConstellationSectionProfile = () => {
-  const { navigateToModifyProfile, navigateToFollowings, navigateToFollowers } =
-    useNavigation();
+  const {
+    navigateToModifyProfile,
+    navigateToFollowings,
+    navigateToFollowers,
+    navigateToMyStars,
+  } = useNavigation();
 
-  const memberId = sessionStorage.getItem("id");
   const [memberData, setMemberData] = useState();
 
   useEffect(() => {
     const fetchMemberData = async () => {
       try {
-        const data = await useMemberApi.membersGetProfiles(`${memberId}`);
-        console.log(data);
-        setMemberData(data);
+        const response = await useMemberApi.membersGetProfiles();
+        console.log("membersection 리스폰스", response);
+        setMemberData(response);
       } catch (error) {
         console.error("멤버 데이터를 가져오는데 에러 발생:", error);
       }
     };
     fetchMemberData();
-  }, [memberId]);
+  }, []);
 
   return (
     <div className="space-x-4 bg-blue-200">
@@ -36,7 +39,9 @@ const ConstellationSectionProfile = () => {
               {memberData.resultData.nickname}
             </p>
             <p>탄생일: {memberData.resultData.birthDate}</p>
-            <p>띄운 별: {memberData.resultData.starCount}</p>
+            <p onClick={navigateToMyStars}>
+              띄운 별: {memberData.resultData.starCount}
+            </p>
             <p onClick={navigateToFollowings}>
               팔로잉: {memberData.resultData.followingCount}
             </p>

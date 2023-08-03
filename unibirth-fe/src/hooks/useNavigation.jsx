@@ -68,6 +68,10 @@ export const useNavigation = () => {
     navigate("/profiles/followers");
   };
 
+  const navigateToMyStars = () => {
+    navigate("/stars");
+  };
+
   const navigateToDirectMessage = () => {
     navigate("/profiles/directmessage");
   };
@@ -106,6 +110,7 @@ export const useNavigation = () => {
     navigateToModifyMember,
     navigateToFollowings,
     navigateToFollowers,
+    navigateToMyStars,
     navigateToDirectMessage,
     navigateToMessageBox,
     navigateToRegisterStar,

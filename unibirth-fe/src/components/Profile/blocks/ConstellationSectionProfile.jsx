@@ -1,22 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button1 from "../../../common/atoms/Button1";
 import { useNavigation } from "../../../hooks/useNavigation";
+import useConstellationApi from "../../../api/useConstellationApi";
+import { useRecoilValue } from "recoil";
+import { nicknameState } from "../../../recoil/atoms";
 
 const ConstellationSectionProfile = () => {
   const { navigateToListConstellation } = useNavigation();
+  const nickname = useRecoilValue(nicknameState);
 
-  const originalImages = Array(10).fill("https://picsum.photos/200");
-  const newImages = Array(10).fill("https://picsum.photos/200/200");
+  const [images, setImages] = useState([]); // 빈 배열로 초기화
 
-  const [images, setImages] = useState(originalImages);
-
-  const handlePinClick = () => {
-    setImages(newImages);
+  const handlePinClick = async () => {
+    const response = await useConstellationApi.constellationsGetPinList(
+      nickname,
+    );
+    setImages([response.resultData]);
   };
 
-  const handleParticipateClick = () => {
-    setImages(originalImages);
+  const handleParticipateClick = async () => {
+    const response = await useConstellationApi.constellationsGetAttendList(
+      nickname,
+    );
+    console.log(response.resultData);
+    setImages([response.resultData]);
   };
+
+  useEffect(() => {
+    // 기본 버튼에 따라 초기 데이터 가져오기
+    handleParticipateClick();
+  }, []);
 
   return (
     <div className="space-x-4 bg-red-200">
@@ -34,14 +47,15 @@ const ConstellationSectionProfile = () => {
         />
       </div>
       <div className="flex flex-row flex-wrap justify-center bg-red-400">
-        {images.map((img, index) => (
-          <img
-            key={index}
-            src={img}
-            alt={`profile-${index}`}
-            onClick={navigateToListConstellation}
-            className="m-4"
-          />
+        {images.map((img) => (
+          <div key={img.constellationId} className="my-4">
+            <button
+              className="flex h-32 w-48 items-center "
+              onClick={navigateToListConstellation}
+            >
+              {img.title}
+            </button>
+          </div>
         ))}
       </div>
     </div>

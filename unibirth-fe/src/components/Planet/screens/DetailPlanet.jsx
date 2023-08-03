@@ -6,7 +6,8 @@ import Footer1 from "../../../common/blocks/Footer1";
 import ListSectionConstellation from "../blocks/ListSectionConstellation";
 import { BiSearch } from "react-icons/bi";
 import { useNavigation } from "../../../hooks/useNavigation";
-// import ConstellationList from "../blocks/ConstellationList";
+// import { Canvas } from "@react-three/fiber";
+// import Space from "../../Home/blocks/Space";
 
 const DetailPlanet = () => {
   const { navigateToMainPlanet, navigateToRegisterConstellation } =

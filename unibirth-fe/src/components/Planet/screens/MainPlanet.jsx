@@ -8,6 +8,9 @@ import { useNavigation } from "../../../hooks/useNavigation";
 import ListSectionPlanet from "../blocks/ListSectionPlanet";
 import CanvasPlanet from "../blocks/CanvasPlanet";
 
+import { useRecoilValue } from "recoil";
+import { nicknameState } from "../../../recoil/atoms";
+
 const MainPlanet = () => {
   const {
     navigateToLoginMember,
@@ -15,6 +18,9 @@ const MainPlanet = () => {
     navigateToMemberProfile,
     navigateToSearchQuration,
   } = useNavigation();
+
+  const nickname = useRecoilValue(nicknameState);
+  console.log("nickname은", nickname);
 
   const token = sessionStorage.getItem("accessToken");
 

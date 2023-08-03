@@ -25,7 +25,14 @@ const RegisterStar = () => {
       value: "완료하기",
       onClick: navigateToBack,
     },
+    {
+      component: Button1,
+      className: "font-TAEBAEKmilkyway",
+      value: "별 생성하기",
+      onClick: navigateToBack,
+    },
   ];
+
   return (
     <div>
       <Header1 buttons={buttonsHeader} />
