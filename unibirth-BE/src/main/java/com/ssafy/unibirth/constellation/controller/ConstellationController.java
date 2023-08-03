@@ -35,13 +35,13 @@ public class ConstellationController {
     }
 
     @GetMapping("/profiles")
-    public ResponseEntity getParticipatedConstellationList() {
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.readParticipatedList());
+    public ResponseEntity getParticipatedConstellationList(@RequestParam("nickname") String nickname) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.readParticipatedList(nickname));
     }
 
     @GetMapping("/profiles/pins")
-    public ResponseEntity getPinedConstellationList() {
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.readPinedList());
+    public ResponseEntity getPinedConstellationList(@RequestParam("nickname") String nickname) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, constellationService.readPinedList(nickname));
     }
 
     @GetMapping("/detail/{id}")
