@@ -17,6 +17,7 @@ public class ReadConstellationDetailResDto {
     private String constellationTitle;
     private String planetTitle;
     private String introduction;
+    private String imageUrl;
     private int totalBrightness;
     private int pointCount;
     private int starCount;
@@ -27,6 +28,7 @@ public class ReadConstellationDetailResDto {
         this.constellationTitle = constellation.getTitle();
         this.planetTitle = constellation.getPlanet().getTitle();
         this.introduction = constellation.getMember().getIntroduction();
+        this.imageUrl = constellation.getImageUrl();
         this.totalBrightness = constellation.getTotalBrightness();
         this.pointCount = constellation.getPointCount();
         this.starCount = constellation.getStarCount();
