@@ -31,9 +31,7 @@ public class FollowService {
         Long id, id2;
         Member followFrom = memberService.detailUser(followReqDto.getFollowFrom());
         Member followTo = memberService.detailUser(followReqDto.getFollowTo());
-        System.out.println(followTo);
-        System.out.println(followFrom);
-        FollowId followId = new FollowId(followReqDto.getFollowFrom(), followReqDto.getFollowTo());
+        FollowId followId = new FollowId(followFrom.getId(), followTo.getId());
 
         if(followRepository.findById(followId).isPresent()){
             throw new DuplicatedException(FailCode.DUPLICATED_FOLLOW);
