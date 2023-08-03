@@ -11,8 +11,8 @@ import useMemberApi from "../../../api/useMemberApi";
 
 const ModifyProfile = () => {
   const { navigateToBack, navigateToMemberProfile } = useNavigation();
-  const [image, setImage] = useState("");
-  const [intro, setIntro] = useState("");
+  const [imageUrl, setImage] = useState("");
+  const [introduction, setIntro] = useState("");
 
   // useEffect를 사용하여 데이터가 불러와진 후에 상태를 설정합니다.
   useEffect(() => {
@@ -41,11 +41,11 @@ const ModifyProfile = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     const member = {
-      imageUrl: image,
-      introduction: intro,
+      introduction,
+      imageUrl,
     };
-    console.log("image:", image);
-    console.log("intro:", intro);
+    console.log("image:", imageUrl);
+    console.log("intro:", introduction);
     try {
       const response = await useMemberApi.membersPutProfiles(member);
       if (response.status === 200) {
@@ -73,10 +73,13 @@ const ModifyProfile = () => {
     <div className="flex flex-col items-center justify-center space-y-5">
       <Header1 buttons={buttonsHeader} />
       <form className="flex flex-col items-center justify-center space-y-10">
-        <InputImage value={image} onChange={(e) => setImage(e.target.value)} />
+        <InputImage
+          value={imageUrl}
+          onChange={(e) => setImage(e.target.value)}
+        />
         <InputBox
           value="자기소개  "
-          placeholder={intro}
+          placeholder={introduction}
           onChange={(e) => setIntro(e.target.value)}
         />
         <Footer1 buttons={buttonsFooter} />

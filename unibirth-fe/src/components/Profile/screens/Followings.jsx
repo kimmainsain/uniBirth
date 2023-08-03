@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Button2 from "../../../common/atoms/Button2";
+import Button4 from "../../../common/atoms/Button4";
 import Header2 from "../../../common/blocks/Header2";
 import Header1 from "../../../common/blocks/Header1";
 import { IoIosArrowBack } from "react-icons/io";
 import { CiLocationArrow1 } from "react-icons/ci";
 import { useNavigation } from "../../../hooks/useNavigation";
 import useProfileApi from "../../../api/useProfileApi";
+import { useRecoilValue } from "recoil";
+import { nicknameState } from "../../../recoil/atoms";
 
 const Followings = () => {
   const {
@@ -13,6 +16,8 @@ const Followings = () => {
     navigateToFollowers,
     navigateToDirectMessage,
   } = useNavigation();
+
+  const nickname = useRecoilValue(nicknameState);
 
   const buttonsHeader = [
     {
@@ -29,21 +34,18 @@ const Followings = () => {
       component: Button2,
       className: "font-TAEBAEKmilkyway",
       value: "팔로잉",
-      onClick: navigateToFollowers,
     },
     {
-      component: Button2,
+      component: Button4,
       className: "font-TAEBAEKmilkyway",
+      onClick: navigateToFollowers,
       value: "팔로워",
     },
   ];
+  const [followingList, setFollowingList] = useState([]);
 
-  // 유저 정보 배열 (예시로 10개의 유저 정보를 생성합니다)
-  const [followingList, setFollowingList] = useState({
-    followingList: [],
-  });
   const getFollowingList = async () => {
-    const response = await useProfileApi.profilesGetFollowings();
+    const response = await useProfileApi.profilesGetFollowings(nickname);
     setFollowingList(response.resultData);
   };
 
@@ -55,25 +57,21 @@ const Followings = () => {
     <div>
       <Header2 buttons={buttonsHeader} />
       <Header1 buttons={buttonsHeader2} />
-      <h1> 팔로잉 리스트입니다..</h1>
-      {followingList?.followingList.map((user) => (
-        <div key={user.id} className="flex items-start space-x-4">
-          <img
-            src={user.profileImageUrl}
-            className="h-32 w-32 rounded-full"
-            alt="Round image"
-          />
-          <div className="flex h-32 items-center">
-            <p className="text-lg font-bold ">{user.name}</p>
+
+      <div className="flex flex-col items-center">
+        {followingList.map((user) => (
+          <div key={user.nickname} className="my-4">
+            <img src={user.imageUrl} className="avatar" alt="User Avatar" />
+            <p>{user.nickname}</p>
+            <button
+              className="flex h-32 w-48 items-center "
+              onClick={navigateToDirectMessage}
+            >
+              <CiLocationArrow1 />
+            </button>
           </div>
-          <button
-            className="flex h-32 w-48 items-center "
-            onClick={navigateToDirectMessage}
-          >
-            <CiLocationArrow1 />
-          </button>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };

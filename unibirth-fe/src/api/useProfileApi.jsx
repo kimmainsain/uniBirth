@@ -18,7 +18,6 @@ const profilesGetFollowers = async (nickname) => {
     const response = await useAxiosInstance
       .authApiClient(jwt)
       .get(`/profiles/followers?nickname=${nickname}`);
-    console.log(response);
     return response.data;
   } catch (e) {
     console.log(e);

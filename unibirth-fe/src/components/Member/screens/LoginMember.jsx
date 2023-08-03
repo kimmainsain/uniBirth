@@ -23,15 +23,26 @@ const LoginMember = () => {
     const member = {
       email,
       password,
-      nickname,
     };
     try {
       const response = await useMemberApi.membersPostLogin(member);
       if (response.status === 200) {
         alert("로그인이 완료되었습니다.");
         sessionStorage.setItem("accessToken", response.resultData.accessToken);
-        console.log(response.resultData);
-        setNickname(nickname);
+        try {
+          const response = await useMemberApi.membersGetProfiles(member);
+          if (response.status === 200) {
+            const userNickname = response.resultData.nickname;
+            console.log("받아온 닉네임", userNickname);
+            setNickname(userNickname);
+          } else {
+            alert("닉네임이 받아지지 않습니다..");
+          }
+        } catch (e) {
+          console.log(e);
+          alert("닉네임 조회에 실패하였습니다.");
+        }
+        console.log(nickname);
         navigateToMainPlanet();
       } else {
         alert("이메일 또는 비밀번호가 일치하지 않습니다.");

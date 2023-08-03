@@ -8,7 +8,6 @@ import { BiSearch } from "react-icons/bi";
 import { useNavigation } from "../../../hooks/useNavigation";
 import { Canvas } from "@react-three/fiber";
 import Space from "../../Home/blocks/Space";
-// import { Canvas } from "@react-three/fiber";
 
 const DetailPlanet = () => {
   const { navigateToMainPlanet, navigateToRegisterConstellation } =

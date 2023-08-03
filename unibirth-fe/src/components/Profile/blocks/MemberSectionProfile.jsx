@@ -3,8 +3,12 @@ import Button1 from "../../../common/atoms/Button1";
 import { useNavigation } from "../../../hooks/useNavigation";
 import useMemberApi from "../../../api/useMemberApi";
 const ConstellationSectionProfile = () => {
-  const { navigateToModifyProfile, navigateToFollowings, navigateToFollowers } =
-    useNavigation();
+  const {
+    navigateToModifyProfile,
+    navigateToFollowings,
+    navigateToFollowers,
+    navigateToMyStars,
+  } = useNavigation();
 
   const [memberData, setMemberData] = useState();
 
@@ -35,7 +39,9 @@ const ConstellationSectionProfile = () => {
               {memberData.resultData.nickname}
             </p>
             <p>탄생일: {memberData.resultData.birthDate}</p>
-            <p>띄운 별: {memberData.resultData.starCount}</p>
+            <p onClick={navigateToMyStars}>
+              띄운 별: {memberData.resultData.starCount}
+            </p>
             <p onClick={navigateToFollowings}>
               팔로잉: {memberData.resultData.followingCount}
             </p>

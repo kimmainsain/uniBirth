@@ -7,6 +7,9 @@ import { CgProfile } from "react-icons/cg";
 import { useNavigation } from "../../../hooks/useNavigation";
 import ListSectionPlanet from "../blocks/ListSectionPlanet";
 
+import { useRecoilValue } from "recoil";
+import { nicknameState } from "../../../recoil/atoms";
+
 const MainPlanet = () => {
   const {
     navigateToLoginMember,
@@ -15,8 +18,10 @@ const MainPlanet = () => {
     navigateToSearchQuration,
   } = useNavigation();
 
+  const nickname = useRecoilValue(nicknameState);
+  console.log("nickname은", nickname);
+
   const token = sessionStorage.getItem("accessToken");
-  console.log(token);
 
   const buttonsFooter = [
     {

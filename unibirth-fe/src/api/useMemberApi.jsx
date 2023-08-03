@@ -91,7 +91,6 @@ const membersPutProfiles = async (data) => {
   try {
     console.log(data);
     const jwt = sessionStorage.getItem("accessToken");
-    console.log(jwt);
     const response = await useAxiosInstance
       .authApiClient(jwt)
       .put(`/members/profiles/update`, data);
