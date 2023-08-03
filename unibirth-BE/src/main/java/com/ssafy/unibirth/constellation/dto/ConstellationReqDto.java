@@ -16,13 +16,14 @@ public class ConstellationReqDto {
     private Long planetId;
     private String title;
     private String description;
+    private String imageUrl;
     private int boardSize;
     private List<List<Integer>> lineList;
     private List<List<Integer>> pointList;
 
     public Constellation toEntity(Member member, Planet planet) {
         return new Constellation(
-                member, planet, title, description, boardSize, pointList.size(), lineList.toString(), pointList.toString()
+                member, planet, title, description, boardSize, pointList.size(), lineList.toString(), pointList.toString(), imageUrl
         );
     }
 }

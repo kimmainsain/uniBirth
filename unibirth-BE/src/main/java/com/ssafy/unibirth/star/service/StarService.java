@@ -52,8 +52,8 @@ public class StarService {
     }
 
     @Transactional(readOnly = true)
-    public List<ReadMyStarListResDto> readMyStarList() {
-        Long memberId = memberService.getCurrentMember().getId();
+    public List<ReadMyStarListResDto> readMyStarList(String nickname) {
+        Long memberId = memberService.detailUser(nickname).getId();
         List<Star> starList = starRepository.findAllByMemberId(memberId);
         return convertToMyStarListDto(starList);
     }
