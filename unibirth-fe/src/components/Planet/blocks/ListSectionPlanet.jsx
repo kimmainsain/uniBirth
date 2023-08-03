@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import usePlanetApi from "../../../api/usePlanetApi";
 import { useNavigation } from "../../../hooks/useNavigation";
 
 const ListSectionPlanet = () => {
   const { navigateToDetailPlanet } = useNavigation();
-
   const [planetList, setPlanetList] = useState({
     planetList: [],
   });

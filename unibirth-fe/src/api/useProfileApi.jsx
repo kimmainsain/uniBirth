@@ -1,24 +1,23 @@
 import useAxiosInstance from "./useAxiosInstance";
 
-const profilesGetFollowings = async () => {
+const profilesGetFollowings = async (nickname) => {
   try {
     const jwt = sessionStorage.getItem("accessToken");
-    const response = await useAxiosInstance.authApiClient(jwt).get(
-      `/profiles/followings`,
-    );
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .get(`/profiles/followings?nickname=${nickname}`);
     return response.data;
   } catch (e) {
     console.log(e);
   }
 };
 
-const profilesGetFollowers = async () => {
+const profilesGetFollowers = async (nickname) => {
   try {
     const jwt = sessionStorage.getItem("accessToken");
-    const response = await useAxiosInstance.authApiClient(jwt).get(
-      `/profiles/followings`,
-    );
-    console.log(response);
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .get(`/profiles/followers?nickname=${nickname}`);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -28,9 +27,9 @@ const profilesGetFollowers = async () => {
 const profilesPostFollow = async () => {
   try {
     const jwt = sessionStorage.getItem("accessToken");
-    const response = await useAxiosInstance.authApiClient(jwt).post(
-      `/profiles/follow`,
-    );
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .post(`/profiles/follow`);
     console.log(response);
     return response.data;
   } catch (e) {
@@ -42,9 +41,9 @@ const profilesPostFollow = async () => {
 const profilesDeleteFollow = async () => {
   try {
     const jwt = sessionStorage.getItem("accessToken");
-    const response = await useAxiosInstance.authApiClient(jwt).delete(
-      `/profiles/follow/from=${memberId}&to=${memberId}`,
-    );
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .delete(`/profiles/follow/from=&to=`);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -54,9 +53,9 @@ const profilesDeleteFollow = async () => {
 const profilesGetCntFollowers = async () => {
   try {
     const jwt = sessionStorage.getItem("accessToken");
-    const response = await useAxiosInstance.authApiClient(jwt).get(
-      `/profiles/followers/cnt`,
-    );
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .get(`/profiles/followers/cnt`);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -66,9 +65,9 @@ const profilesGetCntFollowers = async () => {
 const profilesGetCntFollowings = async () => {
   try {
     const jwt = sessionStorage.getItem("accessToken");
-    const response = await useAxiosInstance.authApiClient(jwt).get(
-      `/profiles/followings/cnt`,
-    );
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .get(`/profiles/followings/cnt`);
     return response.data;
   } catch (e) {
     console.log(e);
