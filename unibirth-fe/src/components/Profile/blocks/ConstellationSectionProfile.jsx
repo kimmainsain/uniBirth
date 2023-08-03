@@ -1,22 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button1 from "../../../common/atoms/Button1";
 import { useNavigation } from "../../../hooks/useNavigation";
+import useConstellationApi from "../../../api/useConstellationApi";
+import { useRecoilValue } from "recoil";
+import { nicknameState } from "../../../recoil/atoms";
 
 const ConstellationSectionProfile = () => {
   const { navigateToListConstellation } = useNavigation();
+  const nickname = useRecoilValue(nicknameState);
 
-  const originalImages = Array(10).fill("https://picsum.photos/200");
-  const newImages = Array(10).fill("https://picsum.photos/200/200");
+  const [images, setImages] = useState({
+    images: [],
+  });
 
-  const [images, setImages] = useState(originalImages);
-
-  const handlePinClick = () => {
-    setImages(newImages);
+  const handlePinClick = async () => {
+    const response = await useConstellationApi.constellationsGetPinList(
+      nickname,
+    );
+    setImages(response.resultData);
   };
 
-  const handleParticipateClick = () => {
-    setImages(originalImages);
+  const handleParticipateClick = async () => {
+    const response = await useConstellationApi.constellationsGetAttendList(
+      nickname,
+    );
+    console.log(response);
+    setImages(response.resultData);
   };
+
+  useEffect(() => {
+    // 기본 버튼에 따라 초기 데이터 가져오기
+    handleParticipateClick();
+    console.log(nickname);
+  }, []);
 
   return (
     <div className="space-x-4 bg-red-200">

@@ -31,11 +31,11 @@ const RegisterMember = () => {
     try {
       const response = await useMemberApi.membersPutUpdate(member);
       console.log(response);
-      alert("회원가입이 완료되었습니다.");
+      alert("회원정보 수정이 완료되었습니다..");
       navigateToLoginMember();
     } catch (e) {
       console.log(e);
-      alert("회원가입에 실패하였습니다.");
+      alert("회원정보 수정에 실패하였습니다.");
     }
 
     console.log(

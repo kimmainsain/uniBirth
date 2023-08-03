@@ -11,3 +11,7 @@ export const nicknameState = atom({
   key: "nicknameState",
   default: "",
 });
+export const targetNicknameState = atom({
+  key: "targetNicknameState",
+  default: "",
+});

@@ -39,24 +39,24 @@ const constellationsGetPin = async (constellationId) => {
   }
 };
 
-const constellationsGetAttendList = async () => {
+const constellationsGetAttendList = async (nickname) => {
   try {
     const jwt = sessionStorage.getItem("accessToken");
     const response = await useAxiosInstance
       .authApiClient(jwt)
-      .get(`/constellations/profiles`);
+      .get(`/constellations/profiles?nickname=${nickname}`);
     return response.data;
   } catch (e) {
     console.log(e);
   }
 };
 
-const constellationsGetPinList = async () => {
+const constellationsGetPinList = async (nickname) => {
   try {
     const jwt = sessionStorage.getItem("accessToken");
     const response = await useAxiosInstance
       .authApiClient(jwt)
-      .get(`/constellations/profiles/pins`);
+      .get(`/constellations/profiles/pins?nickname=${nickname}`);
     return response.data;
   } catch (e) {
     console.log(e);
