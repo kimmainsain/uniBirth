@@ -1,24 +1,23 @@
 import useAxiosInstance from "./useAxiosInstance";
 
-const profilesGetFollowings = async () => {
+const profilesGetFollowings = async (nickname) => {
   try {
     const jwt = sessionStorage.getItem("accessToken");
     const response = await useAxiosInstance
       .authApiClient(jwt)
-      .get(`/profiles/followings`);
+      .get(`/profiles/followings?nickname=${nickname}`);
     return response.data;
   } catch (e) {
     console.log(e);
   }
 };
 
-const profilesGetFollowers = async () => {
+const profilesGetFollowers = async (nickname) => {
   try {
     const jwt = sessionStorage.getItem("accessToken");
     const response = await useAxiosInstance
       .authApiClient(jwt)
-      .get(`/profiles/followings`);
-    console.log(response);
+      .get(`/profiles/followers?nickname=${nickname}`);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -44,7 +43,7 @@ const profilesDeleteFollow = async () => {
     const jwt = sessionStorage.getItem("accessToken");
     const response = await useAxiosInstance
       .authApiClient(jwt)
-      .delete(`/profiles/follow/from=${memberId}&to=${memberId}`);
+      .delete(`/profiles/follow/from=&to=`);
     return response.data;
   } catch (e) {
     console.log(e);

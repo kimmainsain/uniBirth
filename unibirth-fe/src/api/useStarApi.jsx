@@ -25,10 +25,12 @@ const starsGetBrightness = async (starId) => {
   }
 };
 
-const starsGetStarList = async () => {
+const starsGetStarList = async (nickname) => {
   try {
     const jwt = sessionStorage.getItem("accessToken");
-    const response = await useAxiosInstance.authApiClient(jwt).get(`/stars`);
+    const response = await useAxiosInstance
+      .authApiClient(jwt)
+      .get(`/stars?nickname=${nickname}`);
     console.log(response);
     return response.data;
   } catch (e) {
@@ -36,12 +38,12 @@ const starsGetStarList = async () => {
   }
 };
 
-const starsPostStar = async () => {
+const starsPostStar = async (data) => {
   try {
     const jwt = sessionStorage.getItem("accessToken");
     const response = await useAxiosInstance
       .authApiClient(jwt)
-      .post(`/stars/register`);
+      .post(`/stars/register`, data);
     return response.data;
   } catch (e) {
     console.log(e);
