@@ -9,7 +9,7 @@ import {
   planetIdState,
   constellationNameState,
   constellationDescpState,
-  // boardSizeState,
+  boardSizeState,
 } from "../../../recoil/atoms";
 
 const GridCustomConstellation = () => {
@@ -23,8 +23,7 @@ const GridCustomConstellation = () => {
   const planetId = useRecoilState(planetIdState);
   const constellationName = useRecoilState(constellationNameState);
   const constellationDescp = useRecoilState(constellationDescpState);
-  // const boardSize = useRecoilState(boardSizeState);
-  const boardSize = [7];
+  const boardSize = useRecoilState(boardSizeState);
   const stageSize = boardSize[0] * 50;
   const containerStyle = boardSize[0] === 5 ? "max-w-md mx-auto" : "w-full";
 
@@ -79,7 +78,6 @@ const GridCustomConstellation = () => {
     grid.forEach((yValue, y) => {
       yValue.forEach((xValue, x) => {
         if (xValue === true) {
-          // false 값을 찾는 부분
           tempPointList.push([y, x]);
         }
       });
