@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button1 from "../../../common/atoms/Button1";
 import Button2 from "../../../common/atoms/Button2";
 import Header1 from "../../../common/blocks/Header1";
@@ -9,9 +9,13 @@ import GridCustomConstellation from "../blocks/GridCustomConstellation";
 import ListTemplateModalConstellation from "../blocks/ListTemplateModalConstellation";
 
 const DrawingConstellation = () => {
-  const { navigateToBack, navigateToListTemplateModalConstellation } =
-    useNavigation();
-  // const
+  const { navigateToBack } = useNavigation();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
   const buttonsHeader = [
     {
       component: Button2,
@@ -24,7 +28,7 @@ const DrawingConstellation = () => {
       component: Button1,
       className: "font-TAEBAEKmilkyway",
       value: "템플릿",
-      onClick: navigateToListTemplateModalConstellation,
+      onClick: handleModalOpen,
     },
   ];
 
@@ -61,7 +65,12 @@ const DrawingConstellation = () => {
         별자리 그리기 예시.
       </p>
       <GridCustomConstellation />
-      <ListTemplateModalConstellation />
+      {isModalOpen && (
+        <ListTemplateModalConstellation
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+        />
+      )}
       <Footer1 buttons={buttonsFooter} />
     </div>
   );
