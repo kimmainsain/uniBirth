@@ -16,5 +16,6 @@ public class LoginTokenResponseDto {
     private String nickname;
     @Enumerated(EnumType.STRING)
     private Role role;
+    private int purchasedBoard;
 }
 
