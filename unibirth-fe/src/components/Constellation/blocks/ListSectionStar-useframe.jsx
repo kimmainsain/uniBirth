@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigation } from "../../../hooks/useNavigation";
 import useConstellationApi from "../../../api/useConstellationApi";
 import { useParams } from "react-router-dom";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
 import { Text, OrbitControls, Line, Stars } from "@react-three/drei";
 import { starListState } from "../../../recoil/atoms";
@@ -10,13 +10,45 @@ import { useRecoilState } from "recoil";
 import * as THREE from "three";
 
 const ListSectionStar = () => {
-  const ref = useRef();
   const { constellationId } = useParams();
   const { navigateToDetailStar } = useNavigation();
   const [starList, setStarList] = useRecoilState(starListState);
-  const [boxtitle, setBoxtitle] = useState("");
-  const [boxcontent, setBoxcontent] = useState("");
-  const [tooltipStyle, setTooltipStyle] = useState({ display: "none" });
+  const ref = useRef();
+  const [closestObject, setClosestObject] = useState(null);
+
+  const SceneComponent = () => {
+    const { scene, camera } = useThree();
+    const raycaster = new THREE.Raycaster();
+    const [intersects, setIntersects] = useState([]);
+    console.log(closestObject);
+    console.log(intersects);
+
+    useFrame(() => {
+      raycaster.setFromCamera(new THREE.Vector2(), camera);
+      const intersections = raycaster.intersectObjects(scene.children, true);
+
+      // If there are intersections, find the closest one
+      if (intersections.length > 0) {
+        const [closestIntersection] = intersections.sort(
+          (a, b) => a.distance - b.distance,
+        );
+        const distance = closestIntersection.distance;
+        // console.log(distance);
+
+        // If the distance is less than the threshold, update the closest object
+        const threshold = 10; // You can adjust this value
+        if (distance < threshold) {
+          setClosestObject(closestIntersection.object);
+        } else {
+          setClosestObject(null);
+        }
+      } else {
+        setClosestObject(null);
+      }
+
+      setIntersects(intersections);
+    });
+  };
 
   useEffect(() => {
     getStarList(constellationId);
@@ -40,7 +72,6 @@ const ListSectionStar = () => {
   // starPotisions recoil 저장
   const starPoint = starList?.pointList;
   const num = 1.5; // 별 거리 조절
-  // const znum = (Math.floor(Math.random() * 11) - 5) * num;
   const starPotisions = starPoint?.map((star) => ({
     x: star[0] * num,
     y: star[1] * num,
@@ -56,30 +87,11 @@ const ListSectionStar = () => {
   console.log("lineList:", lines);
   console.log("starPosition:", starPotisions);
 
-  const handleBoxClick = (event, box) => {
-    console.log("event:", event);
-    console.log("box:", box);
-    // Determine the coordinates of the mouse in normalized device coordinates (-1 to +1)
-    const mouse = new THREE.Vector2();
-    mouse.x = event.clientX + 100;
-    mouse.y = event.clientY - 100;
-    // mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    // mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    console.log(mouse);
-    // const rect = event.target.getBoundingClientRect();
-    setTooltipStyle({
-      left: `${mouse.x}px`,
-      top: `${mouse.y}px`,
-      display: "block",
-    });
-    setBoxtitle(box.title);
-    setBoxcontent(box.content);
-  };
-
   return (
     <div className="relative bottom-0 h-screen">
       <Canvas camera={{ position: [10, 10, 50] }}>
         <OrbitControls enableDamping dampingFactor={0.05} enabled={true} />
+        <SceneComponent />
         <axesHelper scale={5} />
         <EffectComposer>
           <Bloom mipmapBlur luminanceThreshold={1} radius={0.7} />
@@ -90,7 +102,7 @@ const ListSectionStar = () => {
             <mesh
               ref={ref}
               position={[star.x, star.y, star.z]}
-              onClick={() => handleBoxClick(event, index)}
+              onClick={() => navigateToDetailStar(index)}
             >
               <sphereGeometry args={[1, 32, 32]} />
               <meshStandardMaterial
@@ -139,26 +151,9 @@ const ListSectionStar = () => {
           fade // Faded dots (default=false)
         />
       </Canvas>
-      <div>
-        <div
-          className={`
-  absolute z-50 -translate-x-1/2 -translate-y-1/2 transform 
-  rounded-lg bg-white p-2 
-  ${tooltipStyle.display === "none" ? "hidden" : ""}`}
-          style={{ left: tooltipStyle.left, top: tooltipStyle.top }}
-        >
-          <div className="flex flex-col font-TAEBAEKmilkyway">
-            <p className="font-bold">{boxtitle}뭐하냐고</p>
-            <p>{boxcontent}뭐하냐고</p>
-            <button
-              className="rounded-lg bg-red-500 text-white"
-              onClick={() => navigateToDetailStar()}
-            >
-              이동하기
-            </button>
-          </div>
-        </div>
-      </div>
+      {closestObject && (
+        <div className="bg-red-500 text-white">이자식들아!!!!</div>
+      )}
     </div>
   );
 };
