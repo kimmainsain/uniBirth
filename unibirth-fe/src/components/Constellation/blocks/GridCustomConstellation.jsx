@@ -4,6 +4,13 @@ import Button1 from "../../../common/atoms/Button1";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../../api/useFirebaseApi";
 import useConstellationApi from "../../../api/useConstellationApi";
+import { useRecoilState } from "recoil";
+import {
+  planetIdState,
+  constellationNameState,
+  constellationDescpState,
+  boardSizeState,
+} from "../../../recoil/atoms";
 
 const GridCustomConstellation = () => {
   const [points, setPoints] = useState([]);
@@ -13,6 +20,10 @@ const GridCustomConstellation = () => {
   const [shouldDeduplicate, setShouldDeduplicate] = useState(false);
   const [lastPoints, setLastPoints] = useState([]);
   const linesAndPointsLayerRef = useRef(null);
+  const planetId = useRecoilState(planetIdState);
+  const constellationName = useRecoilState(constellationNameState);
+  const constellationDescp = useRecoilState(constellationDescpState);
+  const boardSize = useRecoilState(boardSizeState);
 
   useEffect(() => {
     if (shouldDeduplicate) {
@@ -60,7 +71,7 @@ const GridCustomConstellation = () => {
     setShouldDeduplicate(true);
   };
 
-  const handleSaveClick = async () => {
+  const handleSaveClick = () => {
     const tempPointList = [];
     grid.forEach((yValue, y) => {
       yValue.forEach((xValue, x) => {
@@ -81,30 +92,43 @@ const GridCustomConstellation = () => {
       contentType: mimeType,
     });
     console.log(uploadTask);
-    try {
-      const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-      const constellation = {
-        planetId: 2,
-        title: "커스텀별자리",
-        description: "cat......",
-        boardSize: 10,
-        lineList,
-        pointList: tempPointList,
-        imageUrl: downloadURL,
-      };
-      console.log(constellation);
-      const response =
-        await useConstellationApi.constellationsPostConstellation(
-          constellation,
-        );
-      console.log(response); // 성공 처리
-    } catch (error) {
-      if (error.code === "storage/object-not-found") {
-        console.error("Failed to get download URL:", error);
-      } else {
-        console.error("Failed to post constellation:", error); // 에러 처리
-      }
-    }
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(`Upload is ${progress}% done`);
+      },
+      (error) => {
+        console.error("Upload failed:", error);
+      },
+      async () => {
+        try {
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+          const constellation = {
+            planetId: planetId[0],
+            title: constellationName[0],
+            description: constellationDescp[0],
+            boardSize: boardSize[0],
+            lineList,
+            pointList: tempPointList,
+            imageUrl: downloadURL,
+          };
+          console.log(constellation);
+          const response =
+            await useConstellationApi.constellationsPostConstellation(
+              constellation,
+            );
+          console.log(response); // 성공 처리
+        } catch (error) {
+          if (error.code === "storage/object-not-found") {
+            console.error("Failed to get download URL:", error);
+          } else {
+            console.error("Failed to post constellation:", error); // 에러 처리
+          }
+        }
+      },
+    );
   };
 
   const handleGridClick = (y, x) => {
@@ -153,8 +177,8 @@ const GridCustomConstellation = () => {
   };
 
   if (grid.length === 0) {
-    const rows = 10;
-    const cols = 10;
+    const rows = boardSize[0];
+    const cols = boardSize[0];
     const tempGrid = Array(rows)
       .fill()
       .map(() => Array(cols).fill(false));
@@ -163,8 +187,18 @@ const GridCustomConstellation = () => {
 
   return (
     <div>
+      <div>
+        <p className="font-TAEBAEKmilkyway">지금 행성명: {planetId}</p>
+        <p className="font-TAEBAEKmilkyway">
+          지금 별자리명: {constellationName}
+        </p>
+        <p className="font-TAEBAEKmilkyway">
+          지금 별자리설명: {constellationDescp}
+        </p>
+        <p className="font-TAEBAEKmilkyway">지금 보드사이즈: {boardSize}</p>
+      </div>
       <div className="flex h-full w-full items-center justify-center">
-        <Stage width={200} height={200}>
+        <Stage width={500} height={500}>
           <Layer>
             {grid &&
               grid.map((yValue, y) =>

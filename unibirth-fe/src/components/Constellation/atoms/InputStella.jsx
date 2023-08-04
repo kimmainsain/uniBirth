@@ -1,6 +1,6 @@
 import React from "react";
 
-const Dropdown = ({ stellaname, setStellaname }) => {
+const Dropdown = ({ constellationName, setConstellationName }) => {
   // 글자수 제한 필요합니다.
 
   return (
@@ -8,8 +8,8 @@ const Dropdown = ({ stellaname, setStellaname }) => {
       <div className=" jsutify-center flex flex-row items-center rounded-full border-4">
         <input
           type="text"
-          value={stellaname}
-          onChange={(e) => setStellaname(e.target.value)}
+          value={constellationName}
+          onChange={(e) => setConstellationName(e.target.value)}
         />
         <p>자리</p>
       </div>

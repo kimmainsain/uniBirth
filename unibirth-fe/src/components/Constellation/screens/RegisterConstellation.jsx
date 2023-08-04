@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Button1 from "../../../common/atoms/Button1";
 import Button2 from "../../../common/atoms/Button2";
 import Header1 from "../../../common/blocks/Header1";
@@ -8,23 +8,33 @@ import { useNavigation } from "../../../hooks/useNavigation";
 import InputDropdown from "../atoms/InputDropdown";
 import InputStella from "../atoms/InputStella";
 import InputDescription from "../atoms/InputDescription";
-import planet1 from "../../../assets/images/planet1.png";
+import { useRecoilState } from "recoil";
+import {
+  planetIdState,
+  constellationNameState,
+  constellationDescpState,
+} from "../../../recoil/atoms";
 
+import planet1 from "../../../assets/images/planet1.png";
 const RegistConstellation = () => {
-  const [planetname, setPlanetname] = useState("행성 1");
-  const [stellaname, setStellaname] = useState("");
-  const [stelladescp, setStelladescp] = useState("");
+  const [planetId, setPlanetId] = useRecoilState(planetIdState);
+  const [constellationName, setConstellationName] = useRecoilState(
+    constellationNameState,
+  );
+  const [constellationDescp, setConstellationDescp] = useRecoilState(
+    constellationDescpState,
+  );
 
   const handleSubmit = () => {
     // 여기에 중복이 있는 지 확인하는 로직 필요함
 
     // 여기서 오류가 없다면
-    if (planetname && stellaname && stelladescp) {
-      console.log("행성명: ", planetname);
-      console.log("별자리명: ", stellaname);
-      console.log("별자리설명: ", stelladescp);
+    if (planetId && constellationName && constellationDescp) {
+      console.log("행성명: ", planetId);
+      console.log("별자리명: ", constellationName);
+      console.log("별자리설명: ", constellationDescp);
       navigateToDrawingConstellation();
-    } else if (stellaname) {
+    } else if (constellationName) {
       alert("별자리를 설명해주세요 ! ");
     } else {
       alert("별자리를 입력해주세요 ! ");
@@ -60,16 +70,24 @@ const RegistConstellation = () => {
           className="flex items-center justify-center"
         />
         <p className="font-TAEBAEKmilkyway">행성 명</p>
-        <InputDropdown planetname={planetname} setPlanetname={setPlanetname} />
+        <InputDropdown planetId={planetId} setPlanetId={setPlanetId} />
         <p className="font-TAEBAEKmilkyway">별자리 명</p>
-        <InputStella stellaname={stellaname} setStellaname={setStellaname} />
+        <InputStella
+          constellationName={constellationName}
+          setConstellationName={setConstellationName}
+        />
         <p className="font-TAEBAEKmilkyway">별자리 설명</p>
         <InputDescription
-          stelladescp={stelladescp}
-          setStelladescp={setStelladescp}
+          constellationDescp={constellationDescp}
+          setConstellationDescp={setConstellationDescp}
         />
       </div>
-      <Footer1 buttons={buttonsFooter} />
+      <Footer1
+        buttons={buttonsFooter}
+        planetId={planetId}
+        constellationDescp={constellationDescp}
+        constellationName={constellationName}
+      />
     </div>
   );
 };

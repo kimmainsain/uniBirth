@@ -1,6 +1,6 @@
 import React from "react";
 
-const Dropdown = ({ stelladescp, setStelladescp }) => {
+const InpuitDescription = ({ constellationDescp, setConstellationDescp }) => {
   // const [inputStella, setinputStella] = useState("Option 1");
 
   return (
@@ -8,11 +8,11 @@ const Dropdown = ({ stelladescp, setStelladescp }) => {
       <input
         className="jsutify-center flex h-96 flex-row items-center rounded-full border-4"
         type="text"
-        value={stelladescp}
-        onChange={(e) => setStelladescp(e.target.value)}
+        value={constellationDescp}
+        onChange={(e) => setConstellationDescp(e.target.value)}
       />
     </div>
   );
 };
 
-export default Dropdown;
+export default InpuitDescription;
