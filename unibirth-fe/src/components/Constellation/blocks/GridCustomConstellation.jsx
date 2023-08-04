@@ -115,6 +115,7 @@ const GridCustomConstellation = () => {
             lineList,
             pointList: tempPointList,
             imageUrl: downloadURL,
+            boardSize: boardSize[0],
           };
           console.log(constellation);
           const response =

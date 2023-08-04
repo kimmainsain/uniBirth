@@ -25,7 +25,7 @@ export const boardSizeState = atom({
 
 export const planetIdState = atom({
   key: "planetIdState",
-  default: 0,
+  default: 1,
 });
 
 export const constellationNameState = atom({
