@@ -8,6 +8,8 @@ import { BiSearch } from "react-icons/bi";
 import { useNavigation } from "../../../hooks/useNavigation";
 // import { Canvas } from "@react-three/fiber";
 // import Space from "../../Home/blocks/Space";
+// import ConstellationList from "../blocks/ConstellationList";
+import ListConstellation from "../blocks/ListConstellation";
 
 const DetailPlanet = () => {
   const { navigateToMainPlanet, navigateToRegisterConstellation } =
@@ -31,12 +33,13 @@ const DetailPlanet = () => {
   ];
   return (
     <div className="relative h-screen w-screen">
-      <div className="z-1 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
+      <div className="absolute left-1/2 top-20 z-10 -translate-x-1/2 -translate-y-1/2 transform">
         <Header1 buttons={buttonsHeader} />
         <ListSectionConstellation className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transform" />
-        <h1>별자리 리스트 화면입니다.</h1>
+        <h1 className="text-white">별자리 리스트 화면입니다.</h1>
         <Footer1 buttons={buttonsFooter} />
       </div>
+      <ListConstellation />
       {/* <ConstellationList /> */}
     </div>
   );

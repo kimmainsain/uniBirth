@@ -224,16 +224,18 @@ const StarCanvas = () => {
         </table>
       </div>
 
-      <div
-        className={`
+      <div>
+        <div
+          className={`
   absolute z-50 -translate-x-1/2 -translate-y-1/2 transform 
   rounded-lg bg-white p-2 
   ${tooltipStyle.display === "none" ? "hidden" : ""}`}
-        style={{ left: tooltipStyle.left, top: tooltipStyle.top }}
-      >
-        <div className="flex flex-col font-TAEBAEKmilkyway">
-          <p className="font-bold">{boxtitle}</p>
-          <p>{boxcontent}</p>
+          style={{ left: tooltipStyle.left, top: tooltipStyle.top }}
+        >
+          <div className="flex flex-col font-TAEBAEKmilkyway">
+            <p className="font-bold">{boxtitle}</p>
+            <p>{boxcontent}</p>
+          </div>
         </div>
       </div>
 
