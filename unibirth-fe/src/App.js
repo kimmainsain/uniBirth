@@ -13,7 +13,6 @@ import ModifyMember from "./components/Member/screens/ModifyMember";
 import DetailConstellation from "./components/Constellation/screens/DetailConstellation";
 import RegisterConstellation from "./components/Constellation/screens/RegisterConstellation";
 import DrawingConstellation from "./components/Constellation/screens/DrawingConstellation";
-
 // Planet
 import DetailPlanet from "./components/Planet/screens/DetailPlanet";
 import MainPlanet from "./components/Planet/screens/MainPlanet";

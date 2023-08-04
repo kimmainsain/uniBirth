@@ -6,9 +6,12 @@ import Footer1 from "../../../common/blocks/Footer1";
 import { BiSearch } from "react-icons/bi";
 import { useNavigation } from "../../../hooks/useNavigation";
 import GridCustomConstellation from "../blocks/GridCustomConstellation";
+import ListTemplateModalConstellation from "../blocks/ListTemplateModalConstellation";
 
 const DrawingConstellation = () => {
-  const { navigateToBack } = useNavigation();
+  const { navigateToBack, navigateToListTemplateModalConstellation } =
+    useNavigation();
+  // const
   const buttonsHeader = [
     {
       component: Button2,
@@ -16,6 +19,12 @@ const DrawingConstellation = () => {
       value: "뒤로가기",
       onClick: navigateToBack,
       icon: <BiSearch />,
+    },
+    {
+      component: Button1,
+      className: "font-TAEBAEKmilkyway",
+      value: "템플릿",
+      onClick: navigateToListTemplateModalConstellation,
     },
   ];
 
@@ -52,6 +61,7 @@ const DrawingConstellation = () => {
         별자리 그리기 예시.
       </p>
       <GridCustomConstellation />
+      <ListTemplateModalConstellation />
       <Footer1 buttons={buttonsFooter} />
     </div>
   );
