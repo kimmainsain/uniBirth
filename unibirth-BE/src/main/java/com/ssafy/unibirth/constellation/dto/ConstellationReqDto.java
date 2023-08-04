@@ -21,7 +21,7 @@ public class ConstellationReqDto {
     private List<List<Integer>> lineList;
     private List<List<Integer>> pointList;
 
-    public Constellation toEntity(Member member, Planet planet) {
+    public Constellation toEntity(Member member, Planet planet, List<List<Integer>> lineList) {
         return new Constellation(
                 member, planet, title, description, boardSize, pointList.size(), lineList.toString(), pointList.toString(), imageUrl
         );
