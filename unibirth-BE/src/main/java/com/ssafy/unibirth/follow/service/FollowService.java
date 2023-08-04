@@ -8,11 +8,10 @@ import com.ssafy.unibirth.follow.domain.FollowId;
 import com.ssafy.unibirth.follow.dto.FollowCntDto;
 import com.ssafy.unibirth.follow.dto.FollowListDto;
 import com.ssafy.unibirth.follow.dto.FollowReqDto;
-import com.ssafy.unibirth.follow.dto.FollowResDto;
 import com.ssafy.unibirth.follow.repository.FollowRepository;
 import com.ssafy.unibirth.member.domain.Member;
+import com.ssafy.unibirth.member.repository.MemberRepository;
 import com.ssafy.unibirth.member.service.MemberService;
-import com.ssafy.unibirth.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,10 +24,10 @@ import java.util.List;
 public class FollowService {
 
     private final FollowRepository followRepository;
+    private final MemberRepository memberRepository;
     private final MemberService memberService;
     //팔로우하기
-    public FollowResDto follow(FollowReqDto followReqDto) throws NotFoundException {
-        Long id, id2;
+    public void follow(FollowReqDto followReqDto) throws NotFoundException {
         Member followFrom = memberService.detailUser(followReqDto.getFollowFrom());
         Member followTo = memberService.detailUser(followReqDto.getFollowTo());
         FollowId followId = new FollowId(followFrom.getId(), followTo.getId());
@@ -41,12 +40,11 @@ public class FollowService {
         follow.setFollowFrom(followFrom);
         follow.setFollowTo(followTo);
         followRepository.save(follow);
-        id = follow.getFollowFrom().getId();
-        id2 = follow.getFollowTo().getId();
 
         followFrom.inFollowingCount();
         followTo.inFollowerCount();
-        return new FollowResDto(id, id2);
+        memberRepository.save(followFrom);
+        memberRepository.save(followTo);
     }
 
 
