@@ -86,12 +86,12 @@ public class MemberController {
     }
 
     // 내 프로필 조회
-//    @GetMapping("/profiles/read")
-//    public ResponseEntity<ProfileRespDto> getProfile() {
-//        Member member = memberService.getCurrentMember();
-//        ProfileRespDto profile = memberService.getProfile(member.getId());
-//        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, profile);
-//    }
+    @GetMapping("/profiles/read")
+    public ResponseEntity<ProfileRespDto> getProfile() {
+        Member member = memberService.getCurrentMember();
+        ProfileRespDto profile = memberService.detailProfile(member.getNickname());
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, profile);
+    }
 
     // 프로필 수정
     @PutMapping("/profiles/update")
