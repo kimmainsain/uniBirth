@@ -19,10 +19,10 @@ public class ProfileRespDto {
     private String imageUrl;
     private String zodiac; // 본인 생일에 해당하는 황도 12궁 이름
 
-    public ProfileRespDto(Member member) {
+    public ProfileRespDto(Member member, int starCount) {
         this.nickname = member.getNickname();
         this.birth = member.getBirth();
-        this.starCount = member.getStarCount();
+        this.starCount = starCount;
         this.followingCount = member.getFollowingCount();
         this.followerCount = member.getFollowerCount();
         this.introduction = member.getIntroduction();

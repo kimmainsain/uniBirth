@@ -1,6 +1,7 @@
 package com.ssafy.unibirth.constellation.repository;
 
 import com.ssafy.unibirth.constellation.domain.Constellation;
+import com.ssafy.unibirth.star.domain.Star;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,4 +20,7 @@ public interface ConstellationRepository extends JpaRepository<Constellation, Lo
             "WHERE c.id IN (SELECT s.constellation.id FROM Star s WHERE s.member.id = :memberId) " +
             "OR c.member.id = :memberId")
     List<Object[]> findparticipatedConstellationList(@Param("memberId") Long memberId);
+
+    @Query("SELECT s FROM Constellation c JOIN c.starList s WHERE c.id = :constellationId ORDER BY s.brightness DESC")
+    List<Star> findTopStarsByConstellationOrderByBrightnessDesc(@Param("constellationId") Long constellationId);
 }
