@@ -20,7 +20,8 @@ public class FollowController {
     //팔로우하기
     @PostMapping("/follow")
     public ResponseEntity follow(@RequestBody FollowReqDto followReqDto){
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, followService.follow(followReqDto));
+        followService.follow(followReqDto);
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS);
     }
 
 
