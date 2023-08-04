@@ -8,8 +8,8 @@ import { useNavigation } from "../../../hooks/useNavigation";
 import ListSectionPlanet from "../blocks/ListSectionPlanet";
 import CanvasPlanet from "../blocks/CanvasPlanet";
 
-import { useRecoilValue } from "recoil";
-import { nicknameState } from "../../../recoil/atoms";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { nicknameState, targetNicknameState } from "../../../recoil/atoms";
 
 const MainPlanet = () => {
   const {
@@ -20,9 +20,17 @@ const MainPlanet = () => {
   } = useNavigation();
 
   const nickname = useRecoilValue(nicknameState);
-  console.log("nickname은", nickname);
+  const [targetNickname, setTargetNickname] =
+    useRecoilState(targetNicknameState);
 
   const token = sessionStorage.getItem("accessToken");
+
+  console.log(targetNickname);
+
+  const mypageClick = () => {
+    setTargetNickname(nickname); // 클릭한 유저 닉네임을 targetNicknameState에 저장합니다.
+    navigateToMemberProfile(); // 화면 이동을 처리하는 함수를 호출합니다.
+  };
 
   const buttonsFooter = [
     {
@@ -54,7 +62,7 @@ const MainPlanet = () => {
       component: Button1,
       className: "font-TAEBAEKmilkyway",
       value: "마이페이지",
-      onClick: navigateToMemberProfile,
+      onClick: mypageClick,
       icon: <CgProfile />,
     });
   }

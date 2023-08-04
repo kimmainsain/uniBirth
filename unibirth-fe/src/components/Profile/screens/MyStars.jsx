@@ -32,6 +32,7 @@ const MyStars = () => {
 
   const getStarList = async () => {
     const response = await useStarApi.starsGetStarList(nickname);
+    console.log(response.resuldData);
     setStarList(response.resultData);
   };
 
@@ -47,7 +48,7 @@ const MyStars = () => {
         {starList.map((star) => (
           <div key={star.starId} className="my-4">
             <img src={star.imageUrl} className="avatar" alt="User Avatar" />
-            <p>{star.title}</p>
+            <p>{star.title} 자리</p>
             <p>{star.content}</p>
             <p>{star.createdAt}</p>
           </div>

@@ -15,8 +15,8 @@ const RegisterMember = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { navigateToBack, navigateToLoginMember } = useNavigation();
-  const joinMember = async (e) => {
+  const { navigateToBack, navigateToMemberProfile } = useNavigation();
+  const modifyMember = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert("비밀번호가 일치하지 않습니다.");
@@ -32,7 +32,7 @@ const RegisterMember = () => {
       const response = await useMemberApi.membersPutUpdate(member);
       console.log(response);
       alert("회원정보 수정이 완료되었습니다..");
-      navigateToLoginMember();
+      navigateToMemberProfile();
     } catch (e) {
       console.log(e);
       alert("회원정보 수정에 실패하였습니다.");
@@ -57,7 +57,7 @@ const RegisterMember = () => {
       component: Button1,
       className: "font-TAEBAEKmilkyway",
       value: "회원정보 수정",
-      onClick: joinMember,
+      onClick: modifyMember,
     },
   ];
 
@@ -81,7 +81,7 @@ const RegisterMember = () => {
           email={email}
           password={password}
           confirmPassword={confirmPassword}
-          joinMember={joinMember}
+          joinMember={modifyMember}
         />
       </form>
     </div>

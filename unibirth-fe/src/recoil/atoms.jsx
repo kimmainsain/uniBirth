@@ -10,6 +10,7 @@ export const nicknameState = atom({
 export const targetNicknameState = atom({
   key: "targetNicknameState",
   default: "",
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const starListState = atom({
