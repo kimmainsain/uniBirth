@@ -49,7 +49,7 @@ const DrawingConstellation = () => {
     <div>
       <Header1 buttons={buttonsHeader} />
       <p className="lg-10 my-5 flex justify-center font-TAEBAEKmilkyway text-4xl">
-        별자리 그리기 예시입니다.
+        별자리 그리기 예시.
       </p>
       <GridCustomConstellation />
       <Footer1 buttons={buttonsFooter} />

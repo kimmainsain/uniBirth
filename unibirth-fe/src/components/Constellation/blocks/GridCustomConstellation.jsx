@@ -9,7 +9,7 @@ import {
   planetIdState,
   constellationNameState,
   constellationDescpState,
-  boardSizeState,
+  // boardSizeState,
 } from "../../../recoil/atoms";
 
 const GridCustomConstellation = () => {
@@ -23,7 +23,10 @@ const GridCustomConstellation = () => {
   const planetId = useRecoilState(planetIdState);
   const constellationName = useRecoilState(constellationNameState);
   const constellationDescp = useRecoilState(constellationDescpState);
-  const boardSize = useRecoilState(boardSizeState);
+  // const boardSize = useRecoilState(boardSizeState);
+  const boardSize = [7];
+  const stageSize = boardSize[0] * 50;
+  const containerStyle = boardSize[0] === 5 ? "max-w-md mx-auto" : "w-full";
 
   useEffect(() => {
     if (shouldDeduplicate) {
@@ -75,7 +78,7 @@ const GridCustomConstellation = () => {
     const tempPointList = [];
     grid.forEach((yValue, y) => {
       yValue.forEach((xValue, x) => {
-        if (xValue === false) {
+        if (xValue === true) {
           // false 값을 찾는 부분
           tempPointList.push([y, x]);
         }
@@ -109,7 +112,6 @@ const GridCustomConstellation = () => {
             planetId: planetId[0],
             title: constellationName[0],
             description: constellationDescp[0],
-            boardSize: boardSize[0],
             lineList,
             pointList: tempPointList,
             imageUrl: downloadURL,
@@ -197,8 +199,10 @@ const GridCustomConstellation = () => {
         </p>
         <p className="font-TAEBAEKmilkyway">지금 보드사이즈: {boardSize}</p>
       </div>
-      <div className="flex h-full w-full items-center justify-center">
-        <Stage width={500} height={500}>
+      <div
+        className={`flex h-full w-full items-center justify-center ${containerStyle}`}
+      >
+        <Stage width={stageSize} height={stageSize}>
           <Layer>
             {grid &&
               grid.map((yValue, y) =>
