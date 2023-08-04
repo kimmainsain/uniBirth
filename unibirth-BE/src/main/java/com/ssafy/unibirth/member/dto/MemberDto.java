@@ -17,7 +17,6 @@ public class MemberDto {
     private String email;
     private int followingCount;
     private int followerCount;
-    private int starCount; // 좋아요 수
     private String introduction;
     private String imageUrl;
     private Date birth;
@@ -28,7 +27,6 @@ public class MemberDto {
         this.email = member.getEmail();
         this.followingCount = member.getFollowingCount();
         this.followerCount = member.getFollowerCount();
-        this.starCount = member.getStarCount();
         this.introduction = member.getIntroduction();
         this.imageUrl = member.getImageUrl();
         this.birth = member.getBirth();

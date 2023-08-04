@@ -2,6 +2,7 @@ package com.ssafy.unibirth.member.domain;
 
 import com.ssafy.unibirth.common.domain.util.BaseTimeEntity;
 import com.ssafy.unibirth.constellation.domain.Constellation;
+import com.ssafy.unibirth.member.dto.RegistRequestDto;
 import com.ssafy.unibirth.member.dto.UpdateProfileReqDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -39,8 +40,6 @@ public class Member extends BaseTimeEntity {
     private int followingCount;
     @ColumnDefault("0")
     private int followerCount;
-    @ColumnDefault("0")
-    private int starCount; // 작성한 별의 수
 
     // 본인 생일에 해당하는 황도 12궁 이름
     private String zodiac;
@@ -52,10 +51,8 @@ public class Member extends BaseTimeEntity {
     @OneToMany(mappedBy = "member")
     private List<Constellation> constellationList = new ArrayList<>();
 
-    @ColumnDefault("5")
-    private int purchasedBoard;
-    @ColumnDefault("6")
-    private int purchasedPin;
+    private int purchasedBoard = 5;
+    private int purchasedPin = 6;
 
     private String introduction;
 
@@ -89,8 +86,6 @@ public class Member extends BaseTimeEntity {
         this.followingCount -=1;
     }
 
-
-
     // 멤버 상태를 삭제로 전환
     // 멤버 자체를 데이터베이스에서 삭제해버리면 cascade된 별과 별자리까지 모두 삭제됨
     // => 상태만 삭제된 것으로 바꿔주자
@@ -112,5 +107,16 @@ public class Member extends BaseTimeEntity {
     public void updateProfile(UpdateProfileReqDto updateProfileReqDto) {
         this.imageUrl = updateProfileReqDto.getImageUrl();
         this.introduction = updateProfileReqDto.getIntroduction();
+    }
+
+    // 회원가입할 때 입력된 값을 Member 엔티티에 담아줌
+    public Member(RegistRequestDto registRequestDto, String password) {
+        this.nickname = registRequestDto.getNickname();
+        this.password = password;
+        this.email = registRequestDto.getEmail();
+        this.interest = registRequestDto.getInterest();
+        this.introduction = registRequestDto.getIntroduction();
+        this.birth = registRequestDto.getBirth();
+        this.imageUrl = registRequestDto.getImageUrl();
     }
 }

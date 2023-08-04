@@ -33,6 +33,9 @@ public enum FailCode {
     EMAIL_NOT_FOUND(NOT_FOUND, "이메일이 잘못 입력되었거나, 가입되지 않은 이메일입니다."),
     PASSWORD_NOT_FOUND(NOT_FOUND, "비밀번호가 잘못 입력되었습니다."),
     ID_NOT_FOUND(NOT_FOUND, "잘못된 아이디 입니다."),
+    EXPIRED_CODE(BAD_REQUEST, "기한이 만료된 코드입니다."),
+    CODE_NOT_CORRECT(BAD_REQUEST, "코드가 잘못 입력되었습니다."),
+
     // 팔로우
     FOLLOWER_NOT_FOUND(NOT_FOUND, "팔로우하는 유저가 아닙니다."),
     DUPLICATED_FOLLOW(CONFLICT, "이미 팔로우하는 관계입니다."),

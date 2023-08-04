@@ -35,17 +35,17 @@ public class MemberController {
         LoginResponseDto member = memberService.login(loginRequestDto);
 
         String accessToken = jwtTokenProvider.createToken(member.getNickname());
-        LoginTokenResponseDto loginTokenResponseDto = new LoginTokenResponseDto(accessToken, member.getNickname(), member.getRole());
+        LoginTokenResponseDto loginTokenResponseDto = new LoginTokenResponseDto(accessToken, member.getNickname(), member.getRole(), member.getPurchasedBoard());
         jwtTokenProvider.setHeaderAccessToken(response, accessToken);
 
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, loginTokenResponseDto);
     }
 
-    // 다른 회원 정보 조회
+    // 회원 정보 조회
     @GetMapping("/detail/{nickname}")
-    public ResponseEntity<MemberDto> detailUser(@PathVariable("nickname") String nickname) {
-        Member member = memberService.detailUser(nickname);
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, new MemberDto(member));
+    public ResponseEntity<ProfileRespDto> detailUser(@PathVariable("nickname") String nickname) {
+        ProfileRespDto result = memberService.detailProfile(nickname);
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, result);
     }
 
     // 회원정보(닉네임, 비밀번호) 수정
@@ -64,11 +64,18 @@ public class MemberController {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS);
     }
 
-    // 이메일 중복여부 확인
+    // 이메일 중복여부 확인 및 인증코드 전송
     @PostMapping("/check/email")
-    public ResponseEntity<Void> checkDuplicatedEmail(@RequestBody EmailCheckDto emailCheckDto) {
-        memberService.checkDuplicatedEmail(emailCheckDto.getEmail());
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS);
+    public ResponseEntity<String> checkDuplicatedEmail(@RequestBody EmailCheckDto emailCheckDto) throws Exception {
+        String code = memberService.checkEmailDuplicationAndValidity(emailCheckDto.getEmail());
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, code);
+    }
+
+    // 입력된 이메일 인증 코드 확인
+    @PostMapping("/check/code")
+    public ResponseEntity<String> checkEmailCode(@RequestBody CodeDto codeDto) {
+        String message = memberService.checkEmailCode(codeDto.getCode(), codeDto.getEmail());
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, message);
     }
 
     // 닉네임 중복여부 확인
@@ -79,12 +86,12 @@ public class MemberController {
     }
 
     // 내 프로필 조회
-    @GetMapping("/profiles/read")
-    public ResponseEntity<ProfileRespDto> getProfile() {
-        Member member = memberService.getCurrentMember();
-        ProfileRespDto profile = memberService.getProfile(member.getId());
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, profile);
-    }
+//    @GetMapping("/profiles/read")
+//    public ResponseEntity<ProfileRespDto> getProfile() {
+//        Member member = memberService.getCurrentMember();
+//        ProfileRespDto profile = memberService.getProfile(member.getId());
+//        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, profile);
+//    }
 
     // 프로필 수정
     @PutMapping("/profiles/update")
@@ -125,9 +132,9 @@ public class MemberController {
     }
 
     // 큐레이션
-//    @GetMapping("/curation")
-//    public ResponseEntity<List<Curation>> curate(String nickname) {
-//        List<Curation> result = memberService.curate(nickname);
-//        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, result);
-//    }
+    @GetMapping("/curation")
+    public ResponseEntity<List<Curation>> curate(@RequestBody NicknameCheckDto nicknameCheckDto) {
+        List<Curation> result = memberService.curate(nicknameCheckDto.getNickname());
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, result);
+    }
 }
