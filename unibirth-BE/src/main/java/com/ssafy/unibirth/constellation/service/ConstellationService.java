@@ -40,9 +40,27 @@ public class ConstellationService {
     public CreateConstellationResDto create(ConstellationReqDto dto) {
         Member member = memberService.getCurrentMember();
         Planet planet = planetService.findPlanetById(dto.getPlanetId());
-        Constellation constellation = dto.toEntity(member, planet);
+        List<List<Integer>> lineList = insertZ(dto.getLineList());
+        Constellation constellation = dto.toEntity(member, planet,lineList);
         Long createdId = constellationRepository.save(constellation).getId();
         return new CreateConstellationResDto(createdId);
+    }
+
+    private List<List<Integer>> insertZ(List<List<Integer>> origin) {
+        for(List<Integer> list : origin) {
+            int startZ = makeRandom();
+            int endZ = makeRandom();
+            list.add(startZ);
+            list.add(endZ);
+        }
+        return origin;
+    }
+
+    // make random number x : MIN <= x <= MAX
+    private int makeRandom() {
+        final int MAX = 5;
+        final int MIN = -5;
+        return (int) (Math.random() * (MAX-MIN) + 1) + MIN;
     }
 
     public ReadConstellationResDto read(Long id) {
