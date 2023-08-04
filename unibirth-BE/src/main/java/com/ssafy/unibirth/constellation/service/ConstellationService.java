@@ -25,6 +25,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,27 +42,11 @@ public class ConstellationService {
     public CreateConstellationResDto create(ConstellationReqDto dto) {
         Member member = memberService.getCurrentMember();
         Planet planet = planetService.findPlanetById(dto.getPlanetId());
-        List<List<Integer>> lineList = insertZ(dto.getLineList());
-        Constellation constellation = dto.toEntity(member, planet,lineList);
+        List<List<Integer>> pointList = insertZPoint(dto.getPointList());
+        List<List<Integer>> lineList = insertZLine(dto.getLineList(), dto.getPointList());
+        Constellation constellation = dto.toEntity(member, planet,lineList, pointList);
         Long createdId = constellationRepository.save(constellation).getId();
         return new CreateConstellationResDto(createdId);
-    }
-
-    private List<List<Integer>> insertZ(List<List<Integer>> origin) {
-        for(List<Integer> list : origin) {
-            int startZ = makeRandom();
-            int endZ = makeRandom();
-            list.add(startZ);
-            list.add(endZ);
-        }
-        return origin;
-    }
-
-    // make random number x : MIN <= x <= MAX
-    private int makeRandom() {
-        final int MAX = 5;
-        final int MIN = -5;
-        return (int) (Math.random() * (MAX-MIN) + 1) + MIN;
     }
 
     public ReadConstellationResDto read(Long id) {
@@ -231,5 +217,42 @@ public class ConstellationService {
                                 .pointList(stringToArray(tem.getPointList()))
                                 .build()
                 ).collect(Collectors.toList());
+    }
+
+    private List<List<Integer>> insertZPoint(List<List<Integer>> pointList) {
+        for(List<Integer> list : pointList) {
+            int z = makeRandom();
+            list.add(z);
+        }
+        return pointList;
+    }
+
+    private List<List<Integer>> insertZLine(List<List<Integer>> lineList, List<List<Integer>> pointList) {
+        List<List<Integer>> tempLineList = new ArrayList<>();
+        for(List<Integer> line : lineList) {
+            int left1 = line.get(0), left2 = line.get(1);
+            int right1 = line.get(2), right2 = line.get(3);
+            tempLineList.add(List.of(
+                    left1, left2, getZ(pointList, left1, left2),
+                    right1, right2, getZ(pointList, right1, right2))
+            );
+        }
+        return tempLineList;
+    }
+
+    private int getZ(List<List<Integer>> pointList, int row, int col) {
+        for(List<Integer> point : pointList) {
+            if(row == point.get(0) && col == point.get(1)) {
+                return point.get(2);
+            }
+        }
+        throw new NotFoundException(FailCode.POINT_NOT_FOUND);
+    }
+
+    // make random number x : MIN <= x <= MAX
+    private int makeRandom() {
+        final int MAX = 5;
+        final int MIN = -5;
+        return (int) (Math.random() * (MAX-MIN) + 1) + MIN;
     }
 }
