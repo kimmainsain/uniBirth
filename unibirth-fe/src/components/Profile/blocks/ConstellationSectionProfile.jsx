@@ -15,6 +15,7 @@ const ConstellationSectionProfile = () => {
     const response = await useConstellationApi.constellationsGetPinList(
       nickname,
     );
+    console.log(response.resultData);
     setImages([response.resultData]);
   };
 

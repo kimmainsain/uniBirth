@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import Button1 from "../../../common/atoms/Button1";
 import { useNavigation } from "../../../hooks/useNavigation";
 import useMemberApi from "../../../api/useMemberApi";
+import { useRecoilValue } from "recoil";
+import { targetNicknameState } from "../../../recoil/atoms";
+
 const ConstellationSectionProfile = () => {
   const {
     navigateToModifyProfile,
@@ -11,11 +14,19 @@ const ConstellationSectionProfile = () => {
   } = useNavigation();
 
   const [memberData, setMemberData] = useState();
+  const targetNickname = useRecoilValue(targetNicknameState);
 
   useEffect(() => {
     const fetchMemberData = async () => {
       try {
-        const response = await useMemberApi.membersGetProfiles();
+        let response;
+        if (targetNickname) {
+          // targetNickname이 존재하는 경우 membersGetDetail API를 호출합니다.
+          response = await useMemberApi.membersGetDetail(targetNickname);
+        } else {
+          // targetNickname이 없는 경우 nicknameState 값을 사용하여 membersGetProfiles API를 호출합니다.
+          response = await useMemberApi.membersGetProfiles();
+        }
         console.log("membersection 리스폰스", response);
         setMemberData(response);
       } catch (error) {
@@ -23,7 +34,7 @@ const ConstellationSectionProfile = () => {
       }
     };
     fetchMemberData();
-  }, []);
+  }, [targetNickname]);
 
   return (
     <div className="space-x-4 bg-blue-200">
