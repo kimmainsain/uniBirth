@@ -92,9 +92,15 @@ const ListSectionPlanet = () => {
           // autoRotateSpeed={0.5}
         />
         <PerspectiveCamera makeDefault position={[0, 0, 1]} ref={cameraRef} />
-        <axesHelper scale={5} />
+        <axesHelper scale={0.5} />
         <EffectComposer>
-          <Bloom mipmapBlur luminanceThreshold={1} radius={0.7} />
+          <Bloom
+            mipmapBlur
+            luminanceThreshold={1}
+            radius={0.7}
+            luminanceSmoothing={0.9}
+            intensity={0.1}
+          />
         </EffectComposer>
         <color attach="background" args={["black"]} />
         <MeshPlanet navigateToDetailPlanet={navigateToDetailPlanet} />
