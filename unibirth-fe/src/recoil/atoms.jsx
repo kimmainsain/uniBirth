@@ -44,3 +44,30 @@ export const constellationLinkList = atom({
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
+
+// Star Box content
+export const boxcontentState = atom({
+  key: "boxcontentState",
+  default: "",
+  effects_UNSTABLE: [persistAtom],
+});
+export const boxnicknameState = atom({
+  key: "boxnicknameState",
+  default: "",
+  effects_UNSTABLE: [persistAtom],
+});
+export const boxurlState = atom({
+  key: "boxurlState",
+  default: "",
+  effects_UNSTABLE: [persistAtom],
+});
+export const boxidState = atom({
+  key: "boxidState",
+  default: "",
+  effects_UNSTABLE: [persistAtom],
+});
+export const boxcreatedState = atom({
+  key: "boxcreatedState",
+  default: "",
+  effects_UNSTABLE: [persistAtom],
+});

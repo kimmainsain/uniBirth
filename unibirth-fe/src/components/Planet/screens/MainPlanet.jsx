@@ -69,13 +69,13 @@ const MainPlanet = () => {
 
   return (
     <div className="relative h-screen w-screen">
-      <h1>행성들이 보입니다. </h1>
-      <ListSectionPlanet />
+      <div className="absolute left-1/2 top-20 z-10 -translate-x-1/2 -translate-y-1/2 transform">
+        <ListSectionPlanet />
+      </div>
       <CanvasPlanet />
-      <Footer1
-        className="absolute bottom-20 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transform"
-        buttons={buttonsFooter}
-      />
+      <div className="absolute bottom-20 left-5 z-10">
+        <Footer1 buttons={buttonsFooter} />
+      </div>
     </div>
   );
 };
