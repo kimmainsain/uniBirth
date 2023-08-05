@@ -38,3 +38,9 @@ export const constellationDescpState = atom({
   key: "constellationDescpState",
   default: "",
 });
+
+export const constellationLinkList = atom({
+  key: "constellationLinkList",
+  default: [],
+  effects_UNSTABLE: [persistAtom],
+});

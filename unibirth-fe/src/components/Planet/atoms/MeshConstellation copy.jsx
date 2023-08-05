@@ -1,12 +1,10 @@
 import React, { useMemo } from "react";
-import { Line } from "@react-three/drei";
 
 const MeshConstellation = ({ constellationList }) => {
-  const handleBoxClick = (constellation, constellationId, title) => {
+  const handleBoxClick = (constellationId, title) => {
     console.log(
       `Clicked on constellation: ${constellationId}, title: ${title}`,
     );
-    console.log("event:", event);
   };
 
   const constellationMeshes = useMemo(
@@ -15,23 +13,14 @@ const MeshConstellation = ({ constellationList }) => {
         const { boardSize, constellationId, imageUrl, lineList, title } =
           constellation;
 
-        console.log(constellation);
-
-        const num = 30;
-        const starmultiple = 3;
-
         return lineList.flatMap((line, index) => {
-          const [y1, x1, z1, y2, x2, z2] = line;
+          const [x1, y1, z1, x2, y2, z2] = line;
 
           return (
             <>
               <mesh
                 key={`${constellationId}-${index}-1`}
-                position={[
-                  x1 * starmultiple + num * index,
-                  y1 * starmultiple,
-                  z1 * starmultiple,
-                ]}
+                position={[x1, y1, z1]}
                 onClick={() =>
                   handleBoxClick(constellationId, title, boardSize, imageUrl)
                 }
@@ -45,14 +34,8 @@ const MeshConstellation = ({ constellationList }) => {
               </mesh>
               <mesh
                 key={`${constellationId}-${index}-2`}
-                position={[
-                  x2 * starmultiple + num * index,
-                  y2 * starmultiple,
-                  z2 * starmultiple,
-                ]}
-                onClick={() =>
-                  handleBoxClick(constellation, constellationId, title)
-                }
+                position={[x2, y2, z2]}
+                onClick={() => handleBoxClick(constellationId, title)}
               >
                 <sphereGeometry args={[1, 32, 32]} />
                 <meshStandardMaterial
@@ -61,30 +44,26 @@ const MeshConstellation = ({ constellationList }) => {
                   emissiveIntensity={5}
                 />
               </mesh>
-              <mesh>
-                <Line
-                  key={index}
-                  points={[
-                    [
-                      x1 * starmultiple + num * index,
-                      y1 * starmultiple,
-                      z1 * starmultiple,
-                    ],
-                    [
-                      x2 * starmultiple + num * index,
-                      y2 * starmultiple,
-                      z2 * starmultiple,
-                    ],
-                  ]}
-                  color="white"
-                />
-              </mesh>
             </>
           );
         });
       }),
     [constellationList],
   );
+  // return (
+  //   <mesh
+  //     key={constellationId}
+  //     position={[x, y, z]}
+  //     onClick={() => handleBoxClick(constellationId, title)}
+  //   >
+  //     <sphereGeometry args={[1, 32, 32]} />
+  //     <meshStandardMaterial
+  //       color="hotpink"
+  //       emissive="hotpink"
+  //       emissiveIntensity={5}
+  //     />
+  //   </mesh>
+  // );
 
   return <>{constellationMeshes}</>;
 };
