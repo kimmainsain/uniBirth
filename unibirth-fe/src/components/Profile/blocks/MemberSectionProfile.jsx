@@ -27,10 +27,10 @@ const ConstellationSectionProfile = () => {
           // targetNickname이 없는 경우 nicknameState 값을 사용하여 membersGetProfiles API를 호출합니다.
           response = await useMemberApi.membersGetProfiles();
         }
-        console.log("membersection 리스폰스", response);
+        console.log('membersection 리스폰스', response);
         setMemberData(response);
       } catch (error) {
-        console.error("멤버 데이터를 가져오는데 에러 발생:", error);
+        console.error('멤버 데이터를 가져오는데 에러 발생:', error);
       }
     };
     fetchMemberData();
@@ -46,19 +46,10 @@ const ConstellationSectionProfile = () => {
             alt="Round image"
           />
           <div>
-            <p className="text-lg font-bold">
-              {memberData.resultData.nickname}
-            </p>
-            <p>탄생일: {memberData.resultData.birthDate}</p>
-            <p onClick={navigateToMyStars}>
-              띄운 별: {memberData.resultData.starCount}
-            </p>
-            <p onClick={navigateToFollowings}>
-              팔로잉: {memberData.resultData.followingCount}
-            </p>
-            <p onClick={navigateToFollowers}>
-              팔로워: {memberData.resultData.followerCount}
-            </p>
+            <p className="text-lg font-bold">{memberData.resultData.nickname}</p>
+            <p onClick={navigateToMyStars}>띄운 별: {memberData.resultData.starCount}</p>
+            <p onClick={navigateToFollowings}>팔로잉: {memberData.resultData.followingCount}</p>
+            <p onClick={navigateToFollowers}>팔로워: {memberData.resultData.followerCount}</p>
           </div>
           <div>
             <p className="text-lg font-bold">
