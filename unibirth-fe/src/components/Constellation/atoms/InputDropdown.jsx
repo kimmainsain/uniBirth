@@ -5,14 +5,11 @@ const InputDropdown = ({ planetId, setPlanetId }) => {
   return (
     <div className="flex flex-col items-center justify-center rounded-lg border-double font-TAEBAEKmilkyway">
       <select value={planetId} onChange={(e) => setPlanetId(e.target.value)}>
-        <option value="1"> 행성 1 </option>
-        <option value="2"> 행성 2</option>
-        <option value="3"> 행성 3</option>
-        <option value="4"> 행성 4</option>
-        <option value="5"> 행성 5</option>
-        <option value="6"> 행성 6</option>
-        <option value="7"> 행성 7</option>
-        <option value="8"> 행성 8</option>
+        {PLANET_LIST.map((planet) => (
+          <option key={planet.planetId} value={planet.planetId}>
+            {planet.name}
+          </option>
+        ))}
       </select>
     </div>
   );
