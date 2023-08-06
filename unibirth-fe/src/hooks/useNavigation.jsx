@@ -34,8 +34,10 @@ export const useNavigation = () => {
     navigate(`/constellations/register`);
   };
 
-  const navigateToDrawingConstellation = () => {
-    navigate(`/constellations/drawing`);
+  const navigateToDrawingConstellation = (params) => {
+    navigate(`/constellations/drawing`, {
+      state: params,
+    });
   };
 
   // Planet
