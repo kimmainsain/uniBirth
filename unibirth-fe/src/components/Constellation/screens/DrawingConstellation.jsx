@@ -8,7 +8,6 @@ import { useNavigation } from "../../../hooks/useNavigation";
 import GridCustomConstellation from "../blocks/GridCustomConstellation";
 import ListTemplateModalConstellation from "../blocks/ListTemplateModalConstellation";
 import { useLocation } from "react-router";
-
 const DrawingConstellation = () => {
   const location = useLocation();
   const { planetId, constellationName, constellationDescp } = location.state;

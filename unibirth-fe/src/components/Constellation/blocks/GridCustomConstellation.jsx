@@ -271,7 +271,10 @@ const GridCustomConstellation = ({
                 x={point.centerX}
                 y={point.centerY}
                 radius={5}
-                fill="red"
+                fillRadialGradientStartRadius={0}
+                fillRadialGradientEndRadius={5}
+                fillRadialGradientColorStops={[0, "#FFD700", 1, "#FFFFFF"]}
+                shadowBlur={5}
               />
             ))}
 
@@ -279,7 +282,9 @@ const GridCustomConstellation = ({
               <Line
                 key={y}
                 points={[line[1], line[0], line[3], line[2]]}
-                stroke="red"
+                stroke="#8B8680"
+                shadowColor="#FFFFFF"
+                shadowBlur={5}
                 tension={1}
               />
             ))}
@@ -294,7 +299,7 @@ const GridCustomConstellation = ({
                     x={x * 50}
                     width={50}
                     height={50}
-                    stroke="black"
+                    stroke="#DDDDDD"
                     strokeWidth={1}
                     onTap={() => handleGridClick(y, x)}
                     zIndex={2}
