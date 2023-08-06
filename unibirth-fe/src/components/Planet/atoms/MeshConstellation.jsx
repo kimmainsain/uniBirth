@@ -1,7 +1,12 @@
 import React, { useMemo } from "react";
 import { Line } from "@react-three/drei";
 
-const MeshConstellation = ({ constellationList }) => {
+const MeshConstellation = ({
+  constellationList,
+  num,
+  starmultiple,
+  xdamper,
+}) => {
   const handleBoxClick = (constellation, constellationId, title) => {
     console.log(
       `Clicked on constellation: ${constellationId}, title: ${title}`,
@@ -11,16 +16,13 @@ const MeshConstellation = ({ constellationList }) => {
 
   const constellationMeshes = useMemo(
     () =>
-      constellationList?.constellationList.flatMap((constellation) => {
+      constellationList?.constellationList.flatMap((constellation, index) => {
         const { boardSize, constellationId, imageUrl, lineList, title } =
           constellation;
 
         console.log(constellation);
 
-        const num = 30;
-        const starmultiple = 3;
-
-        return lineList.flatMap((line, index) => {
+        return lineList.flatMap((line) => {
           const [y1, x1, z1, y2, x2, z2] = line;
 
           return (
@@ -28,7 +30,7 @@ const MeshConstellation = ({ constellationList }) => {
               <mesh
                 key={`${constellationId}-${index}-1`}
                 position={[
-                  x1 * starmultiple + num * index,
+                  x1 * starmultiple + num * index + xdamper,
                   y1 * starmultiple,
                   z1 * starmultiple,
                 ]}
@@ -46,7 +48,7 @@ const MeshConstellation = ({ constellationList }) => {
               <mesh
                 key={`${constellationId}-${index}-2`}
                 position={[
-                  x2 * starmultiple + num * index,
+                  x2 * starmultiple + num * index + xdamper,
                   y2 * starmultiple,
                   z2 * starmultiple,
                 ]}
@@ -66,12 +68,12 @@ const MeshConstellation = ({ constellationList }) => {
                   key={index}
                   points={[
                     [
-                      x1 * starmultiple + num * index,
+                      x1 * starmultiple + num * index + xdamper,
                       y1 * starmultiple,
                       z1 * starmultiple,
                     ],
                     [
-                      x2 * starmultiple + num * index,
+                      x2 * starmultiple + num * index + xdamper,
                       y2 * starmultiple,
                       z2 * starmultiple,
                     ],

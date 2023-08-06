@@ -30,19 +30,10 @@ const RegistConstellation = () => {
 
     // 여기서 오류가 없다면
     if (planetId && constellationName && constellationDescp) {
-      console.log("행성명: ", planetId);
-      console.log("별자리명: ", constellationName);
-      console.log("별자리설명: ", constellationDescp);
       navigateToDrawingConstellation();
     } else if (constellationName) {
-      console.log("행성명: ", planetId);
-      console.log("별자리명: ", constellationName);
-      console.log("별자리설명: ", constellationDescp);
       alert("별자리를 설명해주세요 ! ");
     } else {
-      console.log("행성명: ", planetId);
-      console.log("별자리명: ", constellationName);
-      console.log("별자리설명: ", constellationDescp);
       alert("별자리를 입력해주세요 ! ");
     }
   };
