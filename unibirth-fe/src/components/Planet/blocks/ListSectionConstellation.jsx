@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import useConstellationApi from "../../../api/useConstellationApi";
 import { useNavigation } from "../../../hooks/useNavigation";
 import { useParams } from "react-router-dom";
-const ListSectionConstellation = () => {
+const ListSectionConstellation = ({
+  constellationList,
+  setConstellationList,
+}) => {
   const { planetId } = useParams();
   const { navigateToDetailConstellation } = useNavigation();
-  const [constellationList, setConstellationList] = useState({
-    constellationList: [],
-  });
   const getConstellationList = async (planetId) => {
     const response = await useConstellationApi.constellationsGetPlanet(
       planetId,

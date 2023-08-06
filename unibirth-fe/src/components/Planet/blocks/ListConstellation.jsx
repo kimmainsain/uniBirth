@@ -8,21 +8,42 @@ import {
 } from "react-icons/bi";
 import MeshConstellation from "../atoms/MeshConstellation";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
+import { gsap } from "gsap";
 
-const Scene = () => {
+const Scene = ({ constellationList }) => {
   const controlsRef = useRef();
   const [isOrbitActive, setOrbitActive] = useState(true);
 
   const handleLeftClick = () => {
-    // Subtract 5 from the x-coordinate of the current target
-    controlsRef.current.target.x -= 2;
-    controlsRef.current.update();
+    const targetX = controlsRef.current.target.x - 50;
+    const cameraX = controlsRef.current.object.position.x - 50;
+
+    gsap.to(controlsRef.current.target, {
+      x: targetX,
+      duration: 1.5, // the duration of the animation in seconds
+      onUpdate: () => controlsRef.current.update(),
+    });
+
+    gsap.to(controlsRef.current.object.position, {
+      x: cameraX,
+      duration: 1.5,
+    });
   };
 
   const handleRightClick = () => {
-    // Add 5 to the x-coordinate of the current target
-    controlsRef.current.target.x += 2;
-    controlsRef.current.update();
+    const targetX = controlsRef.current.target.x + 50;
+    const cameraX = controlsRef.current.object.position.x + 50;
+
+    gsap.to(controlsRef.current.target, {
+      x: targetX,
+      duration: 1.5,
+      onUpdate: () => controlsRef.current.update(),
+    });
+
+    gsap.to(controlsRef.current.object.position, {
+      x: cameraX,
+      duration: 1.5,
+    });
   };
 
   const toggleOrbitControl = () => {
@@ -49,22 +70,27 @@ const Scene = () => {
       >
         <BiMoveHorizontal style={{ color: isOrbitActive ? "red" : "white" }} />
       </button>
-      <Canvas camera={{ position: [0, 0, 10] }}>
+      <Canvas camera={{ position: [0, 0, 50] }}>
         <EffectComposer>
           <Bloom mipmapBlur luminanceThreshold={1} radius={0.7} />
         </EffectComposer>
-        <OrbitControls ref={controlsRef} enabled={isOrbitActive} />
+        <OrbitControls
+          ref={controlsRef}
+          enabled={isOrbitActive}
+          // enablePan={true}
+          enableDamping={false}
+        />
         <axesHelper scale={5} />
         <color attach="background" args={["black"]} />
         <Stars
-          radius={100}
+          radius={300}
           depth={50}
-          count={5000}
+          count={10000}
           factor={4}
           saturation={1}
           fade
         />
-        <MeshConstellation />
+        <MeshConstellation constellationList={constellationList} />
       </Canvas>
     </>
   );
