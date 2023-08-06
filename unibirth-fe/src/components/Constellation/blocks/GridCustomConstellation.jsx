@@ -5,26 +5,26 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../../api/useFirebaseApi";
 import useConstellationApi from "../../../api/useConstellationApi";
 import { useRecoilState } from "recoil";
-import {
-  planetIdState,
-  constellationNameState,
-  constellationDescpState,
-  boardSizeState,
-} from "../../../recoil/atoms";
+import { boardSizeState } from "../../../recoil/atoms";
 
-const GridCustomConstellation = () => {
+const GridCustomConstellation = ({
+  planetId,
+  constellationName,
+  constellationDescp,
+  pointList,
+  lineList,
+}) => {
   const [points, setPoints] = useState([]);
   const [lines, setLines] = useState([]);
   const [grid, setGrid] = useState([]);
   const [shouldDeduplicate, setShouldDeduplicate] = useState(false);
   const [lastPoints, setLastPoints] = useState([]);
   const linesAndPointsLayerRef = useRef(null);
-  const planetId = useRecoilState(planetIdState);
-  const constellationName = useRecoilState(constellationNameState);
-  const constellationDescp = useRecoilState(constellationDescpState);
   const boardSize = useRecoilState(boardSizeState);
   const stageSize = boardSize[0] * 50;
   const containerStyle = boardSize[0] === 5 ? "max-w-md mx-auto" : "w-full";
+  const [templatePointSize, setTemplatePointsSize] = useState(0);
+  const [templateLineSize, setTemplateLinesSize] = useState(0);
 
   useEffect(() => {
     if (shouldDeduplicate) {
@@ -33,9 +33,41 @@ const GridCustomConstellation = () => {
     }
   }, [shouldDeduplicate, lastPoints]);
 
+  useEffect(() => {
+    if (pointList && lineList) {
+      console.log("pointList", pointList);
+      console.log("lineList", lineList);
+      setTemplatePointsSize(pointList.length);
+      setTemplateLinesSize(lineList.length);
+      const updateGrid = grid.map((y) => y.slice());
+      pointList.forEach((point) => {
+        const yIndex = point[0];
+        const xIndex = point[1];
+        updateGrid[yIndex][xIndex] = true;
+      });
+      setGrid(updateGrid);
+      setPoints(
+        pointList.map((point) => ({
+          centerY: point[0] * 50 + 25,
+          centerX: point[1] * 50 + 25,
+        })),
+      );
+
+      setLines(
+        lineList.map((line) => [
+          line[0] * 50 + 25,
+          line[1] * 50 + 25,
+          line[2] * 50 + 25,
+          line[3] * 50 + 25,
+        ]),
+      );
+      console.log(lines);
+    }
+  }, [pointList, lineList]);
+
   const deDuplication = (input) => {
     // points 배열에서 중복된 값 제거
-    const array = Array.isArray(input) ? input : [input];
+    const array = input;
     array.forEach((point) => {
       const yIndex = (point.centerY - 25) / 50;
       const xIndex = (point.centerX - 25) / 50;
@@ -54,6 +86,13 @@ const GridCustomConstellation = () => {
   };
 
   const handleBeforeClick = () => {
+    if (
+      points.length === templatePointSize &&
+      lines.length === templateLineSize
+    ) {
+      handleResetClick(); // 템플릿 크기와 동일하면 초기화
+      return;
+    }
     let newPoints, newLines;
     if (points.length === 0) return;
     if (points.length % 2 === 1) {
@@ -82,6 +121,7 @@ const GridCustomConstellation = () => {
     });
     const uniqueLines = [];
     const duplicateLines = [];
+    console.log(lines);
     for (const line of lines) {
       const reversedLine = [line[2], line[3], line[0], line[1]];
       const isDuplicate = duplicateLines.some(
@@ -97,7 +137,6 @@ const GridCustomConstellation = () => {
       );
 
       if (!isDuplicate) {
-        console.log(line);
         duplicateLines.push(line);
         uniqueLines.push([
           (line[0] - 25) / 50,
@@ -177,26 +216,12 @@ const GridCustomConstellation = () => {
     if (newPoints.length % 2 === 0) {
       const lastTwoPoints = newPoints.slice(-2);
       const newLine = [
-        lastTwoPoints[0].centerX,
         lastTwoPoints[0].centerY,
-        lastTwoPoints[1].centerX,
+        lastTwoPoints[0].centerX,
         lastTwoPoints[1].centerY,
+        lastTwoPoints[1].centerX,
       ];
-      // if (
-      //   !lines.some(
-      //     (line) =>
-      //       (line[0] === newLine[0] &&
-      //         line[1] === newLine[1] &&
-      //         line[2] === newLine[2] &&
-      //         line[3] === newLine[3]) ||
-      //       (line[0] === newLine[2] &&
-      //         line[1] === newLine[3] &&
-      //         line[2] === newLine[0] &&
-      //         line[3] === newLine[1]),
-      //   )
-      // ) {
       setLines([...lines, newLine]);
-      // }
     }
   };
 
@@ -213,6 +238,14 @@ const GridCustomConstellation = () => {
     const [uniquePoints, uniqueLines] = removeDuplicate(lines);
     console.log(uniquePoints);
     console.log(uniqueLines);
+  };
+
+  const handleResetClick = () => {
+    setPoints([]);
+    setLines([]);
+    setGrid(grid.map((yValue) => yValue.map((xValue) => false)));
+    setLastPoints([]);
+    setShouldDeduplicate(false);
   };
 
   return (
@@ -260,7 +293,12 @@ const GridCustomConstellation = () => {
             ))}
 
             {lines.map((line, y) => (
-              <Line key={y} points={line} stroke="red" tension={1} />
+              <Line
+                key={y}
+                points={[line[1], line[0], line[3], line[2]]}
+                stroke="red"
+                tension={1}
+              />
             ))}
           </Layer>
         </Stage>
@@ -268,13 +306,7 @@ const GridCustomConstellation = () => {
       <Button1
         className="font-TAEBAEKmilkyway"
         value="초기화"
-        onClick={() => {
-          setPoints([]);
-          setLines([]);
-          setGrid(grid.map((yValue) => yValue.map((xValue) => false)));
-          setLastPoints([]);
-          setShouldDeduplicate(false);
-        }}
+        onClick={handleResetClick}
       ></Button1>
       <Button1
         className="font-TAEBAEKmilkyway"

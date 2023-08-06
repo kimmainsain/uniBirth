@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import useConstellationApi from "../../../api/useConstellationApi";
 
-const ListTemplateModalConstellation = ({ isModalOpen, setIsModalOpen }) => {
+const ListTemplateModalConstellation = ({
+  setIsModalOpen,
+  setPointList,
+  setLineList,
+}) => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
@@ -12,6 +16,9 @@ const ListTemplateModalConstellation = ({ isModalOpen, setIsModalOpen }) => {
 
   const handlePutTemplateConstellation = (template) => {
     alert(template.templateId);
+    setPointList(template.pointList);
+    setLineList(template.lineList);
+    handleCloseModal();
   };
 
   const getTemplateModalConstellation = async () => {
@@ -28,7 +35,6 @@ const ListTemplateModalConstellation = ({ isModalOpen, setIsModalOpen }) => {
       console.log(e);
       alert("별자리 템플릿을 불러오는데 실패하였습니다.");
     }
-    console.log(templateList);
   };
 
   useEffect(() => {
