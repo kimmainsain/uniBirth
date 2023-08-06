@@ -11,7 +11,7 @@ const ListTemplateModalConstellation = ({ isModalOpen, setIsModalOpen }) => {
   });
 
   const handlePutTemplateConstellation = (template) => {
-    alert("템플릿을 띄웁니다.");
+    alert(template.templateId);
   };
 
   const getTemplateModalConstellation = async () => {

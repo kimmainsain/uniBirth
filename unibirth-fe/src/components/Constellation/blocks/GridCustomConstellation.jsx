@@ -16,7 +16,6 @@ const GridCustomConstellation = () => {
   const [points, setPoints] = useState([]);
   const [lines, setLines] = useState([]);
   const [grid, setGrid] = useState([]);
-  const [lineList, setlineList] = useState([]);
   const [shouldDeduplicate, setShouldDeduplicate] = useState(false);
   const [lastPoints, setLastPoints] = useState([]);
   const linesAndPointsLayerRef = useRef(null);
@@ -35,6 +34,7 @@ const GridCustomConstellation = () => {
   }, [shouldDeduplicate, lastPoints]);
 
   const deDuplication = (input) => {
+    // points 배열에서 중복된 값 제거
     const array = Array.isArray(input) ? input : [input];
     array.forEach((point) => {
       const yIndex = (point.centerY - 25) / 50;
@@ -54,7 +54,7 @@ const GridCustomConstellation = () => {
   };
 
   const handleBeforeClick = () => {
-    let newPoints, newLines, newlineList;
+    let newPoints, newLines;
     if (points.length === 0) return;
     if (points.length % 2 === 1) {
       const lastPoint = points[points.length - 1];
@@ -64,24 +64,54 @@ const GridCustomConstellation = () => {
       const lastTwoPoints = points.slice(-2);
       newPoints = points.slice(0, points.length - 2);
       newLines = lines.slice(0, lines.length - 1);
-      newlineList = lineList.slice(0, lineList.length - 1);
       setLastPoints(lastTwoPoints);
       setLines(newLines);
-      setlineList(newlineList);
     }
     setPoints(newPoints);
     setShouldDeduplicate(true);
   };
 
-  const handleSaveClick = () => {
-    const tempPointList = [];
+  const removeDuplicate = (lines) => {
+    const uniquePoints = [];
     grid.forEach((yValue, y) => {
       yValue.forEach((xValue, x) => {
         if (xValue === true) {
-          tempPointList.push([y, x]);
+          uniquePoints.push([y, x]);
         }
       });
     });
+    const uniqueLines = [];
+    const duplicateLines = [];
+    for (const line of lines) {
+      const reversedLine = [line[2], line[3], line[0], line[1]];
+      const isDuplicate = duplicateLines.some(
+        (uniqueLine) =>
+          (uniqueLine[0] === line[0] &&
+            uniqueLine[1] === line[1] &&
+            uniqueLine[2] === line[2] &&
+            uniqueLine[3] === line[3]) ||
+          (uniqueLine[0] === reversedLine[0] &&
+            uniqueLine[1] === reversedLine[1] &&
+            uniqueLine[2] === reversedLine[2] &&
+            uniqueLine[3] === reversedLine[3]),
+      );
+
+      if (!isDuplicate) {
+        console.log(line);
+        duplicateLines.push(line);
+        uniqueLines.push([
+          (line[0] - 25) / 50,
+          (line[1] - 25) / 50,
+          (line[2] - 25) / 50,
+          (line[3] - 25) / 50,
+        ]);
+      }
+    }
+    return [uniquePoints, uniqueLines];
+  };
+
+  const handleSaveClick = () => {
+    const [uniquePoints, uniqueLines] = removeDuplicate(lines);
     const imageUrl = linesAndPointsLayerRef.current.toDataURL();
     const [header, data] = imageUrl.split(",");
     const mimeType = header.split(";")[0].split(":")[1];
@@ -110,8 +140,8 @@ const GridCustomConstellation = () => {
             planetId: planetId[0],
             title: constellationName[0],
             description: constellationDescp[0],
-            lineList,
-            pointList: tempPointList,
+            lineList: uniqueLines,
+            pointList: uniquePoints,
             imageUrl: downloadURL,
             boardSize: boardSize[0],
           };
@@ -152,28 +182,21 @@ const GridCustomConstellation = () => {
         lastTwoPoints[1].centerX,
         lastTwoPoints[1].centerY,
       ];
-      const saveLine = [
-        (lastTwoPoints[0].centerY - 25) / 50,
-        (lastTwoPoints[0].centerX - 25) / 50,
-        (lastTwoPoints[1].centerY - 25) / 50,
-        (lastTwoPoints[1].centerX - 25) / 50,
-      ];
-      if (
-        !lines.some(
-          (line) =>
-            (line[0] === newLine[0] &&
-              line[1] === newLine[1] &&
-              line[2] === newLine[2] &&
-              line[3] === newLine[3]) ||
-            (line[0] === newLine[2] &&
-              line[1] === newLine[3] &&
-              line[2] === newLine[0] &&
-              line[3] === newLine[1]),
-        )
-      ) {
-        setLines([...lines, newLine]);
-        setlineList([...lineList, saveLine]);
-      }
+      // if (
+      //   !lines.some(
+      //     (line) =>
+      //       (line[0] === newLine[0] &&
+      //         line[1] === newLine[1] &&
+      //         line[2] === newLine[2] &&
+      //         line[3] === newLine[3]) ||
+      //       (line[0] === newLine[2] &&
+      //         line[1] === newLine[3] &&
+      //         line[2] === newLine[0] &&
+      //         line[3] === newLine[1]),
+      //   )
+      // ) {
+      setLines([...lines, newLine]);
+      // }
     }
   };
 
@@ -185,6 +208,12 @@ const GridCustomConstellation = () => {
       .map(() => Array(cols).fill(false));
     setGrid(tempGrid);
   }
+
+  const handelConsoleClick = () => {
+    const [uniquePoints, uniqueLines] = removeDuplicate(lines);
+    console.log(uniquePoints);
+    console.log(uniqueLines);
+  };
 
   return (
     <div>
@@ -243,7 +272,6 @@ const GridCustomConstellation = () => {
           setPoints([]);
           setLines([]);
           setGrid(grid.map((yValue) => yValue.map((xValue) => false)));
-          setlineList([]);
           setLastPoints([]);
           setShouldDeduplicate(false);
         }}
@@ -257,6 +285,11 @@ const GridCustomConstellation = () => {
         className="font-TAEBAEKmilkyway"
         value="저장하기"
         onClick={handleSaveClick}
+      ></Button1>
+      <Button1
+        className="font-TAEBAEKmilkyway"
+        value="콘솔에 띄우기"
+        onClick={handelConsoleClick}
       ></Button1>
     </div>
   );
