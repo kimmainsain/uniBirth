@@ -10,7 +10,7 @@ const ListTemplateModalConstellation = ({ isModalOpen, setIsModalOpen }) => {
     templateList: [],
   });
 
-  const handlePutTemplateConstellation = () => {
+  const handlePutTemplateConstellation = (template) => {
     alert("템플릿을 띄웁니다.");
   };
 
@@ -45,7 +45,9 @@ const ListTemplateModalConstellation = ({ isModalOpen, setIsModalOpen }) => {
               <div key={template.templateId}>
                 <img
                   src={template.imageUrl}
-                  onClick={handlePutTemplateConstellation}
+                  onClick={() => {
+                    handlePutTemplateConstellation(template);
+                  }}
                 />
               </div>
             ))}

@@ -4,7 +4,7 @@ import useConstellationApi from "../../../api/useConstellationApi";
 import { useParams } from "react-router-dom";
 import { Canvas } from "@react-three/fiber";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
-import { Text, OrbitControls, Line, Stars } from "@react-three/drei";
+import { OrbitControls, Line, Stars } from "@react-three/drei";
 import {
   starListState,
   boxcontentState,
@@ -12,14 +12,18 @@ import {
   boxurlState,
   boxidState,
   boxcreatedState,
+  StellaIdState,
 } from "../../../recoil/atoms";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import * as THREE from "three";
+import GradientBackground from "../../../common/atoms/GradientBackground";
 
 const ListSectionStar = () => {
   const ref = useRef();
   // const tooltipRef = useRef(null);
   const { constellationId } = useParams();
+  const setStellaId = useSetRecoilState(StellaIdState);
+
   const { navigateToDetailStar } = useNavigation();
   const [starList, setStarList] = useRecoilState(starListState);
   const [starListIndex, setStarListIndex] = useState([]);
@@ -29,6 +33,11 @@ const ListSectionStar = () => {
   const [boxurl, setBoxurl] = useRecoilState(boxurlState);
   const [boxid, setBoxid] = useRecoilState(boxidState);
   const [boxcreated, setBoxcreated] = useRecoilState(boxcreatedState);
+  // Sphere Color change
+  const [sphereColor, setSphereColor] = useState("#00ffff");
+  const changeColor = (event) => {
+    setSphereColor(event.target.value);
+  };
 
   // tooltip
   const [tooltipStyle, setTooltipStyle] = useState({ display: "none" });
@@ -61,6 +70,7 @@ const ListSectionStar = () => {
   };
   useEffect(() => {
     getStarList(constellationId);
+    setStellaId(constellationId);
     console.log("ref:", ref);
   }, [constellationId]);
 
@@ -113,7 +123,8 @@ const ListSectionStar = () => {
         <EffectComposer>
           <Bloom mipmapBlur luminanceThreshold={1} radius={0.7} />
         </EffectComposer>
-        <color attach="background" args={["black"]} />
+        {/* <color attach="background" args={["black"]} /> */}
+        <GradientBackground />
         {starPotisions?.map((star, index) => (
           <group key={index}>
             <mesh
@@ -127,22 +138,14 @@ const ListSectionStar = () => {
             >
               <sphereGeometry args={[1, 32, 32]} />
               <meshStandardMaterial
-                color="#00ffff"
-                emissive="#00ffff"
+                color={sphereColor}
+                emissive={sphereColor}
                 // emissive="#fbf59b"
-                emissiveIntensity={starListIndex[index]?.brightness || 0.04}
+                // emissiveMap={material}
+                emissiveIntensity={starListIndex[index]?.brightness + 1 || 0.04}
                 // emissiveIntensity={starList.starList[index].brightness}
               />
             </mesh>
-            <Text
-              position={[1, 2 + 5, 1]}
-              color="#ffffff" // Optional: choose the color of the text
-              anchorX="center" // Optional: horizontal alignment
-              anchorY="middle" // Optional: vertical alignment
-              fontSize={500} // Optional: font sizeq
-            >
-              {star.statId}
-            </Text>
             {lines.map((line, index) => (
               <Line
                 key={index}
@@ -172,9 +175,10 @@ const ListSectionStar = () => {
   rounded-lg bg-white p-2 
   ${tooltipStyle.display === "none" ? "hidden" : ""}`}
           style={
-            parseInt(tooltipStyle.left) < 400
-              ? { left: tooltipStyle.left, top: tooltipStyle.top }
-              : { left: tooltipStyle.left - 400, top: tooltipStyle.top }
+            { left: tooltipStyle.left, top: tooltipStyle.top }
+            // parseInt(tooltipStyle.left) < 400
+            //   ? { left: tooltipStyle.left, top: tooltipStyle.top }
+            //   : { left: tooltipStyle.left - 400, top: tooltipStyle.top }
             // right: `${
             //   window.innerWidth -
             //   parseInt(tooltipStyle.left) -
@@ -210,6 +214,18 @@ const ListSectionStar = () => {
                 <p>{boxcontent}</p>
                 <p></p>
               </div>
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label htmlFor="colorPicker" className="flex">
+                Change Color:
+              </label>
+              <input
+                id="colorPicker"
+                type="color"
+                value={sphereColor}
+                onChange={changeColor}
+                className="h-10 w-10 rounded-full"
+              />
             </div>
             <button
               className="rounded-lg bg-red-500 text-white"
