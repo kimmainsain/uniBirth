@@ -264,23 +264,6 @@ const GridCustomConstellation = ({
         className={`flex h-full w-full items-center justify-center ${containerStyle}`}
       >
         <Stage width={stageSize} height={stageSize}>
-          <Layer>
-            {grid &&
-              grid.map((yValue, y) =>
-                yValue.map((xValue, x) => (
-                  <Rect
-                    key={`${y}-${x}`}
-                    y={y * 50}
-                    x={x * 50}
-                    width={50}
-                    height={50}
-                    stroke="black"
-                    strokeWidth={1}
-                    onTap={() => handleGridClick(y, x)}
-                  />
-                )),
-              )}
-          </Layer>
           <Layer ref={linesAndPointsLayerRef}>
             {points.map((point, y) => (
               <Circle
@@ -300,6 +283,24 @@ const GridCustomConstellation = ({
                 tension={1}
               />
             ))}
+          </Layer>
+          <Layer>
+            {grid &&
+              grid.map((yValue, y) =>
+                yValue.map((xValue, x) => (
+                  <Rect
+                    key={`${y}-${x}`}
+                    y={y * 50}
+                    x={x * 50}
+                    width={50}
+                    height={50}
+                    stroke="black"
+                    strokeWidth={1}
+                    onTap={() => handleGridClick(y, x)}
+                    zIndex={2}
+                  />
+                )),
+              )}
           </Layer>
         </Stage>
       </div>
