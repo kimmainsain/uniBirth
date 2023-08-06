@@ -56,11 +56,11 @@ const MeshPlanet = ({ navigateToDetailPlanet }) => {
             />
             <meshBasicMaterial map={texture} />
           </mesh>
-          <Html position={[planet[0] - 1, planet[1] + 5, planet[2]]}>
+          <Html position={[planet[0], planet[1] + 5, planet[2]]}>
             <div
               style={{
                 color: "white",
-                fontSize: "20px",
+                fontSize: "24x",
                 textAlign: "center",
               }}
             >
