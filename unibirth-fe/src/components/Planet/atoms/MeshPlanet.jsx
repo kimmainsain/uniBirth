@@ -4,7 +4,7 @@ import earth1 from "../../../assets/images/earth1.jpg";
 import * as THREE from "three";
 import { useLoader, useFrame } from "@react-three/fiber";
 
-const MeshPlanet = (navigateToDetailPlanet) => {
+const MeshPlanet = ({ navigateToDetailPlanet }) => {
   const texture = useLoader(THREE.TextureLoader, earth1);
   const num = 30;
   const planetList = [
@@ -41,7 +41,10 @@ const MeshPlanet = (navigateToDetailPlanet) => {
           <mesh
             ref={meshRefs.current[index]}
             position={[planet[0], planet[1], planet[2]]}
-            onClick={() => navigateToDetailPlanet(planet[4])}
+            onClick={() => {
+              console.log(planet[4]);
+              navigateToDetailPlanet(planet[4]);
+            }}
           >
             <sphereGeometry args={[3, 32, 32]} />
             <meshStandardMaterial

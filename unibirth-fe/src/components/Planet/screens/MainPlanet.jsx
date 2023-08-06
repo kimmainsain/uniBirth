@@ -17,6 +17,7 @@ const MainPlanet = () => {
     refreshPage,
     navigateToMemberProfile,
     navigateToSearchQuration,
+    navigateToDetailPlanet,
   } = useNavigation();
 
   const nickname = useRecoilValue(nicknameState);
@@ -72,7 +73,7 @@ const MainPlanet = () => {
       <div className="absolute left-1/2 top-20 z-10 -translate-x-1/2 -translate-y-1/2 transform">
         <ListSectionPlanet />
       </div>
-      <CanvasPlanet />
+      <CanvasPlanet navigateToDetailPlanet={navigateToDetailPlanet} />
       <div className="absolute bottom-20 left-5 z-10">
         <Footer1 buttons={buttonsFooter} />
       </div>

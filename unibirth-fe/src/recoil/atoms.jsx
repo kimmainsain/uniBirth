@@ -71,3 +71,9 @@ export const boxcreatedState = atom({
   default: "",
   effects_UNSTABLE: [persistAtom],
 });
+
+export const StellaIdState = atom({
+  key: "StellaIdState",
+  default: "",
+  effects_UNSTABLE: [persistAtom],
+});

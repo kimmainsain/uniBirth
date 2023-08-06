@@ -1,18 +1,17 @@
 // import React from "react";
 import React, { useRef, useState, useEffect } from "react";
 // import usePlanetApi from "../../../api/usePlanetApi";
-import { useNavigation } from "../../../hooks/useNavigation";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera, Stars } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import MeshPlanet from "../atoms/MeshPlanet";
 import { BiSolidLeftArrow, BiSolidRightArrow } from "react-icons/bi";
 import { gsap } from "gsap";
+import GradientBackground from "../../../common/atoms/GradientBackground";
 
-const ListSectionPlanet = () => {
+const ListSectionPlanet = ({ navigateToDetailPlanet }) => {
   const controlsRef = useRef();
   const cameraRef = useRef();
-  const { navigateToDetailPlanet } = useNavigation();
   const [cameraState, setCameraState] = useState(true);
 
   useEffect(() => {
@@ -102,7 +101,8 @@ const ListSectionPlanet = () => {
             intensity={0.1}
           />
         </EffectComposer>
-        <color attach="background" args={["black"]} />
+        <GradientBackground />
+        {/* <color attach="background" args={["black"]} /> */}
         <MeshPlanet navigateToDetailPlanet={navigateToDetailPlanet} />
         <Stars
           radius={100}

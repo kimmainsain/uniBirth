@@ -9,6 +9,7 @@ import {
 import MeshConstellation from "../atoms/MeshConstellation";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { gsap } from "gsap";
+import GradientBackground from "../../../common/atoms/GradientBackground";
 
 const Scene = ({ constellationList }) => {
   const controlsRef = useRef();
@@ -71,6 +72,7 @@ const Scene = ({ constellationList }) => {
         <BiMoveHorizontal style={{ color: isOrbitActive ? "red" : "white" }} />
       </button>
       <Canvas camera={{ position: [0, 0, 50] }}>
+        <GradientBackground />
         <EffectComposer>
           <Bloom mipmapBlur luminanceThreshold={1} radius={0.7} />
         </EffectComposer>
