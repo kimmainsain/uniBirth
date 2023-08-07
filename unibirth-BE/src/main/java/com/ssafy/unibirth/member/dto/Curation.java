@@ -10,13 +10,13 @@ import lombok.Data;
 public class Curation {
 
     private Long starId;
-    private String writer;
+    private String nickname;
     private String imageUrl;
     private String content;
 
     public Curation(Star star) {
         this.starId = star.getId();
-        this.writer = star.getMember().getNickname();
+        this.nickname = star.getMember().getNickname();
         this.imageUrl = star.getImageUrl();
         this.content = star.getContent();
     }

@@ -248,11 +248,14 @@ public class MemberService{
             tempList.addAll(constellationRepository.findTopStarsByConstellationOrderByBrightnessDesc(constellationList.get(0).getId()));
 //            tempList.addAll(constellationRepository.findTopStarsByConstellationOrderByBrightnessDesc(constellationList.get(1).getId()));
         }
+        
+        // temp 리스트에서 중복을 제거
+        List<Star> uniqueList = tempList.stream().distinct().collect(Collectors.toList());
 
         // 큐레이션 결과에 담길 정보
         // starId, writer, imageUrl, content;
         List<Curation> result = new ArrayList<>();
-        result = tempList.stream()
+        result = uniqueList.stream()
                 .filter(star -> star.getMember().getId() != getCurrentMember().getId())
                 .map((star) -> new Curation(star))
                 .collect(Collectors.toList());
