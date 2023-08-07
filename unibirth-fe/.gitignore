@@ -22,7 +22,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
+.yarn
 # Created by https://www.toptal.com/developers/gitignore/api/react,dotenv
 # Edit at https://www.toptal.com/developers/gitignore?templates=react,dotenv
 
