@@ -2,14 +2,16 @@ package com.ssafy.unibirth.planet.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
+@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PlanetItemDto {
-    private Long planetId;
-    private String title;
+public class PlanetStarItemDto {
+    private Long starId;
+    private int brightness;
+    private String imageUrl;
+    private String nickname;
 }

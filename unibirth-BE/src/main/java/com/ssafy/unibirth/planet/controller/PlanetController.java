@@ -17,4 +17,9 @@ public class PlanetController {
     public ResponseEntity getPlanetList(){
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, planetService.getPlanetList());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity getPlanetList(@PathVariable("id") Long planetId){
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, planetService.getPlanetStarList(planetId));
+    }
 }

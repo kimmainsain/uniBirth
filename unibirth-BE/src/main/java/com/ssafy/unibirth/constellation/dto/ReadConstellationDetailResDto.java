@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 public class ReadConstellationDetailResDto {
     private Long constellationId;
     private String constellationTitle;
-    private String planetTitle;
     private String introduction;
     private String imageUrl;
     private int totalBrightness;
@@ -26,7 +25,6 @@ public class ReadConstellationDetailResDto {
     public ReadConstellationDetailResDto(Constellation constellation) {
         this.constellationId = constellation.getId();
         this.constellationTitle = constellation.getTitle();
-        this.planetTitle = constellation.getPlanet().getTitle();
         this.introduction = constellation.getMember().getIntroduction();
         this.imageUrl = constellation.getImageUrl();
         this.totalBrightness = constellation.getTotalBrightness();
