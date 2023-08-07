@@ -14,8 +14,8 @@ export const targetNicknameState = atom({
 });
 
 export const starListState = atom({
-  key: "starListState",
-  default: { starList: [] },
+  key: "starListState", // unique ID (with respect to other atoms/selectors)
+  default: { starList: [] }, // default value (aka initial value)
   effects_UNSTABLE: [persistAtom],
 });
 
@@ -24,53 +24,17 @@ export const boardSizeState = atom({
   default: 5,
 });
 
-export const constellationLinkList = atom({
-  key: "constellationLinkList",
-  default: [],
-  effects_UNSTABLE: [persistAtom],
+export const planetIdState = atom({
+  key: "planetIdState",
+  default: 1,
 });
 
-// Star Box content
-export const boxcontentState = atom({
-  key: "boxcontentState",
+export const constellationNameState = atom({
+  key: "constellationNameState",
   default: "",
-  effects_UNSTABLE: [persistAtom],
-});
-export const boxnicknameState = atom({
-  key: "boxnicknameState",
-  default: "",
-  effects_UNSTABLE: [persistAtom],
-});
-export const boxurlState = atom({
-  key: "boxurlState",
-  default: "",
-  effects_UNSTABLE: [persistAtom],
-});
-export const boxidState = atom({
-  key: "boxidState",
-  default: "",
-  effects_UNSTABLE: [persistAtom],
-});
-export const boxcreatedState = atom({
-  key: "boxcreatedState",
-  default: "",
-  effects_UNSTABLE: [persistAtom],
 });
 
-export const StellaIdState = atom({
-  key: "StellaIdState",
+export const constellationDescpState = atom({
+  key: "constellationDescpState",
   default: "",
-  effects_UNSTABLE: [persistAtom],
-});
-
-export const DetailStellaFullNumState = atom({
-  key: "DetailStellaFullNumState",
-  default: 0,
-  effects_UNSTABLE: [persistAtom],
-});
-
-export const DetailStellaNumstate = atom({
-  key: "DetailStellaNumstate",
-  default: 0,
-  effects_UNSTABLE: [persistAtom],
 });

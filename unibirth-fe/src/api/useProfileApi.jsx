@@ -24,12 +24,12 @@ const profilesGetFollowers = async (nickname) => {
   }
 };
 
-const profilesPostFollow = async (followData) => {
+const profilesPostFollow = async () => {
   try {
     const jwt = sessionStorage.getItem("accessToken");
     const response = await useAxiosInstance
       .authApiClient(jwt)
-      .post(`/profiles/follow`, followData);
+      .post(`/profiles/follow`);
     console.log(response);
     return response.data;
   } catch (e) {
@@ -37,12 +37,13 @@ const profilesPostFollow = async (followData) => {
   }
 };
 
-const profilesDeleteFollow = async (nickname) => {
+// id 빠져야함.
+const profilesDeleteFollow = async () => {
   try {
     const jwt = sessionStorage.getItem("accessToken");
     const response = await useAxiosInstance
       .authApiClient(jwt)
-      .delete(`/profiles/follow?to=${nickname}`);
+      .delete(`/profiles/follow/from=&to=`);
     return response.data;
   } catch (e) {
     console.log(e);

@@ -7,14 +7,10 @@ import { BiSearch } from "react-icons/bi";
 import { useNavigation } from "../../../hooks/useNavigation";
 import GridCustomConstellation from "../blocks/GridCustomConstellation";
 import ListTemplateModalConstellation from "../blocks/ListTemplateModalConstellation";
-import { useLocation } from "react-router";
+
 const DrawingConstellation = () => {
-  const location = useLocation();
-  const { planetId, constellationName, constellationDescp } = location.state;
   const { navigateToBack } = useNavigation();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [pointList, setPointList] = useState([]);
-  const [lineList, setLineList] = useState([]);
 
   const handleModalOpen = () => {
     setIsModalOpen(true);
@@ -38,14 +34,14 @@ const DrawingConstellation = () => {
 
   const handleSubmit = () => {
     // 별자리가 유효한지 판단
-    if (
-      planetId &&
-      constellationName &&
-      constellationDescp &&
-      pointList &&
-      lineList
-    ) {
-      console.log("컨스텔레이션 디테일 이동");
+    const flag = true;
+
+    if (flag === true) {
+      alert(
+        "지금 flag는 true입니다. 별도의 case 조작이 필요합니다. 별자리가 유효합니다.",
+      );
+      // 별자리 디테일 페이지로 이동
+      // axios 요청을 보내서 /constellations/register/{member_id}
     }
   };
 
@@ -68,18 +64,11 @@ const DrawingConstellation = () => {
       <p className="lg-10 my-5 flex justify-center font-TAEBAEKmilkyway text-4xl">
         별자리 그리기 예시.
       </p>
-      <GridCustomConstellation
-        planetId={planetId}
-        constellationName={constellationName}
-        constellationDescp={constellationDescp}
-        pointList={pointList}
-        lineList={lineList}
-      />
+      <GridCustomConstellation />
       {isModalOpen && (
         <ListTemplateModalConstellation
+          isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
-          setPointList={setPointList}
-          setLineList={setLineList}
         />
       )}
       <Footer1 buttons={buttonsFooter} />

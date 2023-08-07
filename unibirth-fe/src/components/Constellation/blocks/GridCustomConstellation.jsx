@@ -5,28 +5,27 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../../api/useFirebaseApi";
 import useConstellationApi from "../../../api/useConstellationApi";
 import { useRecoilState } from "recoil";
-import { boardSizeState } from "../../../recoil/atoms";
-import { useNavigation } from "../../../hooks/useNavigation";
+import {
+  planetIdState,
+  constellationNameState,
+  constellationDescpState,
+  boardSizeState,
+} from "../../../recoil/atoms";
 
-const GridCustomConstellation = ({
-  planetId,
-  constellationName,
-  constellationDescp,
-  pointList,
-  lineList,
-}) => {
+const GridCustomConstellation = () => {
   const [points, setPoints] = useState([]);
   const [lines, setLines] = useState([]);
   const [grid, setGrid] = useState([]);
+  const [lineList, setlineList] = useState([]);
   const [shouldDeduplicate, setShouldDeduplicate] = useState(false);
   const [lastPoints, setLastPoints] = useState([]);
   const linesAndPointsLayerRef = useRef(null);
+  const planetId = useRecoilState(planetIdState);
+  const constellationName = useRecoilState(constellationNameState);
+  const constellationDescp = useRecoilState(constellationDescpState);
   const boardSize = useRecoilState(boardSizeState);
   const stageSize = boardSize[0] * 50;
   const containerStyle = boardSize[0] === 5 ? "max-w-md mx-auto" : "w-full";
-  const [templatePointSize, setTemplatePointsSize] = useState(0);
-  const [templateLineSize, setTemplateLinesSize] = useState(0);
-  const { navigateToDetailConstellation } = useNavigation();
 
   useEffect(() => {
     if (shouldDeduplicate) {
@@ -35,41 +34,8 @@ const GridCustomConstellation = ({
     }
   }, [shouldDeduplicate, lastPoints]);
 
-  useEffect(() => {
-    if (pointList && lineList) {
-      console.log("pointList", pointList);
-      console.log("lineList", lineList);
-      setTemplatePointsSize(pointList.length);
-      setTemplateLinesSize(lineList.length);
-      const updateGrid = grid.map((y) => y.slice());
-      pointList.forEach((point) => {
-        const yIndex = point[0];
-        const xIndex = point[1];
-        updateGrid[yIndex][xIndex] = true;
-      });
-      setGrid(updateGrid);
-      setPoints(
-        pointList.map((point) => ({
-          centerY: point[0] * 50 + 25,
-          centerX: point[1] * 50 + 25,
-        })),
-      );
-
-      setLines(
-        lineList.map((line) => [
-          line[0] * 50 + 25,
-          line[1] * 50 + 25,
-          line[2] * 50 + 25,
-          line[3] * 50 + 25,
-        ]),
-      );
-      console.log(lines);
-    }
-  }, [pointList, lineList]);
-
   const deDuplication = (input) => {
-    // points 배열에서 중복된 값 제거
-    const array = input;
+    const array = Array.isArray(input) ? input : [input];
     array.forEach((point) => {
       const yIndex = (point.centerY - 25) / 50;
       const xIndex = (point.centerX - 25) / 50;
@@ -88,14 +54,7 @@ const GridCustomConstellation = ({
   };
 
   const handleBeforeClick = () => {
-    if (
-      points.length === templatePointSize &&
-      lines.length === templateLineSize
-    ) {
-      handleResetClick(); // 템플릿 크기와 동일하면 초기화
-      return;
-    }
-    let newPoints, newLines;
+    let newPoints, newLines, newlineList;
     if (points.length === 0) return;
     if (points.length % 2 === 1) {
       const lastPoint = points[points.length - 1];
@@ -105,54 +64,24 @@ const GridCustomConstellation = ({
       const lastTwoPoints = points.slice(-2);
       newPoints = points.slice(0, points.length - 2);
       newLines = lines.slice(0, lines.length - 1);
+      newlineList = lineList.slice(0, lineList.length - 1);
       setLastPoints(lastTwoPoints);
       setLines(newLines);
+      setlineList(newlineList);
     }
     setPoints(newPoints);
     setShouldDeduplicate(true);
   };
 
-  const removeDuplicate = (lines) => {
-    const uniquePoints = [];
+  const handleSaveClick = () => {
+    const tempPointList = [];
     grid.forEach((yValue, y) => {
       yValue.forEach((xValue, x) => {
         if (xValue === true) {
-          uniquePoints.push([y, x]);
+          tempPointList.push([y, x]);
         }
       });
     });
-    const uniqueLines = [];
-    const duplicateLines = [];
-    console.log(lines);
-    for (const line of lines) {
-      const reversedLine = [line[2], line[3], line[0], line[1]];
-      const isDuplicate = duplicateLines.some(
-        (uniqueLine) =>
-          (uniqueLine[0] === line[0] &&
-            uniqueLine[1] === line[1] &&
-            uniqueLine[2] === line[2] &&
-            uniqueLine[3] === line[3]) ||
-          (uniqueLine[0] === reversedLine[0] &&
-            uniqueLine[1] === reversedLine[1] &&
-            uniqueLine[2] === reversedLine[2] &&
-            uniqueLine[3] === reversedLine[3]),
-      );
-
-      if (!isDuplicate) {
-        duplicateLines.push(line);
-        uniqueLines.push([
-          (line[0] - 25) / 50,
-          (line[1] - 25) / 50,
-          (line[2] - 25) / 50,
-          (line[3] - 25) / 50,
-        ]);
-      }
-    }
-    return [uniquePoints, uniqueLines];
-  };
-
-  const handleSaveClick = () => {
-    const [uniquePoints, uniqueLines] = removeDuplicate(lines);
     const imageUrl = linesAndPointsLayerRef.current.toDataURL();
     const [header, data] = imageUrl.split(",");
     const mimeType = header.split(";")[0].split(":")[1];
@@ -181,8 +110,8 @@ const GridCustomConstellation = ({
             planetId: planetId[0],
             title: constellationName[0],
             description: constellationDescp[0],
-            lineList: uniqueLines,
-            pointList: uniquePoints,
+            lineList,
+            pointList: tempPointList,
             imageUrl: downloadURL,
             boardSize: boardSize[0],
           };
@@ -192,8 +121,6 @@ const GridCustomConstellation = ({
               constellation,
             );
           console.log(response); // 성공 처리
-          console.log(response.resultData.constellationId);
-          navigateToDetailConstellation(response.resultData.constellationId);
         } catch (error) {
           if (error.code === "storage/object-not-found") {
             console.error("Failed to get download URL:", error);
@@ -220,12 +147,33 @@ const GridCustomConstellation = ({
     if (newPoints.length % 2 === 0) {
       const lastTwoPoints = newPoints.slice(-2);
       const newLine = [
-        lastTwoPoints[0].centerY,
         lastTwoPoints[0].centerX,
-        lastTwoPoints[1].centerY,
+        lastTwoPoints[0].centerY,
         lastTwoPoints[1].centerX,
+        lastTwoPoints[1].centerY,
       ];
-      setLines([...lines, newLine]);
+      const saveLine = [
+        (lastTwoPoints[0].centerY - 25) / 50,
+        (lastTwoPoints[0].centerX - 25) / 50,
+        (lastTwoPoints[1].centerY - 25) / 50,
+        (lastTwoPoints[1].centerX - 25) / 50,
+      ];
+      if (
+        !lines.some(
+          (line) =>
+            (line[0] === newLine[0] &&
+              line[1] === newLine[1] &&
+              line[2] === newLine[2] &&
+              line[3] === newLine[3]) ||
+            (line[0] === newLine[2] &&
+              line[1] === newLine[3] &&
+              line[2] === newLine[0] &&
+              line[3] === newLine[1]),
+        )
+      ) {
+        setLines([...lines, newLine]);
+        setlineList([...lineList, saveLine]);
+      }
     }
   };
 
@@ -237,20 +185,6 @@ const GridCustomConstellation = ({
       .map(() => Array(cols).fill(false));
     setGrid(tempGrid);
   }
-
-  const handelConsoleClick = () => {
-    const [uniquePoints, uniqueLines] = removeDuplicate(lines);
-    console.log(uniquePoints);
-    console.log(uniqueLines);
-  };
-
-  const handleResetClick = () => {
-    setPoints([]);
-    setLines([]);
-    setGrid(grid.map((yValue) => yValue.map((xValue) => false)));
-    setLastPoints([]);
-    setShouldDeduplicate(false);
-  };
 
   return (
     <div>
@@ -268,31 +202,6 @@ const GridCustomConstellation = ({
         className={`flex h-full w-full items-center justify-center ${containerStyle}`}
       >
         <Stage width={stageSize} height={stageSize}>
-          <Layer ref={linesAndPointsLayerRef}>
-            {points.map((point, y) => (
-              <Circle
-                key={y}
-                x={point.centerX}
-                y={point.centerY}
-                radius={5}
-                fillRadialGradientStartRadius={0}
-                fillRadialGradientEndRadius={5}
-                fillRadialGradientColorStops={[0, "#FFD700", 1, "#FFFFFF"]}
-                shadowBlur={5}
-              />
-            ))}
-
-            {lines.map((line, y) => (
-              <Line
-                key={y}
-                points={[line[1], line[0], line[3], line[2]]}
-                stroke="#8B8680"
-                shadowColor="#FFFFFF"
-                shadowBlur={5}
-                tension={1}
-              />
-            ))}
-          </Layer>
           <Layer>
             {grid &&
               grid.map((yValue, y) =>
@@ -303,20 +212,41 @@ const GridCustomConstellation = ({
                     x={x * 50}
                     width={50}
                     height={50}
-                    stroke="#DDDDDD"
+                    stroke="black"
                     strokeWidth={1}
                     onTap={() => handleGridClick(y, x)}
-                    zIndex={2}
                   />
                 )),
               )}
+          </Layer>
+          <Layer ref={linesAndPointsLayerRef}>
+            {points.map((point, y) => (
+              <Circle
+                key={y}
+                x={point.centerX}
+                y={point.centerY}
+                radius={5}
+                fill="red"
+              />
+            ))}
+
+            {lines.map((line, y) => (
+              <Line key={y} points={line} stroke="red" tension={1} />
+            ))}
           </Layer>
         </Stage>
       </div>
       <Button1
         className="font-TAEBAEKmilkyway"
         value="초기화"
-        onClick={handleResetClick}
+        onClick={() => {
+          setPoints([]);
+          setLines([]);
+          setGrid(grid.map((yValue) => yValue.map((xValue) => false)));
+          setlineList([]);
+          setLastPoints([]);
+          setShouldDeduplicate(false);
+        }}
       ></Button1>
       <Button1
         className="font-TAEBAEKmilkyway"
@@ -327,11 +257,6 @@ const GridCustomConstellation = ({
         className="font-TAEBAEKmilkyway"
         value="저장하기"
         onClick={handleSaveClick}
-      ></Button1>
-      <Button1
-        className="font-TAEBAEKmilkyway"
-        value="콘솔에 띄우기"
-        onClick={handelConsoleClick}
       ></Button1>
     </div>
   );

@@ -29,7 +29,7 @@ const DetailStar = () => {
     console.log(starId);
     try {
       const response = await useStarApi.starsGetStar(starId);
-      console.log("별자리 디테일: ", response);
+      console.log(response);
       setStar(response.resultData);
     } catch (error) {
       console.error("Failed to get star:", error);
@@ -51,19 +51,7 @@ const DetailStar = () => {
       <div className="flex flex-row justify-center space-x-10">
         <Header1 buttons={buttonsHeader} />
       </div>
-      <div>
-        <img src={star.imageUrl} alt="별 이미지" />
-      </div>
-      <div className="bg-red-300">{star.brightness}</div>
-      <div className="bg-red-300">{star.content}</div>
-      <div className="bg-red-300">{star.createdAt}</div>
-      <div className="bg-red-300">{star.updatedAt}</div>
-      <div className="bg-red-300">{star.alreadyLiked}</div>
-      <div className="bg-red-300">{star.mine}</div>
-      <div className="bg-red-300">{star.constellationId}</div>
-      <div className="bg-red-300">{starId}</div>
-      <div className="bg-red-300">{star.constellationId}</div>
-
+      <div className="bg-red-300">{star.nickname}</div>
       <h1 className="flex justify-center">별을 상세히 봅시다ㅇㅇ</h1>
     </div>
   );

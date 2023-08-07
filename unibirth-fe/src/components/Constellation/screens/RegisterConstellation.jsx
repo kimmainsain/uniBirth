@@ -1,33 +1,39 @@
-import React, { useState } from "react";
+import React from "react";
 import Button1 from "../../../common/atoms/Button1";
 import Button2 from "../../../common/atoms/Button2";
 import Header1 from "../../../common/blocks/Header1";
 import Footer1 from "../../../common/blocks/Footer1";
 import { BiSearch } from "react-icons/bi";
+import { useNavigation } from "../../../hooks/useNavigation";
 import InputDropdown from "../atoms/InputDropdown";
 import InputStella from "../atoms/InputStella";
 import InputDescription from "../atoms/InputDescription";
-import { useNavigation } from "../../../hooks/useNavigation";
+import { useRecoilState } from "recoil";
+import {
+  planetIdState,
+  constellationNameState,
+  constellationDescpState,
+} from "../../../recoil/atoms";
 
 import planet1 from "../../../assets/images/planet1.png";
 const RegistConstellation = () => {
-  const [planetId, setPlanetId] = useState("1");
-  const [constellationName, setConstellationName] = useState("");
-  const [constellationDescp, setConstellationDescp] = useState("");
-  const { navigateToBack, navigateToDrawingConstellation } = useNavigation();
+  const [planetId, setPlanetId] = useRecoilState(planetIdState);
+  const [constellationName, setConstellationName] = useRecoilState(
+    constellationNameState,
+  );
+  const [constellationDescp, setConstellationDescp] = useRecoilState(
+    constellationDescpState,
+  );
 
   const handleSubmit = () => {
-    console.log(planetId, constellationName, constellationDescp);
-    console.log(planetId);
+    // 여기에 중복이 있는 지 확인하는 로직 필요함
+
+    // 여기서 오류가 없다면
     if (planetId && constellationName && constellationDescp) {
       console.log("행성명: ", planetId);
       console.log("별자리명: ", constellationName);
       console.log("별자리설명: ", constellationDescp);
-      navigateToDrawingConstellation({
-        planetId,
-        constellationName,
-        constellationDescp,
-      });
+      navigateToDrawingConstellation();
     } else if (constellationName) {
       console.log("행성명: ", planetId);
       console.log("별자리명: ", constellationName);
@@ -40,6 +46,8 @@ const RegistConstellation = () => {
       alert("별자리를 입력해주세요 ! ");
     }
   };
+  // navigateToDrawingConstellation
+  const { navigateToBack, navigateToDrawingConstellation } = useNavigation();
   const buttonsHeader = [
     {
       component: Button2,

@@ -6,12 +6,12 @@ import { IoIosArrowBack } from "react-icons/io";
 import { useNavigation } from "../../../hooks/useNavigation";
 import useStarApi from "../../../api/useStarApi";
 import { useRecoilValue } from "recoil";
-import { targetNicknameState } from "../../../recoil/atoms";
+import { nicknameState } from "../../../recoil/atoms";
 
 const MyStars = () => {
   const { navigateToBack } = useNavigation();
 
-  const targetNickname = useRecoilValue(targetNicknameState);
+  const nickname = useRecoilValue(nicknameState);
 
   const buttonsHeader = [
     {
@@ -31,7 +31,7 @@ const MyStars = () => {
   const [starList, setStarList] = useState([]);
 
   const getStarList = async () => {
-    const response = await useStarApi.starsGetStarList(targetNickname);
+    const response = await useStarApi.starsGetStarList(nickname);
     console.log(response.resuldData);
     setStarList(response.resultData);
   };

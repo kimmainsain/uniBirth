@@ -4,7 +4,7 @@ import InputPassword from "../../../common/atoms/InputPassword";
 
 const LoginForm = ({ email, setEmail, password, setPassword }) => {
   return (
-    <div className="m-20 flex-col items-center justify-center space-y-5">
+    <div className="m-20 flex flex-col items-center justify-center space-y-5">
       <InputEmail
         type="email"
         value={email}

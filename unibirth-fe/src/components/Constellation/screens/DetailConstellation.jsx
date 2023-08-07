@@ -30,16 +30,16 @@ const DetailConstellation = () => {
 
   return (
     <div>
-      <div className="absolute left-1/3 top-20 z-10 flex flex-col space-y-2 space-y-5 p-4">
-        <Header1 buttons={buttonsHeader} />
-      </div>
+      <Header1
+        className="absolute left-0 top-0 z-10 flex flex-col space-y-2 space-y-5 bg-red-500 p-4"
+        buttons={buttonsHeader}
+      />
+      <h1>여기서 별 리스트가 나와야합니다</h1>
       <ListSectionStar className="relative left-0 top-0 z-0 h-full w-full" />
-      <div className="absolute bottom-20 left-1/3 z-10 flex flex-col space-y-2 space-y-5 p-4">
-        <Footer1
-          className="absolute right-1/2 top-0 z-10 flex flex-col space-y-2 space-y-5 p-4"
-          buttons={buttonsFooter}
-        />
-      </div>
+      <Footer1
+        className="absolute right-0 top-0 z-10 flex flex-col space-y-2 space-y-5 p-4"
+        buttons={buttonsFooter}
+      />
     </div>
   );
 };

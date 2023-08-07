@@ -62,12 +62,12 @@ const membersGetDetail = async (nickname) => {
   }
 };
 
-const membersPutUpdate = async (member) => {
+const membersPutUpdate = async () => {
   try {
     const jwt = sessionStorage.getItem("accessToken");
     const response = await useAxiosInstance
       .authApiClient(jwt)
-      .put(`/members/update`, member);
+      .put(`/members/update`);
     return response.data;
   } catch (e) {
     console.log(e);
