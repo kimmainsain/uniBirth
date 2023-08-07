@@ -32,7 +32,6 @@ public class Member extends BaseTimeEntity {
     @Column(name="email" , unique=true)
     private String email;
 
-    @Builder.Default
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER; // USER, ADMIN, DELETED
 
