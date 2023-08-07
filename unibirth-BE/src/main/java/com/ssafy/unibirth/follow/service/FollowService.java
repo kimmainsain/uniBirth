@@ -59,6 +59,8 @@ public class FollowService {
         followRepository.delete(follow);
         followFrom.deFollowingCount();
         followTo.deFollowerCount();
+        memberRepository.save(followFrom);
+        memberRepository.save(followTo);
     }
 
     //팔로워 리스트

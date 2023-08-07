@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,17 +25,9 @@ public class Planet extends BaseTimeEntity {
     @Column(name = "planet_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
-
     @OneToMany(mappedBy = "planet")
     private List<Constellation> constellationList = new ArrayList<>();
 
+    @ColumnDefault("'title'")
     private String title;
-    private String gltfUrl;
-    private Double gltfSize;
-    private Double x;
-    private Double y;
-    private Double z;
 }

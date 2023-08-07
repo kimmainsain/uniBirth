@@ -14,11 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.Arrays;
 
 
 @Configuration
@@ -47,19 +42,19 @@ public class SecurityConfig{
     public SecurityFilterChain webSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .httpBasic(httpSecurityHttpBasicConfigurer -> httpSecurityHttpBasicConfigurer.disable())
-                .cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
+                .cors()
                 .and()
                 .csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable())
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                    .authorizeRequests() // 접근권한
-                    .requestMatchers("/members/register", "/members/login", "planets").permitAll() // 로그인, 회원가입 모두 접속 가능
-                    .requestMatchers("/profiles/**").hasAnyAuthority("USER", "ADMIN")
+                .authorizeRequests() // 접근권한
+                .requestMatchers("/members/register", "/members/login", "/planets/**").permitAll() // 로그인, 회원가입 모두 접속 가능
+                .requestMatchers("/profiles/**").hasAnyAuthority("USER", "ADMIN")
 //                    .requestMatchers("/**").permitAll()
-                    .anyRequest().authenticated()
+                .anyRequest().authenticated()
                 .and()
-                    .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class) // jwt token 필터를 id/password 인증 필터 전에 넣는다
-                ;
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+        ;
         return http.build();
     }
 }
