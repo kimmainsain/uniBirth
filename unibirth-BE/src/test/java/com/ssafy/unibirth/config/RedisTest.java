@@ -17,7 +17,7 @@ public class RedisTest {
 
     @BeforeEach
     void setKey() {
-        redisUtil.setDataExpire(KEY_TEST, VALUE_TEST, 60*5L);
+        redisUtil.setData(KEY_TEST, VALUE_TEST);
     }
 
     @Test
