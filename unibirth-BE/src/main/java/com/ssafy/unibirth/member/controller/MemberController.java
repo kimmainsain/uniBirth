@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -133,8 +132,8 @@ public class MemberController {
 
     // 큐레이션
     @GetMapping("/curation")
-    public ResponseEntity<List<Curation>> curate(@RequestBody NicknameCheckDto nicknameCheckDto) {
-        List<Curation> result = memberService.curate(nicknameCheckDto.getNickname());
+    public ResponseEntity<List<Curation>> curate() {
+        List<Curation> result = memberService.curate();
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, result);
     }
 }
