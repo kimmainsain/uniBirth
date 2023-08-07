@@ -14,8 +14,8 @@ export const targetNicknameState = atom({
 });
 
 export const starListState = atom({
-  key: "starListState", // unique ID (with respect to other atoms/selectors)
-  default: { starList: [] }, // default value (aka initial value)
+  key: "starListState",
+  default: { starList: [] },
   effects_UNSTABLE: [persistAtom],
 });
 

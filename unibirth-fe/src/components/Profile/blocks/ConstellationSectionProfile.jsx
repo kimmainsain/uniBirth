@@ -3,18 +3,18 @@ import Button1 from "../../../common/atoms/Button1";
 // import { useNavigation } from "../../../hooks/useNavigation";
 import useConstellationApi from "../../../api/useConstellationApi";
 import { useRecoilValue } from "recoil";
-import { nicknameState } from "../../../recoil/atoms";
+import { targetNicknameState } from "../../../recoil/atoms";
 
 const ConstellationSectionProfile = () => {
   // const { navigateToListConstellation } = useNavigation();
 
-  const nickname = useRecoilValue(nicknameState);
+  const targetNickname = useRecoilValue(targetNicknameState);
 
   const [images, setImages] = useState([]); // 빈 배열로 초기화
 
   const handlePinClick = async () => {
     const response = await useConstellationApi.constellationsGetPinList(
-      nickname,
+      targetNickname,
     );
     console.log(response.resultData);
     setImages([response.resultData]);
@@ -22,7 +22,7 @@ const ConstellationSectionProfile = () => {
 
   const handleParticipateClick = async () => {
     const response = await useConstellationApi.constellationsGetAttendList(
-      nickname,
+      targetNickname,
     );
     console.log(response.resultData);
     setImages([response.resultData]);
@@ -32,6 +32,10 @@ const ConstellationSectionProfile = () => {
     // 기본 버튼에 따라 초기 데이터 가져오기
     handleParticipateClick();
   }, []);
+
+  useEffect(() => {
+    console.log("target", targetNickname);
+  }, [images]);
 
   return (
     <div className="space-x-4 bg-red-200">

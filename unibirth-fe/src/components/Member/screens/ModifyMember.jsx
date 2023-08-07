@@ -3,7 +3,7 @@ import Button1 from "../../../common/atoms/Button1";
 import Button2 from "../../../common/atoms/Button2";
 import Header1 from "../../../common/blocks/Header1";
 import Footer1 from "../../../common/blocks/Footer1";
-import SignupFormMember from "../blocks/SignupFormMember";
+import ModifyFormMember from "../blocks/ModifyFormMember";
 import { BiArrowBack } from "react-icons/bi";
 import { useNavigation } from "../../../hooks/useNavigation";
 import { useRecoilState } from "recoil";
@@ -12,7 +12,6 @@ import useMemberApi from "../../../api/useMemberApi";
 
 const RegisterMember = () => {
   const [nickname, setNickname] = useRecoilState(nicknameState);
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const { navigateToBack, navigateToMemberProfile } = useNavigation();
@@ -25,12 +24,12 @@ const RegisterMember = () => {
 
     const member = {
       nickname,
-      email,
       password,
     };
     try {
       const response = await useMemberApi.membersPutUpdate(member);
       console.log(response);
+      setNickname(member.nickname);
       alert("회원정보 수정이 완료되었습니다..");
       navigateToMemberProfile();
     } catch (e) {
@@ -39,7 +38,7 @@ const RegisterMember = () => {
     }
 
     console.log(
-      `Nickname: ${nickname}, Email: ${email}, Password: ${password}, confirmPassword: ${confirmPassword}`,
+      `Nickname: ${nickname}, Password: ${password}, confirmPassword: ${confirmPassword}`,
     );
   };
 
@@ -65,11 +64,9 @@ const RegisterMember = () => {
     <div className="items-cneter flex flex-col justify-center space-y-5">
       <Header1 buttons={buttonsHeader} />
       <form>
-        <SignupFormMember
+        <ModifyFormMember
           nickname={nickname}
           setNickname={setNickname}
-          email={email}
-          setEmail={setEmail}
           password={password}
           setPassword={setPassword}
           confirmPassword={confirmPassword}
@@ -78,7 +75,6 @@ const RegisterMember = () => {
         <Footer1
           buttons={buttonsFooter}
           nickname={nickname}
-          email={email}
           password={password}
           confirmPassword={confirmPassword}
           joinMember={modifyMember}
