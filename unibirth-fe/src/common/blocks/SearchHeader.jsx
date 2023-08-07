@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { BiSearchAlt } from "react-icons/bi";
-import InputDropdown from "../atoms/InputDropdown";
 import { useNavigation } from "../../hooks/useNavigation";
+import { SEARTCH_LIST } from "../../constants/constants";
 
-const Header3 = ({ buttons }) => {
-  const [categoryname, setategoryname] = useState("별자리");
-  const [query, setQuery] = useState("");
+const SearchHeader = ({ buttons, category, setCategory, query, setQuery }) => {
   const { navigateToSearchCommon } = useNavigation();
 
   const handleSearchInputChange = (e) => {
@@ -14,8 +12,8 @@ const Header3 = ({ buttons }) => {
 
   const handleSearch = () => {
     console.log("검색어:", query);
-    console.log("카테고리:", categoryname);
-    navigateToSearchCommon(query, categoryname);
+    console.log("카테고리:", category);
+    navigateToSearchCommon(query, category);
   };
 
   return (
@@ -40,7 +38,15 @@ const Header3 = ({ buttons }) => {
         value={query}
         onChange={handleSearchInputChange}
       />
-      <InputDropdown planetname={categoryname} setPlanetname={setategoryname} />
+      <div className="flex flex-col items-center justify-center rounded-lg border-double font-TAEBAEKmilkyway">
+        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+          {SEARTCH_LIST.map((category) => (
+            <option key={category.name} value={category.name}>
+              {category.name}
+            </option>
+          ))}
+        </select>
+      </div>
       <button className="font-TAEBAEKmilkyway" onClick={handleSearch}>
         <BiSearchAlt />
       </button>
@@ -48,4 +54,4 @@ const Header3 = ({ buttons }) => {
   );
 };
 
-export default Header3;
+export default SearchHeader;

@@ -93,13 +93,17 @@ export const useNavigation = () => {
 
   // Search
   const navigateToSearchQuration = () => {
-    navigate("/search");
+    navigate("/search/quration");
   };
 
-  const navigateToSearchCommon = (query, categoryname) => {
-    navigate(`/search?content=${query}&category=${categoryname}`);
+  const navigateToSearchCommon = (query, categoryName) => {
+    navigate(`/search`, {
+      state: {
+        query,
+        categoryName,
+      },
+    });
   };
-
   return {
     navigateToBack,
     refreshPage,
