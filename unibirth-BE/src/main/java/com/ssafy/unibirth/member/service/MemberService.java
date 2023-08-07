@@ -21,6 +21,8 @@ import com.ssafy.unibirth.star.domain.Star;
 import com.ssafy.unibirth.star.repository.StarRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -106,7 +108,8 @@ public class MemberService{
     public void updateUser(Long id, String nickname, String password) {
         // 본인이 수정하는 것이기 때문에 Optional 객체에 null이 담기지 않음
         Member member = memberRepository.findById(id).get();
-        member.updateMember(nickname, password);
+        String newPassword = passwordEncoder.encode(password);
+        member.updateMember(nickname, newPassword);
     }
 
     // 회원 상세정보
@@ -211,14 +214,15 @@ public class MemberService{
         return member;
     }
     // 큐레이션
-    public List<Curation> curate(String nickname) {
+    public List<Curation> curate() {
 
         List<Star> tempList = new ArrayList<>();
+        Member me = getCurrentMember();
 
         // 1. 내가 팔로우한 사람이 가장 최근에 작성한 별(최상단에 위치)
 
         // 1-1. 내가 팔로잉한 사람들
-        List<Follow> followingList = followRepository.findAllByFollowFrom(detailUser(nickname));
+        List<Follow> followingList = followRepository.findAllByFollowFrom(detailUser(me.getNickname()));
         // 1-2. 팔로잉한 사람이 있을 때만 그들이 작성한 최신 별 리스트를 갖고옴
         if(followingList != null && followingList.size() > 0) {
             List<Member> followedList = new ArrayList<>(); // 내가 팔로잉한 유저들
@@ -234,15 +238,13 @@ public class MemberService{
         } // if절 끝
 
         // 2. 본인이 관심있는 행성에서 랜덤으로 별자리 2개 뽑음 -> 그 중 가장 인기가 많은 별 추천(내거 제외)
-        Member findMember = memberRepository.findByNickname(nickname).orElseThrow(() -> new NotFoundException(FailCode.MEMBER_NOT_FOUND));
         // 2-1. 관심사가 null이 아니면 해당 관심사를 title로 가진 행성을 찾음
-        if(findMember.getInterest() != null) {
-            String title = findMember.getInterest();
+        if(me.getInterest() != null) {
+            String title = me.getInterest();
             Planet planet = planetRepository.findByTitle(title);
             
             // 2-2. 해당 행성의 별자리 중 랜덤으로 2개를 선정
             // 그 중 가장 좋아요(brigntness)를 많이 받은 별(Star) 2개를 선정
-            Member me = getCurrentMember();
             List<Constellation> constellationList = planet.getConstellationList();
             Collections.shuffle(constellationList, new Random());
             tempList.addAll(constellationRepository.findTopStarsByConstellationOrderByBrightnessDesc(constellationList.get(0).getId()));
@@ -254,8 +256,7 @@ public class MemberService{
 
         // 큐레이션 결과에 담길 정보
         // starId, writer, imageUrl, content;
-        List<Curation> result = new ArrayList<>();
-        result = uniqueList.stream()
+        List<Curation> result = uniqueList.stream()
                 .filter(star -> star.getMember().getId() != getCurrentMember().getId())
                 .map((star) -> new Curation(star))
                 .collect(Collectors.toList());
