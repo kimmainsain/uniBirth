@@ -34,8 +34,10 @@ export const useNavigation = () => {
     navigate(`/constellations/register`);
   };
 
-  const navigateToDrawingConstellation = () => {
-    navigate(`/constellations/drawing`);
+  const navigateToDrawingConstellation = (params) => {
+    navigate(`/constellations/drawing`, {
+      state: params,
+    });
   };
 
   // Planet
@@ -91,13 +93,17 @@ export const useNavigation = () => {
 
   // Search
   const navigateToSearchQuration = () => {
-    navigate("/search");
+    navigate("/search/quration");
   };
 
-  const navigateToSearchCommon = (query, categoryname) => {
-    navigate(`/search?content=${query}&category=${categoryname}`);
+  const navigateToSearchCommon = (query, categoryName) => {
+    navigate(`/search`, {
+      state: {
+        query,
+        categoryName,
+      },
+    });
   };
-
   return {
     navigateToBack,
     refreshPage,

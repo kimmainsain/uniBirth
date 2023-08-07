@@ -3,6 +3,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Stars, Line, OrbitControls } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
+import GradientBackground from "../../../common/atoms/GradientBackground";
 
 const Controls = React.forwardRef((props, ref) => {
   useFrame((state) => ref.current && ref.current.update());
@@ -247,8 +248,7 @@ const StarCanvas = () => {
           </EffectComposer>
           <axesHelper scale={5} />
           <CameraController />
-
-          <color attach="background" args={["black"]} />
+          <GradientBackground />
 
           {boxes.map((box, index) => (
             <group key={index}>

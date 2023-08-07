@@ -3049,10 +3049,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mediapipe/tasks-vision@npm:0.10.2, @mediapipe/tasks-vision@npm:^0.10.2":
+"@mediapipe/tasks-vision@npm:0.10.2":
   version: 0.10.2
   resolution: "@mediapipe/tasks-vision@npm:0.10.2"
   checksum: 0e5ac77f9b8b218303c95043dce2c377ed0fa8c623c6263604390e66004c6c986a6717d9abdebee02eb0382a0051e2659665d754129f1aac30c1ad6804639dce
+  languageName: node
+  linkType: hard
+
+"@mediapipe/tasks-vision@npm:^0.10.3":
+  version: 0.10.3
+  resolution: "@mediapipe/tasks-vision@npm:0.10.3"
+  checksum: 7f1e151286733ef1d3e4c0015727d066f8f8773482bb384d88d56cca63c88c25a1c0335061f39b2f4ca4bcb593b1434cf28749cf5f254d239d23a481858f16f1
   languageName: node
   linkType: hard
 
@@ -17428,7 +17435,7 @@ __metadata:
   resolution: "unibirth-fe@workspace:."
   dependencies:
     "@material-tailwind/react": ^2.0.6
-    "@mediapipe/tasks-vision": ^0.10.2
+    "@mediapipe/tasks-vision": ^0.10.3
     "@react-three/drei": ^9.80.0
     "@react-three/fiber": ^8.13.6
     "@react-three/postprocessing": ^2.15.0

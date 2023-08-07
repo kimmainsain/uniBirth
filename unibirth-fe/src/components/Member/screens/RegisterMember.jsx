@@ -18,9 +18,9 @@ const RegisterMember = () => {
   const { navigateToBack, navigateToLoginMember } = useNavigation();
   const [image, setImage] = useState(`${earth}`);
   const [content, setContent] = useState(
-    "이자식이 무슨 내일이야! 내일은 없다, 오늘밖에",
+    "생년월일을 입력하시면 별자리가 자동으로 설정됩니다.",
   );
-  const [jodiacname, setJodiacname] = useState("너는 별자리일까?");
+  const [jodiacname, setJodiacname] = useState("당신의 별자리는?");
 
   const joinMember = async (e) => {
     e.preventDefault();

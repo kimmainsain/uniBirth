@@ -63,11 +63,8 @@ const App = () => {
       <Route path="/members/update" element={<ModifyMember />} />
       <Route path="/profiles/directmessage" element={<DirectMessage />} />
       <Route path="/profiles/messagebox" element={<MessageBox />} />
-      <Route path="/search" element={<SearchQuration />} />
-      <Route
-        path="/search?content=:query&category=:categoryname"
-        element={<SearchCommon />}
-      />
+      <Route path="/search/quration" element={<SearchQuration />} />
+      <Route path="/search" element={<SearchCommon />} />
     </Routes>
   );
 };
