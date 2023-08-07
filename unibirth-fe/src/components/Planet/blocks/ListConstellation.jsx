@@ -20,7 +20,7 @@ const Scene = ({ constellationList }) => {
   const moveNum = 50;
   const num = 50; // 별자리 간격
   const starmultiple = 3; // 별간격
-  const xdamper = -5; // x축+- 보정계수
+  const xdamper = -10; // x축+- 보정계수
   const handleLeftClick = () => {
     const targetX = controlsRef.current.target.x - moveNum;
     const cameraX = controlsRef.current.object.position.x - moveNum;

@@ -6,6 +6,7 @@ import { storage } from "../../../api/useFirebaseApi";
 import useConstellationApi from "../../../api/useConstellationApi";
 import { useRecoilState } from "recoil";
 import { boardSizeState } from "../../../recoil/atoms";
+import { useNavigation } from "../../../hooks/useNavigation";
 
 const GridCustomConstellation = ({
   planetId,
@@ -25,6 +26,7 @@ const GridCustomConstellation = ({
   const containerStyle = boardSize[0] === 5 ? "max-w-md mx-auto" : "w-full";
   const [templatePointSize, setTemplatePointsSize] = useState(0);
   const [templateLineSize, setTemplateLinesSize] = useState(0);
+  const { navigateToDetailConstellation } = useNavigation();
 
   useEffect(() => {
     if (shouldDeduplicate) {
@@ -190,6 +192,8 @@ const GridCustomConstellation = ({
               constellation,
             );
           console.log(response); // 성공 처리
+          console.log(response.resultData.constellationId);
+          navigateToDetailConstellation(response.resultData.constellationId);
         } catch (error) {
           if (error.code === "storage/object-not-found") {
             console.error("Failed to get download URL:", error);

@@ -39,14 +39,14 @@ const DrawingConstellation = () => {
 
   const handleSubmit = () => {
     // 별자리가 유효한지 판단
-    const flag = true;
-
-    if (flag === true) {
-      alert(
-        "지금 flag는 true입니다. 별도의 case 조작이 필요합니다. 별자리가 유효합니다.",
-      );
-      // 별자리 디테일 페이지로 이동
-      // axios 요청을 보내서 /constellations/register/{member_id}
+    if (
+      planetId &&
+      constellationName &&
+      constellationDescp &&
+      pointList &&
+      lineList
+    ) {
+      console.log("컨스텔레이션 디테일 이동");
     }
   };
 

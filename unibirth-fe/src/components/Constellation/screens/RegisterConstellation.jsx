@@ -11,14 +11,21 @@ import { useNavigation } from "../../../hooks/useNavigation";
 
 import planet1 from "../../../assets/images/planet1.png";
 const RegistConstellation = () => {
-  const [planetId, setPlanetId] = useState("");
+  const [planetId, setPlanetId] = useState("1");
   const [constellationName, setConstellationName] = useState("");
   const [constellationDescp, setConstellationDescp] = useState("");
   const { navigateToBack, navigateToDrawingConstellation } = useNavigation();
 
   const handleSubmit = () => {
+    console.log(planetId, constellationName, constellationDescp);
+    console.log(planetId);
     if (planetId && constellationName && constellationDescp) {
-      navigateToDrawingConstellation();
+      const prams = {
+        planetId,
+        constellationName,
+        constellationDescp,
+      };
+      navigateToDrawingConstellation(prams);
     } else if (constellationName) {
       alert("별자리를 설명해주세요 ! ");
     } else {
