@@ -48,7 +48,7 @@ public class SecurityConfig{
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests() // 접근권한
-                .requestMatchers("/members/register", "/members/login", "planets").permitAll() // 로그인, 회원가입 모두 접속 가능
+                .requestMatchers("/members/register", "/members/login", "/planets/**").permitAll() // 로그인, 회원가입 모두 접속 가능
                 .requestMatchers("/profiles/**").hasAnyAuthority("USER", "ADMIN")
 //                    .requestMatchers("/**").permitAll()
                 .anyRequest().authenticated()
