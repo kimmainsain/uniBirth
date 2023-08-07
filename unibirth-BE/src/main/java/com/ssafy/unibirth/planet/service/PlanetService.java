@@ -50,6 +50,7 @@ public class PlanetService {
         return planetList.stream()
                 .map(planet -> PlanetItemDto.builder()
                         .planetId(planet.getId())
+                        .title(planet.getTitle())
                         .build()
                 ).collect(Collectors.toList());
     }
