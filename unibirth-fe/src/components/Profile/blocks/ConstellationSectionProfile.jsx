@@ -34,7 +34,7 @@ const ConstellationSectionProfile = () => {
   }, []);
 
   useEffect(() => {
-    console.log("1", targetNickname);
+    console.log("target", targetNickname);
   }, [images]);
 
   return (
