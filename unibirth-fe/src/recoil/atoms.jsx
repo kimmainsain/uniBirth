@@ -62,3 +62,15 @@ export const StellaIdState = atom({
   default: "",
   effects_UNSTABLE: [persistAtom],
 });
+
+export const DetailStellaFullNumState = atom({
+  key: "DetailStellaFullNumState",
+  default: 0,
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const DetailStellaNumstate = atom({
+  key: "DetailStellaNumstate",
+  default: 0,
+  effects_UNSTABLE: [persistAtom],
+});

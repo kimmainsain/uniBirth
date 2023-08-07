@@ -11,12 +11,14 @@ import { useNavigation } from "../../../hooks/useNavigation";
 
 import planet1 from "../../../assets/images/planet1.png";
 const RegistConstellation = () => {
-  const [planetId, setPlanetId] = useState("");
+  const [planetId, setPlanetId] = useState("1");
   const [constellationName, setConstellationName] = useState("");
   const [constellationDescp, setConstellationDescp] = useState("");
   const { navigateToBack, navigateToDrawingConstellation } = useNavigation();
 
   const handleSubmit = () => {
+    console.log(planetId, constellationName, constellationDescp);
+    console.log(planetId);
     if (planetId && constellationName && constellationDescp) {
       console.log("행성명: ", planetId);
       console.log("별자리명: ", constellationName);

@@ -13,8 +13,8 @@ import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../../api/useFirebaseApi";
 
 const RegisterStar = (event) => {
-  const { navigateToBack, navigateToDetailConstellation } = useNavigation();
-
+  const { navigateToBack } = useNavigation(); // navigateToDetailConstellation
+  console.log(event);
   const constellationId = useRecoilValue(StellaIdState);
   const [title, setTitle] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -61,7 +61,7 @@ const RegisterStar = (event) => {
               setImageUrl(downloadURL);
               console.log("data", data);
               const response = await useStarApi.starsPostStar(data);
-              navigateToDetailConstellation(constellationId);
+              // navigateToDetailConstellation(constellationId);
               console.log(response);
             })
             .catch((error) => {
