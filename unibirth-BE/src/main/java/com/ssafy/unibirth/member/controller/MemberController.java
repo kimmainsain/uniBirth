@@ -51,7 +51,7 @@ public class MemberController {
     @PutMapping("/update")
     public ResponseEntity<Void> updateUser(@RequestBody UpdateMemberDto updateMemberDto) {
         Member member = memberService.getCurrentMember();
-        memberService.updateUser(member.getId(), updateMemberDto.getNickname(), updateMemberDto.getPassword());
+        memberService.updateUser(member.getId(), updateMemberDto.getPassword());
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS);
     }
 
