@@ -105,11 +105,11 @@ public class MemberService{
     }
 
     // 회원 정보 수정
-    public void updateUser(Long id, String nickname, String password) {
+    public void updateUser(Long id, String password) {
         // 본인이 수정하는 것이기 때문에 Optional 객체에 null이 담기지 않음
         Member member = memberRepository.findById(id).get();
         String newPassword = passwordEncoder.encode(password);
-        member.updateMember(nickname, newPassword);
+        member.updateMember(newPassword);
     }
 
     // 회원 상세정보
