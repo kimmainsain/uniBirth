@@ -49,6 +49,7 @@ public class SecurityConfig{
                 .and()
                 .authorizeRequests() // 접근권한
                 .requestMatchers("/members/register", "/members/login", "/planets/**").permitAll() // 로그인, 회원가입 모두 접속 가능
+                .requestMatchers("/members/check/nickname", "/members/check/email").permitAll() // 닉네임 중복확인 및 이메일 유효 인증 접근 가능
                 .requestMatchers("/profiles/**").hasAnyAuthority("USER", "ADMIN")
 //                    .requestMatchers("/**").permitAll()
                 .anyRequest().authenticated()
