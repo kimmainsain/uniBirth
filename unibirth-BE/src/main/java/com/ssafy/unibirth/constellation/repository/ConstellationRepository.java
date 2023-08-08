@@ -21,6 +21,4 @@ public interface ConstellationRepository extends JpaRepository<Constellation, Lo
             "OR c.member.id = :memberId")
     List<Object[]> findparticipatedConstellationList(@Param("memberId") Long memberId);
 
-    @Query("SELECT s FROM Constellation c JOIN c.starList s WHERE c.id = :constellationId ORDER BY s.brightness DESC")
-    List<Star> findTopStarsByConstellationOrderByBrightnessDesc(@Param("constellationId") Long constellationId);
 }
