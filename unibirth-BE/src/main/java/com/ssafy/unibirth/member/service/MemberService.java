@@ -7,7 +7,6 @@ import com.ssafy.unibirth.common.api.exception.NotFoundException;
 import com.ssafy.unibirth.common.api.status.FailCode;
 import com.ssafy.unibirth.common.redis.util.RedisUtil;
 import com.ssafy.unibirth.constellation.domain.Constellation;
-import com.ssafy.unibirth.constellation.repository.ConstellationRepository;
 import com.ssafy.unibirth.follow.domain.Follow;
 import com.ssafy.unibirth.follow.repository.FollowRepository;
 import com.ssafy.unibirth.member.domain.Member;
@@ -32,14 +31,13 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class MemberService{
+public class MemberService {
 
     private final MemberRepository memberRepository;
     private final FollowRepository followRepository;
     private final StarRepository starRepository;
     private final PlanetRepository planetRepository;
     private final MailSendService mailSendService;
-    private final ConstellationRepository constellationRepository;
     private final PasswordEncoder passwordEncoder;
     private final RedisUtil redisUtil;
 
@@ -51,17 +49,17 @@ public class MemberService{
         Member member = new Member(registRequestDto, password);
         memberRepository.save(member);
     }
-    
+
     // 이메일 중복 확인 및 인증 코드 전송
     public String checkEmailDuplicationAndValidity(String email) throws Exception {
-        
+
         // 이메일 중복 확인
         Optional<Member> findMember = memberRepository.findByEmail(email);
 
-        if(findMember.isPresent()) {
+        if (findMember.isPresent()) {
             throw new DuplicatedException(FailCode.DUPLICATED_EMAIL);
         }
-        
+
         // 이메일 인증코드 전송
         String verifyCodeId = mailSendService.sendCertificationMail(email);
         return verifyCodeId;
@@ -69,7 +67,7 @@ public class MemberService{
 
     // 이메일 인증코드 입력값 확인
     public String checkEmailCode(String code, String email) {
-        if(!redisUtil.existsData(email)) {
+        if (!redisUtil.existsData(email)) {
             // 5분이 지나면 저장돼있던 코드가 사라짐
             // 입력된 email이 redisUtil에 key로 존재하지 않는다면
             // 기간이 만료됐으므로 예외 발생시킴
@@ -77,7 +75,7 @@ public class MemberService{
         } else {
             // 입력된 email이 redisUtil에 key로 존재하더라도
             // 코드가 잘못입력되면 예외 발생
-            if(!redisUtil.getData(email).equals(code)) {
+            if (!redisUtil.getData(email).equals(code)) {
                 throw new CodeNotCorrectException(FailCode.CODE_NOT_CORRECT);
             }
         }
@@ -93,11 +91,11 @@ public class MemberService{
         Member member = memberRepository.findByEmail(loginRequestDto.getEmail()).orElseThrow(() -> new NotFoundException(FailCode.EMAIL_NOT_FOUND));
         PasswordEncoder encoder = passwordEncoder;
 
-        if(!encoder.matches(loginRequestDto.getPassword(), member.getPassword())) {
+        if (!encoder.matches(loginRequestDto.getPassword(), member.getPassword())) {
             throw new NotFoundException(FailCode.PASSWORD_NOT_FOUND);
         }
 
-        if(member.getRole() == Role.DELETED) {
+        if (member.getRole() == Role.DELETED) {
             throw new NotFoundException(FailCode.MEMBER_NOT_FOUND);
         }
 
@@ -116,7 +114,7 @@ public class MemberService{
     public Member detailUser(Long id) {
         Member member = memberRepository.findById(id).orElseThrow(() -> new NotFoundException(FailCode.MEMBER_NOT_FOUND));
 
-        if(member.getRole() == Role.DELETED){
+        if (member.getRole() == Role.DELETED) {
             throw new NotFoundException(FailCode.MEMBER_NOT_FOUND);
         }
 
@@ -126,7 +124,7 @@ public class MemberService{
     public Member detailUser(String nickname) {
         Member member = memberRepository.findByNickname(nickname).orElseThrow(() -> new NotFoundException(FailCode.MEMBER_NOT_FOUND));
 
-        if(member.getRole() == Role.DELETED){
+        if (member.getRole() == Role.DELETED) {
             throw new NotFoundException(FailCode.MEMBER_NOT_FOUND);
         }
 
@@ -137,7 +135,7 @@ public class MemberService{
     public ProfileRespDto detailProfile(String nickname) {
         Member member = memberRepository.findByNickname(nickname).orElseThrow(() -> new NotFoundException(FailCode.MEMBER_NOT_FOUND));
 
-        if(member.getRole() == Role.DELETED){
+        if (member.getRole() == Role.DELETED) {
             throw new NotFoundException(FailCode.MEMBER_NOT_FOUND);
         }
 
@@ -150,7 +148,7 @@ public class MemberService{
     public void deleteUser(Long id) {
         Member member = memberRepository.findById(id).orElseThrow(() -> new NotFoundException(FailCode.MEMBER_NOT_FOUND));
 
-        if(member.getRole() == Role.DELETED){
+        if (member.getRole() == Role.DELETED) {
             throw new NotFoundException(FailCode.MEMBER_NOT_FOUND);
         }
 
@@ -158,19 +156,19 @@ public class MemberService{
     }
 
     // 이메일로 중복여부 확인
-    public void checkDuplicatedEmail(String email){
+    public void checkDuplicatedEmail(String email) {
         Optional<Member> findMember = memberRepository.findByEmail(email);
 
-        if(findMember.isPresent()) {
+        if (findMember.isPresent()) {
             throw new DuplicatedException(FailCode.DUPLICATED_EMAIL);
         }
     }
 
     // 닉네임 중복여부 확인
-    public void checkDuplicatedNickname(String nickname){
+    public void checkDuplicatedNickname(String nickname) {
         Optional<Member> findMember = memberRepository.findByNickname(nickname);
 
-        if(findMember.isPresent()) {
+        if (findMember.isPresent()) {
             throw new DuplicatedException(FailCode.DUPLICATED_NICKNAME);
         }
     }
@@ -213,51 +211,78 @@ public class MemberService{
         );
         return member;
     }
+
     // 큐레이션
     public List<Curation> curate() {
 
         List<Star> tempList = new ArrayList<>();
         Member me = getCurrentMember();
 
-        // 1. 내가 팔로우한 사람이 가장 최근에 작성한 별(최상단에 위치)
+        // 중복을 제거해준 리스트
+        List<Star> uniqueList = new ArrayList<>();
+        
+        // 반환해줄 리스트
+        List<Curation> result = new ArrayList<>();
 
-        // 1-1. 내가 팔로잉한 사람들
-        List<Follow> followingList = followRepository.findAllByFollowFrom(detailUser(me.getNickname()));
-        // 1-2. 팔로잉한 사람이 있을 때만 그들이 작성한 최신 별 리스트를 갖고옴
-        if(followingList != null && followingList.size() > 0) {
-            List<Member> followedList = new ArrayList<>(); // 내가 팔로잉한 유저들
-            followingList.forEach((follow) -> {
-                followedList.add(follow.getFollowTo());
-            });
-            for (Member member : followedList) {
-                Star latestStar = starRepository.findTopByMemberIdOrderByCreatedAtDesc(member.getId());
-                if(latestStar != null) {
+        while(uniqueList.size() != 2) {
+            // 1. 내가 팔로우한 사람이 가장 최근에 작성한 별(최상단에 위치)
+
+            // 1-1. 내가 팔로잉한 사람들
+            List<Follow> followingList = followRepository.findAllByFollowFrom(detailUser(me.getNickname()));
+            // 1-2. 팔로잉한 사람이 있을 때만 랜덤으로 한 명을 선택하여
+            // 작성한 최신 별을 갖고옴
+            // 1-3. 그리고 관심행성에서 랜덤으로 별자리를 하나 선택하여
+            // 좋아요가 가장 많은 별을 가져옴
+            if (followingList != null && followingList.size() > 0) {
+                List<Member> followedList = new ArrayList<>(); // 내가 팔로잉한 유저들
+                followingList.forEach((follow) -> {
+                    followedList.add(follow.getFollowTo());
+                });
+
+                // 랜덤으로 한 명을 뽑음
+                Collections.shuffle(followedList, new Random());
+
+                // 그 멤버가 가장 최근에 올린 게시글을 가져옴
+                Star latestStar = starRepository.findTopByMemberIdOrderByCreatedAtDesc(followedList.get(0).getId());
+                if (latestStar != null) {
                     tempList.add(latestStar);
                 }
-            }
-        } // if절 끝
 
-        // 2. 본인이 관심있는 행성에서 랜덤으로 별자리 2개 뽑음 -> 그 중 가장 인기가 많은 별 추천(내거 제외)
-        // 2-1. 관심사가 null이 아니면 해당 관심사를 title로 가진 행성을 찾음
-        if(me.getInterest() != null) {
-            String title = me.getInterest();
-            Planet planet = planetRepository.findByTitle(title);
-            
-            // 2-2. 해당 행성의 별자리 중 랜덤으로 2개를 선정
-            // 그 중 가장 좋아요(brigntness)를 많이 받은 별(Star) 2개를 선정
-            List<Constellation> constellationList = planet.getConstellationList();
-            Collections.shuffle(constellationList, new Random());
-            tempList.addAll(constellationRepository.findTopStarsByConstellationOrderByBrightnessDesc(constellationList.get(0).getId()));
-//            tempList.addAll(constellationRepository.findTopStarsByConstellationOrderByBrightnessDesc(constellationList.get(1).getId()));
+                String title = me.getInterest();
+                Planet planet = planetRepository.findByTitle(title);
+
+                // 2-2. 해당 행성의 별자리 중 랜덤으로 2개를 선정
+                // 그 중 가장 좋아요(brigntness)를 많이 받은 별(Star) 2개를 선정
+                List<Constellation> constellationList = planet.getConstellationList();
+                Collections.shuffle(constellationList, new Random());
+                tempList.addAll(starRepository.findTopStarByConstellationOrderByBrightnessDesc(constellationList.get(0).getId()));
+            } // if절 끝
+
+            // 1-3. 팔로잉한 사람이 없다면
+            // 관심행성에서 랜덤으로 별자리를 두개 선택하여
+            // 가장 좋아요가 많은 별을 하나씩 가져옴
+            else {
+                String title = me.getInterest();
+                Planet planet = planetRepository.findByTitle(title);
+
+                // 2-2. 해당 행성의 별자리 중 랜덤으로 2개를 선정
+                // 그 중 가장 좋아요(brigntness)를 많이 받은 별(Star) 2개를 선정
+                List<Constellation> constellationList = planet.getConstellationList();
+                Collections.shuffle(constellationList, new Random());
+                tempList.addAll(starRepository.findTop2StarByConstellationOrderByBrightnessDesc(constellationList.get(0).getId()));
+            }
+
+            // temp 리스트에서 중복과 내 게시물을 제거
+            uniqueList = tempList.stream().
+             filter(star -> star.getMember().getId() != getCurrentMember().getId())
+            .distinct()
+                    .collect(Collectors.toList());
+
         }
-        
-        // temp 리스트에서 중복을 제거
-        List<Star> uniqueList = tempList.stream().distinct().collect(Collectors.toList());
 
         // 큐레이션 결과에 담길 정보
         // starId, writer, imageUrl, content;
-        List<Curation> result = uniqueList.stream()
-                .filter(star -> star.getMember().getId() != getCurrentMember().getId())
+        result = uniqueList.stream()
                 .map((star) -> new Curation(star))
                 .collect(Collectors.toList());
 
