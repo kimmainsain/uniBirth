@@ -1,23 +1,21 @@
 package com.ssafy.unibirth.constellation.dto;
 
-import com.ssafy.unibirth.star.dto.StarItemDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-@Data
+@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReadConstellationResDto {
+public class PlanetConstellationItemDto {
     private Long constellationId;
-    private boolean completion;
-    private boolean alreadyPined;
+    private String title;
     private int boardSize;
     private int[][] lineList;
-    private int[][] pointList;
-    private List<StarItemDto> starList;
+    private double x;
+    private double y;
+    private String imageUrl;
+    private boolean alreadyPined;
 }

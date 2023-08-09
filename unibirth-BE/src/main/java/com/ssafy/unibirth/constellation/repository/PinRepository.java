@@ -12,4 +12,6 @@ import java.util.List;
 public interface PinRepository extends JpaRepository<Pin, PinId> {
     @Query("SELECT p.constellation FROM Pin p WHERE p.member.id = :memberId")
     List<Constellation> findConstellationListByMemberId(@Param("memberId") Long memberId);
+    @Query("SELECT p.constellation.id FROM Pin p WHERE p.member.id = :memberId")
+    List<Long> findConstellationIdByMemberId(@Param("memberId") Long memberId);
 }
