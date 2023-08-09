@@ -40,7 +40,15 @@ public class MemberController {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, loginTokenResponseDto);
     }
 
-    // 회원 정보 조회
+    // 내 프로필 조회
+    @GetMapping("/profiles/read")
+    public ResponseEntity<MyProfileRespDto> getProfile() {
+        Member member = memberService.getCurrentMember();
+        MyProfileRespDto profile = memberService.myDetailProfile(member.getNickname());
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, profile);
+    }
+
+    // 다른 사람 프로필 조회
     @GetMapping("/detail/{nickname}")
     public ResponseEntity<ProfileRespDto> detailUser(@PathVariable("nickname") String nickname) {
         ProfileRespDto result = memberService.detailProfile(nickname);
@@ -84,13 +92,6 @@ public class MemberController {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS);
     }
 
-    // 내 프로필 조회
-    @GetMapping("/profiles/read")
-    public ResponseEntity<ProfileRespDto> getProfile() {
-        Member member = memberService.getCurrentMember();
-        ProfileRespDto profile = memberService.detailProfile(member.getNickname());
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, profile);
-    }
 
     // 프로필 수정
     @PutMapping("/profiles/update")

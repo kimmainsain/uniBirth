@@ -8,7 +8,7 @@ import java.util.Date;
 
 
 @Data
-public class ProfileRespDto {
+public class MyProfileRespDto {
 
     private String nickname;
     private Date birth;
@@ -19,7 +19,7 @@ public class ProfileRespDto {
     private String imageUrl;
     private String zodiac; // 본인 생일에 해당하는 황도 12궁 이름
 
-    public ProfileRespDto(Member member, int starCount) {
+    public MyProfileRespDto(Member member, int starCount) {
         this.nickname = member.getNickname();
         this.birth = member.getBirth();
         this.starCount = starCount;
