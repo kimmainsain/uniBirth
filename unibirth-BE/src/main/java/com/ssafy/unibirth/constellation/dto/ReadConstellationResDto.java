@@ -15,6 +15,7 @@ import java.util.List;
 public class ReadConstellationResDto {
     private Long constellationId;
     private boolean completion;
+    private boolean alreadyPined;
     private int boardSize;
     private int[][] lineList;
     private int[][] pointList;
