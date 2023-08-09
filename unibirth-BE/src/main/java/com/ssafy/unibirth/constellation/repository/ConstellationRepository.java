@@ -15,7 +15,7 @@ public interface ConstellationRepository extends JpaRepository<Constellation, Lo
     List<Constellation> findAllByTitleContains(String title);
 
     // 내가 만든 별자리 + 내가 별을 1개 이상 작성한 별자리
-    @Query(value = "SELECT c.id, c.title, c.boardSize, c.lineList, c.x, c.y, c.imageUrl " +
+    @Query(value = "SELECT c.id, c.title, c.boardSize, c.lineList, c.x, c.y, c.z, c.imageUrl, c.color " +
             "FROM Constellation c " +
             "WHERE c.id IN (SELECT s.constellation.id FROM Star s WHERE s.member.id = :memberId) " +
             "OR c.member.id = :memberId")

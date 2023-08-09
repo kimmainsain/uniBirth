@@ -60,6 +60,7 @@ public class ConstellationService {
                 .lineList(stringToArray(con.getLineList()))
                 .pointList(stringToArray(con.getPointList()))
                 .starList(convertToStarListDto(con.getStarList()))
+                .color(con.getColor())
                 .build();
     }
 
@@ -193,7 +194,9 @@ public class ConstellationService {
                                 .lineList(stringToArray(con.getLineList()))
                                 .x(con.getX())
                                 .y(con.getY())
+                                .z(con.getZ())
                                 .imageUrl(con.getImageUrl())
+                                .color(con.getColor())
                                 .build()
                 ).collect(Collectors.toList());
     }
@@ -208,8 +211,10 @@ public class ConstellationService {
                                 .lineList(stringToArray(con.getLineList()))
                                 .x(con.getX())
                                 .y(con.getY())
+                                .z(con.getZ())
                                 .imageUrl(con.getImageUrl())
                                 .alreadyPined(pinedList.contains(con.getId()))
+                                .color(con.getColor())
                                 .build()
                 ).collect(Collectors.toList());
     }
@@ -224,7 +229,9 @@ public class ConstellationService {
                                 .lineList(stringToArray((String) con[3]))
                                 .x((double) con[4])
                                 .y((double) con[5])
-                                .imageUrl((String) con[6])
+                                .z((double) con[6])
+                                .imageUrl((String) con[7])
+                                .color((String) con[8])
                                 .build()
                 ).collect(Collectors.toList());
     }

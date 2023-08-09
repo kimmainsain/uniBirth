@@ -20,4 +20,5 @@ public class ReadConstellationResDto {
     private int[][] lineList;
     private int[][] pointList;
     private List<StarItemDto> starList;
+    private String color;
 }

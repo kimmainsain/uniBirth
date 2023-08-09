@@ -25,19 +25,27 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     public JwtAuthenticationFilter(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
     }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try{
             String token = jwtTokenProvider.resolveToken(request);
-            Authentication auth = jwtTokenProvider.getAuthentication(token);
-            SecurityContextHolder.getContext().setAuthentication(auth);
+            if(token != null && token.length() != 0) {
+                Authentication auth = jwtTokenProvider.getAuthentication(token);
+                SecurityContextHolder.getContext().setAuthentication(auth);
+            }
             filterChain.doFilter(request, response);
         }catch (ExpiredJwtException e){
             sendFailResponse(response, FailCode.TOKEN_EXPIRED);
         }catch (JwtException | IllegalArgumentException e){
             sendFailResponse(response, FailCode.INVALID_TOKEN);
         }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
+
+
 
     private void sendFailResponse(HttpServletResponse response, FailCode failCode
     ){

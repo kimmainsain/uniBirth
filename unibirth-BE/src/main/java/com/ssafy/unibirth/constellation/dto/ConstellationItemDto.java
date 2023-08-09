@@ -16,5 +16,7 @@ public class ConstellationItemDto {
     private int[][] lineList;
     private double x;
     private double y;
+    private double z;
     private String imageUrl;
+    private String color;
 }
