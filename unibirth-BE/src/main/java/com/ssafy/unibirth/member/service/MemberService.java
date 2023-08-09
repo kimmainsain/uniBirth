@@ -261,8 +261,8 @@ public class MemberService {
                     tempList.add(latestStar.get(0));
                 }
 
-                String title = me.getInterest();
-                Planet planet = planetRepository.findByTitle(title);
+                Long planetId = me.getPlanetId();
+                Planet planet = planetRepository.findById(planetId).get();
 
                 // 해당 행성에 별자리가 존재한다면
                 // 그 중 가장 좋아요(brigntness)를 많이 받은 별(Star) 1개를 선정
@@ -286,8 +286,8 @@ public class MemberService {
             // 관심행성에서 랜덤으로 별자리를 하나 선택하여
             // 가장 좋아요가 많은 별 2개를 가져옴
             else {
-                String title = me.getInterest();
-                Planet planet = planetRepository.findByTitle(title);
+                Long planetId = me.getPlanetId();
+                Planet planet = planetRepository.findById(planetId).get();
 
                 // 2-2. 해당 행성의 별자리 중 랜덤으로 2개를 선정
                 // 그 중 가장 좋아요(brigntness)를 많이 받은 별(Star) 1개를 선정
