@@ -10,7 +10,9 @@ import static org.springframework.http.HttpStatus.*;
 @AllArgsConstructor
 public enum FailCode {
     GENERAL_ERROR(BAD_REQUEST, "데이터 처리 실패"),
-    
+
+    TOKEN_EXPIRED(FORBIDDEN, "만료된 토큰입니다."),
+    INVALID_TOKEN(FORBIDDEN, "유효하지 않은 토큰입니다."),
     // 별자리
     PLANET_NOT_FOUND(NOT_FOUND, "존재하지 않은 행성입니다."),
     CONSTELLATION_NOT_FOUND(NOT_FOUND, "존재하지 않는 별자리입니다."),
