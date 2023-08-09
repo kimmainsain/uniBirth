@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.ssafy.unibirth.common.api.exception.CustomException;
 import com.ssafy.unibirth.common.api.exception.NotFoundException;
 import com.ssafy.unibirth.common.api.status.FailCode;
-import com.ssafy.unibirth.constellation.domain.Constellation;
-import com.ssafy.unibirth.constellation.domain.Pin;
-import com.ssafy.unibirth.constellation.domain.PinId;
-import com.ssafy.unibirth.constellation.domain.Template;
+import com.ssafy.unibirth.constellation.domain.*;
 import com.ssafy.unibirth.constellation.dto.*;
 import com.ssafy.unibirth.constellation.repository.ConstellationRepository;
 import com.ssafy.unibirth.constellation.repository.PinRepository;
@@ -16,17 +13,13 @@ import com.ssafy.unibirth.member.domain.Member;
 import com.ssafy.unibirth.member.service.MemberService;
 import com.ssafy.unibirth.planet.domain.Planet;
 import com.ssafy.unibirth.planet.service.PlanetService;
-import com.ssafy.unibirth.security.SecurityUtil;
-import com.ssafy.unibirth.security.jwt.JwtTokenProvider;
 import com.ssafy.unibirth.star.domain.Star;
 import com.ssafy.unibirth.star.dto.StarItemDto;
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -215,6 +208,7 @@ public class ConstellationService {
                                 .imageUrl(con.getImageUrl())
                                 .alreadyPined(pinedList.contains(con.getId()))
                                 .color(con.getColor())
+                                .pointList(getPointAndBrightness(con.getId()))
                                 .build()
                 ).collect(Collectors.toList());
     }
@@ -249,6 +243,19 @@ public class ConstellationService {
                                 .pointList(stringToArray(tem.getPointList()))
                                 .build()
                 ).collect(Collectors.toList());
+    }
+
+    private List<Point> getPointAndBrightness(Long id) {
+        final int EMPTY = -1;
+        int[][] points = stringToArray(constellationRepository.findPointListById(id));
+        List<Star> starList = constellationRepository.findStarListById(id);
+        List<Point> resultList = new ArrayList<>();
+
+        for(int i = 0; i < points.length; i++) {
+            int brightness = i < starList.size() ? starList.get(i).getBrightness() : EMPTY;
+            resultList.add(new Point(points[i][0],points[i][1], points[i][2], brightness));
+        }
+        return resultList;
     }
 
     private List<List<Integer>> insertZPoint(List<List<Integer>> pointList) {

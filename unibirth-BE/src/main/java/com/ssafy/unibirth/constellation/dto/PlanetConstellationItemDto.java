@@ -1,9 +1,12 @@
 package com.ssafy.unibirth.constellation.dto;
 
+import com.ssafy.unibirth.constellation.domain.Point;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Getter
 @Builder
@@ -20,4 +23,5 @@ public class PlanetConstellationItemDto {
     private String imageUrl;
     private String color;
     private boolean alreadyPined;
+    private List<Point> pointList;
 }
