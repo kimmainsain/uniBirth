@@ -50,10 +50,12 @@ public class ConstellationService {
     }
 
     public ReadConstellationResDto read(Long id) {
+        Long memberId = memberService.getCurrentMember().getId();
         Constellation con = findConstellationById(id);
         return ReadConstellationResDto.builder()
                 .constellationId(con.getId())
                 .completion(con.getPointCount() == con.getStarCount())
+                .alreadyPined(isPined(memberId, id))
                 .boardSize(con.getBoardSize())
                 .lineList(stringToArray(con.getLineList()))
                 .pointList(stringToArray(con.getPointList()))
@@ -150,6 +152,11 @@ public class ConstellationService {
     private int[][] stringToArray(String arrayString) {
         Gson gson = new Gson();
         return gson.fromJson(arrayString, int[][].class);
+    }
+
+    private boolean isPined(Long memberId, Long constellationId) {
+        PinId pinId = new PinId(memberId, constellationId);
+        return pinRepository.existsById(pinId);
     }
 
     private boolean checkPinValidation(Long memberId, Long constellationId) {
