@@ -26,6 +26,8 @@ public class QConstellation extends EntityPathBase<Constellation> {
 
     public final NumberPath<Integer> boardSize = createNumber("boardSize", Integer.class);
 
+    public final StringPath color = createString("color");
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
@@ -59,6 +61,8 @@ public class QConstellation extends EntityPathBase<Constellation> {
     public final NumberPath<Double> x = createNumber("x", Double.class);
 
     public final NumberPath<Double> y = createNumber("y", Double.class);
+
+    public final NumberPath<Double> z = createNumber("z", Double.class);
 
     public QConstellation(String variable) {
         this(Constellation.class, forVariable(variable), INITS);
