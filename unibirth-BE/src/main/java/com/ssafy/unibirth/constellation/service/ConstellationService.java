@@ -63,10 +63,12 @@ public class ConstellationService {
                 .build();
     }
 
-    public ReadConstellationListResDto readAll(Long planetId) {
+    public ReadPlanetConstellationListResDto readAll(Long planetId) {
+        Long memberId = memberService.getCurrentMember().getId();
         List<Constellation> constellationList = constellationRepository.findAllByPlanetId(planetId);
-        List<ConstellationItemDto> constellationItemDtoList = convertToConstellationItemDto(constellationList);
-        return new ReadConstellationListResDto(constellationItemDtoList);
+        List<Long> pinedList = pinRepository.findConstellationIdByMemberId(memberId);
+        List<PlanetConstellationItemDto> constellationItemDtoList = convertToConstellationItemDto(constellationList, pinedList);
+        return new ReadPlanetConstellationListResDto(constellationItemDtoList);
     }
 
     @Transactional(readOnly = true)
@@ -192,6 +194,22 @@ public class ConstellationService {
                                 .x(con.getX())
                                 .y(con.getY())
                                 .imageUrl(con.getImageUrl())
+                                .build()
+                ).collect(Collectors.toList());
+    }
+
+    private List<PlanetConstellationItemDto> convertToConstellationItemDto(List<Constellation> constellationList, List<Long> pinedList) {
+        return constellationList.stream()
+                .map(con ->
+                        PlanetConstellationItemDto.builder()
+                                .constellationId(con.getId())
+                                .title(con.getTitle())
+                                .boardSize(con.getBoardSize())
+                                .lineList(stringToArray(con.getLineList()))
+                                .x(con.getX())
+                                .y(con.getY())
+                                .imageUrl(con.getImageUrl())
+                                .alreadyPined(pinedList.contains(con.getId()))
                                 .build()
                 ).collect(Collectors.toList());
     }
