@@ -18,7 +18,7 @@ public interface StarRepository extends JpaRepository<Star, Long> {
     Optional<Star> findByIdAndMemberId(Long starId, Long memberId);
 
     @Query("SELECT s FROM Star s JOIN s.member m WHERE m.id = :memberId ORDER BY m.createdAt DESC")
-    Star findTopByMemberIdOrderByCreatedAtDesc(@Param("memberId") Long memberId);
+    List<Star> findTopByMemberIdOrderByCreatedAtDesc(@Param("memberId") Long memberId);
 
     @Query("SELECT count(s) FROM Star s JOIN s.member m WHERE m.id = :memberId")
     Integer countByMember(@Param("memberId") Long memberId);
@@ -27,7 +27,4 @@ public interface StarRepository extends JpaRepository<Star, Long> {
     @Query("SELECT s FROM Star s JOIN s.constellation c WHERE c.id = :constellationId ORDER BY s.brightness DESC")
     List<Star> findTopStarByConstellationOrderByBrightnessDesc(@Param("constellationId") Long constellationId);
 
-    // 랜덤으로 뽑은 별자리 중 가장 좋아요를 많이 받은 별
-    @Query("SELECT s FROM Star s JOIN s.constellation c WHERE c.id = :constellationId ORDER BY s.brightness DESC")
-    List<Star> findTop2StarByConstellationOrderByBrightnessDesc(@Param("constellationId") Long constellationId);
 }
