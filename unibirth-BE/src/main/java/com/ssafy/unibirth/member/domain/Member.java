@@ -43,8 +43,8 @@ public class Member extends BaseTimeEntity {
     // 본인 생일에 해당하는 황도 12궁 이름
     private String zodiac;
 
-    // 관심 분야
-    private String interest;
+    // 관심 행성의 아이디
+    private Long planetId;
 
     // 내가 작성한 별자리 목록
     @OneToMany(mappedBy = "member")
@@ -112,7 +112,7 @@ public class Member extends BaseTimeEntity {
         this.nickname = registRequestDto.getNickname();
         this.password = password;
         this.email = registRequestDto.getEmail();
-        this.interest = registRequestDto.getInterest();
+        this.planetId = registRequestDto.getPlanetId();
         this.introduction = registRequestDto.getIntroduction();
         this.birth = registRequestDto.getBirth();
         this.imageUrl = registRequestDto.getImageUrl();
