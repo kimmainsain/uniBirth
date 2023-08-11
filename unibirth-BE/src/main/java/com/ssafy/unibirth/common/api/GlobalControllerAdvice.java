@@ -18,6 +18,11 @@ public class GlobalControllerAdvice {
         return ResponseEntity.fail(exception.getFailCode());
     }
 
+    @ExceptionHandler(NoMoreConstellationCountException.class)
+    public ResponseEntity handleDuplicatedException(NoMoreConstellationCountException exception) {
+        return ResponseEntity.fail(exception.getFailCode());
+    }
+
     @ExceptionHandler(CustomException.class)
     public ResponseEntity CustomException(CustomException exception) {
         return ResponseEntity.fail(exception.getFailCode());

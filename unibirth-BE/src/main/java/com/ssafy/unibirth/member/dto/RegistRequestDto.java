@@ -13,7 +13,7 @@ public class RegistRequestDto {
     private String nickname;
     private String password;
     private String email;
-    private String interest;
+    private Long planetId;
     private String introduction;
     private Date birth;
     private String imageUrl;

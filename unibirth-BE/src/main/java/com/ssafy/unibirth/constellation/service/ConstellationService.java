@@ -34,12 +34,14 @@ public class ConstellationService {
 
     public CreateConstellationResDto create(ConstellationReqDto dto) {
         Member member = memberService.getCurrentMember();
+        Long constellationLimit = member.minusConstellationLimit();
+
         Planet planet = planetService.findPlanetById(dto.getPlanetId());
         List<List<Integer>> pointList = insertZPoint(dto.getPointList());
         List<List<Integer>> lineList = insertZLine(dto.getLineList(), dto.getPointList());
         Constellation constellation = dto.toEntity(member, planet,lineList, pointList);
         Long createdId = constellationRepository.save(constellation).getId();
-        return new CreateConstellationResDto(createdId);
+        return new CreateConstellationResDto(createdId, constellationLimit);
     }
 
     public ReadConstellationResDto read(Long id) {
