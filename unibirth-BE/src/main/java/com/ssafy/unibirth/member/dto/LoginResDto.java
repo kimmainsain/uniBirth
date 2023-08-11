@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class LoginResponseDto {
+public class LoginResDto {
 
     private String nickname;
     @Enumerated(EnumType.STRING)
