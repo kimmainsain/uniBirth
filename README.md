@@ -1,98 +1,210 @@
-# 1. Uni-Birth
-1-1. 서비스 소개
-Uni-Birth: Universe와 Birth의 합성어
-=> 우주라는 광활한 배경에서 본인만의 별 또는 별자리를 만들어나가는 SNS 큐레이션 웹 서비스 
+# Uni-Birth
+
+------------------- 이 자리에 UCC 넣기! -------------------
+
+## 목차
+
+1. [서비스 소개](#1.-서비스-소개)
+2. [주요 기능](#2.-주요-기능)
+3. [비즈니스 모델](#3.-비즈니스-모델)
+4. [진행 기간](#1.-진행-기간)
+5. [시스템 구성도](#2.-시스템-구성도)
+6. [기술 스택](#3.-기술-스택)
+7. [구성원](#4.-구성원)
+8. [코드 컨벤션](#5.-코드_컨벤션)
+9. [실행 방법](#6.-실행_방법)
+
+## 1. 서비스 소개
+
+> ⭐ 여러분의 가장 빛나는 순간을 우주에 간직해 보세요.
+
+Uni-Birth는 Universe와 Birth의 합성어로, 우주라는 광활한 공간에 자신만의 별과 별자리를 만들어나가는 SNS 큐레이션 웹 서비스입니다.
+
 <img src="./img/main기능1.png">
-- 1. <b> 여러분의 가장 빛나는 순간을 공유하세요. </b>
-    - ⭐ 생성한 게시글이 별이 되어 별자리를 만들 수 있어요 !
-- 2. <b> 나만의 별자리를 만들어 소중한 추억을 간직하세요. </b>
-    - 🌟 별자리를 커스텀해 별자리를 간직할 수 있어요 !
-- 3. <b> 비슷한 성향의 사람들의 경험을 체험하세요. </b>
-    - 👍 게시글을 추천받을 수 있어요 !
 
-1-2. 개요
-- 웹 디자인 트랙 선정 배경
-	 - 프론트엔드와 백엔드 둘 다 다양한 기술 활용 가능 
-	 - 기존의 SNS와 차별화된 서비스 제공
+- <b> 여러분의 가장 빛나는 순간을 별로 띄워 공유하세요. </b>
+- <b> 나만의 별자리를 만들어 소중한 추억을 간직하세요. </b>
+- <b> 나와 비슷한 성향의 사람들의 별을 추천받아요. </b>
 
-- 컨셉을 우주로 결정하게된 계기
-	 - 우주라는 독특한 배경으로 신비로운 UI 제공
-	 - 비슷한 주제의 게시물을 한 눈에 탐색가능
+## 2. 주요 기능
 
-1-3. 프로젝트 진행기간
-- SSAFY 9기 2학기 공통 프로젝트 
-- 2023.07.04 ~ 2023.08.18 ( 총 45 일 / 현재 진행일: 22 일 )    
+### 1. 별자리 만들기
 
+------------------- 이 자리에 각 기능별 gif 넣기! -------------------
 
-1-4. 주요 기능
-- 게시판 기능
-	- 별자리(게시판) 안에 작성된 별(게시글)에 대한 CRUD 기능
-- 별자리 만들기
-	- 2차원 배열에 점을 찍어 별자리를 만들고 저장, 각 별의 위치에 게시글 생성.
-- 별 큐레이션 (게시글 추천)
-	- 적절한 알고리즘을 통해 사용자가 흥미있어 할 만한 별(게시글)을 추천.
-- 팔로잉
-	- 서비스 이용자 간의 팔로우, 프로필 페이지 조회, 메시지 기능 등을 통한 소통 기능.
-- 비즈니스 모델
-	- 별자리 그리기에서 기본 제공 격자판 외 격자판 크기 원할 시 추가 비용 발생 기능.
-	- 핀할 수 있는 별자리 개수 제한 및 개수 증가 원할 시 추가 비용 발생 기능.
+- 사용자가 격자판에 여러 선들로 그린 별자리 저장 및 3D로 별자리 자동 생성
+- 별자리 템플릿 불러오기 및 템플릿 커스텀 기능 제공
+- 만들어진 별자리로 친구를 초대하는 알림 보내기 기능 제공
 
+### 2. 게시판 기능
 
-# 2. 코드 컨벤션
-### Front 
-	- 싱글 쿼트 대신에 더블 쿼트를 사용합니다.
-	- 화살표 함수의 인수에 항상 괄호를 사용합니다. 예: (x) => x
-	- 문장 끝에 세미콜론을 항상 사용합니다.
-	- 스페이스를 사용하여 들여쓰기를 합니다. true일 경우에는 탭을 사용합니다.
-	- 들여쓰기의 너비를 2 스페이스로 설정합니다.
-	- 한 줄에 80자를 넘지 않도록 코드를 개행합니다.
-	- 객체, 배열 등이 여러 줄에 걸쳐있을 때, 마지막 항목 뒤에도 항상 쉼표를 사용합니다.
-	- React 이벤트 핸들러는 소문자가 아닌 캐멀케이스(camelCase)를 사용합니다.
-	- 컴포넌트명은 파스칼케이스(PascalCase)를 사용합니다. 기능 + 상위폴더명.jsx
+- 별자리(게시판) 안에 들어가는 별(게시글)에 대한 CRUD 기능
+- 별자리를 핀해서 보관할 수 있는 기능
+- 내가 참여한 별자리만 볼 수 있는 기능
+- 좋아요를 수치가 아닌 밝기로 표시하는 기능
 
-### Back
-	- 변수명은 camelCase를 기본으로 합니다.
-	- ENUM은 대문자로 네이밍합니다. 
-	- 함수명은 소문자로 시작하고 동사로 네이밍합니다.
-	- 클래스명은 명사로 작성하고 UpperCamelCase를 사용합니다.
-  - LocalDateTime -> xxxAt으로 네이밍합니다.
-	- DB의 예약어를 변수명으로 사용하지 않습니다.
-	- Controller 단에서 로직을 구현하는 것을 지양합니다.
+### 3. 별 큐레이션
 
+- 아래의 기준을 통해 사용자에게 별을 추천
+  1.  팔로우한 사람 중에 랜덤으로 1명을 골라서 그 사람이 가장 최근에 작성한 별 추천
+  2.  회원가입 시 선택한 관심 행성에서 랜덤으로 별자리를 1개 가져온 후, 그 중 가장 밝은 별 추천
+  3.  전체 별에서 랜덤으로 2개 이상의 별 추천
 
-# 3. 역할
-front, back의 lead를 맡아 각자 맡은 바 역할을 수행했습니다. 
+### 4. 팔로우 및 메세지
 
-## 3-1 Front-End
-||이름| 역할|
-|:--:|:--:|:--|
-| <img src="./img/김민섭1.png" width=100px> | 김민섭| -Front Lead <br> - Main flow |
-| <img src="./img/이성섭1.png" width=100px> | 이성섭| -3D rendering <br> - Components flow |
-| <img src="./img/정준혁1.png" width=100px> | 정준혁| -2D canvas <br> - Architecture flow |
+- 사용자 간 프로필 조회 및 팔로우 가능
+- 팔로잉, 팔로워 목록 제공 및 1:1 메시지를 통한 소통 기능
 
-## 3-2 Back-End 
-||이름| 역할|
-|:--:|:--:|:--|
-| <img src="./img/이승엽1.png" width=100px> | 이승엽| - 조장<br> - Team Lead <br> - 발표 <br> - Jira 관리|
-| <img src="./img/김경륜1.png" width=100px> | 김경륜|  - Back-lead <br> - 회의 진행 <br> - 노션 관리|
-| <img src="./img/태준모1.png" width=100px> | 태준모| - Backend <br> - 서기 <br> - 3D 이미지 구현 <br> - UCC|
+### 5. 검색
 
-# 4. 서비스 사용법
-### 4-1 회원가입 및 로그인
-	- 회원가입 버튼을 클릭하여 필요한 정보를 입력하고 가입 버튼을 눌러 가입할 수 있습니다.
-	- 로그인 버튼을 클릭하고 등록한 이메일과 비밀번호를 입력하여 로그인할 수 있습니다.
-### 4-2. 별자리 만들기
-	- 별자리 만들기 버튼을 클릭하고 별자리를 만들기 위한 2차원 배열에 점을 찍어 별자리를 만들 수 있습니다.
-	- 별자리의 각 별에 게시글을 추가할 수 있습니다.
-### 4-3 별자리 탐색하기
-	- 별자리 탐색 버튼을 클릭하면, 우주 공간에서 다른 사용자들이 만든 별자리를 탐색할 수 있습니다.
-	- 별자리에 방문하여 각 별에 담긴 게시글을 볼 수 있습니다.
-### 4-4 팔로잉 및 소통
-	- 다른 사용자의 프로필 페이지에서 팔로우 버튼을 클릭하여 팔로우할 수 있습니다.
-	- 팔로우한 사용자의 활동을 소식에서 확인할 수 있습니다.
-	- 다른 사용자에게 메시지를 보낼 수 있습니다.
+- 다양한 카테고리(전체, 별자리, 별, 닉네임)로 검색 가능
+- 메세지방 목록에서 닉네임 검색으로 메세지방 찾기 가능
 
-5. 사용된 기술 스택
-Front-end: React, Recoil, Tainwinds, Three.js, Konva.js
-Back-end: Spring, Spring Data JPA, Querydsl, MariaDB, Redis
-Deployment: Amazon EC2
+## 3. 비즈니스 모델
+
+- 별자리 그리기에서 기본 제공 격자판 외 격자판 크기 원할 시 추가 비용 발생
+- 핀할 수 있는 별자리 개수 제한 및 개수 증가 원할 시 추가 비용 발생
+- 별자리 생성 가능 개수를 별 띄우기 참여 비율에 비례해 제한하여 별 띄우기 참여 유도
+
+  <br/>
+  <br/>
+  <br/>
+
+# 프로젝트 소개
+
+## 1. 진행 기간
+
+2023.07.04 ~ 2023.08.18 (6주)
+
+## 2. 시스템 구성도
+
+------------------- 이 자리에 시스템 구성도 이미지 넣기! -------------------
+
+## 3. 기술 스택
+
+### 1. Front
+
+<img src="https://img.shields.io/badge/React-403C42?style=for-the-badge&logo=React&logoColor=white">
+<img src="https://img.shields.io/badge/Recoil-403C42?style=for-the-badge&logo=Recoil&logoColor=white">
+<img src="https://img.shields.io/badge/Node.js-403C42?style=for-the-badge&logo=Node.js&logoColor=white">
+<img src="https://img.shields.io/badge/javascript-403C42?style=for-the-badge&logo=javascript&logoColor=white">
+
+<img src="https://img.shields.io/badge/Tailwind CSS-403C42?style=for-the-badge&logo=Tailwind CSS&logoColor=white">
+<img src="https://img.shields.io/badge/Konva-403C42?style=for-the-badge&logo=Konva&logoColor=white">
+<img src="https://img.shields.io/badge/Three.js-403C42?style=for-the-badge&logo=Three.js&logoColor=white">
+
+- React 로 사용자와의 상호작용이 많은 웹 페이지를 효율적으로 구현하고 관리하였습니다.
+- Recoil을 이용해 API 응답 데이터를 캐싱함으로써 서버 통신 비용을 줄였습니다.
+- Konva를 이용해 격자판에 별자리를 편리하게 그릴 수 있도록 구현하였습니다.
+- Three.js를 이용해 3차원 우주, 별자리를 자연스럽게 구현하였습니다.
+
+### 2. Back
+
+<img src="https://img.shields.io/badge/Spring Boot 3.1.1-403C42?style=for-the-badge&logo=Spring Boot&logoColor=white">
+<img src="https://img.shields.io/badge/JPA-403C42?style=for-the-badge&logo=jpa&logoColor=white">
+<img src="https://img.shields.io/badge/Query Dsl-403C42?style=for-the-badge&logo=Query Dsl&logoColor=white">
+<img src="https://img.shields.io/badge/java 17-403C42?style=for-the-badge&logo=java&logoColor=white">
+
+<img src="https://img.shields.io/badge/spring security-403C42?style=for-the-badge&logo=springsecurity&logoColor=white">
+<img src="https://img.shields.io/badge/nginx-403C42?style=for-the-badge&logo=nginx&logoColor=white">
+<img src="https://img.shields.io/badge/amazon ec2-403C42?style=for-the-badge&logo=amazonec2&logoColor=white">
+
+- Springboot로 웹 어플리케이션 서버를 구축하였습니다.
+- Spring Data JPA(Hibernate) 로 객체 지향 데이터 로직을 작성하였습니다.
+- QueryDSL 로 컴파일 시점에 SQL 오류를 감지하고, 더 가독성 높은 코드를 작성하였습니다.
+- AWS EC2를 이용해 서버를 배포하였습니다.
+
+### 3. DB
+
+<img src="https://img.shields.io/badge/MariaDB-403C42?style=for-the-badge&logo=MariaDB&logoColor=white">
+<img src="https://img.shields.io/badge/Redis-403C42?style=for-the-badge&logo=Redis&logoColor=white">
+
+- MariaDB로 RDBMS 기반의 데이터 설계를 하였습니다.
+- Redis로 이메일 인증코드를 캐싱하고 유효 시간을 제한하여 속도를 개선하고 보안을 강화하였습니다.
+
+## 4. 구성원
+
+## 1. Front
+
+|                                           |  이름  | 역할                                 |
+| :---------------------------------------: | :----: | :----------------------------------- |
+| <img src="./img/김민섭1.png" width=100px> | 김민섭 | -Front Lead <br> - Main flow         |
+| <img src="./img/이성섭1.png" width=100px> | 이성섭 | -3D rendering <br> - Components flow |
+| <img src="./img/정준혁1.png" width=100px> | 정준혁 | -2D canvas <br> - Architecture flow  |
+
+## 2 Back
+
+|                                           |  이름  | 역할                                                   |
+| :---------------------------------------: | :----: | :----------------------------------------------------- |
+| <img src="./img/이승엽1.png" width=100px> | 이승엽 | - 조장<br> - Team Lead <br> - 발표 <br> - Jira 관리    |
+| <img src="./img/김경륜1.png" width=100px> | 김경륜 | - Back-lead <br> - 회의 진행 <br> - 노션 관리          |
+| <img src="./img/태준모1.png" width=100px> | 태준모 | - Backend <br> - 서기 <br> - 3D 이미지 구현 <br> - UCC |
+
+## 5. 코드 컨벤션
+
+### 1. Front
+
+- 싱글 쿼트 대신에 더블 쿼트를 사용합니다.
+- 화살표 함수의 인수에 항상 괄호를 사용합니다. 예: (x) => x
+- 문장 끝에 세미콜론을 항상 사용합니다.
+- 스페이스를 사용하여 들여쓰기를 합니다. true일 경우에는 탭을 사용합니다.
+- 들여쓰기의 너비를 2 스페이스로 설정합니다.
+- 한 줄에 80자를 넘지 않도록 코드를 개행합니다.
+- 객체, 배열 등이 여러 줄에 걸쳐있을 때, 마지막 항목 뒤에도 항상 쉼표를 사용합니다.
+- React 이벤트 핸들러는 소문자가 아닌 캐멀케이스(camelCase)를 사용합니다.
+- 컴포넌트명은 파스칼케이스(PascalCase)를 사용합니다. 기능 + 상위폴더명.jsx
+
+### 2. Back
+
+- 변수명은 camelCase를 사용하고 명사로 명명합니다.
+- 함수명은 camelCase를 사용하고 동사로 명명합니다.
+- 클래스명은 UpperCase를 사용하고 명사로 명명합니다.
+- 클래스 선언, 메서드 선언, 조건/반복문의 시작 중괄호`{`는 선언부와 같은 줄에 사용합니다.
+- 조건문, 반복문에서 중괄호`{}`는 생략하지 않습니다.
+- 함수의 행 길이는 25줄 이하로 작성하는 것을 지향합니다.
+- 배열 선언시 대괄호`[]` 는 타입 옆에 지정합니다. 예: String[] args (O), String args[] (X)
+- 약어는 camelCase를 사용합니다. 예: Url (O), URL (X)
+- DTO 클래스는 요청은 xxxReqDto, 응답은 xxxResDto로 명명합니다.
+- 약어는 지양합니다. 예: image (O), img (X)
+- LocalDateTime 타입의 변수는 xxxAt으로 네이밍합니다.
+- 컬럼명에 테이블명을 붙이지 않습니다. 예: id (O), memberId (X)
+
+## 6. 실행 방법
+
+### 1. 클라이언트
+
+1. 원격 저장소 복제
+
+   ```bash
+   $ git clone https://lab.ssafy.com/s09-webmobile2-sub2/S09P12A410.git
+   ```
+
+2. 프로젝트로 이동
+
+   ```bash
+   $ cd ~/S09P12A410/unibirth-fe
+   ```
+
+3. 필요한 모듈 설치
+
+   ```bash
+   $ yarn add
+   ```
+
+4. 개발 서버 실행
+
+   ```bash
+   $ yarn start
+   ```
+
+### 2. 서버
+
+1. 원격 저장소 복제
+
+   ```bash
+   $ git clone https://lab.ssafy.com/s09-webmobile2-sub2/S09P12A410.git
+   ```
+
+2. ~/src/main/resources/application.yml 작성
+
+3. Application 실행
