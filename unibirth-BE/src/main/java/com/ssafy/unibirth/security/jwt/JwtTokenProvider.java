@@ -78,15 +78,6 @@ public class JwtTokenProvider {
         return request.getHeader("Authorization");
     }
 
-    // 토큰 유효성 검사
-    public boolean validateToken(String token) {
-        try {
-            Jws<Claims> claims = Jwts.parser().setSigningKey(key).parseClaimsJws(token);
-            return !claims.getBody().getExpiration().before(new Date());
-        } catch (Exception e) {
-            return false;
-        }
-    }
     public void setHeaderAccessToken(HttpServletResponse response, String accessToken) {
         response.setHeader(HEADER, accessToken);
     }
