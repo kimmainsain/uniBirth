@@ -4,7 +4,7 @@ import com.ssafy.unibirth.common.api.exception.NoMoreConstellationCountException
 import com.ssafy.unibirth.common.api.status.FailCode;
 import com.ssafy.unibirth.common.domain.util.BaseTimeEntity;
 import com.ssafy.unibirth.constellation.domain.Constellation;
-import com.ssafy.unibirth.member.dto.RegistRequestDto;
+import com.ssafy.unibirth.member.dto.RegistReqDto;
 import com.ssafy.unibirth.member.dto.UpdateProfileReqDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -118,14 +118,14 @@ public class Member extends BaseTimeEntity {
     }
 
     // 회원가입할 때 입력된 값을 Member 엔티티에 담아줌
-    public Member(RegistRequestDto registRequestDto, String password) {
-        this.nickname = registRequestDto.getNickname();
+    public Member(RegistReqDto registReqDto, String password) {
+        this.nickname = registReqDto.getNickname();
         this.password = password;
-        this.email = registRequestDto.getEmail();
-        this.planetId = registRequestDto.getPlanetId();
-        this.introduction = registRequestDto.getIntroduction();
-        this.birth = registRequestDto.getBirth();
-        this.imageUrl = registRequestDto.getImageUrl();
+        this.email = registReqDto.getEmail();
+        this.planetId = registReqDto.getPlanetId();
+        this.introduction = registReqDto.getIntroduction();
+        this.birth = registReqDto.getBirth();
+        this.imageUrl = registReqDto.getImageUrl();
     }
 
     // 별자리 추가

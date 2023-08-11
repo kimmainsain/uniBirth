@@ -8,7 +8,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegistRequestDto {
+public class RegistReqDto {
 
     private String nickname;
     private String password;

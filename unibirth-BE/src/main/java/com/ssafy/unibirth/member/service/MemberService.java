@@ -20,8 +20,6 @@ import com.ssafy.unibirth.star.domain.Star;
 import com.ssafy.unibirth.star.repository.StarRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,11 +40,11 @@ public class MemberService {
     private final RedisUtil redisUtil;
 
     // 회원 가입
-    public void signup(RegistRequestDto registRequestDto) {
-        checkDuplicatedNickname(registRequestDto.getNickname()); // 닉네임 중복 재확인
-        checkDuplicatedEmail(registRequestDto.getEmail()); // 이메일 중복 재확인
-        String password = passwordEncoder.encode(registRequestDto.getPassword());
-        Member member = new Member(registRequestDto, password);
+    public void signup(RegistReqDto registReqDto) {
+        checkDuplicatedNickname(registReqDto.getNickname()); // 닉네임 중복 재확인
+        checkDuplicatedEmail(registReqDto.getEmail()); // 이메일 중복 재확인
+        String password = passwordEncoder.encode(registReqDto.getPassword());
+        Member member = new Member(registReqDto, password);
         memberRepository.save(member);
     }
 
@@ -87,11 +85,11 @@ public class MemberService {
 
 
     // 로그인
-    public LoginResponseDto login(LoginRequestDto loginRequestDto) {
-        Member member = memberRepository.findByEmail(loginRequestDto.getEmail()).orElseThrow(() -> new NotFoundException(FailCode.EMAIL_NOT_FOUND));
+    public LoginResDto login(LoginReqDto loginReqDto) {
+        Member member = memberRepository.findByEmail(loginReqDto.getEmail()).orElseThrow(() -> new NotFoundException(FailCode.EMAIL_NOT_FOUND));
         PasswordEncoder encoder = passwordEncoder;
 
-        if (!encoder.matches(loginRequestDto.getPassword(), member.getPassword())) {
+        if (!encoder.matches(loginReqDto.getPassword(), member.getPassword())) {
             throw new NotFoundException(FailCode.PASSWORD_NOT_FOUND);
         }
 
@@ -99,7 +97,7 @@ public class MemberService {
             throw new NotFoundException(FailCode.MEMBER_NOT_FOUND);
         }
 
-        return new LoginResponseDto(member.getNickname(), member.getRole(), member.getPurchasedBoard());
+        return new LoginResDto(member.getNickname(), member.getRole(), member.getPurchasedBoard());
     }
 
     // 회원 정보 수정
@@ -132,15 +130,15 @@ public class MemberService {
     }
     
     // 내 프로필 정보 반환
-    public MyProfileRespDto myDetailProfile(String nickname) {
+    public MyProfileResDto myDetailProfile(String nickname) {
         Member member = memberRepository.findByNickname(nickname).get();
         int starCount = starRepository.countByMember(member.getId());
-        MyProfileRespDto result = new MyProfileRespDto(member, starCount);
+        MyProfileResDto result = new MyProfileResDto(member, starCount);
         return result;
     }
 
     // 다른 회원 프로필 정보 반환
-    public ProfileRespDto detailProfile(String nickname) {
+    public ProfileResDto detailProfile(String nickname) {
         Member member = memberRepository.findByNickname(nickname).orElseThrow(() -> new NotFoundException(FailCode.MEMBER_NOT_FOUND));
 
         if (member.getRole() == Role.DELETED) {
@@ -158,7 +156,7 @@ public class MemberService {
             isFollow = true;
         }
 
-        ProfileRespDto result = new ProfileRespDto(member, starCount, isFollow);
+        ProfileResDto result = new ProfileResDto(member, starCount, isFollow);
         return result;
     }
 
@@ -225,117 +223,91 @@ public class MemberService {
 
     // 큐레이션
     public List<Curation> curate() {
-
         List<Star> tempList = new ArrayList<>();
+        List<Star> uniqueList = new ArrayList<>();
+        List<Curation> result = new ArrayList<>();
         Member me = getCurrentMember();
-
-        // 나의 팔로우 관계
         List<Follow> followingList = new ArrayList<>();
         followingList = followRepository.findAllByFollowFrom(detailUser(me.getNickname()));
-
-        // 중복을 제거해준 리스트
-        List<Star> uniqueList = new ArrayList<>();
-        // 반환해줄 리스트
-        List<Curation> result = new ArrayList<>();
-
         while (uniqueList.size() != 2) {
-
-            // 1. 내가 팔로우한 사람이 가장 최근에 작성한 별(최상단에 위치)
-
-
-            // 팔로잉한 사람이 있을 때만 랜덤으로 한 명을 선택하여
-            // 작성한 최신 별을 갖고옴
             if (!followingList.isEmpty()) {
-                List<Member> followedList = new ArrayList<>(); // 내가 팔로잉한 유저들
-                followingList.forEach((follow) -> {
-                    followedList.add(follow.getFollowTo());
-                });
-
-                // 랜덤으로 한 명을 뽑음
-                Collections.shuffle(followedList, new Random());
-
-                // 그 멤버가 가장 최근에 올린 게시글을 가져옴
-                List<Star> latestStar = starRepository.findTopByMemberIdOrderByCreatedAtDesc(followedList.get(0).getId());
-                if (!latestStar.isEmpty()) {
-                    Collections.shuffle(latestStar, new Random());
-                    tempList.add(latestStar.get(0));
-                }
-
-                Long planetId = me.getPlanetId();
-                Planet planet = planetRepository.findById(planetId).get();
-
-                // 해당 행성에 별자리가 존재한다면
-                // 그 중 가장 좋아요(brigntness)를 많이 받은 별(Star) 1개를 선정
-                List<Constellation> constellationList = planet.getConstellationList();
-
-                if (!constellationList.isEmpty()) {
-                    Collections.shuffle(constellationList, new Random());
-
-                    List<Star> topStar = starRepository.findTopStarByConstellationOrderByBrightnessDesc(constellationList.get(0).getId());
-
-                    if (!topStar.isEmpty()) {
-                        Collections.shuffle(topStar, new Random());
-                        tempList.add(topStar.get(0));
-                    }
-
-                }
-
+                getRandomFollower(tempList, me, followingList);
             } // if절 끝
-
-            // 1-3. 팔로잉한 사람이 없다면
-            // 관심행성에서 랜덤으로 별자리를 하나 선택하여
-            // 가장 좋아요가 많은 별 2개를 가져옴
             else {
-                Long planetId = me.getPlanetId();
-                Planet planet = planetRepository.findById(planetId).get();
-
-                // 2-2. 해당 행성의 별자리 중 랜덤으로 2개를 선정
-                // 그 중 가장 좋아요(brigntness)를 많이 받은 별(Star) 1개를 선정
-                List<Constellation> constellationList = planet.getConstellationList();
-                // 행성에
-                if (constellationList != null && constellationList.size() > 0) {
-                    Collections.shuffle(constellationList, new Random());
-
-                    List<Star> topStar = starRepository.findTopStarByConstellationOrderByBrightnessDesc(constellationList.get(0).getId());
-
-                    if (!topStar.isEmpty()) {
-                        Collections.shuffle(topStar, new Random());
-                        tempList.add(topStar.get(0));
-                    }
-                }
+                getRandomPlanetConstellation(tempList, me);
             }
 
-            // 만약 temp 리스트에 2개 미만의 값이 들어있으면
-            // 남은 자리에는 랜덤 별을 넣어주자
             if (tempList.isEmpty() || tempList.size() < 2){
-                List<Star> allStars = starRepository.findAll();
-                Collections.shuffle(allStars, new Random());
-
-                if(tempList.isEmpty()) {
-                    for (int i = 0; i < 2 ; i++) {
-                        tempList.add(allStars.get(i));
-                    }
-                }
-                else if(tempList.size() < 2) {
-                    for (int i = 0; i < (2 - tempList.size()); i++) {
-                        tempList.add(allStars.get(i));
-                    }
-                }
+                getRandomStar(tempList);
             }
-            // temp 리스트에서 중복과 내 게시물을 제거
             uniqueList = tempList.stream().
                     filter(star -> star.getMember().getId() != getCurrentMember().getId())
                     .distinct()
                     .collect(Collectors.toList());
         }
+        return uniqueList.stream().map((star) -> new Curation(star)).collect(Collectors.toList());
+    }
 
-        // 큐레이션 결과에 담길 정보
-        // starId, writer, imageUrl, content;
-        result = uniqueList.stream()
-                .map((star) -> new Curation(star))
-                .collect(Collectors.toList());
+    private void getRandomStar(List<Star> tempList) {
+        List<Star> allStars = starRepository.findAll();
+        Collections.shuffle(allStars, new Random());
 
-        return result;
+        if(tempList.isEmpty()) {
+            for (int i = 0; i < 2 ; i++) {
+                tempList.add(allStars.get(i));
+            }
+        }
+        else if(tempList.size() < 2) {
+            for (int i = 0; i < (2 - tempList.size()); i++) {
+                tempList.add(allStars.get(i));
+            }
+        }
+    }
+
+    private void getRandomPlanetConstellation(List<Star> tempList, Member me) {
+        Long planetId = me.getPlanetId();
+        Planet planet = planetRepository.findById(planetId).get();
+
+        // 2-2. 해당 행성의 별자리 중 랜덤으로 2개를 선정
+        // 그 중 가장 좋아요(brigntness)를 많이 받은 별(Star) 1개를 선정
+        List<Constellation> constellationList = planet.getConstellationList();
+        // 행성에
+        if (constellationList != null && constellationList.size() > 0) {
+            Collections.shuffle(constellationList, new Random());
+
+            List<Star> topStar = starRepository.findTopStarByConstellationOrderByBrightnessDesc(constellationList.get(0).getId());
+
+            if (!topStar.isEmpty()) {
+                Collections.shuffle(topStar, new Random());
+                tempList.add(topStar.get(0));
+            }
+        }
+    }
+
+    private void getRandomFollower(List<Star> tempList, Member me, List<Follow> followingList) {
+        List<Member> followedList = new ArrayList<>(); // 내가 팔로잉한 유저들
+        followingList.forEach((follow) -> {
+            followedList.add(follow.getFollowTo());
+        });
+        Collections.shuffle(followedList, new Random());
+        // 그 멤버가 가장 최근에 올린 게시글을 가져옴
+        List<Star> latestStar = starRepository.findTopByMemberIdOrderByCreatedAtDesc(followedList.get(0).getId());
+        if (!latestStar.isEmpty()) {
+            Collections.shuffle(latestStar, new Random());
+            tempList.add(latestStar.get(0));
+        }
+        Long planetId = me.getPlanetId();
+        Planet planet = planetRepository.findById(planetId).get();
+
+        List<Constellation> constellationList = planet.getConstellationList();
+        if (!constellationList.isEmpty()) {
+            Collections.shuffle(constellationList, new Random());
+            List<Star> topStar = starRepository.findTopStarByConstellationOrderByBrightnessDesc(constellationList.get(0).getId());
+            if (!topStar.isEmpty()) {
+                Collections.shuffle(topStar, new Random());
+                tempList.add(topStar.get(0));
+            }
+        }
     }
 
 }
