@@ -23,35 +23,35 @@ public class MemberController {
 
     // 회원가입
     @PostMapping("/register")
-    public ResponseEntity<Void> signup(@RequestBody RegistRequestDto registRequestDto) {
-        memberService.signup(registRequestDto);
+    public ResponseEntity<Void> signup(@RequestBody RegistReqDto registReqDto) {
+        memberService.signup(registReqDto);
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS);
     }
 
     // 로그인
     @PostMapping("/login")
-    public ResponseEntity<LoginTokenResponseDto> login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
-        LoginResponseDto member = memberService.login(loginRequestDto);
+    public ResponseEntity<LoginTokenResDto> login(@RequestBody LoginReqDto loginReqDto, HttpServletResponse response) {
+        LoginResDto member = memberService.login(loginReqDto);
 
         String accessToken = jwtTokenProvider.createToken(member.getNickname());
-        LoginTokenResponseDto loginTokenResponseDto = new LoginTokenResponseDto(accessToken, member.getNickname(), member.getRole(), member.getPurchasedBoard());
+        LoginTokenResDto loginTokenResDto = new LoginTokenResDto(accessToken, member.getNickname(), member.getRole(), member.getPurchasedBoard());
         jwtTokenProvider.setHeaderAccessToken(response, accessToken);
 
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, loginTokenResponseDto);
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, loginTokenResDto);
     }
 
     // 내 프로필 조회
     @GetMapping("/profiles/read")
-    public ResponseEntity<MyProfileRespDto> getProfile() {
+    public ResponseEntity<MyProfileResDto> getProfile() {
         Member member = memberService.getCurrentMember();
-        MyProfileRespDto profile = memberService.myDetailProfile(member.getNickname());
+        MyProfileResDto profile = memberService.myDetailProfile(member.getNickname());
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, profile);
     }
 
     // 다른 사람 프로필 조회
     @GetMapping("/detail/{nickname}")
-    public ResponseEntity<ProfileRespDto> detailUser(@PathVariable("nickname") String nickname) {
-        ProfileRespDto result = memberService.detailProfile(nickname);
+    public ResponseEntity<ProfileResDto> detailUser(@PathVariable("nickname") String nickname) {
+        ProfileResDto result = memberService.detailProfile(nickname);
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, result);
     }
 
