@@ -31,16 +31,18 @@ public class StarService {
 
     @Transactional
     public CreateStarResDto create(CreateStarReqDto dto) {
+        Member member = memberService.getCurrentMember();
+        Long starCount = member.plusStarCount();
+
         Long constellationId = dto.getConstellationId();
         checkCompletion(constellationId);
 
-        Member member = memberService.getCurrentMember();
         Constellation constellation = constellationService.findConstellationById(constellationId);
         Star star = dto.toEntity(constellation, member);
         Long createdId = starRepository.save(star).getId();
 
         constellationService.updateConstellationStarCount(constellationId, 1);
-        return new CreateStarResDto(createdId);
+        return new CreateStarResDto(createdId, starCount);
     }
 
     public ReadStarDto read(Long id) {
