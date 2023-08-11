@@ -28,6 +28,7 @@ public enum FailCode {
     ALREADY_LIKED_STAR(BAD_REQUEST, "이미 좋아요한 별입니다."),
     ALREADY_PINED_CONSTELLATION(BAD_REQUEST, "이미 핀한 별자리입니다."),
     MINUS_STAR(BAD_REQUEST, "밝기가 0인 별은 좋아요 취소할 수 없습니다."),
+    NO_MORE_CONSTELLATION_COUNT(BAD_REQUEST, "더 이상 별자리를 추가할 수 없습니다."),
 
     // 회원가입
     DUPLICATED_NICKNAME(CONFLICT, "중복된 닉네임입니다."),

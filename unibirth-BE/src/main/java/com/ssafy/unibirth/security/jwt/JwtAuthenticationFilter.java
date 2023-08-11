@@ -59,4 +59,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             e.printStackTrace();
         }
     }
+
 }

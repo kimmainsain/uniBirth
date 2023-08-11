@@ -1,5 +1,7 @@
 package com.ssafy.unibirth.member.domain;
 
+import com.ssafy.unibirth.common.api.exception.NoMoreConstellationCountException;
+import com.ssafy.unibirth.common.api.status.FailCode;
 import com.ssafy.unibirth.common.domain.util.BaseTimeEntity;
 import com.ssafy.unibirth.constellation.domain.Constellation;
 import com.ssafy.unibirth.member.dto.RegistRequestDto;
@@ -39,6 +41,14 @@ public class Member extends BaseTimeEntity {
     private int followingCount;
     @ColumnDefault("0")
     private int followerCount;
+
+    // 내가 만들 수 있는 별자리 수 제한
+    @ColumnDefault("5")
+    private Long constellationLimit;
+
+    // 내가 만든 별의 수
+    @ColumnDefault("0")
+    private Long starCount;
 
     // 본인 생일에 해당하는 황도 12궁 이름
     private String zodiac;
@@ -116,5 +126,27 @@ public class Member extends BaseTimeEntity {
         this.introduction = registRequestDto.getIntroduction();
         this.birth = registRequestDto.getBirth();
         this.imageUrl = registRequestDto.getImageUrl();
+    }
+
+    // 별자리 추가
+    public Long minusConstellationLimit() {
+
+        if(constellationLimit == 0) {
+            throw new NoMoreConstellationCountException(FailCode.NO_MORE_CONSTELLATION_COUNT);
+        }
+
+        constellationLimit--;
+        return constellationLimit;
+    }
+
+    // 별 추가
+    public Long plusStarCount() {
+        starCount++;
+
+        if(starCount % 3 == 0) {
+            constellationLimit++;
+        }
+
+        return starCount;
     }
 }
