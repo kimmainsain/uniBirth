@@ -22,8 +22,9 @@ public class ReadConstellationDetailResDto {
     private int pointCount;
     private int starCount;
     private LocalDateTime createdAt;
+    private boolean isPined;
 
-    public ReadConstellationDetailResDto(Constellation constellation) {
+    public ReadConstellationDetailResDto(Constellation constellation, boolean isPined) {
         this.constellationId = constellation.getId();
         this.constellationTitle = constellation.getTitle();
         this.introduction = constellation.getMember().getIntroduction();
@@ -33,6 +34,7 @@ public class ReadConstellationDetailResDto {
         this.pointCount = constellation.getPointCount();
         this.starCount = constellation.getStarCount();
         this.createdAt = constellation.getCreatedAt();
+        this.isPined = isPined;
     }
 }
 
