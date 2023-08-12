@@ -152,7 +152,6 @@ public class MemberService {
 
         Follow follow = followRepository.findFirstByFollowFromAndFollowTo_Nickname(getCurrentMember(), nickname);
         if(follow != null) {
-            System.out.println("follow = " + follow);
             isFollow = true;
         }
 
