@@ -85,8 +85,10 @@ public class ConstellationService {
 
     @Transactional(readOnly = true)
     public ReadConstellationDetailResDto readDetail(Long constellationId) {
+        Long memberId = memberService.getCurrentMember().getId();
+        boolean isPined = isPined(memberId, constellationId);
         Constellation constellation = findConstellationById(constellationId);
-        return new ReadConstellationDetailResDto(constellation);
+        return new ReadConstellationDetailResDto(constellation, isPined);
     }
 
     @Transactional(readOnly = true)
