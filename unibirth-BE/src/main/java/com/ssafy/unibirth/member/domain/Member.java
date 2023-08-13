@@ -44,11 +44,11 @@ public class Member extends BaseTimeEntity {
 
     // 내가 만들 수 있는 별자리 수 제한
     @ColumnDefault("5")
-    private Long constellationLimit;
+    private int constellationLimit;
 
     // 내가 만든 별의 수
     @ColumnDefault("0")
-    private Long starCount;
+    private int starCount;
 
     // 본인 생일에 해당하는 황도 12궁 이름
     private String zodiac;
@@ -129,7 +129,7 @@ public class Member extends BaseTimeEntity {
     }
 
     // 별자리 추가
-    public Long minusConstellationLimit() {
+    public int minusConstellationLimit() {
 
         if(constellationLimit == 0) {
             throw new NoMoreConstellationCountException(FailCode.NO_MORE_CONSTELLATION_COUNT);
@@ -140,7 +140,7 @@ public class Member extends BaseTimeEntity {
     }
 
     // 별 추가
-    public Long plusStarCount() {
+    public int plusStarCount() {
         starCount++;
 
         if(starCount % 3 == 0) {

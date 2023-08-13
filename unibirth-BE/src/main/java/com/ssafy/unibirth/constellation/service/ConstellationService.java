@@ -34,7 +34,7 @@ public class ConstellationService {
 
     public CreateConstellationResDto create(ConstellationReqDto dto) {
         Member member = memberService.getCurrentMember();
-        Long constellationLimit = member.minusConstellationLimit();
+        int constellationLimit = member.minusConstellationLimit();
 
         Planet planet = planetService.findPlanetById(dto.getPlanetId());
         List<List<Integer>> pointList = insertZPoint(dto.getPointList());

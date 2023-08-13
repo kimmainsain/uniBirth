@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateStarResDto {
     private Long starId;
-    private Long starCount;
+    private int starCount;
 }
