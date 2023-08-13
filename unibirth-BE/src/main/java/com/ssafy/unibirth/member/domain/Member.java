@@ -10,6 +10,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Builder
+@DynamicInsert
 public class Member extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +44,8 @@ public class Member extends BaseTimeEntity {
     @ColumnDefault("0")
     private int followerCount;
 
-    // 내가 만들 수 있는 별자리 수 제한
+    // 내가 만들 수 있는 별자리 수 제한\
+
     @ColumnDefault("5")
     private int constellationLimit;
 
