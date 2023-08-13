@@ -10,6 +10,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,12 +44,10 @@ public class Member extends BaseTimeEntity {
     private int followerCount;
 
     // 내가 만들 수 있는 별자리 수 제한
-    @ColumnDefault("5")
-    private int constellationLimit;
+    private int constellationLimit = 5;
 
     // 내가 만든 별의 수
-    @ColumnDefault("0")
-    private int starCount;
+    private int starCount = 0;
 
     // 본인 생일에 해당하는 황도 12궁 이름
     private String zodiac;
