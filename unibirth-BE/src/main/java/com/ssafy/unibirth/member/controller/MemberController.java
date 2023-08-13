@@ -71,14 +71,14 @@ public class MemberController {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS);
     }
 
-    // 이메일 중복여부 확인 및 인증코드 전송
+    // 이메일 중복여부 확인
     @PostMapping("/check/email")
-    public ResponseEntity<String> checkDuplicatedEmail(@RequestBody EmailCheckDto emailCheckDto) throws Exception {
-        String code = memberService.checkEmailDuplicationAndValidity(emailCheckDto.getEmail());
-        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, code);
+    public ResponseEntity checkDuplicatedEmail(@RequestBody EmailCheckDto emailCheckDto) throws Exception {
+        memberService.checkDuplicatedEmail(emailCheckDto.getEmail());
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS);
     }
 
-    // 입력된 이메일 인증 코드 확인
+    // 입력된 이메일 인증 코드 확인(시연 때는 사용x -> 추후 서비스 도입에 활용)
     @PostMapping("/check/code")
     public ResponseEntity<String> checkEmailCode(@RequestBody CodeDto codeDto) {
         String message = memberService.checkEmailCode(codeDto.getCode(), codeDto.getEmail());
