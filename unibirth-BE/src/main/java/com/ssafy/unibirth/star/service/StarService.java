@@ -32,7 +32,7 @@ public class StarService {
     @Transactional
     public CreateStarResDto create(CreateStarReqDto dto) {
         Member member = memberService.getCurrentMember();
-        Long starCount = member.plusStarCount();
+        int starCount = member.plusStarCount();
 
         Long constellationId = dto.getConstellationId();
         checkCompletion(constellationId);
