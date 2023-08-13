@@ -48,7 +48,7 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    // 이메일 중복 확인 및 인증 코드 전송
+    // 이메일 중복 확인 및 인증 코드 전송(사용 보류)
     public String checkEmailDuplicationAndValidity(String email) throws Exception {
 
         // 이메일 중복 확인
@@ -58,7 +58,7 @@ public class MemberService {
             throw new DuplicatedException(FailCode.DUPLICATED_EMAIL);
         }
 
-        // 이메일 인증코드 전송
+        // 이메일 인증코드 전송(일단 보류)
         String verifyCodeId = mailSendService.sendCertificationMail(email);
         return verifyCodeId;
     }
