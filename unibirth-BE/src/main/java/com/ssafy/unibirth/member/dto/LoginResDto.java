@@ -17,5 +17,7 @@ public class LoginResDto {
     @Enumerated(EnumType.STRING)
     private Role role;
     private int purchasedBoard;
+    private int constellationLimit;
+    private int starCount;
 
 }

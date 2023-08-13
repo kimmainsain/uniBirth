@@ -97,7 +97,7 @@ public class MemberService {
             throw new NotFoundException(FailCode.MEMBER_NOT_FOUND);
         }
 
-        return new LoginResDto(member.getNickname(), member.getRole(), member.getPurchasedBoard());
+        return new LoginResDto(member.getNickname(), member.getRole(), member.getPurchasedBoard(), member.getConstellationLimit(), member.getStarCount());
     }
 
     // 회원 정보 수정
