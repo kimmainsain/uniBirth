@@ -34,7 +34,7 @@ public class MemberController {
         LoginResDto member = memberService.login(loginReqDto);
 
         String accessToken = jwtTokenProvider.createToken(member.getNickname());
-        LoginTokenResDto loginTokenResDto = new LoginTokenResDto(accessToken, member.getNickname(), member.getRole(), member.getPurchasedBoard());
+        LoginTokenResDto loginTokenResDto = new LoginTokenResDto(accessToken, member.getNickname(), member.getRole(), member.getPurchasedBoard(), member.getConstellationLimit(), member.getStarCount());
         jwtTokenProvider.setHeaderAccessToken(response, accessToken);
 
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, loginTokenResDto);
