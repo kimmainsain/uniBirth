@@ -22,7 +22,6 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Builder
-@DynamicInsert
 public class Member extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,14 +43,11 @@ public class Member extends BaseTimeEntity {
     @ColumnDefault("0")
     private int followerCount;
 
-    // 내가 만들 수 있는 별자리 수 제한\
-
-    @ColumnDefault("5")
-    private int constellationLimit;
+    // 내가 만들 수 있는 별자리 수 제한
+    private int constellationLimit = 5;
 
     // 내가 만든 별의 수
-    @ColumnDefault("0")
-    private int starCount;
+    private int starCount = 0;
 
     // 본인 생일에 해당하는 황도 12궁 이름
     private String zodiac;
