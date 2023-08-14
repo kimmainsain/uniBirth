@@ -23,7 +23,8 @@ public enum FailCode {
     PIN_NOT_FOUND(NOT_FOUND, "핀 이력이 없습니다."),
     STAR_MEMBER_NOT_FOUND(NOT_FOUND, "해당 사용자의 별이 아닙니다."),
     POINT_NOT_FOUND(NOT_FOUND, "매칭되는 점이 없습니다."),
-
+    COMMENT_NOT_FOUND(NOT_FOUND, "존재하지 않는 댓글입니다."),
+    COMMENT_MEMBER_NOT_FOUND(NOT_FOUND, "해당 사용자의 댓글이 아닙니다."),
     ALREADY_COMPLETED_CONSTELLATION(BAD_REQUEST, "이미 완성된 별자리입니다."),
     ALREADY_LIKED_STAR(BAD_REQUEST, "이미 좋아요한 별입니다."),
     ALREADY_PINED_CONSTELLATION(BAD_REQUEST, "이미 핀한 별자리입니다."),

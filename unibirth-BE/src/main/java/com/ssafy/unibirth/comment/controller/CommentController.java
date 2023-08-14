@@ -18,4 +18,9 @@ public class CommentController {
     public ResponseEntity createComment(@RequestBody CreateCommentReqDto dto) {
         return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, commentService.create(dto));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity removePin(@PathVariable("id") Long commentId) {
+        return ResponseEntity.success(SuccessCode.GENERAL_SUCCESS, commentService.delete(commentId));
+    }
 }
