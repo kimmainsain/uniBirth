@@ -18,6 +18,7 @@ public class MyProfileResDto {
     private String introduction;
     private String imageUrl;
     private String zodiac; // 본인 생일에 해당하는 황도 12궁 이름
+    private Long planetId;
 
     public MyProfileResDto(Member member, int starCount) {
         this.nickname = member.getNickname();
@@ -28,5 +29,6 @@ public class MyProfileResDto {
         this.introduction = member.getIntroduction();
         this.imageUrl = member.getImageUrl();
         this.zodiac = member.getZodiac();
+        this.planetId = member.getPlanetId();
     }
 }
