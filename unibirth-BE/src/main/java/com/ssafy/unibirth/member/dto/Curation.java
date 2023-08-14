@@ -12,12 +12,14 @@ public class Curation {
     private Long starId;
     private String nickname;
     private String imageUrl;
+    private String title;
     private String content;
 
     public Curation(Star star) {
         this.starId = star.getId();
         this.nickname = star.getMember().getNickname();
         this.imageUrl = star.getImageUrl();
+        this.title = star.getTitle();
         this.content = star.getContent();
     }
 }
