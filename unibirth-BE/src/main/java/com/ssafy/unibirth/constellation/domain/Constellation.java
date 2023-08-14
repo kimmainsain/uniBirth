@@ -54,10 +54,15 @@ public class Constellation extends BaseTimeEntity {
     private int pointCount;
     @ColumnDefault("0")
     private int starCount;
+
     @ColumnDefault("'[]'")
+    @Column(columnDefinition = "TEXT")
     private String lineList;
+
     @ColumnDefault("'[]'")
+    @Column(columnDefinition = "TEXT")
     private String pointList;
+
     @ColumnDefault("0")
     private int totalBrightness;
     @ColumnDefault("0")
