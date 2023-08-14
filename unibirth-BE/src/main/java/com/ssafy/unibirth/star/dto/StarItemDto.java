@@ -13,6 +13,7 @@ public class StarItemDto {
     private Long memberId;
     private LocalDateTime createdAt;
     private String nickname;
+    private String title;
     private String content;
     private int brightness;
     private String imageUrl;
