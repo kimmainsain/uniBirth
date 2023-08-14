@@ -114,6 +114,7 @@ public class Member extends BaseTimeEntity {
     public void updateProfile(UpdateProfileReqDto updateProfileReqDto) {
         this.imageUrl = updateProfileReqDto.getImageUrl();
         this.introduction = updateProfileReqDto.getIntroduction();
+        this.planetId = updateProfileReqDto.getPlanetId();
     }
 
     // 회원가입할 때 입력된 값을 Member 엔티티에 담아줌
