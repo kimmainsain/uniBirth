@@ -1,6 +1,7 @@
 package com.ssafy.unibirth.star.domain;
 
-import com.ssafy.unibirth.common.domain.util.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ssafy.unibirth.comment.domain.Comment;
 import com.ssafy.unibirth.common.domain.util.BaseTimeEntity;
 import com.ssafy.unibirth.constellation.domain.Constellation;
 import com.ssafy.unibirth.member.domain.Member;
@@ -11,6 +12,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -30,6 +34,10 @@ public class Star extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @OneToMany(mappedBy = "star")
+    @JsonIgnore
+    private List<Comment> commentList = new ArrayList<>();
 
     @ColumnDefault("0")
     private int brightness; // 좋아요

@@ -1,9 +1,11 @@
 package com.ssafy.unibirth.star.dto;
 
+import com.ssafy.unibirth.comment.dto.ReadCommentItemDto;
 import com.ssafy.unibirth.star.domain.Star;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -22,8 +24,9 @@ public class ReadStarDto {
     private String imageUrl;
     private boolean isMine; // Json 으로 직렬화시 앞에 is 없이 전송된다.
     private boolean alreadyLiked;
+    private List<ReadCommentItemDto> commentList;
 
-    public static ReadStarDto from(Star star, Long memberId, boolean alreadyLiked) {
+    public static ReadStarDto from(Star star, Long memberId, boolean alreadyLiked, List<ReadCommentItemDto> commentList) {
         return new ReadStarDto(
                 star.getId(),
                 star.getConstellation().getId(),
@@ -36,7 +39,8 @@ public class ReadStarDto {
                 star.getContent(),
                 star.getImageUrl(),
                 star.getMember().getId() == memberId,
-                alreadyLiked
+                alreadyLiked,
+                commentList
                 );
     }
 }

@@ -1,5 +1,8 @@
 package com.ssafy.unibirth.star.service;
 
+import com.ssafy.unibirth.comment.domain.Comment;
+import com.ssafy.unibirth.comment.dto.ReadCommentItemDto;
+import com.ssafy.unibirth.comment.repository.CommentRepository;
 import com.ssafy.unibirth.common.api.exception.CustomException;
 import com.ssafy.unibirth.common.api.exception.NotFoundException;
 import com.ssafy.unibirth.common.api.status.FailCode;
@@ -27,6 +30,7 @@ import java.util.stream.Collectors;
 public class StarService {
     private final StarRepository starRepository;
     private final BrightnessRepository brightnessRepository;
+    private final CommentRepository commentRepository;
     private final MemberService memberService;
     private final ConstellationService constellationService;
 
@@ -51,7 +55,8 @@ public class StarService {
         Long memberId = memberService.getCurrentMember().getId();
         BrightnessId brightnessId = new BrightnessId(memberId, id);
         boolean alreadyLiked = brightnessRepository.existsById(brightnessId);
-        return ReadStarDto.from(star, memberId, alreadyLiked);
+        List<ReadCommentItemDto> commentList = convertToCommentListDto(star.getCommentList());
+        return ReadStarDto.from(star, memberId, alreadyLiked, commentList);
     }
 
     @Transactional(readOnly = true)
@@ -185,6 +190,17 @@ public class StarService {
                         .content(star.getContent())
                         .imageUrl(star.getImageUrl())
                         .build())
+                .collect(Collectors.toList());
+    }
+
+    private List<ReadCommentItemDto> convertToCommentListDto(List<Comment> commentList) {
+        return commentList.stream()
+                .map(com -> new ReadCommentItemDto(
+                        com.getId(),
+                        com.getMember().getNickname(),
+                        com.getMember().getImageUrl(),
+                        com.getContent(),
+                        com.getCreatedAt()))
                 .collect(Collectors.toList());
     }
 }
