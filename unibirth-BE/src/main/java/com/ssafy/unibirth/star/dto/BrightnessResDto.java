@@ -9,5 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BrightnessResDto {
     private Long starId;
+    private String title;
     private int brightness;
 }

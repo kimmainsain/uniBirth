@@ -176,6 +176,7 @@ public class ConstellationService {
                         .brightness(star.getBrightness())
                         .memberId(star.getMember().getId())
                         .nickname(star.getMember().getNickname())
+                        .title(star.getTitle())
                         .imageUrl(star.getImageUrl())
                         .build())
                 .collect(Collectors.toList());
@@ -203,12 +204,12 @@ public class ConstellationService {
                 .map(con ->
                         PlanetConstellationItemDto.builder()
                                 .constellationId(con.getId())
-                                .title(con.getTitle())
                                 .boardSize(con.getBoardSize())
                                 .lineList(stringToArray(con.getLineList()))
                                 .x(con.getX())
                                 .y(con.getY())
                                 .z(con.getZ())
+                                .title(con.getTitle())
                                 .imageUrl(con.getImageUrl())
                                 .alreadyPined(pinedList.contains(con.getId()))
                                 .color(con.getColor())
