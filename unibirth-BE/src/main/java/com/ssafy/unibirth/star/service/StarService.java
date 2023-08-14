@@ -184,6 +184,7 @@ public class StarService {
     private List<ReadCommentItemDto> convertToCommentListDto(List<Comment> commentList) {
         return commentList.stream()
                 .map(com -> new ReadCommentItemDto(
+                        com.getId(),
                         com.getMember().getNickname(),
                         com.getMember().getImageUrl(),
                         com.getContent(),

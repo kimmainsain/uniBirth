@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReadCommentItemDto {
+    private Long commentId;
     private String nickname;
     private String imageUrl;
     private String content;
