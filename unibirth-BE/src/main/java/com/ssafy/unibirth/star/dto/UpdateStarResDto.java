@@ -9,4 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateStarResDto {
     private Long starId;
+    private String title;
 }

@@ -16,6 +16,7 @@ import com.ssafy.unibirth.star.repository.StarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,7 +43,7 @@ public class StarService {
         Long createdId = starRepository.save(star).getId();
 
         constellationService.updateConstellationStarCount(constellationId, 1);
-        return new CreateStarResDto(createdId, starCount);
+        return new CreateStarResDto(createdId, dto.getTitle(), starCount, member.getConstellationLimit());
     }
 
     public ReadStarDto read(Long id) {
@@ -69,9 +70,20 @@ public class StarService {
         Star star = starRepository.findByIdAndMemberId(starId, memberId).orElseThrow(
                 () -> new NotFoundException(FailCode.STAR_MEMBER_NOT_FOUND)
         );
-        star.setContent(dto.getContent());
-        star.setImageUrl(dto.getImageUrl());
-        return new UpdateStarResDto(starId);
+
+        if(StringUtils.hasText(dto.getTitle())) {
+            star.setTitle(dto.getTitle());
+        }
+
+        if(StringUtils.hasText(dto.getContent())) {
+            star.setContent(dto.getContent());
+        }
+
+        if(StringUtils.hasText(dto.getContent())) {
+            star.setImageUrl(dto.getImageUrl());
+        }
+
+        return new UpdateStarResDto(starId, star.getTitle());
     }
 
     @Transactional
@@ -84,7 +96,7 @@ public class StarService {
         constellationService.updateTotalBrightness(star.getConstellation(), likeDiff);
         updateBrightnessRepository(memberId, star, likeDiff);
 
-        return new BrightnessResDto(id, star.getBrightness());
+        return new BrightnessResDto(id, star.getTitle(), star.getBrightness());
     }
 
     @Transactional

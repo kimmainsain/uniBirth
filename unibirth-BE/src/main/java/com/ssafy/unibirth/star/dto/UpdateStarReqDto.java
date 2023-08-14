@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateStarReqDto {
+    private String title;
     private String content;
     private String imageUrl;
 }

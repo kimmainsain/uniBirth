@@ -9,5 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateStarResDto {
     private Long starId;
+    private String title;
     private int starCount;
+    private int constellationLimit;
 }
