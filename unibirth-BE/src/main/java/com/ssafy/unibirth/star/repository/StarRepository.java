@@ -17,6 +17,9 @@ public interface StarRepository extends JpaRepository<Star, Long> {
     List<Star> findAllByContentContains(String content);
     Optional<Star> findByIdAndMemberId(Long starId, Long memberId);
 
+    @Query("SELECT s FROM Star s WHERE s.member.id != :memberId")
+    List<Star> findAllExceptMemberId(@Param("memberId") Long memberId);
+
     @Query("SELECT s FROM Star s JOIN s.member m WHERE m.id = :memberId ORDER BY m.createdAt DESC")
     List<Star> findTopByMemberIdOrderByCreatedAtDesc(@Param("memberId") Long memberId);
 

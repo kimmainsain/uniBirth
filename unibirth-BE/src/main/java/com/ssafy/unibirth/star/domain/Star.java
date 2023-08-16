@@ -45,6 +45,7 @@ public class Star extends BaseTimeEntity {
     @NotNull
     private String title;
     @NotNull
+    @Column(columnDefinition = "TEXT")
     private String content;
     @ColumnDefault("'https://www.google.com/url?sa=i&url=http%3A%2F%2Fm.blog.naver.com%2Fsbkim24%2F221186610409&psig=AOvVaw17ZT087qblje4zlC7CccXl&ust=1691049058729000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCJjvjOa-vYADFQAAAAAdAAAAABAI'")
     private String imageUrl;
