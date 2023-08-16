@@ -228,7 +228,14 @@ public class MemberService {
         Member me = getCurrentMember();
         List<Follow> followingList = new ArrayList<>();
         followingList = followRepository.findAllByFollowFrom(detailUser(me.getNickname()));
+
+        List<Star> allStars = starRepository.findAllExceptMemberId(me.getId());
+        if(allStars.size() <= 2) {
+            return allStars.stream().map((star) -> new Curation(star)).collect(Collectors.toList());
+        }
+
         while (uniqueList.size() != 2) {
+
             if (!followingList.isEmpty()) {
                 getRandomFollower(tempList, me, followingList);
             } // if절 끝
@@ -244,6 +251,7 @@ public class MemberService {
                     .distinct()
                     .collect(Collectors.toList());
         }
+
         return uniqueList.stream().map((star) -> new Curation(star)).collect(Collectors.toList());
     }
 
