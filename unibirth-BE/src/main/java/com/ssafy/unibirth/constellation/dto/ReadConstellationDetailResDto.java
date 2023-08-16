@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class ReadConstellationDetailResDto {
     private Long constellationId;
     private String constellationTitle;
-    private String introduction;
+    private String description;
     private String imageUrl;
     private String color;
     private int totalBrightness;
@@ -27,7 +27,7 @@ public class ReadConstellationDetailResDto {
     public ReadConstellationDetailResDto(Constellation constellation, boolean isPined) {
         this.constellationId = constellation.getId();
         this.constellationTitle = constellation.getTitle();
-        this.introduction = constellation.getMember().getIntroduction();
+        this.introduction = constellation.getDescription();
         this.imageUrl = constellation.getImageUrl();
         this.color = constellation.getColor();
         this.totalBrightness = constellation.getTotalBrightness();
