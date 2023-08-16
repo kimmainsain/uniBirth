@@ -11,14 +11,13 @@
 5. [진행 기간](#✨-5-진행-기간)
 6. [+시스템 아키텍쳐](#✨-6-시스템-아키텍쳐)
 7. [기술 스택](#✨-7-기술-스택)
-8. [+ER Diagram](#✨-8-er-diagram)
-9. [+Sequence Diagram](#✨-9-sequence-diagram)
-10. [EC2 인바운드 포트 목록](#✨-10-ec2-인바운드-포트-목록)
-11. [협업툴](#✨-11-협업툴)
-12. [코드 컨벤션](#✨-12-코드-컨벤션)
-13. [커밋 컨벤션](#✨-13-커밋-컨벤션)
-14. [Git Flow 브랜치 전략](#✨-14-git-flow-브랜치-전략)
-15. [실행 방법](#✨-15-실행-방법)
+8. [ER Diagram](#✨-8-er-diagram)
+9. [Sequence Diagram](#✨-9-sequence-diagram)
+10. [협업툴](#✨-10-협업툴)
+11. [코드 컨벤션](#✨-11-코드-컨벤션)
+12. [커밋 컨벤션](#✨-12-커밋-컨벤션)
+13. [Git Flow 브랜치 전략](#✨-13-git-flow-브랜치-전략)
+14. [실행 방법](#✨-14-실행-방법)
 
 ## ✨ 1. 서비스 소개
 
@@ -142,26 +141,20 @@ Uni-Birth는 Universe와 Birth의 합성어로, 우주라는 광활한 공간에
 
 ## ✨ 8. ER Diagram
 
-------------------- 이 자리에 다이어그램 이미지 넣기! -------------------
+<img src="./img/unibirth_ER_Diagram.png" width=500px>
 
 ## ✨ 9. Sequence Diagram
 
-------------------- 이 자리에 다이어그램 이미지 넣기! -------------------
+<img src="./img/SignUp.png" width=100px>
+<img src="./img/Login.png" width=100px>
+<img src="./img/CreateConstellation.png" width=100px>
+<img src="./img/CreateStar.png" width=100px>
+<img src="./img/ExpandPin.png" width=100px>
+<img src="./img/Follow.png" width=100px>
+<img src="./img/ModifyProfile.png" width=100px>
+<img src="./img/SearchQue.png" width=100px>
 
-## ✨ 10. EC2 인바운드 포트 목록
-
-| PORT |    이름    |
-| :--: | :--------: |
-|  22  |    SSH     |
-|  80  |    HTTP    |
-| 443  |   HTTPS    |
-| 3000 |   React    |
-| 8080 | Springboot |
-| 9090 |  Jenkins   |
-| 3306 |  MariaDB   |
-| 6379 |   Redis    |
-
-## ✨ 11. 협업툴
+## ✨ 10. 협업툴
 
 - Gitlab
 - Jira
@@ -169,7 +162,7 @@ Uni-Birth는 Universe와 Birth의 합성어로, 우주라는 광활한 공간에
 - Mattermost
 - Google meet
 
-## ✨ 12. 코드 컨벤션
+## ✨ 11. 코드 컨벤션
 
 ### 1. Front
 
@@ -198,7 +191,7 @@ Uni-Birth는 Universe와 Birth의 합성어로, 우주라는 광활한 공간에
 - LocalDateTime 타입의 변수는 xxxAt으로 네이밍합니다.
 - 컬럼명에 테이블명을 붙이지 않습니다. 예: id (O), memberId (X)
 
-## ✨ 13. 커밋 컨벤션
+## ✨ 12. 커밋 컨벤션
 
 - feat: 새로운 기능을 추가할 경우
 - fix: 버그를 고친 경우
@@ -207,7 +200,7 @@ Uni-Birth는 Universe와 Birth의 합성어로, 우주라는 광활한 공간에
 - docs: 문서를 수정한 경우
 - chore: 기타
 
-## ✨ 14. Git Flow 브랜치 전략
+## ✨ 13. Git Flow 브랜치 전략
 
 ### 1. Front
 
@@ -219,7 +212,7 @@ Uni-Birth는 Universe와 Birth의 합성어로, 우주라는 광활한 공간에
 - 각 팀원별로 브랜치를 생성하고, dev 브랜치로 pull request를 통해 코드 리뷰 후 merge한다.
 - dev 브랜치로 merge가 완료된 후 master 브랜치로 merge 한다.
 
-## ✨ 15. 실행 방법
+## ✨ 14. 실행 방법
 
 ### 1. 클라이언트
 
@@ -238,10 +231,16 @@ Uni-Birth는 Universe와 Birth의 합성어로, 우주라는 광활한 공간에
 3. 필요한 모듈 설치
 
    ```bash
-   $ yarn add
+   $ yarn install
    ```
 
-4. 개발 서버 실행
+4. 프로젝트 build
+
+   ```bash
+   $ yarn build
+   ```
+
+5. 개발 서버 실행
 
    ```bash
    $ yarn start
@@ -255,6 +254,98 @@ Uni-Birth는 Universe와 Birth의 합성어로, 우주라는 광활한 공간에
    $ git clone https://lab.ssafy.com/s09-webmobile2-sub2/S09P12A410.git
    ```
 
-2. ~/src/main/resources/application.yml 작성
+2. main 폴더로 이동
 
-3. Application 실행
+   ```bash
+   $ cd S09P12A410/unibirth-BE/src/main
+   ```
+
+3. resources 폴더 생성 및 이동
+
+   ```bash
+   $ mkdir resources
+   $ cd resources/
+   ```
+
+4. application.yml 파일 생성 및 작성
+
+   ```bash
+   $ touch application.yml
+   $ vi application.yml
+   ```
+
+   ```yaml
+   spring:
+   datasource:
+     url: # MariaDB Connection URL
+     driver-class-name: org.mariadb.jdbc.Driver
+     username: # 사용자명
+     password: # 비밀번호
+     hikari:
+       maximum-pool-size: 3
+
+   mail:
+     host: smtp.gmail.com
+     port: 587
+     username: # 아이디@gmail.com
+     password: # 비밀번호
+     properties:
+       mail:
+       smtp:
+         starttls:
+           enable: true
+         auth: true
+         timeout: 300000
+       debug: true
+     protocol: smtp
+     default-encoding: UTF-8
+
+   jpa:
+     hibernate:
+       ddl-auto: update
+     properties:
+       hibernate:
+       format_sql: true
+   data:
+     web:
+       pageable:
+       default-page-size: 10
+       max-page-size: 2000
+       one-indexed-parameters: true
+     redis:
+       host: # localhost
+       port: 6379
+       password: # 비밀번호
+   security:
+     user:
+       name: # 사용자명
+       password: # 비밀번호
+
+   jwt:
+   header: Authorization
+   salt: # salt
+   expire: 86400000
+   bearer: Bearer
+
+   logging.level:
+   org.hibernate.SQL: debug
+   ```
+
+5. 프로젝트 폴더로 이동
+
+   ```bash
+   $ cd ~/S09P12A410/unibirth-BE/
+   ```
+
+6. 프로젝트 build
+
+   ```bash
+   $ chmod +x ./gradlew
+   $ /gradlew build
+   ```
+
+7. 실행
+
+   ```bash
+   $ java -jar unibirth-0.0.1-SNAPSHOT.jar
+   ```
