@@ -27,7 +27,7 @@ public class ReadConstellationDetailResDto {
     public ReadConstellationDetailResDto(Constellation constellation, boolean isPined) {
         this.constellationId = constellation.getId();
         this.constellationTitle = constellation.getTitle();
-        this.introduction = constellation.getDescription();
+        this.description = constellation.getDescription();
         this.imageUrl = constellation.getImageUrl();
         this.color = constellation.getColor();
         this.totalBrightness = constellation.getTotalBrightness();
