@@ -135,9 +135,12 @@ Uni-Birth는 Universe와 Birth의 합성어로, 우주라는 광활한 공간에
 
 <img src="https://img.shields.io/badge/MariaDB-403C42?style=for-the-badge&logo=MariaDB&logoColor=white">
 <img src="https://img.shields.io/badge/Redis-403C42?style=for-the-badge&logo=Redis&logoColor=white">
+<img src="https://img.shields.io/badge/Firebase-403C42?style=for-the-badge&logo=Firebase&logoColor=white">
 
 - MariaDB로 RDBMS 기반의 데이터 설계를 하였습니다.
 - Redis로 이메일 인증코드를 캐싱하고 유효 시간을 제한하여 속도를 개선하고 보안을 강화하였습니다.
+- Firebase Cloud Storage를 통해 이미지(별자리, 프로필, 게시글), 동영상 등 파일을 업로드합니다.
+- Firebase RealTime Database를 통해 메세지와 초대 알림을 저장합니다.
 
 ## ✨ 8. ER Diagram
 
