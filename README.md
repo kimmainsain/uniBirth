@@ -101,7 +101,7 @@ Uni-Birth는 Universe와 Birth의 합성어로, 우주라는 광활한 공간에
 
 ## ✨ 6. 시스템 아키텍쳐
 
-<img src="./img/system.png" width=100px>
+<img src="./img/unibirth_system.png" width=100px>
 
 ## ✨ 7. 기술 스택
 
