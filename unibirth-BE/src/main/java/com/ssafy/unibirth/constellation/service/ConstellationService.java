@@ -99,6 +99,7 @@ public class ConstellationService {
     }
 
     public List<ConstellationItemDto> searchByTitle(String word) {
+        // TODO: descrption 검색 추가
         List<Constellation> constellationList = constellationRepository.findAllByTitleContains(word);
         return convertToConstellationItemDto(constellationList);
     }
@@ -188,6 +189,7 @@ public class ConstellationService {
                         ConstellationItemDto.builder()
                                 .constellationId(con.getId())
                                 .title(con.getTitle())
+                                .description(con.getDescription())
                                 .boardSize(con.getBoardSize())
                                 .lineList(stringToArray(con.getLineList()))
                                 .x(con.getX())
