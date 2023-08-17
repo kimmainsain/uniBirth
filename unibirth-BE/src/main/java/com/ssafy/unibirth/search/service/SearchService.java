@@ -16,8 +16,12 @@ public class SearchService {
     private final MemberService memberService;
 
     public SearchResDto search(String condition, String word) {
-        final Category category = Category.valueOf(condition.toUpperCase());
+        Category category = Category.ALL;
         SearchResDto resDto = new SearchResDto();
+
+        if(isCorrectedCondition(condition)) {
+            category = Category.valueOf(condition.toUpperCase());
+        }
 
         switch (category) {
             case CONSTELLATION -> {
@@ -37,5 +41,14 @@ public class SearchService {
         }
 
         return resDto;
+    }
+
+    private boolean isCorrectedCondition(String condition) {
+        try {
+            Category.valueOf(condition.toUpperCase());
+            return true;
+        } catch (IllegalArgumentException exception) {
+            return false;
+        }
     }
 }
