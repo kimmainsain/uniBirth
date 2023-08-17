@@ -26,6 +26,8 @@ public class QStar extends EntityPathBase<Star> {
 
     public final NumberPath<Integer> brightness = createNumber("brightness", Integer.class);
 
+    public final ListPath<Brightness, QBrightness> brightnessList = this.<Brightness, QBrightness>createList("brightnessList", Brightness.class, QBrightness.class, PathInits.DIRECT2);
+
     public final ListPath<com.ssafy.unibirth.comment.domain.Comment, com.ssafy.unibirth.comment.domain.QComment> commentList = this.<com.ssafy.unibirth.comment.domain.Comment, com.ssafy.unibirth.comment.domain.QComment>createList("commentList", com.ssafy.unibirth.comment.domain.Comment.class, com.ssafy.unibirth.comment.domain.QComment.class, PathInits.DIRECT2);
 
     public final com.ssafy.unibirth.constellation.domain.QConstellation constellation;
