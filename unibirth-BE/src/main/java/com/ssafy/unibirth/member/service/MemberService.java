@@ -230,10 +230,12 @@ public class MemberService {
         followingList = followRepository.findAllByFollowFrom(detailUser(me.getNickname()));
 
         List<Star> allStars = starRepository.findAllExceptMemberId(me.getId());
+        if(allStars.size() == 0) {
+            throw new NotFoundException(FailCode.CURATION_NOT_FOUND);
+        }
         if(allStars.size() <= 2) {
             return allStars.stream().map((star) -> new Curation(star)).collect(Collectors.toList());
         }
-
         while (uniqueList.size() != 2) {
 
             if (!followingList.isEmpty()) {
