@@ -98,9 +98,8 @@ public class ConstellationService {
         return new ReadTemplateListResDto(templateItemDtoList);
     }
 
-    public List<ConstellationItemDto> searchByTitle(String word) {
-        // TODO: descrption 검색 추가
-        List<Constellation> constellationList = constellationRepository.findAllByTitleContains(word);
+    public List<ConstellationItemDto> searchByTitleAndDescriptionContains(String word) {
+        List<Constellation> constellationList = constellationRepository.findByTitleContainsOrDescriptionContains(word, word);
         return convertToConstellationItemDto(constellationList);
     }
 

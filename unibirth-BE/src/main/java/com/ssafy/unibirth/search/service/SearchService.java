@@ -21,7 +21,7 @@ public class SearchService {
 
         switch (category) {
             case CONSTELLATION -> {
-                resDto.setConstellationList(constellationService.searchByTitle(word));
+                resDto.setConstellationList(constellationService.searchByTitleAndDescriptionContains(word));
             }
             case STAR -> {
                 resDto.setStarList(starService.searchByContent(word));
@@ -30,7 +30,7 @@ public class SearchService {
                 resDto.setMemberList(memberService.searchByNickname(word));
             }
             default -> {
-                resDto.setConstellationList(constellationService.searchByTitle(word));
+                resDto.setConstellationList(constellationService.searchByTitleAndDescriptionContains(word));
                 resDto.setStarList(starService.searchByContent(word));
                 resDto.setMemberList(memberService.searchByNickname(word));
             }
