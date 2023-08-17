@@ -1,5 +1,5 @@
 # Uni-Birth
-<img src="./img/unibirth_logo.png" width=100%>
+<img src="./img/unibirth_logo.png" width=90%>
 
 ------------------- 이 자리에 UCC 넣기! -------------------
 
