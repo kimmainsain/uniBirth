@@ -1,5 +1,6 @@
 # Uni-Birth
-<img src="./img/unibirth_logo.png" width=90%>
+
+<img src="./img/unibirth_logo.png" width=100%>
 
 ------------------- 이 자리에 UCC 넣기! -------------------
 
@@ -15,10 +16,11 @@
 8. [ER Diagram](#✨-8-er-diagram)
 9. [Sequence Diagram](#✨-9-sequence-diagram)
 10. [협업툴](#✨-10-협업툴)
-11. [코드 컨벤션](#✨-11-코드-컨벤션)
-12. [커밋 컨벤션](#✨-12-커밋-컨벤션)
-13. [Git Flow 브랜치 전략](#✨-13-git-flow-브랜치-전략)
-14. [실행 방법](#✨-14-실행-방법)
+11. [API 명세서](#✨-11-API-명세서)
+12. [코드 컨벤션](#✨-12-코드-컨벤션)
+13. [커밋 컨벤션](#✨-13-커밋-컨벤션)
+14. [Git Flow 브랜치 전략](#✨-14-git-flow-브랜치-전략)
+15. [실행 방법](#✨-15-실행-방법)
 
 ## ✨ 1. 서비스 소개
 
@@ -90,13 +92,16 @@ Uni-Birth는 Universe와 Birth의 합성어로, 우주라는 광활한 공간에
 | <img src="./img/김경륜1.png" width=100px> | 김경륜 | - Back-lead <br> - 회의 진행 <br> - 노션 관리          |
 | <img src="./img/태준모1.png" width=100px> | 태준모 | - Backend <br> - 서기 <br> - 3D 이미지 구현 <br> - UCC |
 
+- 백엔드 리더
+- 별자리, 별, 댓글
+
 ## ✨ 5. 진행 기간
 
 2023.07.04 ~ 2023.08.18 (6주)
 
 ## ✨ 6. 시스템 아키텍쳐
 
-------------------- 이 자리에 시스템 아키텍쳐 이미지 넣기! -------------------
+<img src="./img/system.png" width=100px>
 
 ## ✨ 7. 기술 스택
 
@@ -158,7 +163,11 @@ Uni-Birth는 Universe와 Birth의 합성어로, 우주라는 광활한 공간에
 <img src="./img/ModifyProfile.png" width=100px>
 <img src="./img/SearchQue.png" width=100px>
 
-## ✨ 10. 협업툴
+## ✨ 10. API 명세서
+
+https://poised-mandible-7e9.notion.site/API-c18d4ad6b4204fcd8da9383e62becde4
+
+## ✨ 11. 협업툴
 
 - Gitlab
 - Jira
@@ -166,7 +175,7 @@ Uni-Birth는 Universe와 Birth의 합성어로, 우주라는 광활한 공간에
 - Mattermost
 - Google meet
 
-## ✨ 11. 코드 컨벤션
+## ✨ 12. 코드 컨벤션
 
 ### 1. Front
 
@@ -195,7 +204,7 @@ Uni-Birth는 Universe와 Birth의 합성어로, 우주라는 광활한 공간에
 - LocalDateTime 타입의 변수는 xxxAt으로 네이밍합니다.
 - 컬럼명에 테이블명을 붙이지 않습니다. 예: id (O), memberId (X)
 
-## ✨ 12. 커밋 컨벤션
+## ✨ 13. 커밋 컨벤션
 
 - feat: 새로운 기능을 추가할 경우
 - fix: 버그를 고친 경우
@@ -204,7 +213,7 @@ Uni-Birth는 Universe와 Birth의 합성어로, 우주라는 광활한 공간에
 - docs: 문서를 수정한 경우
 - chore: 기타
 
-## ✨ 13. Git Flow 브랜치 전략
+## ✨ 14. Git Flow 브랜치 전략
 
 ### 1. Front
 
@@ -216,7 +225,7 @@ Uni-Birth는 Universe와 Birth의 합성어로, 우주라는 광활한 공간에
 - 각 팀원별로 브랜치를 생성하고, dev 브랜치로 pull request를 통해 코드 리뷰 후 merge한다.
 - dev 브랜치로 merge가 완료된 후 master 브랜치로 merge 한다.
 
-## ✨ 14. 실행 방법
+## ✨ 15. 실행 방법
 
 ### 1. 클라이언트
 
