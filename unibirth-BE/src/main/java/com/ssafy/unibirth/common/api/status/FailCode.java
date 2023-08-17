@@ -19,6 +19,7 @@ public enum FailCode {
     CONSTELLATION_NOT_FOUND(NOT_FOUND, "존재하지 않는 별자리입니다."),
     MEMBER_NOT_FOUND(NOT_FOUND, "존재하지 않는 회원입니다."),
     STAR_NOT_FOUND(NOT_FOUND, "존재하지 않는 별입니다."),
+    CURATION_NOT_FOUND(NOT_FOUND, "아직 별이 없습니다."),
     BRIGHTNESS_NOT_FOUND(NOT_FOUND, "좋아요 이력이 없습니다"),
     PIN_NOT_FOUND(NOT_FOUND, "핀 이력이 없습니다."),
     STAR_MEMBER_NOT_FOUND(NOT_FOUND, "해당 사용자의 별이 아닙니다."),
