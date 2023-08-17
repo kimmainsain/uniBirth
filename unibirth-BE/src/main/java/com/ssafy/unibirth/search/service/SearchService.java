@@ -16,12 +16,16 @@ public class SearchService {
     private final MemberService memberService;
 
     public SearchResDto search(String condition, String word) {
-        final Category category = Category.valueOf(condition.toUpperCase());
+        Category category = Category.ALL;
         SearchResDto resDto = new SearchResDto();
+
+        if(isCorrectedCondition(condition)) {
+            category = Category.valueOf(condition.toUpperCase());
+        }
 
         switch (category) {
             case CONSTELLATION -> {
-                resDto.setConstellationList(constellationService.searchByTitle(word));
+                resDto.setConstellationList(constellationService.searchByTitleAndDescriptionContains(word));
             }
             case STAR -> {
                 resDto.setStarList(starService.searchByContent(word));
@@ -30,12 +34,21 @@ public class SearchService {
                 resDto.setMemberList(memberService.searchByNickname(word));
             }
             default -> {
-                resDto.setConstellationList(constellationService.searchByTitle(word));
+                resDto.setConstellationList(constellationService.searchByTitleAndDescriptionContains(word));
                 resDto.setStarList(starService.searchByContent(word));
                 resDto.setMemberList(memberService.searchByNickname(word));
             }
         }
 
         return resDto;
+    }
+
+    private boolean isCorrectedCondition(String condition) {
+        try {
+            Category.valueOf(condition.toUpperCase());
+            return true;
+        } catch (IllegalArgumentException exception) {
+            return false;
+        }
     }
 }

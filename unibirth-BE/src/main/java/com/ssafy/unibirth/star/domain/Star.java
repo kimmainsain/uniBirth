@@ -35,12 +35,16 @@ public class Star extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "star")
+    @OneToMany(mappedBy = "star", cascade = CascadeType.REMOVE)
     @JsonIgnore
     private List<Comment> commentList = new ArrayList<>();
 
     @ColumnDefault("0")
     private int brightness; // 좋아요
+
+    @OneToMany(mappedBy = "star", cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    private List<Brightness> brightnessList = new ArrayList<>();
 
     @NotNull
     private String title;

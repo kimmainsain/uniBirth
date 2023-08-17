@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface ConstellationRepository extends JpaRepository<Constellation, Long> {
     List<Constellation> findAllByPlanetId(Long planetId);
-    List<Constellation> findAllByTitleContains(String title);
+    List<Constellation> findByTitleContainsOrDescriptionContains(String title, String description);
 
     @Query(value = "SELECT c.pointList FROM Constellation c WHERE c.id = :id")
     String findPointListById(@Param("id") Long id);

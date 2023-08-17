@@ -98,8 +98,8 @@ public class ConstellationService {
         return new ReadTemplateListResDto(templateItemDtoList);
     }
 
-    public List<ConstellationItemDto> searchByTitle(String word) {
-        List<Constellation> constellationList = constellationRepository.findAllByTitleContains(word);
+    public List<ConstellationItemDto> searchByTitleAndDescriptionContains(String word) {
+        List<Constellation> constellationList = constellationRepository.findByTitleContainsOrDescriptionContains(word, word);
         return convertToConstellationItemDto(constellationList);
     }
 
@@ -188,6 +188,7 @@ public class ConstellationService {
                         ConstellationItemDto.builder()
                                 .constellationId(con.getId())
                                 .title(con.getTitle())
+                                .description(con.getDescription())
                                 .boardSize(con.getBoardSize())
                                 .lineList(stringToArray(con.getLineList()))
                                 .x(con.getX())

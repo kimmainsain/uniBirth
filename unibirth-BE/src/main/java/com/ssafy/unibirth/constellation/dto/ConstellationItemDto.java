@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class ConstellationItemDto {
     private Long constellationId;
     private String title;
+    private String description;
     private int boardSize;
     private int[][] lineList;
     private double x;
