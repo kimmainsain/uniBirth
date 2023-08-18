@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigation } from "../../../hooks/useNavigation";
 import useConstellationApi from "../../../api/useConstellationApi";
 import { AiFillPushpin, AiOutlinePushpin } from "react-icons/ai";
@@ -14,28 +14,28 @@ const HtmlConstellation = ({ constellationId, isVisible, setIsVisible }) => {
     const [constellationContent, setConstellationConstent] = useState([]);
     const [isAlertVisible, setIsAlertVisible] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
-    useEffect(() => {
-      getConstellationContent(constellationId);
-    }, [constellationContent]);
-    const getConstellationContent = async (constellationId) => {
-      try {
-        const response = await useConstellationApi.constellationsGetDetail(
-          constellationId,
-        );
-        if (response.status === 200) {
-          setConstellationConstent(response.resultData);
-        } else if (response.status === 404) {
-          setIsAlertVisible(true);
-          setAlertMessage("별자리 정보를 불러오는데 실패했습니다.");
-        } else if (response.status === 403) {
-          setIsAlertVisible(true);
-          setAlertMessage("로그인이 필요한 서비스입니다.");
-        }
-      } catch (error) {
-        setIsAlertVisible(true);
-        setAlertMessage("오류가 발생했습니다.");
-      }
-    };
+    // useEffect(() => {
+    //   getConstellationContent(constellationId);
+    // }, [constellationContent]);
+    // const getConstellationContent = async (constellationId) => {
+    //   try {
+    //     const response = await useConstellationApi.constellationsGetDetail(
+    //       constellationId,
+    //     );
+    //     if (response.status === 200) {
+    //       setConstellationConstent(response.resultData);
+    //     } else if (response.status === 404) {
+    //       setIsAlertVisible(true);
+    //       setAlertMessage("별자리 정보를 불러오는데 실패했습니다.");
+    //     } else if (response.status === 403) {
+    //       setIsAlertVisible(true);
+    //       setAlertMessage("로그인이 필요한 서비스입니다.");
+    //     }
+    //   } catch (error) {
+    //     setIsAlertVisible(true);
+    //     setAlertMessage("오류가 발생했습니다.");
+    //   }
+    // };
 
     const handlePinClick = async (constellationContent) => {
       if (constellationContent.pined) {
