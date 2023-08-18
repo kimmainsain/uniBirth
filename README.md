@@ -349,6 +349,7 @@ https://poised-mandible-7e9.notion.site/API-c18d4ad6b4204fcd8da9383e62becde4
    ```bash
    $ chmod +x ./gradlew
    $ /gradlew build
+   $ cd build/libs
    ```
 
 7. 실행
