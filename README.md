@@ -26,11 +26,7 @@
 
 Uni-Birth는 Universe와 Birth의 합성어로, 우주라는 광활한 공간에 자신만의 별과 별자리를 만들어 나가는 SNS 큐레이션 웹 서비스입니다.
 
-<img src="./img/readme_main.png">
-
-- <b> 여러분의 가장 빛나는 순간을 별로 띄워 공유하세요. </b>
-- <b> 나만의 별자리를 만들어 소중한 추억을 간직하세요. </b>
-- <b> 나와 비슷한 성향의 사람들의 별을 추천받아요. </b>
+<img src="./img/readme_main.png" width=95%>
 
 ## ✨ 2. 주요 기능
 
