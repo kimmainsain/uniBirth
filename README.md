@@ -77,9 +77,9 @@ Uni-Birth는 Universe와 Birth의 합성어로, 우주라는 광활한 공간에
 
 |                                           |  이름  | 역할                                 |
 | :---------------------------------------: | :----: | :----------------------------------- |
-| <img src="./img/김민섭1.png" width=100px> | 김민섭 | -Front Lead <br> - Main flow         |
-| <img src="./img/이성섭1.png" width=100px> | 이성섭 | -3D rendering <br> - Components flow |
-| <img src="./img/정준혁1.png" width=100px> | 정준혁 | -2D canvas <br> - Architecture flow  |
+| <img src="./img/김민섭1.png" width=100px> | 김민섭 | - Front Lead <br> - Architecture <br> - Main flow         |
+| <img src="./img/이성섭1.png" width=100px> | 이성섭 | - 3D space <br> - Components flow |
+| <img src="./img/정준혁1.png" width=100px> | 정준혁 | - Message <br> - Realtime DB  |
 
 ## 2. Back
 
