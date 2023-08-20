@@ -1,8 +1,7 @@
 # Uni-Birth
 
 <img src="./img/unibirth_logo.png">
-<img src="./img/ucc_demo.mp4" width="100%">
-
+[![Watch the video](img/Thumbnail.png)](https://youtu.be/xkXEbWatiO0)
 
 ## 목차
 
