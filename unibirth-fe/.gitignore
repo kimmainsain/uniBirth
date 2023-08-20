@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+node_modules/
 
 # testing
 /coverage
@@ -45,4 +46,4 @@ psd
 thumb
 sketch
 
-# End of https://www.toptal.com/developers/gitignore/api/react,dotenv
+# End of https://www.toptal.com/developers/gitignore/api/react,dotenvnode_modules/
