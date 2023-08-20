@@ -1,7 +1,11 @@
 # Uni-Birth
 
 <img src="./img/unibirth_logo.png">
-[![Watch the video](img/Thumbnail.png)](https://youtu.be/xkXEbWatiO0)
+
+## 시연 영상
+<a href="https://youtu.be/xkXEbWatiO0" target="_blank">
+    <img src="img/Thumbnail.png" alt="Watch the video">
+</a>
 
 ## 목차
 
