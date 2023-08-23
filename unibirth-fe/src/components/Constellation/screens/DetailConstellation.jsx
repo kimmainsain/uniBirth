@@ -103,9 +103,9 @@ const DetailConstellation = () => {
           <div className="text-md">&nbsp;자리</div>
         </div>
       </div>
-      <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 text-white">
+      <div className="absolute left-1/2 top-2/3 z-10 -translate-x-1/2 -translate-y-1/2 text-white">
         <button
-          className="relative mx-8 my-3 mt-32 w-28 rounded-full border font-Pretendard"
+          className="relative mx-8 my-3 w-28 rounded-full border font-Pretendard"
           onClick={() => setIsActive(!isActive)}
         >
           자세히 보기

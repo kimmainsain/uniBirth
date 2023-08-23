@@ -17,6 +17,7 @@ const BodyRegisterStar = ({ title, setTitle, content, setContent }) => {
             value={title}
             maxLength={10}
             onChange={(e) => setTitle(e.target.value)}
+            autoComplete="off"
           />
         </div>
       </div>

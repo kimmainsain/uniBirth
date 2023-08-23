@@ -194,7 +194,7 @@ const MemberProfile = () => {
         onConfirm={confirmSignout}
       />
       <div>
-        <header className="sticky top-0 z-10">
+        <header className="sticky top-0 z-10 bg-black bg-opacity-90">
           <Header6 buttons={buttonsHeader} />
         </header>
         <MemberSectionProfile locationNickname={locationNickname} />

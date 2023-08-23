@@ -91,6 +91,7 @@ function CameraController({
 const Scene = ({ constellationList }) => {
   // 화면 회전
   const [enabledFlag, setEnableFlag] = useState(true);
+  const [buttonClicked, setButtonClicked] = useState(false);
   const setBackgroundflag = useSetRecoilState(backgroundflagState);
   useEffect(() => {
     setBackgroundflag(false);
@@ -119,25 +120,36 @@ const Scene = ({ constellationList }) => {
   // orbitcontrolsRotation
   const [rotateFlag, setRotateFlag] = useState(false);
 
-  const handleRightClick = () => {
-    setIsVisible(true);
-    setCurrentConstellation((prevIndex) =>
-      prevIndex === 0 ? currentconstellationList.length - 1 : prevIndex - 1,
-    );
-    setConstellationIndex((prevIndex) =>
-      prevIndex === 0 ? currentconstellationList.length - 1 : prevIndex - 1,
-    );
+  const handleButtonClick = (direction) => {
+    if (buttonClicked) return;
+
+    setButtonClicked(true);
+
+    setTimeout(() => {
+      setButtonClicked(false); // 일정 시간 후 버튼 눌림 상태를 초기화
+    }, 800); // 800ms 후에 다시 버튼을 누를 수 있게 설정
+
+    if (direction === "left") {
+      setIsVisible(true);
+      setCurrentConstellation((prevIndex) =>
+        prevIndex === currentconstellationList.length - 1 ? 0 : prevIndex + 1,
+      );
+      setConstellationIndex((prevIndex) =>
+        prevIndex === currentconstellationList.length - 1 ? 0 : prevIndex + 1,
+      );
+    } else if (direction === "right") {
+      setIsVisible(true);
+      setCurrentConstellation((prevIndex) =>
+        prevIndex === 0 ? currentconstellationList.length - 1 : prevIndex - 1,
+      );
+      setConstellationIndex((prevIndex) =>
+        prevIndex === 0 ? currentconstellationList.length - 1 : prevIndex - 1,
+      );
+    }
   };
 
-  // Handle left button click
-  const handleLeftClick = () => {
-    setIsVisible(true);
-    setCurrentConstellation((prevIndex) =>
-      prevIndex === currentconstellationList.length - 1 ? 0 : prevIndex + 1,
-    );
-    setConstellationIndex((prevIndex) =>
-      prevIndex === currentconstellationList.length - 1 ? 0 : prevIndex + 1,
-    );
+  const preventKeyClick = (e) => {
+    if (e.key === "Enter" || e.key === " ") e.preventDefault();
   };
 
   // 확대축소 버튼
@@ -151,13 +163,15 @@ const Scene = ({ constellationList }) => {
     <>
       <button
         className="absolute left-4 top-1/2 z-10 flex flex-col text-4xl text-white opacity-50"
-        onClick={handleLeftClick}
+        onClick={() => handleButtonClick("left")}
+        onKeyDown={preventKeyClick}
       >
         <BiSolidLeftArrow />
       </button>
       <button
         className="absolute right-4 top-1/2 z-10 flex flex-col text-4xl text-white opacity-50"
-        onClick={handleRightClick}
+        onClick={() => handleButtonClick("right")}
+        onKeyDown={preventKeyClick}
       >
         <BiSolidRightArrow />
       </button>

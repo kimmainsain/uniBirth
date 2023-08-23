@@ -108,6 +108,7 @@ const ConstellationSectionProfile = ({ locationNickname }) => {
           ))
         )}
       </div>
+      <div className="h-12"></div>
     </div>
   );
 };

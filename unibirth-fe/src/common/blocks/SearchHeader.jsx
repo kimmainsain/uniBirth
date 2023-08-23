@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigation } from "../../hooks/useNavigation";
 import { SEARTCH_LIST } from "../../constants/constants";
 import Search from "../../assets/icons/js/search";
 import CustomDropdown from "../atoms/CustomDropdown";
+import CustomAlert from "../atoms/CustomAlert";
 
 const SearchHeader = ({ buttons, category, setCategory, query, setQuery }) => {
   const { navigateToSearchCommon } = useNavigation();
+  const [isAlertVisible, setIsAlertVisible] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleSearchInputChange = (e) => {
     setQuery(e.target.value);
   };
 
   const handleSearch = () => {
+    if (query === "") {
+      setIsAlertVisible(true);
+      setAlertMessage("검색어를 입력해주세요.");
+      return;
+    }
     navigateToSearchCommon(query, category);
   };
 
@@ -22,6 +30,13 @@ const SearchHeader = ({ buttons, category, setCategory, query, setQuery }) => {
 
   return (
     <div className="flex justify-between space-x-4 px-2 py-4">
+      <CustomAlert
+        message={alertMessage}
+        isVisible={isAlertVisible}
+        onClose={() => {
+          setIsAlertVisible(false);
+        }}
+      />
       <div className="flex items-center">
         {buttons &&
           buttons.map((button, index) => {

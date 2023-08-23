@@ -48,10 +48,7 @@ const CustomDropdown = ({ planetId, setPlanetId }) => {
           }`}
         >
           {isOpen && (
-            <div
-              className="-translate-x- 1/2 absolute
-left-1/2 rounded-lg border bg-black bg-opacity-75"
-            >
+            <div className="absolute left-1/2 -translate-x-1/2 rounded-lg border bg-black bg-opacity-75">
               {PLANET_LIST.map((planet) => (
                 <div
                   className="flex w-32 cursor-pointer

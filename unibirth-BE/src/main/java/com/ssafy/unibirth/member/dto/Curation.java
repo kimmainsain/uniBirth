@@ -14,6 +14,7 @@ public class Curation {
     private String imageUrl;
     private String title;
     private String content;
+    private Long constellationId;
 
     public Curation(Star star) {
         this.starId = star.getId();
@@ -21,6 +22,7 @@ public class Curation {
         this.imageUrl = star.getImageUrl();
         this.title = star.getTitle();
         this.content = star.getContent();
+        this.constellationId = star.getConstellation().getId();
     }
 }
 

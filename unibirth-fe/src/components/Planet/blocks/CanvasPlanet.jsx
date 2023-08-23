@@ -78,17 +78,30 @@ const ListSectionPlanet = ({
     // useEffect로 현재 행성이 바뀔 때마다 Update하기
   }, [currentPlanet]);
 
-  // 왼쪽 버튼
-  const handleLeftClick = () => {
-    setCurrentPlanet((prevIndex) =>
-      prevIndex === 0 ? PLANET_LIST.length - 1 : prevIndex - 1,
-    );
+  const [buttonClicked, setButtonClicked] = useState(false);
+
+  const handleButtonClick = (direction) => {
+    if (buttonClicked) return; // 이미 버튼이 눌렸으면 반환
+
+    setButtonClicked(true); // 버튼이 눌렸음을 상태에 저장
+
+    setTimeout(() => {
+      setButtonClicked(false);
+    }, 1000);
+
+    if (direction === "left") {
+      setCurrentPlanet((prevIndex) =>
+        prevIndex === 0 ? PLANET_LIST.length - 1 : prevIndex - 1,
+      );
+    } else if (direction === "right") {
+      setCurrentPlanet((prevIndex) =>
+        prevIndex === PLANET_LIST.length - 1 ? 0 : prevIndex + 1,
+      );
+    }
   };
-  // 오른쪽 버튼
-  const handleRightClick = () => {
-    setCurrentPlanet((prevIndex) =>
-      prevIndex === PLANET_LIST.length - 1 ? 0 : prevIndex + 1,
-    );
+
+  const preventKeyClick = (e) => {
+    if (e.key === "Enter" || e.key === " ") e.preventDefault();
   };
   // 확대축소 버튼
   const handleZoomClick = () => {
@@ -99,13 +112,15 @@ const ListSectionPlanet = ({
     <div className="absolute flex h-full w-full flex-row flex-wrap justify-center">
       <button
         className="absolute left-4 top-1/2 z-10 flex flex-col text-4xl text-white opacity-50"
-        onClick={handleLeftClick}
+        onClick={() => handleButtonClick("left")}
+        onKeyDown={preventKeyClick}
       >
         <BiSolidLeftArrow />
       </button>
       <button
         className="absolute right-4 top-1/2 z-10 flex flex-col text-4xl text-white opacity-50"
-        onClick={handleRightClick}
+        onClick={() => handleButtonClick("right")}
+        onKeyDown={preventKeyClick}
       >
         <BiSolidRightArrow />
       </button>

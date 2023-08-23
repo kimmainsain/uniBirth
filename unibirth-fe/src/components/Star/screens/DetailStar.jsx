@@ -333,7 +333,10 @@ const DetailStar = () => {
       </div>
       <div>
         <div className="flex flex-col items-center py-4">
-          <div className="flex-grow self-start px-4 py-5 text-xl text-white">
+          <div
+            className="flex-grow self-start px-4 py-5 text-xl text-white"
+            style={{ wordBreak: "break-all" }}
+          >
             {star.content.split("\n").map((line, index) => (
               <React.Fragment key={index}>
                 {line}

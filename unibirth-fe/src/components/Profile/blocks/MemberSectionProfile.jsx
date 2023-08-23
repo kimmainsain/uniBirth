@@ -26,7 +26,7 @@ const MemberSectionProfile = ({ locationNickname }) => {
   const nickname = useRecoilValue(nicknameState);
   useEffect(() => {
     fetchMemberData();
-  }, []);
+  }, [memberData]);
 
   const handleFollow = async (e) => {
     e.preventDefault();

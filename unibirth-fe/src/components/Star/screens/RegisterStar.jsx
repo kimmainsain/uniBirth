@@ -38,7 +38,10 @@ const RegisterStar = () => {
   const [isLoading, setLoading] = useState(false);
   const setConstellationLimitState = useSetRecoilState(constellationLimitState);
 
-  const createStar = () => {
+  const createStar = async () => {
+    if (isLoading) {
+      return;
+    }
     setLoading(true); // 로딩 상태 시작
 
     if (title.trim() === "") {
@@ -73,7 +76,6 @@ const RegisterStar = () => {
             setIsAlertVisible(true);
             setAlertMessage("별 생성에 실패하였습니다.");
           }
-          setLoading(false); // 로딩 상태 종료
         },
       );
     }

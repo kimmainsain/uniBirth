@@ -128,7 +128,7 @@ public class MemberService {
 
         return member;
     }
-    
+
     // 내 프로필 정보 반환
     public MyProfileResDto myDetailProfile(String nickname) {
         Member member = memberRepository.findByNickname(nickname).get();
@@ -144,9 +144,9 @@ public class MemberService {
         if (member.getRole() == Role.DELETED) {
             throw new NotFoundException(FailCode.MEMBER_NOT_FOUND);
         }
-        
+
         int starCount = starRepository.countByMember(member.getId());
-        
+
         // 내가 팔로우 한 사람인지 여부 확인
         boolean isFollow = false;
 
@@ -228,8 +228,8 @@ public class MemberService {
         Member me = getCurrentMember();
         List<Follow> followingList = new ArrayList<>();
         followingList = followRepository.findAllByFollowFrom(detailUser(me.getNickname()));
-
         List<Star> allStars = starRepository.findAllExceptMemberId(me.getId());
+
         if(allStars.size() == 0) {
             throw new NotFoundException(FailCode.CURATION_NOT_FOUND);
         }
@@ -246,7 +246,7 @@ public class MemberService {
             }
 
             if (tempList.isEmpty() || tempList.size() < 2){
-                getRandomStar(tempList);
+                getRandomStar(tempList, allStars);
             }
             uniqueList = tempList.stream().
                     filter(star -> star.getMember().getId() != getCurrentMember().getId())
@@ -257,8 +257,7 @@ public class MemberService {
         return uniqueList.stream().map((star) -> new Curation(star)).collect(Collectors.toList());
     }
 
-    private void getRandomStar(List<Star> tempList) {
-        List<Star> allStars = starRepository.findAll();
+    private void getRandomStar(List<Star> tempList, List<Star> allStars) {
         Collections.shuffle(allStars, new Random());
 
         if(tempList.isEmpty()) {
