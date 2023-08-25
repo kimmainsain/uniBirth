@@ -1,3 +1,5 @@
+# [공통 프로젝트 1등]
+
 # Uni-Birth
 
 <img src="./img/unibirth_logo.png">
@@ -151,14 +153,6 @@ Uni-Birth는 Universe와 Birth의 합성어로, 우주라는 광활한 공간에
 
 ## ✨ 9. Sequence Diagram
 
-<img src="./img/SignUp.png" width=800px>
-<img src="./img/Login.png" width=800px>
-<img src="./img/CreateConstellation.png" width=800px>
-<img src="./img/CreateStar.png" width=800px>
-<img src="./img/ExpandPin.png" width=800px>
-<img src="./img/Follow.png" width=800px>
-<img src="./img/ModifyProfile.png" width=800px>
-<img src="./img/SearchQue.png" width=800px>
 
 ## ✨ 10. API 명세서
 
